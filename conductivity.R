@@ -1,0 +1,43 @@
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(lubridate)
+library(ggpubr)
+
+#Loading in data from surface conductivity logger:
+ME_SURF <- read.csv("HOBO_Loggers/MENDOTA/SURFACE_2019-20/20758346.csv") %>%
+  mutate(char = as.character(Date),
+         Date = as.POSIXct(char, format = "%m-%d-%Y %H:%M:%S")) %>% #formatting date/time
+  select(Date, Low.Range, Full.Range, Temp) %>% #selecting necessary columns
+  filter(Date < "2020-04-01 9:45:00 ") #filtering datapooints collected post removal from lake
+
+#Loading in data from bottom conductivity logger:
+ME_BOTT <- read.csv("HOBO_Loggers/MENDOTA/BOTTOM_2019-20/20758341.csv") %>%
+  mutate(char = as.character(Date),
+         Date = as.POSIXct(char, format = "%m-%d-%Y %H:%M:%S")) %>% #formatting date/time
+  select(Date, Low.Range, Full.Range, Temp) %>% #selecting necessary columns
+  filter(Date < "2020-04-01 9:45:00 ") #filtering datapooints collected post removal from lake
+
+#plotting time series of surface conductivity data
+ggplot(ME_SURF) +
+  geom_line(aes(Date, Full.Range), color = "black") +
+  labs(x = "Date",
+       y = "Conductivity (uS/cm)") 
+
+#plotting time series of bottom conductivity data
+ggplot(ME_BOTT) +
+  geom_line(aes(Date, Full.Range), color = "black") +
+  labs(x = "Date",
+       y = "Conductivity (uS/cm)") 
+
+#plotting time series of both depths
+ggplot() +
+  geom_line(ME_SURF, mapping = aes(Date, Full.Range, color = "#1DACE8")) +
+  geom_line(ME_BOTT, mapping = aes(Date, Full.Range, color = "#1C366B")) +
+  labs(x = "Date",
+       y = "Conductivity (uS/cm)") +
+  scale_color_manual(labels = c("Mendota 24m", "Mendota 1.5m"),
+                     values = c("#1C366B", "#1DACE8")) +
+  theme(legend.title = element_blank(), legend.position = "top")

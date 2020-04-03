@@ -9,9 +9,9 @@ library(ggpubr)
 ############################YS############################
 
 #Loading in data from conductivity loggers:
-loggerYSY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv")
+loggerYSY <- read.csv("HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv")
 
-loggerYSZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv")
+loggerYSZ <- read.csv("HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv")
 
 #Combining and formatting logger data:
 loggerYS <- loggerYSY %>%
@@ -23,7 +23,7 @@ loggerYS <- loggerYSY %>%
   select(date, Low.Range, Full.Range, Temp)
 
 #Loading in chloride data:
-labYS <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "YS")
+labYS <- read_xlsx("chloride_lab.xlsx", sheet = "YS")
 
 #Formatting time:
 labYS$datetime_collected <- as.POSIXct(labYS$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -54,9 +54,9 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
 ###########################SW###########################
 
 #Loading in data from conductivity loggers:
-loggerSWY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/SW/Dec19_Feb3/20378151_SW.csv")
+loggerSWY <- read.csv("HOBO_Loggers/SW/Dec19_Feb3/20378151_SW.csv")
 
-loggerSWZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/SW/Feb3_Mar16/20378151_SW.csv")
+loggerSWZ <- read.csv("HOBO_Loggers/SW/Feb3_Mar16/20378151_SW.csv")
 
 #Combining and formatting logger data:
 loggerSW <- loggerSWY %>%
@@ -68,7 +68,7 @@ loggerSW <- loggerSWY %>%
   select(date, Low.Range, Full.Range, Temp)
 
 #Loading in chloride data:
-labSW <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "SW")
+labSW <- read_xlsx("chloride_lab.xlsx", sheet = "SW")
 
 #Formatting time:
 labSW$datetime_collected <- as.POSIXct(labSW$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -100,9 +100,9 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
 ################################YI#############################
 
 #Loading in data from conductivity loggers:
-loggerYIY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv")
+loggerYIY <- read.csv("HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv")
 
-loggerYIZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")
+loggerYIZ <- read.csv("HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")
 
 #Combining and formatting logger data:
 loggerYI <- loggerYIY %>%
@@ -114,7 +114,7 @@ loggerYI <- loggerYIY %>%
   select(date, Low.Range, Full.Range, Temp)
 
 #Loading in chloride data:
-labYI <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "YI")
+labYI <- read_xlsx("chloride_lab.xlsx", sheet = "YI")
 
 #Formatting time:
 labYI$datetime_collected <- as.POSIXct(labYI$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -146,9 +146,9 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
 ##########################YN############################
 
 #Loading in data from conductivity loggers:
-loggerYNY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv")
+loggerYNY <- read.csv("HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv")
 
-loggerYNZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv")
+loggerYNZ <- read.csv("HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv")
 
 #Combining and formatting logger data:
 loggerYN <- loggerYNY %>%
@@ -160,7 +160,7 @@ loggerYN <- loggerYNY %>%
   select(date, Low.Range, Full.Range, Temp)
 
 #Loading in chloride data:
-labYN <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "YN")
+labYN <- read_xlsx("chloride_lab.xlsx", sheet = "YN")
 
 #Formatting time:
 labYN$datetime_collected <- as.POSIXct(labYN$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -192,9 +192,9 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
 ################################6MC##################################
 
 #Loading in data from conductivity loggers:
-logger6MCY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/6MC/Dec19_Feb4/20758342_6MC.csv")
+logger6MCY <- read.csv("HOBO_Loggers/6MC/Dec19_Feb4/20758342_6MC.csv")
 
-logger6MCZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/6MC/Feb4_Mar16/20758342_6MC.csv")
+logger6MCZ <- read.csv("HOBO_Loggers/6MC/Feb4_Mar16/20758342_6MC.csv")
 
 #Combining and formatting logger data:
 logger6MC <- logger6MCY %>%
@@ -206,7 +206,7 @@ logger6MC <- logger6MCY %>%
   select(date, Low.Range, Full.Range, Temp)
 
 #Loading in chloride data:
-lab6MC <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "6MC")
+lab6MC <- read_xlsx("chloride_lab.xlsx", sheet = "6MC")
 
 #Formatting time:
 lab6MC$datetime_collected <- as.POSIXct(lab6MC$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -237,9 +237,9 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
 #############################DC###############################
 
 #Loading in data from conductivity loggers:
-loggerDCY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/DC/Dec19_Feb4/20758338_DC.csv")
+loggerDCY <- read.csv("HOBO_Loggers/DC/Dec19_Feb4/20758338_DC.csv")
 
-loggerDCZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/DC/Feb4_Mar16/20758338_DC.csv")
+loggerDCZ <- read.csv("HOBO_Loggers/DC/Feb4_Mar16/20758338_DC.csv")
 
 #Combining and formatting logger data:
 loggerDC <- loggerDCY %>%
@@ -251,7 +251,7 @@ loggerDC <- loggerDCY %>%
   select(date, Low.Range, Full.Range, Temp)
 
 #Loading in chloride data:
-labDC <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "DC")
+labDC <- read_xlsx("chloride_lab.xlsx", sheet = "DC")
 
 #Formatting time:
 labDC$datetime_collected <- as.POSIXct(labDC$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -282,9 +282,9 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
 ############################PBMS###########################
 
 #Loading in data from conductivity loggers:
-loggerPBMSY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/PBMS/Dec19_Feb3/20758344_PBMS.csv")
+loggerPBMSY <- read.csv("HOBO_Loggers/PBMS/Dec19_Feb3/20758344_PBMS.csv")
 
-loggerPBMSZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/PBMS/Feb3_Mar16/20758344_PBMS.csv")
+loggerPBMSZ <- read.csv("HOBO_Loggers/PBMS/Feb3_Mar16/20758344_PBMS.csv")
 
 #Combining and formatting logger data:
 loggerPBMS <- loggerPBMSY %>%
@@ -296,7 +296,7 @@ loggerPBMS <- loggerPBMSY %>%
   select(date, Low.Range, Full.Range, Temp)
 
 #Loading in chloride data:
-labPBMS <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "PBMS")
+labPBMS <- read_xlsx("chloride_lab.xlsx", sheet = "PBMS")
 
 #Formatting time:
 labPBMS$datetime_collected <- as.POSIXct(labPBMS$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -327,9 +327,9 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
 ########################PBSF#########################
 
 #Loading in data from conductivity loggers:
-loggerPBSFY <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv")
+loggerPBSFY <- read.csv("HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv")
 
-loggerPBSFZ <- read.csv("C:/Users/linne/Box Sync/Chloride Research/Data/HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv")
+loggerPBSFZ <- read.csv("HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv")
 
 #Combining and formatting logger data:
 loggerPBSF <- loggerPBSFY %>%
@@ -342,7 +342,7 @@ loggerPBSF <- loggerPBSFY %>%
 loggerPBSF$date <- round_date(loggerPBSF$date, "30 minutes") #Needed to round time because the logger was collecting at H:15 and H:45 for a few weeks rather than at H:00 and H:30.
 
 #Loading in chloride data:
-labPBSF <- read_xlsx("C:/Users/linne/Box Sync/Chloride Research/Data/chloride_lab.xlsx", sheet = "PBSF")
+labPBSF <- read_xlsx("chloride_lab.xlsx", sheet = "PBSF")
 
 #Formatting time:
 labPBSF$datetime_collected <- as.POSIXct(labPBSF$datetime_collected, format = "%m-%d-%Y %h:%m:%s")
@@ -368,3 +368,4 @@ ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Pheasant Branch South Fork") +
   stat_cor(label.x = 250, label.y = 2500) +
   stat_regline_equation(label.x = 250, label.y = 3000)#how do I get r^2 value?
+
