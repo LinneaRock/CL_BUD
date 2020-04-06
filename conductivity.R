@@ -40,4 +40,12 @@ ggplot() +
        y = "Conductivity (uS/cm)") +
   scale_color_manual(labels = c("Mendota 24m", "Mendota 1.5m"),
                      values = c("#1C366B", "#1DACE8")) +
-  theme(legend.title = element_blank(), legend.position = "top")
+  theme(legend.title = element_blank(), legend.position = "top",
+        panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
+
+        

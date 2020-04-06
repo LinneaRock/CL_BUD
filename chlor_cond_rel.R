@@ -6,6 +6,7 @@ library(readxl)
 library(lubridate)
 library(ggpubr)
 
+
 ############################YS############################
 
 #Loading in data from conductivity loggers:
@@ -21,6 +22,7 @@ loggerYS <- loggerYSY %>%
   mutate(char = as.character(Date),
          date = as.POSIXct(char, format = "%m-%d-%Y %H:%M:%S")) %>%
   select(date, Low.Range, Full.Range, Temp)
+  
 
 #Loading in chloride data:
 labYS <- read_xlsx("chloride_lab.xlsx", sheet = "YS")
@@ -45,10 +47,18 @@ d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Yahara River - South") +
   stat_cor(label.x = 64.75, label.y = 200) +
-  stat_regline_equation(label.x = 64.75, label.y = 250) #how do I get r^2 value? 
+  stat_regline_equation(label.x = 64.75, label.y = 250) + #how do I get r^2 value?  
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
+
 
 
 ###########################SW###########################
@@ -90,11 +100,17 @@ d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Starkweather Creek") +
   stat_cor(label.x = 50, label.y = 3500) +
-  stat_regline_equation(label.x = 50, label.y = 4000) #how do I get r^2 value? 
-
+  stat_regline_equation(label.x = 50, label.y = 4000) + #how do I get r^2 value? 
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
 
 
 ################################YI#############################
@@ -136,11 +152,17 @@ d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Yahara River - Isthmus") +
   stat_cor(label.x = 52, label.y = 50) +
-  stat_regline_equation(label.x = 52, label.y = 100)#how do I get r^2 value? 
-
+  stat_regline_equation(label.x = 52, label.y = 100) + #how do I get r^2 value? 
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
 
 
 ##########################YN############################
@@ -180,13 +202,20 @@ d.2 <- labYN %>%
 
 d.3 <- left_join(d.1, d.2, by = "date")
 
+
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Yahara River - North") +
   stat_cor(label.x = 35, label.y = 450) +
-  stat_regline_equation(label.x = 35, label.y = 475)#how do I get r^2 value? 
-
+  stat_regline_equation(label.x = 35, label.y = 475) + #how do I get r^2 value? 
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
 
 
 ################################6MC##################################
@@ -228,11 +257,17 @@ d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Sixmile Creek") +
   stat_cor(label.x = 37.5, label.y = 600) +
-  stat_regline_equation(label.x = 37.5, label.y = 650)#how do I get r^2 value?
-
+  stat_regline_equation(label.x = 37.5, label.y = 650) + #how do I get r^2 value?
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
 
 #############################DC###############################
 
@@ -273,11 +308,17 @@ d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Dorn Creek") +
   stat_cor(label.x = 36, label.y = 350) +
-  stat_regline_equation(label.x = 36, label.y = 400)#how do I get r^2 value?
-
+  stat_regline_equation(label.x = 36, label.y = 400) + #how do I get r^2 value?
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
 
 ############################PBMS###########################
 
@@ -318,11 +359,17 @@ d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Pheasant Branch Main Stem") +
   stat_cor(label.x = 117.5, label.y = 750) +
-  stat_regline_equation(label.x = 117.5, label.y = 825)#how do I get r^2 value?
-
+  stat_regline_equation(label.x = 117.5, label.y = 825) + #how do I get r^2 value?
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
 
 ########################PBSF#########################
 
@@ -364,8 +411,14 @@ d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
 ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
-  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Pheasant Branch South Fork") +
   stat_cor(label.x = 250, label.y = 2500) +
-  stat_regline_equation(label.x = 250, label.y = 3000)#how do I get r^2 value?
-
+  stat_regline_equation(label.x = 250, label.y = 3000) + #how do I get r^2 value?
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"))
