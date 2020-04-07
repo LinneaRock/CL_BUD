@@ -6,6 +6,11 @@ library(readxl)
 library(lubridate)
 library(ggpubr)
 
+#function to convert actual conductivity to specific conductivity 
+SC <- function(AC, t) {
+  AC / (1 - (25 - t) * .019)
+}
+
 
 ############################YS############################
 
@@ -21,7 +26,8 @@ loggerYS <- loggerYSY %>%
   select(Date, Low.Range, Full.Range, Temp)%>%
   mutate(char = as.character(Date),
          date = as.POSIXct(char, format = "%m-%d-%Y %H:%M:%S")) %>%
-  select(date, Low.Range, Full.Range, Temp)
+  select(date, Low.Range, Full.Range, Temp) %>%
+  mutate(sp.cond = SC(Full.Range, Temp))
   
 
 #Loading in chloride data:
@@ -37,7 +43,7 @@ labYS$datetime_collected <- round_date(labYS$datetime_collected, "30 minutes")
 
 #combining chloride and conductivity into single dataframe
 d.1 <- loggerYS %>%
-  select(date, Full.Range) 
+  select(date, sp.cond) 
 
 d.2 <- labYS %>%
   select(datetime_collected, chloride_mgL) %>%
@@ -46,12 +52,12 @@ d.2 <- labYS %>%
 d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
-ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
+ggplot(data = d.3, aes(chloride_mgL, sp.cond)) +
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-  labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Yahara River - South") +
-  stat_cor(label.x = 64.75, label.y = 200) +
-  stat_regline_equation(label.x = 64.75, label.y = 250) + #how do I get r^2 value?  
+  labs(y = "Specific Conductivity (uS/cm) @ 25 deg C", x = "Chloride (mg/L)", title = "Yahara River - South") +
+  #stat_cor(label.x = 64.75, label.y = 200) +
+  #stat_regline_equation(label.x = 64.75, label.y = 250) + #simple way to get r^2 value?  
   theme(panel.background = element_rect(fill = "white", colour = "white",
                                         size = 2, linetype = "solid"),
         panel.grid.major = element_line(size = 0.25, linetype = 'solid',
@@ -75,7 +81,8 @@ loggerSW <- loggerSWY %>%
   select(Date, Low.Range, Full.Range, Temp)%>%
   mutate(char = as.character(Date),
          date = as.POSIXct(char, format = "%m-%d-%Y %H:%M:%S")) %>%
-  select(date, Low.Range, Full.Range, Temp)
+  select(date, Low.Range, Full.Range, Temp)%>%
+  mutate(sp.cond = SC(Full.Range, Temp))
 
 #Loading in chloride data:
 labSW <- read_xlsx("chloride_lab.xlsx", sheet = "SW")
@@ -90,7 +97,7 @@ labSW$datetime_collected <- round_date(labSW$datetime_collected, "30 minutes")
 
 #combining chloride and conductivity into single dataframe
 d.1 <- loggerSW %>%
-  select(date, Full.Range) 
+  select(date, sp.cond) 
 
 d.2 <- labSW %>%
   select(datetime_collected, chloride_mgL) %>%
@@ -99,10 +106,10 @@ d.2 <- labSW %>%
 d.3 <- left_join(d.1, d.2, by = "date")
 
 #plotting
-ggplot(data = d.3, aes(chloride_mgL, Full.Range)) +
+ggplot(data = d.3, aes(chloride_mgL, sp.cond)) +
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-  labs(y = "Conductivity (uS/cm)", x = "Chloride (mg/L)", title = "Starkweather Creek") +
+  labs(y = "Specific Conductivity (uS/cm) @ 25 deg C", x = "Chloride (mg/L)", title = "Starkweather Creek") +
   stat_cor(label.x = 50, label.y = 3500) +
   stat_regline_equation(label.x = 50, label.y = 4000) + #how do I get r^2 value? 
   theme(panel.background = element_rect(fill = "white", colour = "white",

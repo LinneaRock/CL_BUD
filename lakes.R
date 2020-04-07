@@ -6,6 +6,11 @@ library(readxl)
 library(lubridate)
 library(ggpubr)
 
+#function to convert actual conductivity to specific conductivity 
+SC <- function(AC, t) {
+  AC / (1 - (25 - t) * .019)
+}
+
 #Loading in data from surface conductivity logger:
 ME_SURF <- read.csv("HOBO_Loggers/MENDOTA/SURFACE_2019-20/20758346.csv") %>%
   mutate(char = as.character(Date),
@@ -48,4 +53,9 @@ ggplot() +
         panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                         colour = "gray88"))
 
-        
+#converting actual condutance from HOBO loggers to specifc conductance 
+ME_S_SC <- ME_SURF %>%
+  mutate(Sp.cond = SC(Full.Range, Temp))
+
+ME_B_SC <- ME_BOTT %>%
+  mutate(Sp.cond = SC(Full.Range, Temp))
