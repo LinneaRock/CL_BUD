@@ -3,56 +3,49 @@ library(tidyverse)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
-library(dataRetrieval)
+library(ggpubr)
 
 
-#retrieving data for USGS gage sites
-##rename columns to make dfs easier to understand
-###convert discharge from cfs to cms
-####slect date and discharge, sp. conductance columns
+## Plotting Conductivity vs. Discharge
 
-d.YI <- readNWISuv("05428500", "00060", "2019-12-19", "2020-03-16", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000) %>%
-  select(dateTime, discharge) %>%
-  mutate(discharge = discharge * 0.028316847)
-  
+##YI
+PBSF_QC <- loggerPBSF %>%
+  select(date, sp.cond) %>%
+  left_join(d.PBSF, by = "date") #%>%
 
-
-d.YN <- readNWISuv("05427850", "00060", "2019-12-19", "2020-03-16", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000) %>%
-  select(dateTime, discharge) %>%
-  mutate(discharge = discharge * 0.028316847)
-
-
-d.6MC <- readNWISuv("05427910", "00060", "2019-12-19", "2020-03-16", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000) %>%
-  select(dateTime, discharge) %>%
-  mutate(discharge = discharge * 0.028316847)
+ggplot(PBSF_QC, aes(discharge, sp.cond)) +
+  geom_point() +
+  #geom_smooth(method = "lm", se = FALSE) +
+  labs(y = "Specific Conductivity (uS/cm) @ 25 deg C\n", 
+       x = "\nDischarge (m^3/S)") +
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size =13, face = "bold"),
+        axis.title = element_text(size =13, face = "bold"))
 
 
-d.DC <- readNWISuv("05427930", "00060", "2019-12-19", "2020-03-16", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000) %>%
-  select(dateTime, discharge) %>%
-  mutate(discharge = discharge * 0.028316847)
+##PBSF
+#combining discharge and specific conductance data by collection date/time
+PBSF_QC <- loggerPBSF %>%
+  select(date, sp.cond) %>%
+  left_join(d.PBSF, by = "date") #%>%
 
-
-d.PBMS <- readNWISuv("05427948", "00060", "2019-12-19", "2020-03-16", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000) %>%
-  select(dateTime, discharge) %>%
-  mutate(discharge = discharge * 0.028316847)
-
-
-d.PBSF <- readNWISuv("054279465", "00060", "2019-12-19", "2020-03-16", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000) %>%
-  select(dateTime, discharge) %>%
-  mutate(discharge = discharge * 0.028316847)
-
-
-d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2019-12-19", "2020-04-06", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000,
-         sp_cond = X_00095_00000) %>%
-  select(dateTime, discharge, sp_cond) %>%
-  mutate(discharge = discharge * 0.028316847)
-
+ggplot(PBSF_QC, aes(discharge, sp.cond)) +
+  geom_point() +
+  #geom_smooth(method = "lm", se = FALSE) +
+  labs(y = "Specific Conductivity (uS/cm) @ 25 deg C\n", 
+       x = "\nDischarge (m^3/S)") +
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size =13, face = "bold"),
+        axis.title = element_text(size =13, face = "bold"))
 
 
