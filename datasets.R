@@ -192,7 +192,7 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2019-01-01", "", tz = "A
 ##YN####
 labYN.o <- read_xlsx("chloride_lab.xlsx", sheet = "YN") 
 labYN <- labYN.o %>%
-  mutate(date = as.POSIXct(datetime_collected, format = "%m-%d-%Y %h:%m:%s", tz = "America/Chicago")) #%>%
+  mutate(date = as.POSIXct(datetime_collected, format = "%m-%d-%Y %h:%m:%s", tz = "America/Chicago")) %>%
   mutate(date = round_date(datetime_collected, "30 minutes"))
 
 ##YI####
@@ -255,8 +255,8 @@ d.YN <- readNWISuv("05427850", "00060", "2019-01-01", "", tz = "America/Chicago"
 
 ##YI####
 d.YI <- readNWISuv("05428500", "00060", "2019-01-01", "", tz = "America/Chicago") %>%
-  rename(discharge = X_00060_00000)
-select(dateTime, discharge) %>%
+  rename(discharge = X_00060_00000) %>%
+  select(dateTime, discharge) %>%
   mutate(discharge = discharge * 0.028316847) %>%
   rename(date = dateTime)
 
