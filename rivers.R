@@ -6,7 +6,7 @@ library(ggpubr)
 #This function joins the conductivity and chloride datasets together then plots a linear model of specific conductivity vs. chloride
 
 
-cl.cond.plot <- function(df1, df2) {
+cl.cond.plot <- function(df1, df2, X) {
   d <- df1 %>%
     left_join(df2, by = "date")
   
@@ -25,27 +25,29 @@ cl.cond.plot <- function(df1, df2) {
                                           colour = "gray88"),
           axis.text = element_text(size =13, face = "bold"),
           axis.title = element_text(size =13, face = "bold"))
+  
+  ggsave(filename = paste("Plots/cl_cond_linear_regression/", X, ".png", sep = ""))
 }
 
 
-cl.cond.plot(loggerYN, labYN)
-cl.cond.plot(loggerYI, labYI)
-cl.cond.plot(loggerYS, labYS)
-cl.cond.plot(loggerSW, labSW)
-cl.cond.plot(logger6MC, lab6MC)
-cl.cond.plot(loggerDC, labDC)
-cl.cond.plot(loggerPBMS, labPBMS)
+cl.cond.plot(loggerYN, labYN, "YN")
+cl.cond.plot(loggerYI, labYI, "YI")
+cl.cond.plot(loggerYS, labYS, "YS")
+cl.cond.plot(loggerSW, labSW, "SW")
+cl.cond.plot(logger6MC, lab6MC, "6MC")
+cl.cond.plot(loggerDC, labDC, "DC")
+cl.cond.plot(loggerPBMS, labPBMS, "PBMS")
 
 
 #Needed to round time because the logger was collecting at H:15 and H:45 for a few weeks rather than at H:00 and H:30 and I am having trouble finding a better solution
 a <- loggerPBSF %>%
 mutate(date = round_date(date, "30 minutes")) 
 
-cl.cond.plot(a, labPBSF)
+cl.cond.plot(a, labPBSF, "PBSF")
 
 
 #Function to plot time series of specific conductance 
-cond <- function(df) {
+cond <- function(df, X) {
   ggplot(df, aes(date, sp.cond)) +
     geom_line() +
     labs(y = "Specific Conductivity (uS/cm) @ 25 deg C\n", 
@@ -58,17 +60,24 @@ cond <- function(df) {
                                           colour = "gray88"),
           axis.text = element_text(size =13, face = "bold"),
           axis.title = element_text(size =13, face = "bold"))
+  
+  ggsave(filename = paste("Plots/conductance_time_series/", X, ".png", sep = ""))
 }
 
 
-cond(loggerYN)
-cond(loggerYI)
-cond(YS)
+cond(loggerYN, "YN")
+cond(loggerYI, "YI")
+cond(loggerYS, "YS")
+cond(loggerSW, "SW")
+cond(logger6MC, "6MC")
+cond(loggerDC, "DC")
+cond(loggerPBMS, "PBMS")
+cond(loggerPBSF, "PBSF")
 
-YS <- loggerYS %>%
-  filter(date < "2020-01-29 00:00:00")
 
-#function to plot a time series of conductivity with chloride points overlain     
+
+#function to plot a time series of conductivity with chloride points overlain
+#I don't know yet if this will be useful
 sccl <- function(logger, lab) {
 
 par(mar = c(5,5,5,5)) 
