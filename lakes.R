@@ -21,5 +21,6 @@ ggplot() +
         axis.text = element_text(size =13, face = "bold"),
         axis.title = element_text(size =13, face = "bold"),
         legend.text = element_text(size =13, face = "bold"))
+ggsave(filename = paste("Plots/conductance_time_series/","ME", ".png", sep = ""))
 
 

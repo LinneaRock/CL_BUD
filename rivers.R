@@ -77,7 +77,7 @@ cond(loggerPBSF, "PBSF")
 
 
 #function to plot a time series of conductivity with chloride points overlain
-#I don't know yet if this will be useful
+#I don't know  if this will be useful
 sccl <- function(logger, lab) {
 
 par(mar = c(5,5,5,5)) 
