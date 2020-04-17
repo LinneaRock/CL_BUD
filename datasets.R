@@ -187,6 +187,13 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2019-01-01", "", tz = "A
 
 
 #Chloride Datasets - final versions are called called labXX where XX refers to sample site
+
+
+
+
+
+
+#chloride datasets
 ##YN####
 labYN.o <- read_xlsx("chloride_lab.xlsx", sheet = "YN") 
 labYN <- labYN.o %>%
@@ -238,6 +245,13 @@ labPBSF <- labPBSF.o %>%
 
 
 
+#SH####
+labSH <- read_xlsx("SpringHarborChloride.xlsx") %>%
+  mutate(date = as.Date(datetime_collected, format = "%m-%d-%Y", tz = "America/Chicago"))
+
+
+
+
 #Discharge Datasets - final version are called d.XX where XX refers to the sample site ####
 #retrieving data for USGS gage sites
 ##rename columns to make dfs easier to understand
@@ -285,4 +299,22 @@ d.PBSF <- readNWISuv("054279465", "00060", "2019-01-01", "", tz = "America/Chica
   select(dateTime, discharge) %>%
   mutate(discharge = discharge * 0.028316847) %>%
   rename(date = dateTime)
+
+
+
+
+#conductivity from WRM Willow Creek ####
+upstream <- read_xlsx("WRM_data/Upstream.xlsx") %>%
+  filter(CONDUCTANCE > 2.8) %>% 
+  mutate(date = as.POSIXct(DATE, format = "%m-%d-%Y %H:%M:%S", tz = "America/Chicago")) %>%
+  rename(sp.cond = CONDUCTANCE) %>%
+  select(date, sp.cond)
+
+downstream <- read_xlsx("WRM_data/downstream.xlsx") %>%
+  filter(CONDUCTANCE > 26.8) %>% 
+  mutate(date = as.POSIXct(DATE, format = "%m-%d-%Y %H:%M:%S", tz = "America/Chicago")) %>%
+  rename(sp.cond = CONDUCTANCE) %>%
+  select(date, sp.cond)
+
+downstream <- downstream[-c(132490:132541, 132586:132971, 136429), ]
 

@@ -75,6 +75,34 @@ cond(loggerPBMS, "PBMS")
 cond(loggerPBSF, "PBSF")
 
 
+#Function to plot time series of chloride
+cl <- function(df, X) {
+  ggplot(df, aes(date, chloride_mgL)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE)
+  labs(y = "Chloride Concentration (mg/L)\n", 
+       x = "\nDate") +
+    theme(panel.background = element_rect(fill = "white", colour = "white",
+                                          size = 2, linetype = "solid"),
+          panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                          colour = "gray88"), 
+          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                          colour = "gray88"),
+          axis.text = element_text(size =13, face = "bold"),
+          axis.title = element_text(size =13, face = "bold"))
+  
+  ggsave(filename = paste("Plots/chloride_time_series/", X, ".png", sep = ""))
+}
+
+cl(labYN, "YN")
+cl(labYI, "YI")
+cl(labYS, "YS")
+cl(labSW, "SW")
+cl(lab6MC, "6MC")
+cl(labDC, "DC")
+cl(labPBMS, "PBMS")
+cl(labPBSF, "PBSF")
+
 
 #function to plot a time series of conductivity with chloride points overlain
 #I don't know  if this will be useful
