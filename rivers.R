@@ -42,7 +42,7 @@ cl.cond.plot(loggerPBMS, labPBMS, "PBMS")
 
 #Needed to round time because the logger was collecting at H:15 and H:45 for a few weeks rather than at H:00 and H:30 and I am having trouble finding a better solution
 a <- loggerPBSF %>%
-mutate(date = round_date(date, "30 minutes")) 
+  mutate(date = round_date(date, "30 minutes")) 
 
 cl.cond.plot(a, labPBSF, "PBSF")
 
@@ -108,27 +108,27 @@ cl(labPBSF, "PBSF")
 #function to plot a time series of conductivity with chloride points overlain
 #I don't know  if this will be useful
 sccl <- function(logger, lab) {
-
-par(mar = c(5,5,5,5)) 
-
-plot(lab$datetime_collected, lab$chloride_mgL,
-     col = "#D1362F", pch = 19,
-     ylab = "",
-     xlab = "",
-     yaxt = "n")
-
-axis(2, col = "#D1362F", col.axis = "#D1362F")
-
-mtext("Chloride Concentration (mg/L)", side = 2, line = 3, col = "#D1362F")
-
-par(new = TRUE)
-
-plot(logger$date, logger$sp.cond,
-     col="#27223C",type="l",xaxt="n",yaxt="n",xlab="",ylab="",axes=FALSE)
-
-axis(4, col = "#27223C", col.axis = "#27223C")
-
-mtext("Specific Conductivity (µS/cm) @ 25°C)", side = 4, line = 3, col = "#27223C")
+  
+  par(mar = c(5,5,5,5)) 
+  
+  plot(lab$datetime_collected, lab$chloride_mgL,
+       col = "#D1362F", pch = 19,
+       ylab = "",
+       xlab = "",
+       yaxt = "n")
+  
+  axis(2, col = "#D1362F", col.axis = "#D1362F")
+  
+  mtext("Chloride Concentration (mg/L)", side = 2, line = 3, col = "#D1362F")
+  
+  par(new = TRUE)
+  
+  plot(logger$date, logger$sp.cond,
+       col="#27223C",type="l",xaxt="n",yaxt="n",xlab="",ylab="",axes=FALSE)
+  
+  axis(4, col = "#27223C", col.axis = "#27223C")
+  
+  mtext("Specific Conductivity (µS/cm) @ 25°C)", side = 4, line = 3, col = "#27223C")
 }
 
 sccl(loggerYN, labYN)

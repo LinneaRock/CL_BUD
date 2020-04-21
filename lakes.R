@@ -8,7 +8,7 @@ ggplot() +
   geom_line(loggerME_Epi, mapping = aes(date, sp.cond, color = "#1DACE8")) +
   geom_line(loggerME_Hypo, mapping = aes(date, sp.cond, color = "#1C366B")) +
   labs(x = "\nDate",
-       y = "Specific Conductivity (uS/cm) @ 25 deg C\n") +
+       y = "Specific Conductivity (µS/cm) @ 25°C\n") +
   scale_color_manual(labels = c("Mendota 24m", "Mendota 1.5m"),
                      values = c("#1C366B", "#1DACE8")) +
   theme(legend.title = element_blank(), legend.position = "top",
