@@ -72,10 +72,21 @@ loggerPBMS <- readSP(c("HOBO_Loggers/PBMS/Dec19_Feb3/20758344_PBMS.csv", "HOBO_L
 loggerPBSF <- readSP(c("HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv","HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv", "HOBO_Loggers/PBSF/Feb4_Mar16/20758339_PBSF.csv" ))
 
 
+#Willow Creek data retrieved outside of function because it is not a standardized file
+frmt <- function(d) {
+  d %>%
+    rename(sp.cond = CONDUCTANCE) %>%
+    mutate(date = as.POSIXct(DATE, format = "%m-%d-%Y %H:%M:%S", tz = "America/Chicago"))
+}
+downstream <- read_xlsx("WRM_data/Downstream.xlsx") %>%
+  filter(CONDUCTANCE > 26.8) 
 
+downstream <- downstream[-c(132490:132541, 132586:132971, 136429), ] %>%
+  frmt()
 
-
-
+upstream <- read_xlsx("WRM_data/Upstream.xlsx") %>%
+  filter(CONDUCTANCE > 2.8) %>%
+  frmt()
 
 ##CHLORIDE DATA####
 #function to read in data for chloride
@@ -94,6 +105,10 @@ labDC <- readCL("DC")
 labPBMS <- readCL("PBMS")
 labPBSF <- readCL("PBSF")
 
+#Spring Harbor Data retreived outside of function because this is not a standardized file
+labSH <- read_xlsx("SpringHarborChloride.xlsx") %>%
+  mutate(date = as.POSIXct(datetime_collected, format = "%m-%d-%Y %h:%m:%s", tz = "America/Chicago")) %>%
+  mutate(date = round_date(datetime_collected, "30 minutes"))
 
 
 ##DISCHARGE DATA ####

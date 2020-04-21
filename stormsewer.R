@@ -4,7 +4,7 @@ library(tidyverse)
 cond <- function(df, X) {
   ggplot(df, aes(date, sp.cond)) +
     geom_line() +
-    labs(y = "Specific Conductivity (uS/cm) @ 25 deg C\n", 
+    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
          x = "\nDate") +
     theme(panel.background = element_rect(fill = "white", colour = "white",
                                           size = 2, linetype = "solid"),

@@ -14,7 +14,7 @@ q.sc <- function(dfx, dfy, X) {
     #stat_cor() + 
     #stat_regline_equation() +
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-    labs(y = "Specific Conductivity (uS/cm) @ 25 deg C\n", 
+    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
          x = "\nDischarge (m^3/S)") +
     theme(panel.background = element_rect(fill = "white", colour = "white",
                                           size = 2, linetype = "solid"),
