@@ -25,7 +25,7 @@ q.sc <- function(dfx, dfy, X) {
           axis.text = element_text(size =13, face = "bold"),
           axis.title = element_text(size =13, face = "bold"))  
   
-  ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""))
+  ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
 }
 
 q.sc(loggerYN, d.YN, "YN_cond")
@@ -44,8 +44,8 @@ q.cl <- function(dfx, dfy, X) {
   
   ggplot(qsc, aes(discharge, chloride_mgL)) +
     geom_point() +
-    stat_cor() + 
-    stat_regline_equation() +
+    #stat_cor() + 
+    #stat_regline_equation() +
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
     labs(y = "Chloride Concentration (mg/L)\n", 
          x = "\nDischarge (m^3/S)") +
@@ -58,7 +58,7 @@ q.cl <- function(dfx, dfy, X) {
           axis.text = element_text(size =13, face = "bold"),
           axis.title = element_text(size =13, face = "bold"))  
   
-  ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""))
+  ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
 }
 
 q.cl(labYN, d.YN, "YN_cl")

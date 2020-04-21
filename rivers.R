@@ -1,6 +1,7 @@
 library(tidyverse)
 library(lubridate)
 library(ggpubr)
+library(patchwork)
 
 
 #This function joins the conductivity and chloride datasets together then plots a linear model of specific conductivity vs. chloride
@@ -15,7 +16,7 @@ cl.cond.plot <- function(df1, df2, X) {
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
     #stat_cor() + 
     #stat_regline_equation() + 
-    labs(y = "Specific Conductivity (uS/cm) @ 25 deg C\n", 
+    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
          x = "\nChloride Concentration (mg/L)") +
     theme(panel.background = element_rect(fill = "white", colour = "white",
                                           size = 2, linetype = "solid"),
@@ -26,11 +27,11 @@ cl.cond.plot <- function(df1, df2, X) {
           axis.text = element_text(size =13, face = "bold"),
           axis.title = element_text(size =13, face = "bold"))
   
-  ggsave(filename = paste("Plots/cl_cond_linear_regression/", X, ".png", sep = ""))
+  ggsave(filename = paste("Plots/cl_cond_linear_regression/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
 }
 
 
-cl.cond.plot(loggerYN, labYN, "YN")
+cl.cond.plot(loggerYN, labYN, "YN") 
 cl.cond.plot(loggerYI, labYI, "YI")
 cl.cond.plot(loggerYS, labYS, "YS")
 cl.cond.plot(loggerSW, labSW, "SW")
