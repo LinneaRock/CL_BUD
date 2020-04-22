@@ -43,9 +43,7 @@ ggplot(gage.bb.sf) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  plot_annotation(caption = paste(strwrap("Figure 6 Map of study area in the upper Yahara River watershed, key describes the location types."), collapse = "\n")) +
-  theme(plot.caption = element_text(size = 15),
-        plot.caption.position = "plot") 
+  plot_annotation(caption = paste(strwrap("Figure 6 Map of study area in the upper Yahara River watershed, key describes the location types."), collapse = "\n"))
  
   #scale_shape_manual(values = c("Tributary with USGS gage" = 17, "Tributary without gage" = 19, "Lake Buoy Location" = 15, "Storm sewer with USGS gage = " = 24, "Storm sewer without gage" = 21))
 
