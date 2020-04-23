@@ -69,7 +69,7 @@ loggerDC <- readSP(c("Data/HOBO_Loggers/DC/Dec19_Feb4/20758338_DC.csv", "Data/HO
 loggerPBMS <- readSP(c("Data/HOBO_Loggers/PBMS/Dec19_Feb3/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Feb3_Mar16/20758344_PBMS.csv"))
 
 ##PBSF###
-loggerPBSF <- readSP(c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv","Data/HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv", "HOBO_Loggers/PBSF/Feb4_Mar16/20758339_PBSF.csv" ))
+loggerPBSF <- readSP(c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv","Data/HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Feb4_Mar16/20758339_PBSF.csv" ))
 
 
 #Willow Creek data retrieved outside of function because it is not a standardized file
