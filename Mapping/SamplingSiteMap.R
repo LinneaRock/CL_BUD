@@ -32,11 +32,15 @@ wc.sf <- st_as_sf(wc, coords = c("lon", "lat"),
 #  Map #### 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = gage.bb.sf, color = 'black', size = 1.6, shape = 17) + # USGS gages
-  geom_sf(data = nogage.bb.sf, color = 'black', size = 1.6, shape = 19) + #rivers without gages
-  geom_sf(data = lakebuoys.sf, color = 'black', size = 1.6, shape = 15) + #lake sites
+  geom_sf(data = gage.bb.sf, aes(shape = 'USGS'), color = 'black', size = 1.6) + # USGS gages
+  geom_sf(data = nogage.bb.sf, aes(shape = 'rivers'), color = 'black', size = 1.6) + #rivers without gages
+  geom_sf(data = lakebuoys.sf, aes(shape = 'lakes'), color = 'black', size = 1.6) + #lake sites
   geom_sf(data = sh.sf, size = 1.6, shape = 24) + #spring harbor 
   geom_sf(data = wc.sf, size = 1.6, shape = 21) + #Willow creek
+  scale_shape_manual('Legend', values=c('USGS' = 17, 'rivers' = 19, 'lakes' = 15)) + 
+  theme_bw() + # Hilary's default theme
+  theme(legend.position = c(0.9,0.9)) +
+
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
