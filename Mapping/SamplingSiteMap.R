@@ -32,12 +32,12 @@ wc.sf <- st_as_sf(wc, coords = c("lon", "lat"),
 #  Map #### 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = gage.bb.sf, aes(shape = 'USGS'), color = 'black', size = 1.6) + # USGS gages
-  geom_sf(data = nogage.bb.sf, aes(shape = 'rivers'), color = 'black', size = 1.6) + #rivers without gages
-  geom_sf(data = lakebuoys.sf, aes(shape = 'lakes'), color = 'black', size = 1.6) + #lake sites
-  geom_sf(data = sh.sf, size = 1.6, shape = 24) + #spring harbor 
-  geom_sf(data = wc.sf, size = 1.6, shape = 21) + #Willow creek
-  scale_shape_manual('Legend', values=c('USGS' = 17, 'rivers' = 19, 'lakes' = 15)) + 
+  geom_sf(data = gage.bb.sf, aes(shape = 'USGS River'), color = 'black', size = 1.6) + # USGS gages
+  geom_sf(data = nogage.bb.sf, aes(shape = 'Rivers'), color = 'black', size = 1.6) + #rivers without gages
+  geom_sf(data = lakebuoys.sf, aes(shape = 'Lakes'), color = 'black', size = 1.6) + #lake sites
+  geom_sf(data = sh.sf, aes(shape = 'USGS Storm Sewer'), size = 1.6) + #spring harbor 
+  geom_sf(data = wc.sf, aes(shape = 'Storm Sewer'), size = 1.6) + #Willow creek
+  scale_shape_manual('Legend', values=c('USGS River' = 17, 'Rivers' = 19, 'Lakes' = 15, 'USGS Storm Sewer' = 24, 'Storm Sewer' = 21)) + 
   theme_bw() + # Hilary's default theme
   theme(legend.position = c(0.9,0.9)) +
 
@@ -47,10 +47,10 @@ ggplot(gage.bb.sf) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  plot_annotation(caption = paste(strwrap("Figure 6 Map of study area in the upper Yahara River watershed, key describes the location types."), collapse = "\n"))
+  plot_annotation(caption = paste(strwrap("Figure 6 Map of study area in the upper Yahara River watershed. Legend describes the location types as lake, river, or storm sewer and with or without USGS gaging."), collapse = "\n"))
  
-  #scale_shape_manual(values = c("Tributary with USGS gage" = 17, "Tributary without gage" = 19, "Lake Buoy Location" = 15, "Storm sewer with USGS gage = " = 24, "Storm sewer without gage" = 21))
+  
 
-ggsave('Map.png', width = 6, height = 6, units = 'in')
+ggsave('Map.png', width = 8, height = 8, units = 'in')
 
 

@@ -75,7 +75,7 @@ ggsave("historicalyahara.png", height = 10, width = 11)
 
 
 
-#figure of Mendota/Monona
+#figure of Mendota/Monona historical data
 data = rbind(HistME, HistMO)
 
 ggplot(data, aes(date, chloride_mgL)) +
