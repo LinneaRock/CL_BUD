@@ -41,11 +41,11 @@ watershed <- read_xlsx("Data/YaharaHist.xlsx") %>%
   mutate(KA = as.numeric(KA))
   
 ggplot(watershed) +
-  geom_point(aes(Date, ME, color = "#1C366B"), size = .25) +
-  geom_point(aes(Date, MO, color = "#F24D29"), size = .25) +
-  geom_point(aes(Date, WI, color = "#C4CFD0"), size = .25) +
-  geom_point(aes(Date, KA, color = "#E5C4A1"), size = .25) +
-  geom_point(aes(Date, WA, color = "#1DACE8"), size = .25) +
+  geom_point(aes(Date, ME, color = "#1C366B"), size = .5) +
+  geom_point(aes(Date, MO, color = "#F24D29"), size = .5) +
+  geom_point(aes(Date, WI, color = "#C4CFD0"), size = .5) +
+  geom_point(aes(Date, KA, color = "#E5C4A1"), size = .5) +
+  geom_point(aes(Date, WA, color = "#1DACE8"), size = .5) +
   geom_smooth(aes(Date, ME, color = "#1C366B"), size = 1, se = FALSE) +
   geom_smooth(aes(Date, MO), color = "#F24D29", size = 1, se = FALSE) +
   geom_smooth(aes(Date, WI), color = "#C4CFD0", size = 1, se = FALSE) +
@@ -65,12 +65,12 @@ ggplot(watershed) +
         panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                         colour = "gray88"),
         legend.text = element_text(size =13, face = "bold"),
-        plot.caption = element_text(size = 15),
-        plot.caption.position = "plot") +
+        plot.caption = element_text(size = 13)) +
+        #plot.caption.position = "plot") +
   scale_color_identity(guide = "legend",
                        breaks = c("#1C366B", "#F24D29", "#C4CFD0", "#1DACE8", "#E5C4A1"),
                        labels = c("Mendota", "Monona", "Wingra", "Waubesa", "Kegonsa"))
-ggsave("historicalyahara.png", height = 10, width = 11)
+ggsave("historicalyahara.png", height = 8, width = 11)
   
 
 
