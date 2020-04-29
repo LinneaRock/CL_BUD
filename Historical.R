@@ -51,31 +51,35 @@ ggplot(watershed) +
   geom_smooth(aes(Date, WI), color = "#C4CFD0", size = 1, se = FALSE) +
   geom_smooth(aes(Date, KA), color = "#E5C4A1", size = 1, se = FALSE) +
   geom_smooth(aes(Date, WA), color = "#1DACE8", size = 1, se = FALSE) +
-  labs(y = "Chloride Concentration (mg/L)\n",
-       x = "\nDate",
-       caption = paste(strwrap("Figure 3 The long-term increasing chloride concentration trend in the Yahara River watershed lakes (Public Health Madison Dane County, 2020)."), collapse = "\n")) +
+  labs(y = "Chloride Concentration (mg/L)",
+       x = "", # you don't really need to say date
+       # caption = paste(strwrap("Figure 3 The long-term increasing chloride concentration trend in the Yahara River watershed lakes (Public Health Madison Dane County, 2020)."), collapse = "\n")) +
+       caption = 
+       "Figure 3 The long-term increasing chloride concentration trend 
+       in the Yahara River watershed lakes (Public Health Madison 
+       Dane County, 2020).") +
   theme(legend.title = element_blank(),
         legend.position = "top",
-        axis.text = element_text(size =13, face = "bold"),
-        axis.title = element_text(size = 13, face = "bold"),
+        axis.text = element_text(size =11, face = "bold"),
+        axis.title = element_text(size = 11, face = "bold"),
         panel.background = element_rect(fill = "white", colour = "white",
                                         size = 2, linetype = "solid"),
         panel.grid.major = element_line(size = 0.25, linetype = 'solid',
                                         colour = "gray88"), 
         panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                         colour = "gray88"),
-        legend.text = element_text(size =13, face = "bold"),
-        plot.caption = element_text(size = 13)) +
+        legend.text = element_text(size = 11),  #face = "bold"
+        plot.caption = element_text(hjust = 0.5, size = 11)) +
         #plot.caption.position = "plot") +
   scale_color_identity(guide = "legend",
                        breaks = c("#1C366B", "#F24D29", "#C4CFD0", "#1DACE8", "#E5C4A1"),
                        labels = c("Mendota", "Monona", "Wingra", "Waubesa", "Kegonsa"))
-ggsave("historicalyahara.png", height = 8, width = 11)
+ggsave("historicalyahara.png", height = 4, width = 6)
   
 
 
 
-#figure of Mendota/Monona historical data
+ #figure of Mendota/Monona historical data
 data = rbind(HistME, HistMO)
 
 ggplot(data, aes(date, chloride_mgL)) +
