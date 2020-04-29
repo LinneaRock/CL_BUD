@@ -50,7 +50,7 @@ ggplot(gage.bb.sf) +
   labs(caption = "Figure 6 Map of study area in the upper Yahara River watershed. 
 Legend describes the location types as lake, river, or storm sewer 
 and with or without USGS gaging.") +
-  theme(plot.caption = element_text(size = 11, hjust = 0)) 
+  theme(plot.caption = element_text(size = 10, hjust = 0)) 
   
  
 
