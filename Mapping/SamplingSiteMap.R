@@ -51,7 +51,6 @@ ggplot(gage.bb.sf) +
 Legend describes the location types as lake, river, or storm sewer 
 and with or without USGS gaging.") +
   theme(plot.caption = element_text(size = 10, hjust = 0)) 
-  
  
 
 ggsave('Map.png', width = 6, height = 6, units = 'in')
