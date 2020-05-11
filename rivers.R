@@ -24,8 +24,8 @@ cl.cond.plot <- function(df1, df2, X) {
                                           colour = "gray88"), 
           panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                           colour = "gray88"),
-          axis.text = element_text(size =13, face = "bold"),
-          axis.title = element_text(size =13, face = "bold"))
+          axis.text = element_text(size = 11),
+          axis.title = element_text(size = 11))
   
   ggsave(filename = paste("Plots/cl_cond_linear_regression/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
 }

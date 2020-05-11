@@ -22,8 +22,8 @@ q.sc <- function(dfx, dfy, X) {
                                           colour = "gray88"), 
           panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                           colour = "gray88"),
-          axis.text = element_text(size =13, face = "bold"),
-          axis.title = element_text(size =13, face = "bold"))  
+          axis.text = element_text(size =11),
+          axis.title = element_text(size =11))  
   
   ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
 }
@@ -55,8 +55,8 @@ q.cl <- function(dfx, dfy, X) {
                                           colour = "gray88"), 
           panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                           colour = "gray88"),
-          axis.text = element_text(size =13, face = "bold"),
-          axis.title = element_text(size =13, face = "bold"))  
+          axis.text = element_text(size =11),
+          axis.title = element_text(size =11))  
   
   ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
 }
@@ -67,3 +67,4 @@ q.cl(lab6MC, d.6MC, "6MC_cl")
 q.cl(labDC, d.DC, "DC_cl")
 q.cl(labPBMS, d.PBMS, "PBMS_cl")
 q.cl(labPBSF, d.PBSF, "PBSF_cl")
+
