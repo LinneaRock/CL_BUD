@@ -54,8 +54,9 @@ ggplot(watershed) +
   labs(y = "Chloride Concentration (mg/L)",
        x = "", # you don't really need to say date
        # caption = paste(strwrap("Figure 3 The long-term increasing chloride concentration trend in the Yahara River watershed lakes (Public Health Madison Dane County, 2020)."), collapse = "\n")) +
-       caption = "Figure 3 The long-term increasing chloride concentration trend in the Yahara River 
-       watershed lakes (Public Health Madison Dane County, 2020).") +
+      # caption = "Figure 3 The long-term increasing chloride concentration trend in the Yahara River 
+       #watershed lakes (Public Health Madison Dane County, 2020).") +
+  caption = "Figure by Linnea Rock using data from Public Health Madison & Dane County")+
   theme(legend.title = element_blank(),
         legend.position = "top",
         axis.text = element_text(size =11),
