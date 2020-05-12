@@ -86,15 +86,15 @@ ggplot(data, aes(date, chloride_mgL)) +
        caption = paste(strwrap("Figure 3 The long-term increasing chloride concentration trend in the upper Yahara River watershed lakes (Public Health Madison Dane County, 2020)."), collapse = "\n")) +
   theme(legend.title = element_blank(),
         legend.position = "top",
-        axis.text = element_text(size =13, face = "bold"),
-        axis.title = element_text(size = 13, face = "bold"),
+        axis.text = element_text(size =11),
+        axis.title = element_text(size = 11),
         panel.background = element_rect(fill = "white", colour = "white",
                                         size = 2, linetype = "solid"),
         panel.grid.major = element_line(size = 0.25, linetype = 'solid',
                                         colour = "gray88"), 
         panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                         colour = "gray88"),
-        legend.text = element_text(size =13, face = "bold"),
+        legend.text = element_text(size =11),
         plot.caption = element_text(size = 15),
         plot.caption.position = "plot") +
   scale_color_manual(labels = c("Mendota", "Monona"),
