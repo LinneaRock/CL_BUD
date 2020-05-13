@@ -9,8 +9,8 @@ q.cl <- function(dfx, dfy, X) {
     #stat_cor() + 
     #stat_regline_equation() +
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-    labs(y = "Chloride Concentration (mg/L)\n", 
-         x = "\nDischarge (m^3/S)") +
+    labs(y = bquote("Chloride Concentration"~(mg~L^-1)~"\n"), 
+         x = "\nDischarge"~(m^3~s^-1)) +
     theme(panel.background = element_rect(fill = "white", colour = "white",
                                           size = 2, linetype = "solid"),
           panel.grid.major = element_line(size = 0.25, linetype = 'solid',

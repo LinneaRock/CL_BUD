@@ -11,33 +11,15 @@ library(tidyverse)
 library(readxl)
 library(lubridate)
 library(dataRetrieval)
-getwd()
 
 source('datasets_asFunction.R')
+source("Functions/linreg.R")
+source("Functions/qcl.R")
 
 ```
 
 
 ```{r regressionPlots, include=FALSE, warning = FALSE}
-#Function for linear regression of specific conductance vs. chloride
-cl.cond.plot <- function(df1, df2, X) {
-  d <- df1 %>%
-    left_join(df2, by = "date")
-  
-  ggplot(d, aes(chloride_mgL, sp.cond)) +
-    geom_point() + 
-    geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
-         x = "\nChloride Concentration (mg/L)") +
-    theme(panel.background = element_rect(fill = "white", colour = "white",
-                                          size = 2, linetype = "solid"),
-          panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"), 
-          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"),
-          axis.text = element_text(size = 11), 
-          axis.title = element_text(size = 11)) 
-}
 
 #function to quickly add captions
 capt <- function(customTitle, customCaption) {
@@ -46,78 +28,58 @@ capt <- function(customTitle, customCaption) {
                   theme = theme(plot.caption = element_text(hjust = 0)))
 }
 
-#function to create QC figures 
-q.cl <- function(dfx, dfy, X) {
-  qsc <- dfx %>%
-    left_join(dfy, by = "date")
-  
-  ggplot(qsc, aes(discharge, chloride_mgL)) +
-    geom_point() +
-    geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-    # ylab(bquote('Chloride Concentration'~(mg~L^-1))) +
-    labs(x = "\nDischarge (m^3/s)", y = bquote('Chloride Concentration'~(mg~L^-1))) +
-    theme(panel.background = element_rect(fill = "white", colour = "white",
-                                          size = 2, linetype = "solid"),
-          panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"), 
-          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"),
-          axis.text = element_text(size = 11, face = "bold"),
-          axis.title = element_text(size = 11, face = "bold"))  
-}
-
 ```
 
 ```{r figures, include=FALSE, warning = FALSE}
 
 #figures with captions 
-YN <- cl.cond.plot(loggerYN, labYN, "YN") +
+YN <- linreg(loggerYN, labYN) +
   capt('Yahara River @ 113',"Specific conductivity vs. chloride relationship in the Yahara River at Highway 113. (inlet to Lake Mendota). The linear regression is represented by the equation y=8.6x+360. The positive correlation (r = 0.81) has an r-squared value of 0.66, and a p-value of 0.094.")
 
-YI <- cl.cond.plot(loggerYI, labYI, "YI") + 
+YI <- linreg(loggerYI, labYI) + 
   capt('Yahara River @ Main St.',"Specific conductivity vs. chloride relationship in the Yahara River at E. Main St. (outlet of Lake Mendota and inlet of Lake Monona). The linear regression is represented by the equation y=3.8x+360. The positive correlation (r = 0.64) has an r2 value of 0.41 and a p-value of 0.25.")
 
-YS <- cl.cond.plot(loggerYS, labYS, "YS")+
+YS <- linreg(loggerYS, labYS)+
   capt('Yahara River @ Broadway',"Specific conductivity vs. chloride relationship in the Yahara River at Broadway St. (oulet of Lake Monona). The linear regression is represented by the equation y=22x-830. The positive correlation (r = 0.91) has an r2 value of 0.83, and a p-value of 0.033.")
 
-SW <- cl.cond.plot(loggerSW, labSW, "SW")+
+SW <- linreg(loggerSW, labSW)+
   capt('Starkweather Creek @ Olbrich',"Specific conductivity vs. chloride relationship in the Starkweather Creek at Olbrich Garden (inlet of Lake Monona). The linear regression is represented by the equation y=3.7x+530. The positive correlation (r = 0.87) has an r2 value of 0.76, and a p-value of 0.58")
 
-SMC <- cl.cond.plot(logger6MC, lab6MC, "6MC") +
+SMC <- linreg(logger6MC, lab6MC) +
   capt('Sixmile Creek @ M',"Specific conductivity vs. chloride relationship in the Sixmile Creek at Highway M. (inlet to Lake Mendota). The linear regression is represented by the equation y=18x+18. The positive correlation (r = 0.94) has an r2 value of 0.88, and a p-value of 0.018.")
 
-DC <- cl.cond.plot(loggerDC, labDC, "DC") +
+DC <- linreg(loggerDC, labDC) +
   capt('Dorn Creek @ M',"Specific conductivity vs. chloride relationship in the Dorn Creek at Highway M. (inlet to Lake Mendota). The linear regression is represented by the equation y=-5.9x+1100. The negative correlation (r = -0.81) has an r2 value of 0.66, and a p-value of 0.094.")
 
-PBMS <- cl.cond.plot(loggerPBMS, labPBMS, "PBMS")+
+PBMS <- linreg(loggerPBMS, labPBMS)+
   capt('Pheasant Branch Main Stem',"Specific conductivity vs. chloride relationship in the Main Stem of Pheasant Branch Creek (inlet to Lake Mendota). The linear regression is represented by the equation y=5.2x+450. The positive correlation (r = 0.78) has an r2 value of 0.61, and a p-value of 0.12.")
 
 a <- loggerPBSF %>%
 mutate(date = round_date(date, "30 minutes")) 
 
-PBSF <-cl.cond.plot(a, labPBSF, "PBSF")+
+PBSF <-linreg(a, labPBSF)+
   capt('Pheasant Branch S.Fork',"Specific conductivity vs. chloride relationship in the South Fork of Pheasant Branch (high chloride contribution to Lake Mendota). The linear regression is represented by the equation y=2.6x+320. The positive correlation (r = 1) has an r2 value of 1, and a p-value of 0.058.")
 ```
 
 
 ```{r moreFigures, include=FALSE, warning = FALSE}
 #figures with captions
-QYN <- q.cl(labYN, d.YN, "YN_cl")+
+QYN <- q.cl(labYN, d.YN)+
   capt('Yahara River @ 113',"Q-C relationship in the Yahara River at Highway 113. (inlet to Lake Mendota). The linear regression is represented by the equation y=-4.2x+67. The negative correlation (r = -0.76) has an r2 value of 0.58, and a p-value of 0.14.")
 
-QYI <- q.cl(labYI, d.YI, "YI_cl") +
+QYI <- q.cl(labYI, d.YI) +
   capt('Yahara River @ Main St.',"Q-C relationship in the Yahara River at E. Main St. (outlet of Lake Mendota and inlet of Lake Monona). The linear regression is represented by the equation y=0.3x+51. The positive correlation (r = 0.55) has an r2 value of 0.30 and a p-value of 0.26.")
 
-Q6MC <- q.cl(lab6MC, d.6MC, "6MC_cl") +
+Q6MC <- q.cl(lab6MC, d.6MC) +
   capt('Sixmile Creek @ M',"Q-C relationship in the Sixmile Creek at Highway M. (inlet to Lake Mendota). The linear regression is represented by the equation y=-12x+59. The negative correlation (r = -0.92) has an r2 value of 0.90, and a p-value of 0.01.")
 
-QDC <- q.cl(labDC, d.DC, "DC_cl") +
+QDC <- q.cl(labDC, d.DC) +
   capt('Dorn Creek @ M',"Q-C relationship in the Dorn Creek at Highway M. (inlet to Lake Mendota). The linear regression is represented by the equation y=42x+22.The positive correlation (r = 0.74) has an r2 value of 0.55, and a p-value of 0.09.")
 
 QPBMS <- q.cl(labPBMS, d.PBMS, "PBMS_cl") +
   capt('Pheasant Branch Main Stem',"Q-C relationship in the Main Stem of Pheasant Branch Creek (inlet to Lake Mendota). The linear regression is represented by the equation y=-67x+150. The negative correlation (r = -0.34) has an r2 value of 0.12, and a p-value of 0.58.")
 
-QPBSF <- q.cl(labPBSF, d.PBSF, "PBSF_cl") +
+QPBSF <- q.cl(labPBSF, d.PBSF) +
   capt('Pheasant Branch S.Fork',"Q-C relationship in the South Fork of Pheasant Branch (high chloride contribution to Lake Mendota). The linear regression is represented by the equation y=-6200x+640. The negative correlation (r = -0.84) has an r2 value of 0.7 and a p-value of 0.074.")
 ```
 
