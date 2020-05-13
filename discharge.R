@@ -1,70 +1,39 @@
 library(tidyverse)
 library(lubridate)
 library(ggpubr)
+source("Functions/qsc.R")
+source("Functions/qcl.R")
+source("Functions/splot.R")
 
 
-##This function joins the conductivity and discharge datasets together then plots specific conductivity vs. discharge
+#Discharge - conductivity plots
 
-q.sc <- function(dfx, dfy, X) {
-  qsc <- dfx %>%
-    left_join(dfy, by = "date")
-  
-  ggplot(qsc, aes(discharge, sp.cond)) +
-    geom_point() +
-    #stat_cor() + 
-    #stat_regline_equation() +
-    geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
-         x = "\nDischarge (m^3/S)") +
-    theme(panel.background = element_rect(fill = "white", colour = "white",
-                                          size = 2, linetype = "solid"),
-          panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"), 
-          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"),
-          axis.text = element_text(size =11),
-          axis.title = element_text(size =11))  
-  
-  ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
-}
-
-q.sc(loggerYN, d.YN, "YN_cond")
-q.sc(loggerYI, d.YI, "YI_cond")
-q.sc(logger6MC, d.6MC, "6MC_cond")
-q.sc(loggerDC, d.DC, "DC_cond")
-q.sc(loggerPBMS, d.PBMS, "PBMS_cond")
-q.sc(loggerPBSF, d.PBSF, "PBSF_cond")
+q.sc(loggerYN, d.YN)
+splot("QC_plots/", "YN_cond")
+q.sc(loggerYI, d.YI)
+splot("QC_plots/", "YI_cond")
+q.sc(logger6MC, d.6MC)
+splot("QC_plots/", "6MC_cond")
+q.sc(loggerDC, d.DC)
+splot("QC_plots/", "DC_cond")
+q.sc(loggerPBMS, d.PBMS)
+splot("QC_plots/", "PBMS_cond")
+q.sc(loggerPBSF, d.PBSF)
+splot("QC_plots/", "PBSF_cond")
 
 
-##This function joins the chloride and discharge datasets together then plots specific conductivity vs. discharge
+#Discharge - chloride plots
 
-q.cl <- function(dfx, dfy, X) {
-  qsc <- dfx %>%
-    left_join(dfy, by = "date")
-  
-  ggplot(qsc, aes(discharge, chloride_mgL)) +
-    geom_point() +
-    #stat_cor() + 
-    #stat_regline_equation() +
-    geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-    labs(y = "Chloride Concentration (mg/L)\n", 
-         x = "\nDischarge (m^3/S)") +
-    theme(panel.background = element_rect(fill = "white", colour = "white",
-                                          size = 2, linetype = "solid"),
-          panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"), 
-          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"),
-          axis.text = element_text(size =11),
-          axis.title = element_text(size =11))  
-  
-  ggsave(filename = paste("Plots/QC_plots/", X, ".png", sep = ""), width = 5, height = 5, units = 'in')
-}
-
-q.cl(labYN, d.YN, "YN_cl")
-q.cl(labYI, d.YI, "YI_cl")
-q.cl(lab6MC, d.6MC, "6MC_cl")
-q.cl(labDC, d.DC, "DC_cl")
-q.cl(labPBMS, d.PBMS, "PBMS_cl")
-q.cl(labPBSF, d.PBSF, "PBSF_cl")
+q.cl(labYN, d.YN)
+splot("QC_plots/", "YN_cl")
+q.cl(labYI, d.YI)
+splot("QC_plots/", "YI_cl")
+q.cl(lab6MC, d.6MC)
+splot("QC_plots/", "6MC_cl")
+q.cl(labDC, d.DC)
+splot("QC_plots/", "DC_cl")
+q.cl(labPBMS, d.PBMS)
+splot("QC_plots/", "PBMS_cl")
+q.cl(labPBSF, d.PBSF)
+splot("QC_plots/", "PBSF_cl")
 
