@@ -3,7 +3,7 @@
 cond <- function(df) {
   ggplot(df, aes(date, sp.cond)) +
     geom_line() +
-    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
+    labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
          x = "") +
     theme(panel.background = element_rect(fill = "white", colour = "white",
                                           size = 2, linetype = "solid"),
@@ -24,7 +24,7 @@ lakecond <- function(df1, df2, X, Y) {
     geom_line(df1, mapping = aes(date, sp.cond, color = "#1DACE8")) +
     geom_line(df2, mapping = aes(date, sp.cond, color = "#1C366B")) +
     labs(x = "",
-         y = "Specific Conductivity (µS/cm) @ 25°C\n") +
+         y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n") +
     scale_color_manual(labels = c(X, Y),
                        values = c("#1C366B", "#1DACE8")) +
     theme(legend.title = element_blank(), legend.position = "top",

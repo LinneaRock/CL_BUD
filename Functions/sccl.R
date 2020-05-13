@@ -12,7 +12,7 @@ sccl <- function(logger, lab) {
   
   axis(2, col = "#D1362F", col.axis = "#D1362F")
   
-  mtext("Chloride Concentration (mg/L)", side = 2, line = 3, col = "#D1362F")
+  mtext("Chloride Concentration"~(mg~L^-1), side = 2, line = 3, col = "#D1362F")
   
   par(new = TRUE)
   
@@ -21,5 +21,5 @@ sccl <- function(logger, lab) {
   
   axis(4, col = "#27223C", col.axis = "#27223C")
   
-  mtext("Specific Conductivity (µS/cm) @ 25°C)", side = 4, line = 3, col = "#27223C")
+  mtext("Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~, side = 4, line = 3, col = "#27223C")
 }

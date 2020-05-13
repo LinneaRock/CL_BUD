@@ -6,8 +6,8 @@ histlinreg <- function(df) {
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
     #stat_cor() + 
     #stat_regline_equation() + 
-    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
-         x = "\nChloride Concentration (mg/L)") +
+    labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+         x = "\nChloride Concentration"~(mg~L^-1)) +
     theme(panel.background = element_rect(fill = "white", colour = "white",
                                           size = 2, linetype = "solid"),
           panel.grid.major = element_line(size = 0.25, linetype = 'solid',
