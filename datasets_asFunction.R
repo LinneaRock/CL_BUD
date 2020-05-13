@@ -2,52 +2,31 @@ library(tidyverse)
 library(readxl)
 library(lubridate)
 library(dataRetrieval)
+source("Functions/readSP.R")
+source("Functions/SC.R")
+source("Functions/readcl.R")
 
 Sites <- c("Lake Mendota - Epilimnion", "Lake Mendota - Hypolimnion", "Lake Monona - Epilimnion", "Lake Monona - Hypolimnion", "Yahara River - North", "Yahra River - Isthmus", "Yahara River - South", "Stakweather Creek", "Sixmile Creek", "Dorn Creek", "Pheasant Branch - Main Stem", "Pheasant Branch - South Fork", "Spring Harbor Storm Sewer", "Willow Creek")
 Abbr <- c("ME_Epi", "ME_Hypo", "MO_Epi", "MO_Hypo", "YN", "YI", "YS", "SW", "6MC or SMC", "DC", "PBMS", "PBSF", "SH", "WC")
 
 KEY <- data.frame(Sites, Abbr) 
 
-##CONDUCTIVITY DATA####
-#function to convert actual conductivity to specific conductivity 
-SC <- function(AC, t) {
-  AC / (1 - (25 - t) * .019)
-}
+#CONDUCTIVITY DATA####
 
-# Example of how to read in data from different standardized files using a function 
-readSP <- function(files) {
-  logger <- read.csv(files[1]) # read in first file
-  
-  for(i in 1:length(files)){ # if there are more than one file, rbind files 
-    logger <- rbind(logger,read.csv(files[i]))
-  }
-  
-  logger =  logger %>% 
-    drop_na() %>%
-    select(Date, Low.Range, Full.Range, Temp) %>%
-    mutate(char = as.character(Date),
-           date = as.POSIXct(char, format = "%m-%d-%Y %H:%M:%S", tz = "America/Chicago")) %>%
-    select(date, Low.Range, Full.Range, Temp) %>%
-    mutate(sp.cond = SC(Full.Range, Temp))
-  
-  return(logger)
-}
-
-##ME###
 loggerME_Epi <- readSP(c("Data/HOBO_Loggers/MENDOTA/SURFACE_2019-20/20758346.csv")) %>%
   filter(date < "2020-04-01 9:45:00 ")
 
 loggerME_Hypo <- readSP(c("Data/HOBO_Loggers/MENDOTA/BOTTOM_2019-20/20758341.csv"))%>%
   filter(date < "2020-04-01 9:45:00 ")
 
-##YN###
+
 loggerYN = readSP(c("Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv", "Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv"))
 
-##YI###
+
 loggerYI <- readSP(c("Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv", "Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")) %>%
   filter(date != "2020-02-04 14:30:00")
 
-##YS### 
+
 #Loading in data from conductivity loggers:
 loggerYS = readSP(c("Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv","Data/HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv")) %>% 
   filter(date != "2020-03-16 08:30:00") #getting rid of data that were collected while logger was out of the water
@@ -87,13 +66,7 @@ upstream <- read_xlsx("Data/WRM_data/Upstream.xlsx") %>%
   filter(CONDUCTANCE > 2.8) %>%
   frmt()
 
-##CHLORIDE DATA####
-#function to read in data for chloride
-readCL <- function(X) {
-  lab <- read_xlsx("Data/chloride_lab.xlsx", sheet = X) %>%
-    mutate(date = as.POSIXct(datetime_collected, format = "%m-%d-%Y %h:%m:%s", tz = "America/Chicago")) %>%
-    mutate(date = round_date(datetime_collected, "30 minutes"))
-}
+#CHLORIDE DATA####
 
 labYN <- readCL("YN")
 labYI <- readCL("YI")
