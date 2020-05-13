@@ -47,12 +47,12 @@ ggplot(gage.bb.sf) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  labs(caption = "Figure 6 Map of study area in the upper Yahara River watershed. 
-Legend describes the location types as lake, river, or storm sewer 
-and with or without USGS gaging.") +
+  #labs(caption = "Figure 6 Map of study area in the upper Yahara River watershed. 
+#Legend describes the location types as lake, river, or storm sewer 
+#and with or without USGS gaging.") +
   theme(plot.caption = element_text(size = 10, hjust = 0)) 
  
 
-ggsave('Map.png', width = 6, height = 6, units = 'in')
+ggsave('Plots/Map.png', width = 6, height = 6, units = 'in')
 
 
