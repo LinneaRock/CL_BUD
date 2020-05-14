@@ -1,6 +1,6 @@
 #Function to join chloride and discharge datasets together then plots chloride vs. discharge
 
-q.cl <- function(dfx, dfy, X) {
+q.cl <- function(dfx, dfy) {
   qsc <- dfx %>%
     left_join(dfy, by = "date")
   

@@ -9,8 +9,8 @@ q.sc <- function(dfx, dfy) {
     #stat_cor() + 
     #stat_regline_equation() +
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-    labs(y = "Specific Conductivity (µS/cm) @ 25°C\n", 
-         x = "\nDischarge (m^3/S)") +
+    labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+         x = "\nDischarge"~(m^3~s^-1)) +
     theme(panel.background = element_rect(fill = "white", colour = "white",
                                           size = 2, linetype = "solid"),
           panel.grid.major = element_line(size = 0.25, linetype = 'solid',

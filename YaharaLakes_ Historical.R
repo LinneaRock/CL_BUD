@@ -16,7 +16,7 @@ ggplot(watershed) +
   geom_smooth(aes(Date, WI, color = "#C4CFD0"), size = 1, se = FALSE) +
   geom_smooth(aes(Date, KA, color = "#E5C4A1"), size = 1, se = FALSE) +
   geom_smooth(aes(Date, WA, color = "#1DACE8"), size = 1, se = FALSE) +
-  labs(y = "Chloride Concentration (mg/L)\n",
+  labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n",
        x = ""#,
        #caption = "Figure 3 The long-term increasing chloride concentration trend 
 #in the Yahara River watershed lakes (Public Health Madison Dane County, 2020)."
@@ -33,7 +33,6 @@ ggplot(watershed) +
                                         colour = "gray88"),
         legend.text = element_text(size = 8),
         plot.caption = element_text(size = 11, hjust = 0)) +
-  #plot.caption.position = "plot") +
   scale_color_identity(guide = "legend",
                        breaks = c("#1C366B", "#F24D29", "#C4CFD0", "#1DACE8", "#E5C4A1"),
                        labels = c("Mendota", "Monona", "Wingra", "Waubesa", "Kegonsa"))

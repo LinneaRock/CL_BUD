@@ -105,7 +105,7 @@ data = rbind(HistME, HistMO)
 ggplot(data, aes(date, chloride_mgL)) +
   geom_point(aes(color = lakeid)) +
   geom_smooth(aes(group = lakeid, color = lakeid), se = FALSE) +
-  labs(y = "Chloride Concentration (mg/L)\n",
+  labs(y = "Chloride Concentration"~(mg~L^-1)~"\n",
        x = "" #,
       # caption = "Figure 3 The long-term increasing chloride concentration trend in the 
 #upper Yahara River watershed lakes (Public Health Madison Dane County, 2020)."

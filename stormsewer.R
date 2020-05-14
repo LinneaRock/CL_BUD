@@ -19,7 +19,7 @@ splot("chloride_time_series/", "SH")
 
 ggplot(labSH, aes(date, chloride_mgL)) +
   geom_line() +
-  labs(y = "Chloride Concentration (mg/L)\n",
+  labs(y = "Chloride Concentration"~(mg~L^-1)~"\n",
        x = "") +
   theme(panel.background = element_rect(fill = "white", colour = "white",
                                         size = 2, linetype = "solid"),
