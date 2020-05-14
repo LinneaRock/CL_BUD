@@ -5,6 +5,7 @@ library(dataRetrieval)
 source("Functions/readSP.R")
 source("Functions/SC.R")
 source("Functions/readcl.R")
+source("Functions/readfieldcl.R")
 
 Sites <- c("Lake Mendota - Epilimnion", "Lake Mendota - Hypolimnion", "Lake Monona - Epilimnion", "Lake Monona - Hypolimnion", "Yahara River - North", "Yahra River - Isthmus", "Yahara River - South", "Stakweather Creek", "Sixmile Creek", "Dorn Creek", "Pheasant Branch - Main Stem", "Pheasant Branch - South Fork", "Spring Harbor Storm Sewer", "Willow Creek")
 Abbr <- c("ME_Epi", "ME_Hypo", "MO_Epi", "MO_Hypo", "YN", "YI", "YS", "SW", "6MC or SMC", "DC", "PBMS", "PBSF", "SH", "WC")
@@ -76,6 +77,18 @@ lab6MC <- readCL("6MC")
 labDC <- readCL("DC")
 labPBMS <- readCL("PBMS")
 labPBSF <- readCL("PBSF")
+
+fieldYN <- readfieldcl("YN")
+fieldYI <- readfieldcl("YI")
+fieldYS <- readfieldcl("YS")
+fieldSW <- readfieldcl("SW")
+field6MC <- readfieldcl("6MC")
+fieldDC <- readfieldcl("DC")
+fieldPBMS <- readfieldcl("PBMS")
+
+fieldPBSF <- readfieldcl("PBSF") %>%
+  mutate(chloride_mgL = as.numeric(chloride_mgL))
+
 
 #Spring Harbor Data retreived outside of function because this is not a standardized file
 labSH <- read_xlsx("Data/SpringHarborChloride.xlsx") %>%

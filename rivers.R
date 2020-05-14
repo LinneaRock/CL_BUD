@@ -7,6 +7,7 @@ source("Functions/splot.R")
 source("Functions/cond.R")
 source("Functions/clseries.R")
 source("Functions/sccl.R")
+source("Functions/cl_compare.R")
 
 
 #Linear Regressions between Conductivity and Chloride
@@ -111,3 +112,15 @@ sccl(loggerPBMS, labPBMS)
 sccl(loggerPBSF, labPBSF)
 
 
+#######################################################################
+
+#Comparing chloride concentrations collected with YSI and lab analyzed 
+
+cl_compare(fieldYN, labYN)
+cl_compare(fieldYI, labYI)
+cl_compare(fieldYS, labYS)
+cl_compare(fieldSW, labSW)
+cl_compare(field6MC, lab6MC)
+cl_compare(fieldDC, labDC)
+cl_compare(fieldPBMS, labPBMS)
+cl_compare(fieldPBSF, labPBSF)
