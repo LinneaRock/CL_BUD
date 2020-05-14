@@ -2,7 +2,7 @@ library(tidyverse)
 library(lubridate)
 source("Functions/splot.R")
 
-list <- read.csv("Data/impwtrs.csv")
+list <- read.csv("Data/Historical_External/impwtrs.csv")
 
 state.cl <- list %>%
   select(Official.Waterbody.Name,WATERS.ID..AU., Water.Type, Counties, Start.Mile, End.Mile, Size, Units, DNR.Category, Date.Listed, Source.Category, Pollutant, Impairment.Indicator, Status, TMDL.Priority, Confirmed.Year, Listing.Detail, Watersheds) %>%

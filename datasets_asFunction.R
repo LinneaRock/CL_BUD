@@ -92,7 +92,7 @@ fieldclPBSF <- readfieldcl("PBSF") %>%
 
 
 #Spring Harbor Data retreived outside of function because this is not a standardized file
-labSH <- read_xlsx("Data/SpringHarborChloride.xlsx") %>%
+labSH <- read_xlsx("Data/Historical_External/SpringHarborChloride.xlsx") %>%
   mutate(date = as.POSIXct(datetime_collected, format = "%m-%d-%Y %h:%m:%s", tz = "America/Chicago")) %>%
   mutate(date = round_date(datetime_collected, "30 minutes"))
 
