@@ -36,5 +36,5 @@ lakecond <- function(df1, df2, X, Y) {
                                           colour = "gray88"),
           axis.text = element_text(size =11),
           axis.title = element_text(size =11),
-          legend.text = element_text(size =11))
+          legend.text = element_text(size =9))
 }

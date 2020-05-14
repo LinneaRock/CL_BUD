@@ -8,6 +8,7 @@ source("Functions/cond.R")
 source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
+source("Functions/cond_compare.R")
 
 
 #Linear Regressions between Conductivity and Chloride
@@ -116,11 +117,24 @@ sccl(loggerPBSF, labPBSF)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 
-cl_compare(fieldYN, labYN)
-cl_compare(fieldYI, labYI)
-cl_compare(fieldYS, labYS)
-cl_compare(fieldSW, labSW)
-cl_compare(field6MC, lab6MC)
-cl_compare(fieldDC, labDC)
-cl_compare(fieldPBMS, labPBMS)
-cl_compare(fieldPBSF, labPBSF)
+cl_compare(fieldclYN, labYN)
+cl_compare(fieldclYI, labYI)
+cl_compare(fieldclYS, labYS)
+cl_compare(fieldclSW, labSW)
+cl_compare(fieldcl6MC, lab6MC)
+cl_compare(fieldclDC, labDC)
+cl_compare(fieldclPBMS, labPBMS)
+cl_compare(fieldclPBSF, labPBSF)
+
+#######################################################################
+
+#Comparing conductivity collected with handheld meter and HOBO collected
+
+cond_compare(fieldcondYN, loggerYN)
+cond_compare(fieldcondYI, loggerYI)
+cond_compare(fieldcondYS, loggerYS)
+cond_compare(fieldcondSW, loggerSW)
+cond_compare(fieldcond6MC, logger6MC)
+cond_compare(fieldcondDC, loggerDC)
+cond_compare(fieldcondPBMS, loggerPBMS)
+cond_compare(fieldcondPBSF, loggerPBSF)
