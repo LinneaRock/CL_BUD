@@ -21,5 +21,5 @@ sccl <- function(logger, lab) {
   
   axis(4, col = "#27223C", col.axis = "#27223C")
   
-  mtext("Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~, side = 4, line = 3, col = "#27223C")
+  mtext("Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C, side = 4, line = 3, col = "#27223C")
 }
