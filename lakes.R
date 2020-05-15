@@ -10,6 +10,9 @@ lakecond(loggerME_Epi, loggerME_Hypo, "Mendota 24m", "Mendota 1.5m")
 splot("conductance_time_series/", "ME")
 
 
+lakecond(loggerMO_Epi, loggerMO_Hypo, "Monona 20m", "Monona 1.5m")
+splot("conductance_time_series/", "MO")
+
 checkepi <- loggerME_Epi %>%
   mutate(day = as.Date(date, "%m/%d/%y", tz = "America/Chicago")) %>%
   group_by(day) %>%
