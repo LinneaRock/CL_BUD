@@ -21,6 +21,10 @@ loggerME_Epi <- readSP(c("Data/HOBO_Loggers/MENDOTA/SURFACE_2019-20/20758346.csv
 loggerME_Hypo <- readSP(c("Data/HOBO_Loggers/MENDOTA/BOTTOM_2019-20/20758341.csv"))%>%
   filter(date < "2020-04-01 9:45:00 ")
 
+loggerMO_Epi <- readSP(c("Data/HOBO_Loggers/MONONA/SURFACE_2019-20/20758345.csv"))
+
+loggerMO_Hypo <- readSP(c("Data/HOBO_Loggers/MONONA/BOTTOM_2019-20/20758340.csv"))
+
 loggerYN = readSP(c("Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv", "Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv"))
 
 loggerYI <- readSP(c("Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv", "Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")) %>%
