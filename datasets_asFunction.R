@@ -100,7 +100,7 @@ fieldclPBSF <- readfieldcl("PBSF") %>%
 #Spring Harbor Data retreived outside of function because this is not a standardized file
 labSH <- read_xlsx("Data/Historical_External/SpringHarborChloride.xlsx") %>%
   mutate(date = as.POSIXct(datetime_collected, format = "%m-%d-%Y %h:%m:%s", tz = "America/Chicago")) %>%
-  mutate(date = round_date(datetime_collected, "30 minutes"))
+  mutate(date = as.Date(as.character(date)))
 
 
 ##DISCHARGE DATA ####
@@ -126,13 +126,11 @@ d.PBSF <- readNWISuv("054279465", "00060", "2019-01-01", "", tz = "America/Chica
   format()
 
 
-
-
-
 #Spring Harbor Data retrieved outside of function because we are retrieving specific conductivity and discharge at the same time ####
-d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2019-01-01", "", tz = "America/Chicago") %>%
+d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "America/Chicago") %>%
   rename(discharge = X_00060_00000,
          sp_cond = X_00095_00000) %>%
   select(dateTime, discharge, sp_cond) %>%
   mutate(discharge = discharge * 0.028316847) %>%
-  rename(date = dateTime)
+  rename(date = dateTime,
+         sp.cond = sp_cond)
