@@ -2,6 +2,7 @@ library(tidyverse)
 library(lubridate)
 library(ggpubr)
 library(patchwork)
+library(broom)
 source("Functions/linreg.R")
 source("Functions/splot.R")
 source("Functions/cond.R")
@@ -15,24 +16,39 @@ source("Functions/cond_compare.R")
 
 linreg(loggerYN, labYN)
 splot("cl_cond_linear_regression/", "YN")
+info(loggerYN, labYN)
+eval(loggerYN, labYN)
+
 
 linreg(loggerYI, labYI)
 splot("cl_cond_linear_regression/", "YI")
+info(loggerYI, labYI)
+eval(loggerYI, labYI)
 
 linreg(loggerYS, labYS)
 splot("cl_cond_linear_regression/", "YS")
+info(loggerYS, labYS)
+eval(loggerYS, labYS)
 
 linreg(loggerSW, labSW)
 splot("cl_cond_linear_regression/", "SW")
+info(loggerSW, labSW)
+eval(loggerSW,labSW)
 
 linreg(logger6MC, lab6MC)
 splot("cl_cond_linear_regression/", "6MC")
+info(logger6MC, lab6MC)
+eval(logger6MC, lab6MC)
 
 linreg(loggerDC, labDC)
 splot("cl_cond_linear_regression/", "DC")
+info(loggerDC, labDC)
+eval(loggerDC, labDC)
 
 linreg(loggerPBMS, labPBMS)
 splot("cl_cond_linear_regression/", "PBMS")
+info(loggerPBMS, labPBMS)
+eval(loggerPBMS, labPBMS)
 
 #Needed to round time because the logger was collecting at H:15 and H:45 for a few weeks rather than at H:00 and H:30 and I am having trouble finding a better solution
 a <- loggerPBSF %>%
@@ -40,6 +56,8 @@ a <- loggerPBSF %>%
 
 linreg(a, labPBSF)
 splot("cl_cond_linear_regression/", "PBSF")
+info(a, labPBSF)
+eval(a, labPBSF)
 
 #######################################################################
 
@@ -138,3 +156,39 @@ cond_compare(fieldcond6MC, logger6MC)
 cond_compare(fieldcondDC, loggerDC)
 cond_compare(fieldcondPBMS, loggerPBMS)
 cond_compare(fieldcondPBSF, loggerPBSF)
+
+#####################################################################
+
+#watershed linear regression
+YRW_cond <- rbind(loggerYN, loggerYI, loggerYS, loggerSW, logger6MC, loggerDC, loggerPBMS, a)
+YRW_cl <- rbind(labYN, labYI, labYS, labSW, lab6MC, labDC, labPBMS, labPBSF)
+
+d <- left_join(YRW_cond, YRW_cl, by = c("date", "ID"))
+ggplot(d, aes(chloride_mgL, sp.cond)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
+  labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       x = "\nChloride Concentration"~(mg~L^-1)) +
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11))
+
+#extracting p-value and r-squared from simple linear regression
+info <- lm(chloride_mgL ~ sp.cond, d)
+glance(info)$p.value
+glance(info)$r.squared
+summary(info)
+
+#evaluating fit of model
+layout(matrix(1:4,2,2))
+plot(info)
+
+e <- d %>%
+  filter(chloride_mgL != "NA") %>%
+  select(sp.cond, chloride_mgL)
+
