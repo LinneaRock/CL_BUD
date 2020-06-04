@@ -15,47 +15,39 @@ source("Functions/cond_compare.R")
 #Linear Regressions between Conductivity and Chloride
 
 linreg(loggerYN, labYN) +
-  captlm("Yahara River @ 113", "Yahara River at Highway 113", loggerYN, labYN)
+  captlm("Yahara River @ 113", "Yahara River at Highway 113", loggerYN, labYN) #from Functions/linreg.R
 splot("cl_cond_linear_regression/", "YN")
-info(loggerYN, labYN)
-eval(loggerYN, labYN)
 
 
 linreg(loggerYI, labYI) + 
   captlm('Yahara River @ Main St.',"Yahara River at E. Main St", loggerYI, labYI)
 splot("cl_cond_linear_regression/", "YI")
-info(loggerYI, labYI)
-eval(loggerYI, labYI)
+
 
 linreg(loggerYS, labYS) +
   captlm('Yahara River @ Broadway',"Yahara River at Broadway St", loggerYS, labYS)
 splot("cl_cond_linear_regression/", "YS")
-info(loggerYS, labYS)
-eval(loggerYS, labYS)
+
 
 linreg(loggerSW, labSW) +
   captlm('Starkweather Creek @ Olbrich',"Starkweather Creek at Olbrich Garden", loggerSW, labSW)
 splot("cl_cond_linear_regression/", "SW")
-info(loggerSW, labSW)
-eval(loggerSW,labSW)
+
 
 linreg(logger6MC, lab6MC) +
   captlm('Sixmile Creek @ M',"Sixmile Creek at Highway M", logger6MC, lab6MC)
 splot("cl_cond_linear_regression/", "6MC")
-info(logger6MC, lab6MC)
-eval(logger6MC, lab6MC)
+
 
 linreg(loggerDC, labDC) +
   captlm('Dorn Creek @ M',"Dorn Creek at Highway M", loggerDC, labDC)
 splot("cl_cond_linear_regression/", "DC")
-info(loggerDC, labDC)
-eval(loggerDC, labDC)
+
 
 linreg(loggerPBMS, labPBMS) +
   captlm('Pheasant Branch Main Stem',"Main Stem of Pheasant Branch Creek", loggerPBMS, labPBMS)
 splot("cl_cond_linear_regression/", "PBMS")
-info(loggerPBMS, labPBMS)
-eval(loggerPBMS, labPBMS)
+
 
 #Needed to round time because the logger was collecting at H:15 and H:45 for a few weeks rather than at H:00 and H:30 and I am having trouble finding a better solution
 a <- loggerPBSF %>%
@@ -64,8 +56,7 @@ a <- loggerPBSF %>%
 linreg(a, labPBSF) +
   captlm('Pheasant Branch S.Fork',"South Fork of Pheasant Branch", a, labPBSF)
 splot("cl_cond_linear_regression/", "PBSF")
-info(a, labPBSF)
-eval(a, labPBSF)
+
 
 #######################################################################
 
@@ -172,7 +163,7 @@ YRW_cond <- rbind(loggerYN, loggerYI, loggerYS, loggerSW, logger6MC, loggerDC, l
 YRW_cl <- rbind(labYN, labYI, labYS, labSW, lab6MC, labDC, labPBMS, labPBSF)
 
 YRW <- left_join(YRW_cond, YRW_cl, by = c("date", "ID"))
-ggplot(d, aes(chloride_mgL, sp.cond)) +
+ggplot(d, aes(sp.cond, chloride_mgL)) +
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
   labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 

@@ -32,7 +32,7 @@ q.sc(loggerPBSF, d.PBSF)+
   captqec('Pheasant Branch S.Fork', "South Fork of Pheasant Branch", loggerPBSF, d.PBSF)
 splot("QC_plots/", "PBSF_cond")
 
-
+infoqec(loggerPBSF, d.PBSF)
 
 
 #Discharge - chloride plots
