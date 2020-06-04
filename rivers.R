@@ -19,6 +19,10 @@ splot("cl_cond_linear_regression/", "YN")
 info(loggerYN, labYN)
 eval(loggerYN, labYN)
 
+glance(info(loggerYN, labYN))$p.value
+glance(info(loggerYN, labYN))$r.squared
+coef(info(loggerYN, labYN))[1,1] #get intercept
+coef(info(loggerYN, labYN))[2,1] #get slope
 
 linreg(loggerYI, labYI)
 splot("cl_cond_linear_regression/", "YI")

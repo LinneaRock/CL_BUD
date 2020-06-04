@@ -2,7 +2,8 @@
 
 q.cl <- function(dfx, dfy) {
   qsc <- dfx %>%
-    left_join(dfy, by = "date")
+    left_join(dfy, by = "date") %>%
+    na.omit()
   
   ggplot(qsc, aes(discharge, chloride_mgL)) +
     geom_point() +
@@ -20,3 +21,38 @@ q.cl <- function(dfx, dfy) {
           axis.text = element_text(size =11),
           axis.title = element_text(size =11))  
 }
+
+#function to evaluate residuals
+evalq <- function(df1, df2) {
+  d <- df1 %>%
+    left_join(df2, by = "date")
+  
+  info <- lm(chloride_mgL ~ discharge, d)
+  
+  #print plots
+  layout(matrix(1:4,2,2))
+  return(plot(info))
+  
+}
+
+
+#function to obtain coefficient information 
+infoq <- function(df1, df2) {
+  d <- df1 %>%
+    left_join(df2, by = "date")
+  
+  info <- lm(chloride_mgL ~ discharge, d)
+  
+  #print coefficient information
+  return(summary(info))
+  
+}
+
+#function to add captions
+captqc <- function(customTitle, location, df1, df2) {
+  plot_annotation(
+    title = customTitle,
+    caption = paste("Concentration - Discharge relationship in the",location, "The linear regression is represented by the equation 
+    y=", round(coef(infoq(df1, df2))[2,1], 4), "x + ", round(coef(infoq(df1, df2))[1,1], 4), ".", "The correlation has an R squared value of ", round(glance(infoq(df1, df2))$r.squared, 4),"and a p-value of ", round(glance(infoq(df1, df2))$p.value, 4), ".", sep = ""),
+    theme = theme(plot.caption = element_text(hjust = 0)))
+} 
