@@ -37,14 +37,16 @@ splot("chloride_time_series/", "SH_alt")
 
 #linear regression for chloride study of Spring Harbor in 2014-2016
 #the chloride data is daily,with no collection time, so I am going to try using the average daily sp. conductivity
-SH.dishcharge <- d.sc.SH %>%
+SH.discharge <- d.sc.SH %>%
   na.omit() %>%
   mutate(day = as.Date(date, format = "%Y-%M-%D")) %>%
   group_by(day) %>%
   summarise(sp.cond = mean(sp.cond)) %>%
   rename(date = day)
 
-linreg(labSH, SH.dishcharge)  
+linreg(labSH, SH.discharge) +
+  captlm("Spring Harbor", "Spring Harbor USGS gage", labSH, SH.discharge)
 splot("cl_cond_linear_regression/", "SH")
+
 
 
