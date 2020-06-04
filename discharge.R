@@ -8,18 +8,31 @@ source("Functions/splot.R")
 
 #Discharge - conductivity plots
 
-q.sc(loggerYN, d.YN)
+q.sc(loggerYN, d.YN)+
+  captqec('Yahara River @ 113',"Yahara River at Highway 113", loggerYN, d.YN)
 splot("QC_plots/", "YN_cond")
-q.sc(loggerYI, d.YI)
+
+q.sc(loggerYI, d.YI)+
+  captqec('Yahara River @ Main St.',"Yahara River at E. Main St", loggerYI, d.YI)
 splot("QC_plots/", "YI_cond")
-q.sc(logger6MC, d.6MC)
+
+q.sc(logger6MC, d.6MC)+
+  captqec('Sixmile Creek @ M',"Sixmile Creek at Highway M", logger6MC, d.6MC)
 splot("QC_plots/", "6MC_cond")
-q.sc(loggerDC, d.DC)
+
+q.sc(loggerDC, d.DC)+
+  captqec('Dorn Creek @ M',"Dorn Creek at Highway M", loggerDC, d.DC)
 splot("QC_plots/", "DC_cond")
-q.sc(loggerPBMS, d.PBMS)
+
+q.sc(loggerPBMS, d.PBMS)+
+  captqec('Pheasant Branch Main Stem',"Main Stem of Pheasant Branch Creek", loggerPBMS, d.PBMS)
 splot("QC_plots/", "PBMS_cond")
-q.sc(loggerPBSF, d.PBSF)
+
+q.sc(loggerPBSF, d.PBSF)+
+  captqec('Pheasant Branch S.Fork', "South Fork of Pheasant Branch", loggerPBSF, d.PBSF)
 splot("QC_plots/", "PBSF_cond")
+
+
 
 
 #Discharge - chloride plots
