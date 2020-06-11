@@ -7,6 +7,7 @@ source("Functions/SC.R")
 source("Functions/readcl.R")
 source("Functions/readfieldcl.R")
 source("Functions/readfieldcond.R")
+source("functions/readLL.R")
 
 Sites <- c("Lake Mendota - Epilimnion", "Lake Mendota - Hypolimnion", "Lake Monona - Epilimnion", "Lake Monona - Hypolimnion", "Yahara River - North", "Yahra River - Isthmus", "Yahara River - South", "Stakweather Creek", "Sixmile Creek", "Dorn Creek", "Pheasant Branch - Main Stem", "Pheasant Branch - South Fork", "Spring Harbor Storm Sewer", "Willow Creek")
 Abbr <- c("ME_Epi", "ME_Hypo", "MO_Epi", "MO_Hypo", "YN", "YI", "YS", "SW", "6MC or SMC", "DC", "PBMS", "PBSF", "SH", "WC")
@@ -142,3 +143,9 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "A
   mutate(discharge = discharge * 0.028316847) %>%
   rename(date = dateTime,
          sp.cond = sp_cond)
+
+
+#Data needed to calculate Water Depth
+readLL("Data/HOBO_Loggers/YS/Feb3_Mar16/WL20484276.csv", "C:/Users/Linne/Downloads/pressure_AOS.csv")
+
+level.data <- read_rds("Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds")

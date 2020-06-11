@@ -1,26 +1,9 @@
 library(tidyverse)
 library(lubridate)
 
-#raw data formatting level logger data is from the logger, AOS data is the barometric pressure from the AOS tower.
-levellogger <- read.csv("Data/HOBO_Loggers/YS/Feb3_Mar16/WL20484276.csv") %>%
-  mutate(char = as.character(Date),
-         Date = as_datetime(char)) %>%
-  select(Date, Pressure, Temp)
-
-AOS <- read.csv("C:/Users/Linne/Downloads/pressure_AOS.csv") %>% #This file is really large so I am not saving it to GitHub (it gave me a warning)
-  mutate(Bar.Pressure = Pressure * .1) %>% #convert hPa to kPa
-  mutate(char = as.character(Date)) %>%
-  mutate(char = gsub("T", " ", char),
-         char = gsub("Z", "", char)) %>%
-  mutate(date = as_datetime(char)) %>%
-  select(date, Bar.Pressure) %>%
-  rename(Date = date)
-  
-level.data <- left_join(levellogger, AOS, by = "Date")
-write_rds(level.data, "Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds") #When you want to run this script, load this file and you can skip the data formatting
 level.data <- read_rds("Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds")
 
-
+#Methods adapted from Onset's Tech Notes on their Barometric Compensation Method: https://www.onsetcomp.com/support/tech-note/barometric-compensation-method/
 
 #1) temperature and density corrected depth array is computed. This is the depth assuming all pressure is from hydraulic head (no air pressure)
   #a) For this, water density must be calculated and converted to [lb m^-3]
