@@ -1,5 +1,4 @@
 library(tidyverse)
-library(lubridate)
 
 level.data <- read_rds("Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds")
 
