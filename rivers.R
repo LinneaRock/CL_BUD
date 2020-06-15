@@ -10,6 +10,8 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
+source("Functions/histlinreg.R")
+source("datasets_asFunction.R")
 
 
 #Linear Regressions between Conductivity and Chloride
@@ -62,28 +64,36 @@ splot("cl_cond_linear_regression/", "PBSF")
 
 #Conductivity time series
 
-cond(loggerYN)
+cond(loggerYN) +
+  capt_scseries("Yahara North", "Yahara River at Highway 113")
 splot("conductance_time_series/", "YN")
 
-cond(loggerYI)
+cond(loggerYI) +
+  capt_scseries("Yahara - Isthmus", "Yahara River at E. Main St")
 splot("conductance_time_series/", "YI")
 
-cond(loggerYS)
+cond(loggerYS) +
+  capt_scseries("Yahara South", "Yahara River at Broadway St")
 splot("conductance_time_series/", "YS")
 
-cond(loggerSW)
+cond(loggerSW) +
+  capt_scseries("Starkweather Creek", "Starkweather Creek at Olbrich Garden")
 splot("conductance_time_series/", "SW")
 
-cond(logger6MC)
+cond(logger6MC) +
+  capt_scseries("Sixmile Creek", "Sixmile Creek at Highway M")
 splot("conductance_time_series/", "6MC")
 
-cond(loggerDC)
+cond(loggerDC) +
+  capt_scseries("Dorn Creek", "Dorn Creek at Highway M")
 splot("conductance_time_series/", "DC")
 
-cond(loggerPBMS)
+cond(loggerPBMS) +
+  capt_scseries("Pheasant Branch Creek - Main Stem", "main stem of Pheasant Branch Creek")
 splot("conductance_time_series/", "PBMS")
 
-cond(loggerPBSF)
+cond(loggerPBSF) +
+  capt_scseries("Pheasant Branch Creek - South Fork", "south fork of Pheasant Branch Creek")
 splot("conductance_time_series/", "PBSF")
 
 
@@ -91,28 +101,44 @@ splot("conductance_time_series/", "PBSF")
 
 #Chloride concentration time series 
 
-clseries(labYN)
+clseries(labYN %>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Yahara North", "Yahara River at Highway 113")
 splot("chloride_time_series/", "YN")
 
-clseries(labYI)
+clseries(labYI%>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Yahara - Isthmus", "Yahara River at E. Main St")
 splot("chloride_time_series/", "YI")
 
-clseries(labYS)
+clseries(labYS%>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Yahara South", "Yahara River at Broadway St")
 splot("chloride_time_series/", "YS")
 
-clseries(labSW)
+clseries(labSW%>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Starkweather Creek", "Starkweather Creek at Olbrich Garden")
 splot("chloride_time_series/", "SW")
 
-clseries(lab6MC)
+clseries(lab6MC %>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Sixmile Creek", "Sixmile Creek at Highway M")
 splot("chloride_time_series/", "6MC")
 
-clseries(labDC)
+clseries(labDC %>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Dorn Creek", "Dorn Creek at Highway M")
 splot("chloride_time_series/", "DC")
 
-clseries(labPBMS)
+clseries(labPBMS %>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Pheasant Branch Creek - Main Stem", "main stem of Pheasant Branch Creek")
 splot("chloride_time_series/", "PBMS")
 
-clseries(labPBSF)
+clseries(labPBSF %>%
+           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+  capt_clseries("Pheasant Branch Creek - South Fork", "south fork of Pheasant Branch Creek")
 splot("chloride_time_series/", "PBSF")
 
 
@@ -163,11 +189,12 @@ YRW_cond <- rbind(loggerYN, loggerYI, loggerYS, loggerSW, logger6MC, loggerDC, l
 YRW_cl <- rbind(labYN, labYI, labYS, labSW, lab6MC, labDC, labPBMS, labPBSF)
 
 YRW <- left_join(YRW_cond, YRW_cl, by = c("date", "ID"))
-ggplot(d, aes(sp.cond, chloride_mgL)) +
+ggplot(YRW %>%
+         filter(sp.cond <= 3000), aes(sp.cond, chloride_mgL)) +
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-  labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
-       x = "\nChloride Concentration"~(mg~L^-1)) +
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       y = "\nChloride Concentration"~(mg~L^-1)) +
   theme(panel.background = element_rect(fill = "white", colour = "white",
                                         size = 2, linetype = "solid"),
         panel.grid.major = element_line(size = 0.25, linetype = 'solid',
@@ -175,17 +202,9 @@ ggplot(d, aes(sp.cond, chloride_mgL)) +
         panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                         colour = "gray88"),
         axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11))
+        axis.title = element_text(size = 11)) +
+  capthlm("Upper Yahara River Watershed", 'study area sampling locations', YRW)
 
-#extracting p-value and r-squared from simple linear regression
-info <- lm(chloride_mgL ~ sp.cond, YRW)
-glance(info)$p.value
-glance(info)$r.squared
-summary(info)
-
-#evaluating fit of model
-layout(matrix(1:4,2,2))
-plot(info)
 
 
 

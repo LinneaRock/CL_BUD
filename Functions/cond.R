@@ -44,6 +44,6 @@ lakecond <- function(df1, df2, X, Y) {
 capt_scseries <- function(customTitle, location) {
   plot_annotation(
     title = customTitle,
-    caption = paste("Time series of specific conductivity concentrations in the ",location, ".", " Data from Public Health Madison Dane County.", sep = ""),
+    caption = paste("Time series of specific conductivity concentrations in the ",location, ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 
