@@ -1,6 +1,8 @@
 library(tidyverse)
 library(readxl)
 library(lubridate)
+library(patchwork)
+library(broom)
 source("Functions/splot.R")
 source("Functions/histlinreg.R")
 source("Functions/clseries.R")
@@ -28,73 +30,94 @@ HistYR <- hist("Yahara River")
 
 #linear regressions of chloride vs conductivity 
 
-histlinreg(HistMarsh)
+histlinreg(HistMarsh) +
+  capthlm("1918 Marsh", "1918 Marsh", HistMarsh)
 splot("Historical_Data_Viz/cl_cond_linear_regression/", "1918 Marsh_cl")
 
-histlinreg(HistDC)
+histlinreg(HistDC) +
+  capthlm("Dorn Creek", "Dorn Creek", HistDC)
 splot("Historical_Data_Viz/cl_cond_linear_regression/", "DC_cl")
 
-histlinreg(HistPB)
+histlinreg(HistPB) +
+  capthlm("Pheasant Branch Creek", "Pheasant Branch Creek", HistPB)
 splot("Historical_Data_Viz/cl_cond_linear_regression/", "PB_cl")
 
-histlinreg(Hist6MC)
+histlinreg(Hist6MC) +
+  capthlm("Sixmile Creek", "Sixmile Creek", Hist6MC)
 splot("Historical_Data_Viz/cl_cond_linear_regression/", "6MC_cl")
 
-histlinreg(HistUB)
+histlinreg(HistUB) +
+  capthlm("University Bay Creek", "University Bay Creek", HistUB)
 splot("Historical_Data_Viz/cl_cond_linear_regression/", "UB_cl")
 
-histlinreg(HistWI)
+histlinreg(HistWI) + 
+  capthlm("Wingra Creek", "Wingra Creek", HistWI)
 splot("Historical_Data_Viz/cl_cond_linear_regression/", "WI_cl")
 
-histlinreg(HistYR)
+histlinreg(HistYR) +
+  capthlm("Yahara River", "Yahara River", HistYR)
 splot("Historical_Data_Viz/cl_cond_linear_regression/", "YR_cl")
 
 
 #time series of chloride concentrations
 
-clseries(HistMarsh)
+clseries(HistMarsh)  +
+  capt_clseries("1918 Marsh", "1918 Marsh")
 splot("Historical_Data_Viz/cl_time_series/", "1918 Marsh")
 
-clseries(HistDC)
+clseries(HistDC) +
+  capt_clseries("Dorn Creek", "Dorn Creek")
 splot("Historical_Data_Viz/cl_time_series/", "DC")
 
-clseries(HistPB)
+clseries(HistPB) +
+  capt_clseries("Pheasant Branch Creek", "Pheasant Branch Creek")
 splot("Historical_Data_Viz/cl_time_series/", "PB")
 
-clseries(Hist6MC)
+clseries(Hist6MC) +
+  capt_clseries("Sixmile Creek", "Sixmile Creek")
 splot("Historical_Data_Viz/cl_time_series/", "6MC")
 
-clseries(HistUB)
+clseries(HistUB) +
+  capt_clseries("Univeristy Bay Creek", "University Bay Creek")
 splot("Historical_Data_Viz/cl_time_series/", "UB")
 
-clseries(HistWI)
+clseries(HistWI) +
+  capt_clseries("Wingra Creek", "Wingra Creek")
 splot("Historical_Data_Viz/cl_time_series/", "WI")
 
-clseries(HistYR)
+clseries(HistYR) +
+  capt_clseries("Yahara River", "Yahara River")
 splot("Historical_Data_Viz/cl_time_series/", "YR")
 
 
 #conductivity time series
 
-cond(HistMarsh)
+cond(HistMarsh) +
+  capt_scseries("1918 Marsh", "1918 Marsh")
 splot("Historical_Data_Viz/cond_time_series/", "1918 Marsh")
 
-cond(HistDC)
+cond(HistDC) +
+  capt_scseries("Dorn Creek", "Dorn Creek")
 splot("Historical_Data_Viz/cond_time_series/", "DC")
 
-cond(HistPB)
+cond(HistPB) +
+  capt_scseries("Pheasant Branch Creek", "Pheasant Branch Creek")
 splot("Historical_Data_Viz/cond_time_series/", "PB")
 
-cond(Hist6MC)
+cond(Hist6MC) +
+  capt_scseries("Sixmile Creek", "Sixmile Creek")
 splot("Historical_Data_Viz/cond_time_series/", "6MC")
 
-cond(HistUB)
+cond(HistUB) +
+  capt_scseries("Univeristy Bay Creek", "University Bay Creek")
 splot("Historical_Data_Viz/cond_time_series/", "UB")
 
-cond(HistWI)
+cond(HistWI) +
+  capt_scseries("Wingra Creek", "Wingra Creek")
 splot("Historical_Data_Viz/cond_time_series/", "WI")
 
-cond(HistYR)
+cond(HistYR) +
+  captsclseries("Yahara River", "Yahara River")
 splot("Historical_Data_Viz/cond_time_series/", "YR")
 
 

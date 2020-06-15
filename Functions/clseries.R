@@ -14,3 +14,13 @@ clseries <- function(df) {
           axis.text = element_text(size = 11),
           axis.title = element_text(size = 11))
 }
+
+
+
+#function to add captions
+capt_clseries <- function(customTitle, location) {
+  plot_annotation(
+    title = customTitle,
+    caption = paste("Time series of chloride concentrations in the ",location, ".", sep = ""),
+    theme = theme(plot.caption = element_text(hjust = 0)))
+} 

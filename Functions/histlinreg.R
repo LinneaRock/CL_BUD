@@ -17,3 +17,34 @@ histlinreg <- function(df) {
           axis.text = element_text(size = 11),
           axis.title = element_text(size = 11))
 }
+
+#function to evaluate residuals
+eval <- function(df) {
+  
+  info <- lm(chloride_mgL ~ sp.cond, df)
+  
+  #print plots
+  layout(matrix(1:4,2,2))
+  return(plot(info))
+  
+}
+
+#function to obtain coefficient information 
+info <- function(df) {
+  
+  info <- lm(chloride_mgL ~ sp.cond, df)
+  
+  #print coefficient information
+  return(summary(info))
+  
+}
+
+#function to add captions
+capthlm <- function(customTitle, location, df) {
+  plot_annotation(
+    title = customTitle,
+    caption = paste("Chloride concentration vs. specific conductivity relationship in the ",location, ". The 
+linear regression is represented by the equation y=", round(coef(info(df))[2,1], 4), "x + ", round(coef(info(df))[1,1], 4), ". The correlation has an r-squared 
+value of ", round(glance(info(df))$r.squared, 4),"and a p-value of ", round(glance(info(df))$p.value, 4), ".", " Data from Public Health Madison Dane County.", sep = ""),
+    theme = theme(plot.caption = element_text(hjust = 0)))
+} 
