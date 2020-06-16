@@ -7,11 +7,13 @@ source("Functions/splot.R")
 
 #plotting Mendota time series for 2019-2020
 
-lakecond(loggerME_Epi, loggerME_Hypo, "Mendota 24m", "Mendota 1.5m")
+lakecond(loggerME_Epi, loggerME_Hypo, "Mendota 24m", "Mendota 1.5m") +
+  capt_scseries("Lake Mendota", "deep hole of Lake Mendota")
 splot("conductance_time_series/", "ME")
 
 
-lakecond(loggerMO_Epi, loggerMO_Hypo, "Monona 20m", "Monona 1.5m")
+lakecond(loggerMO_Epi, loggerMO_Hypo, "Monona 20m", "Monona 1.5m") +
+  capt_scseries("Lake Monona", "deep hole of Lake Monona")
 splot("conductance_time_series/", "MO")
 
 

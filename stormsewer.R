@@ -5,13 +5,17 @@ source("Functions/splot.R")
 source("Functions/clseries.R")
 source("Functions/linreg.R")
 source("Functions/splot.R")
+source("Functions/qcl.R")
+source("Functions/qsc.R")
 
 #Willow Creek conductivity time series
 
-cond(upstream)
+cond(upstream) +
+  capt_scseries("WC - Upstream", "upstream location at Willow Creek")
 splot("conductance_time_series/", "WC - Upstream")
 
-cond(downstream)
+cond(downstream) +
+  capt_scseries("WC - Downstream", "downstream location at Willow Creek")
 splot("conductance_time_series/", "WC - Downstream")
 
 
@@ -37,16 +41,36 @@ splot("chloride_time_series/", "SH_alt")
 
 #linear regression for chloride study of Spring Harbor in 2014-2016
 #the chloride data is daily,with no collection time, so I am going to try using the average daily sp. conductivity
-SH.discharge <- d.sc.SH %>%
+SH.cond <- d.sc.SH %>%
   na.omit() %>%
   mutate(day = as.Date(date, format = "%Y-%M-%D")) %>%
   group_by(day) %>%
   summarise(sp.cond = mean(sp.cond)) %>%
   rename(date = day)
 
-linreg(labSH, SH.discharge) +
-  captlm("Spring Harbor", "Spring Harbor USGS gage", labSH, SH.discharge)
+linreg(labSH, SH.cond) +
+  captlm("Spring Harbor", "Spring Harbor USGS gage", labSH, SH.cond)
 splot("cl_cond_linear_regression/", "SH")
 
+#same thing as above for q - chloride concentration regression.
+SH.discharge <- d.sc.SH %>%
+  na.omit() %>%
+  mutate(day = as.Date(date, format = "%Y-%M-%D")) %>%
+  group_by(day) %>%
+  summarise(discharge = mean(discharge)) %>%
+  rename(date = day)
 
+q.cl(labSH, SH.discharge) +
+  captqc("Spring Harbor", "Spring Harbor storm sewer", labSH, SH.discharge)
+splot("QC_plots/", "SH")
 
+#q - sp. conductivity regression 
+NAS <- d.sc.SH %>% #creating a garbage dataset to enable use of the function (it needs 2 datasets as the arguments and I can't figure out how to make this optional)
+  mutate(sp.cond = NA,
+         discharge = NA) %>%
+  rename(garbage = sp.cond,
+         garbage2 = discharge)
+
+q.sc(d.sc.SH, NAS) +
+  captqec("Spring Harbor", "Spring Harbor storm sewer", d.sc.SH, NAS)
+splot("QC_plots/", "SH_cond")
