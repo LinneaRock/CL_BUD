@@ -11,7 +11,7 @@ source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
 source("Functions/histlinreg.R")
-source("datasets_asFunction.R")
+
 
 
 #Linear Regressions between Conductivity and Chloride
@@ -185,26 +185,15 @@ cond_compare(fieldcondPBSF, loggerPBSF)
 #####################################################################
 
 #watershed linear regression
-YRW_cond <- rbind(loggerYN, loggerYI, loggerYS, loggerSW, logger6MC, loggerDC, loggerPBMS, a)
-YRW_cl <- rbind(labYN, labYI, labYS, labSW, lab6MC, labDC, labPBMS, labPBSF)
+YRW_cond <- rbind(loggerYN, loggerYI, loggerYS, loggerSW, logger6MC, loggerDC, loggerPBMS, a) #combining all conductivity datasets into one master dataset
+YRW_cl <- rbind(labYN, labYI, labYS, labSW, lab6MC, labDC, labPBMS, labPBSF) #combining all chloride datasets into one master dataset
 
-YRW <- left_join(YRW_cond, YRW_cl, by = c("date", "ID"))
-ggplot(YRW %>%
-         filter(sp.cond <= 3000), aes(sp.cond, chloride_mgL)) +
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
-  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
-       y = "\nChloride Concentration"~(mg~L^-1)) +
-  theme(panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11)) +
-  capthlm("Upper Yahara River Watershed", 'study area sampling locations', YRW)
+YRW <- left_join(YRW_cond, YRW_cl, by = c("date", "ID")) #joining the chloride and conductivity datasets by date and location so each chloride concentration matches up with the appropriate sp. conductivity concentration
 
-
+#Plotting the entire watershed! I am using the functions from histlinreg.R because of the difference in functions using one or multiple datasets (I cannot figure out how to write the code to join multiple datasets like in readSP.R)
+histlinreg(YRW %>%
+             filter(sp.cond <= 3000)) +
+  capthlm("Upper Yahara River Watershed", "study area sampling locations", YRW)
+splot("cl_cond_linear_regression/", "YRW")
 
 

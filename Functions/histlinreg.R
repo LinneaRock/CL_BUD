@@ -1,3 +1,4 @@
+
 #Function for linear regression of specific conductance vs. chloride for historical data
 
 histlinreg <- function(df) {
@@ -19,7 +20,7 @@ histlinreg <- function(df) {
 }
 
 #function to evaluate residuals
-eval <- function(df) {
+evalh <- function(df) {
   
   info <- lm(chloride_mgL ~ sp.cond, df)
   
