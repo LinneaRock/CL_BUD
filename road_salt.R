@@ -2,11 +2,13 @@ library(tidyverse)
 library(lubridate)
 library(readxl)
 
-format_salt <- function(original) {
-  S <- read_xlsx(original, sheet = "SHIFT TOTALS") %>%
-    mutate(DATE = as.Date(as.character(DATE))) %>%
-    filter(DATE < "2020-03-04") #excel sheet had a lot of extra rows with no information
-}
+
+##finish this function!!!!!!!!!!!!!!!!!!!!!!!!!!! and convert all ton values to tonnes 
+#format_salt <- function(original) {
+#  S <- read_xlsx(original, sheet = "SHIFT TOTALS") %>%
+#    mutate(DATE = as.Date(as.character(DATE))) %>%
+#    filter(DATE < "2020-03-04") #excel sheet had a lot of extra rows with no information
+#}
 
 E19 <- read_xlsx("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx", sheet = "SHIFT TOTALS") %>%
   mutate(DATE = as.Date(as.character(DATE))) %>%
