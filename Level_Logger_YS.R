@@ -25,13 +25,9 @@ densityFT <- function(waterDensity) {
 #D= FEET_TO_METERS * (KPA_TO_PSI * PSI_TO_PSF * P) / ρ   
 #P = measured pressure, rho = calculated density in [lb ft^-3]
 #The same equation is used to calculate the Barometric Depth, using Barometric pressure rather than measured absoulte pressure
-<<<<<<< HEAD
+
 fluidDepth <- function(Pressure, denistyFT) {
-  0.3048 * (0.1450377 * 144 * Pressure)/denistyFT
-=======
-D <- function(P, rho) {
-  0.3048 * (0.1450377 * 144.0 * P) / rho
->>>>>>> dd5252a130cb975d8449d63fe687226c419f045b
+  0.3048 * (0.1450377 * 144.0 * Pressure)/denistyFT
 }
 
 #2) Add columns for density and depths
@@ -52,11 +48,8 @@ barometricDepth_Mar3 <- level.data$Barometric_Depth[1]
 referenceDepth_Mar3 <- level.data$Density_Dependent_Depth[1] 
 
 #compensation constant is determined using the measured length (.085m) at the time of deployment and the barometric depth at the reference time
-<<<<<<< HEAD
 k_Mar3 <- .085 - (referenceDepth_Mar3 - barometricDepth_Mar3)
-=======
-k <- 0.085 - (D.ref - D.bar0)
->>>>>>> dd5252a130cb975d8449d63fe687226c419f045b
+
 
 #Water level from reference point is determined using the following equation:
 waterLevel <- function(densityDepth, barometricDepth) {
@@ -66,7 +59,7 @@ waterLevel <- function(densityDepth, barometricDepth) {
 level.data <- level.data %>%
   mutate(Lreal = L(Density_Dependent_Depth, Barometric_Depth)) %>%
   mutate(Water_Depth = Lreal + .4225) #Add the depth from substrate to the reference depth for the total water depth at the sampling location in meters
-<<<<<<< HEAD
+
 
 
 ggplot(level.data) +
@@ -76,6 +69,4 @@ ggplot(level.data) +
 
 
 
-=======
- 
->>>>>>> dd5252a130cb975d8449d63fe687226c419f045b
+
