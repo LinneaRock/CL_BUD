@@ -28,32 +28,31 @@ loggerMO_Epi <- readSP(c("Data/HOBO_Loggers/MONONA/SURFACE_2019-20/20758345.csv"
 loggerMO_Hypo <- readSP(c("Data/HOBO_Loggers/MONONA/BOTTOM_2019-20/20758340.csv")) %>%
   filter(date <= "2020-05-12 12:45:00")
 
-loggerYN = readSP(c("Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv", "Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv"))%>%
-  mutate(ID = "YN")
+loggerYN = readSP(c("Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv", "Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv", "Data/HOBO_Loggers/YN/Mar16_Jun17/20758343_YN.csv"))%>%
+  mutate(ID = "YN") 
   
-loggerYI <- readSP(c("Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv", "Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")) %>%
+loggerYI <- readSP(c("Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv", "Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv", "Data/HOBO_Loggers/YI/Mar16_Jun17/20758347_YI.csv")) %>%
   filter(date != "2020-02-04 14:30:00") %>%
   mutate(ID = "YI")
 
-loggerYS = readSP(c("Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv","Data/HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv")) %>% 
+loggerYS = readSP(c("Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv","Data/HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv", "Data/HOBO_Loggers/YS/Mar16_Jun17/20758348_YS.csv")) %>% 
   filter(date != "2020-03-16 08:30:00") %>% #getting rid of data that were collected while logger was out of the water
   mutate(ID = "YS")
 
-loggerSW <- readSP(c("Data/HOBO_Loggers/SW/Dec19_Feb3/20378151_SW.csv", "Data/HOBO_Loggers/SW/Feb3_Mar16/20378151_SW.csv")) %>%
+loggerSW <- readSP(c("Data/HOBO_Loggers/SW/Dec19_Feb3/20378151_SW.csv", "Data/HOBO_Loggers/SW/Feb3_Mar16/20378151_SW.csv", "Data/HOBO_Loggers/SW/Mar16_Jun17/20378151_SW.csv")) %>%
   mutate(ID = "SW")
   
-fileNames = c("Data/HOBO_Loggers/6MC/Dec19_Feb4/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Feb4_Mar16/20758342_6MC.csv") 
-logger6MC = readSP(fileNames)  %>%
+logger6MC = readSP(c("Data/HOBO_Loggers/6MC/Dec19_Feb4/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Feb4_Mar16/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Mar16_Jun17/20758342_6MC.csv"))  %>%
   filter(date != "2020-03-16 10:00:00") %>%
   mutate(ID = "6MC")
 
-loggerDC <- readSP(c("Data/HOBO_Loggers/DC/Dec19_Feb4/20758338_DC.csv", "Data/HOBO_Loggers/DC/Feb4_Mar16/20758338_DC.csv")) %>%
+loggerDC <- readSP(c("Data/HOBO_Loggers/DC/Dec19_Feb4/20758338_DC.csv", "Data/HOBO_Loggers/DC/Feb4_Mar16/20758338_DC.csv", "Data/HOBO_Loggers/DC/Mar16_Jun17/20758338_DC.csv")) %>%
   mutate(ID = "DC")
   
-loggerPBMS <- readSP(c("Data/HOBO_Loggers/PBMS/Dec19_Feb3/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Feb3_Mar16/20758344_PBMS.csv")) %>%
+loggerPBMS <- readSP(c("Data/HOBO_Loggers/PBMS/Dec19_Feb3/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Feb3_Mar16/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Mar16_Jun17/20758344_PBMS.csv")) %>%
   mutate(ID = "PBMS")
   
-loggerPBSF <- readSP(c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv","Data/HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Feb4_Mar16/20758339_PBSF.csv" )) %>%
+loggerPBSF <- readSP(c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv","Data/HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Feb4_Mar16/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Mar16_Jun17/20758339_PBSF.csv")) %>%
   mutate(ID = "PBSF")
 
 
@@ -150,5 +149,5 @@ readLL("Data/HOBO_Loggers/YS/Feb3_Mar16/WL20484276.csv", "C:/Users/linne/Downloa
 
 readLL("Data/HOBO_Loggers/YS/Mar16_Jun17/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Mar16_Jun17")
 
-level_Mar16 <- read_rds("Data/HOBO_Loggers/YS/Mar16_Jun17/level_data.rds")
+
 
