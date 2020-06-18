@@ -146,6 +146,9 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "A
 
 
 #Data needed to calculate Water Depth
-readLL("Data/HOBO_Loggers/YS/Feb3_Mar16/WL20484276.csv", "C:/Users/Linne/Downloads/pressure_AOS.csv")
+readLL("Data/HOBO_Loggers/YS/Feb3_Mar16/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Feb3_Mar16")
 
-level.data <- read_rds("Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds")
+readLL("Data/HOBO_Loggers/YS/Mar16_Jun17/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Mar16_Jun17")
+
+level_Mar16 <- read_rds("Data/HOBO_Loggers/YS/Mar16_Jun17/level_data.rds")
+

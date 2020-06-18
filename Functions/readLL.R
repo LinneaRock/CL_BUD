@@ -1,12 +1,12 @@
 
-readLL <- function(HOBO, AOS) {
+readLL <- function(HOBO, AOS, subfile) {
   logger <- read.csv(HOBO[1]) # read in first file
   
   for(i in 1:length(HOBO)){ # if there are more than one file, rbind files(HOBO) 
     logger <- rbind(logger,read.csv(HOBO[i]))
   }
   
-  logger <- logger %>% 
+  levellogger <- logger %>% 
     mutate(char = as.character(Date),
            Date = as_datetime(char)) %>%
     select(Date, Pressure, Temp)
@@ -21,7 +21,7 @@ readLL <- function(HOBO, AOS) {
     rename(Date = date)
   
   level.data <- left_join(levellogger, AOS, by = "Date")
-  write_rds(level.data, "Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds") 
+  write_rds(level.data, paste("Data/HOBO_Loggers/YS/", subfile, "/level_data.rds", sep = "")) 
 }
 
 

@@ -1,6 +1,9 @@
 library(tidyverse)
 
-level.data <- read_rds("Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds")
+level_Mar3 <- read_rds("Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds")
+level_Mar16 <- read_rds("Data/HOBO_Loggers/YS/Mar16_Jun17/level_data.rds")
+
+level.data <- rbind(level_Mar3, level_Mar16)
 
 #Methods adapted from Onset's Tech Notes on their Barometric Compensation Method: https://www.onsetcomp.com/support/tech-note/barometric-compensation-method/
 
@@ -44,6 +47,7 @@ level.data <- level.data %>%
 
 #The barometric pressure at the reference time is converted to a barometric “depth” 
 barometricDepth_Mar3 <- level.data$Barometric_Depth[1]
+barometricDepth_Mar16 <- level.data$Barometric_Depth[Date = "2020-03-16 10:00:00"]
 #The Density dependent depth at reference time
 referenceDepth_Mar3 <- level.data$Density_Dependent_Depth[1] 
 
