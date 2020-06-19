@@ -8,8 +8,8 @@ readSP <- function(files) {
   logger =  logger %>% 
     drop_na() %>%
     select(Date, Low.Range, Full.Range, Temp) %>%
-    mutate(char = as.character(Date),
-           date = as.POSIXct(char, format = "%m-%d-%Y %H:%M:%S", tz = "America/Chicago")) %>%
+    mutate(#char = as.character(Date),
+           date = as.POSIXct(strptime(Date, format = "%m-%d-%Y %H:%M:%S", tz = 'GMT'))) %>%
     select(date, Low.Range, Full.Range, Temp) %>%
     mutate(sp.cond = SC(Full.Range, Temp))
   
