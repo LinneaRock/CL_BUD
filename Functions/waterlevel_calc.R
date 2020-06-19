@@ -3,7 +3,7 @@ CalculateLevel <- function(level.data, MEASUREDDEPTH) {
   #Methods adapted from Onset's Tech Notes on their Barometric Compensation Method: https://www.onsetcomp.com/support/tech-note/barometric-compensation-method/
   
   #1) temperature and density corrected depth array is computed. This is the depth assuming all pressure is from hydraulic head (no air pressure)
-  #a) For this, water density must be calculated and converted to [lb m^-3]
+  #a) For this, water density must be calculated and converted to [lb ft^-3]
   #b) Then, the measured pressure values are converted to density dependent fluid depths in meters
   
   ###Water Density [kg m^-3]; x = temperature in °C

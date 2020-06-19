@@ -20,7 +20,8 @@ readLL <- function(HOBO, AOS, subfile) {
     mutate(date = as_datetime(char)) %>%
     #mutate(Date = as.POSIXct(date, format = "%m-%d-%Y %H:%M:%S", tz = "America/Chicago")) %>%
     select(date, Bar.Pressure) %>%
-    rename(Date = date)
+    rename(Date = date) %>%
+    mutate(Date = Date - hours(5)) #time is in GMT so subtract 5 hours to ensure the times match correctly with the logger data
   
   level.data <- left_join(levellogger, AOS, by = "Date")  %>%
     mutate(Date = as.POSIXct(Date, format = "%Y-%M-%D %H:%M:%S", tz = "America/Chicago"))
