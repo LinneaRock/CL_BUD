@@ -10,4 +10,3 @@ names(dt)
 lake_info(name = "Mendota", state = "Wisconsin")
 lake_info(name = "Monona", state = "Wisconsin")
 
-lgME <- lagosne_select()
