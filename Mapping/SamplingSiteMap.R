@@ -3,17 +3,18 @@ library(sf)
 library(tidyverse)
 library(ggspatial)
 library(patchwork)
+library(raster)
 
 ## Esri basemap URLs ####
 esri_land <-    paste0('https://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/${z}/${y}/${x}.jpeg')
 world_gray <-   paste0('https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/${z}/${y}/${x}.jpeg')
 
-# Manually build a dataframes
+# Manually build dataframes with cooridnates of sampling locations
 gage.bb = data.frame(site = c('YN', '6MC', 'DC', 'PBMS', 'PBSF', 'YI'),lat = c(43.15083333, 43.14683333, 43.14027778, 43.10333333, 43.09861111, 43.08944444), lon = c(-89.40194444, -89.43694444, -89.44222222, -89.51166667, -89.52138889, -89.36083333))
 gage.bb.sf = st_as_sf(gage.bb, coords = c("lon", "lat"), 
                       crs = 4326)
 
-nogage.bb <- data.frame(site = c('SW', 'YS'), lat = c(43.09259, 43.04718), lon = c(-89.33318, -89.33605))
+nogage.bb <- data.frame(site = c('SW', 'YS', 'WC'), lat = c(43.09259, 43.04718, 43.05416667), lon = c(-89.33318, -89.33605, -89.379444))
 nogage.bb.sf <- st_as_sf(nogage.bb, coords = c("lon", "lat"), 
                       crs = 4326)
 
