@@ -18,16 +18,16 @@ KEY <- data.frame(Sites, Abbr)
 #CONDUCTIVITY DATA####
 
 loggerME_Epi <- readSP("ME", c("Data/HOBO_Loggers/MENDOTA/SURFACE_2019-20/20758346.csv")) %>%
-  filter(date < "2020-04-01 9:45:00")
+  filter(date <= ymd_hms("2020-04-01 09:45:00"))
 
-loggerME_Hypo <- readSP("ME", c("Data/HOBO_Loggers/MENDOTA/BOTTOM_2019-20/20758341.csv"))%>%
-  filter(date < "2020-04-01 9:45:00")
+loggerME_Hypo <- readSP("ME", c("Data/HOBO_Loggers/MENDOTA/BOTTOM_2019-20/20758341.csv")) %>%
+  filter(date <= ymd_hms("2020-04-01 09:45:00"))
 
 loggerMO_Epi <- readSP("MO", c("Data/HOBO_Loggers/MONONA/SURFACE_2019-20/20758345.csv")) %>%
-  filter(date <= "2020-05-12 12:45:00")
+  filter(date <= ymd_hms("2020-05-12 12:45:00"))
 
 loggerMO_Hypo <- readSP("MO", c("Data/HOBO_Loggers/MONONA/BOTTOM_2019-20/20758340.csv")) %>%
-  filter(date <= "2020-05-12 12:45:00")
+  filter(date <= ymd_hms("2020-05-12 12:45:00"))
 
 
 
@@ -39,13 +39,13 @@ loggerYN <- rbind(loggerYN, readSPlost_hour("YN","Data/HOBO_Loggers/YN/Mar16_Jun
 
 
 loggerYI <- readSP("YI",c("Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv", "Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")) %>%
-  filter(date != "2020-02-04 14:30:00") 
+  filter(date != ymd_hms("2020-02-04 14:30:00")) 
 loggerYI <- rbind(loggerYI, readSPlost_hour("YI", "Data/HOBO_Loggers/YI/Mar16_Jun17/20758347_YI.csv"))
 
 
 
 loggerYS <- readSP("YS", c("Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv","Data/HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv")) %>% 
-  filter(date != "2020-03-16 08:30:00")  #getting rid of data that were collected while logger was out of the water
+  filter(date != ymd_hms("2020-03-16 08:30:00"))  #getting rid of data that were collected while logger was out of the water
 loggerYS <- rbind(loggerYS, readSPlost_hour("YS", "Data/HOBO_Loggers/YS/Mar16_Jun17/20758348_YS.csv"))
 
 
@@ -57,7 +57,7 @@ loggerSW <- rbind(loggerSW, readSPlost_hour("YS", "Data/HOBO_Loggers/SW/Mar16_Ju
 
   
 logger6MC <- readSP("6MC", c("Data/HOBO_Loggers/6MC/Dec19_Feb4/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Feb4_Mar16/20758342_6MC.csv"))  %>%
-  filter(date != "2020-03-16 10:00:00") 
+  filter(date != ymd_hms("2020-03-16 10:00:00")) 
 logger6MC <- rbind(logger6MC, readSPlost_hour("6MC", "Data/HOBO_Loggers/6MC/Mar16_Jun17/20758342_6MC.csv"))
 
 

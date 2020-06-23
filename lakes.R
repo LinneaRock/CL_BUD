@@ -1,5 +1,6 @@
 library(tidyverse)
 library(lubridate)
+library(patchwork)
 library(ggpubr)
 library(zoo)
 source("Functions/cond.R")
@@ -19,13 +20,13 @@ splot("conductance_time_series/", "MO")
 
 #checking max and min values for the Mendota data
 checkepi <- loggerME_Epi %>%
-  mutate(day = as.Date(date, "%m/%d/%y", tz = "America/Chicago")) %>%
+  mutate(day = as.Date(date, "%m/%d/%y", tz = "GMT")) %>%
   group_by(day) %>%
   summarise(MAX = max(sp.cond),
             MIN = min(sp.cond))
 
 checkhypo <- loggerME_Hypo %>%
-  mutate(day = as.Date(date, "%m/%d/%y", tz = "America/Chicago")) %>%
+  mutate(day = as.Date(date, "%m/%d/%y", tz = "GMT")) %>%
   group_by(day) %>%
   summarise(MAX = max(sp.cond),
             MIN = min(sp.cond))
@@ -61,3 +62,20 @@ RMhypoME <- RMhypoME %>%
   rename(sp.cond = rollingmean)
 
 lakecond(RMepiME, RMhypoME, "Mendota 24m", "Mendota 1.5m")
+
+ggplot() +
+  geom_line(loggerME_Hypo %>%
+              filter(date >= "2020-03-01 00:00:00" & date <= "2020-03-29 00:00:00"),
+           mapping = aes(date, sp.cond, color = "ME hypo")) +
+  #geom_line(loggerME_Epi %>%
+   #           filter(date >= "2020-03-01 00:00:00" & date <= "2020-03-29 00:00:00"),
+    #        mapping = aes(date, sp.cond, color = "ME epi")) +
+  geom_line(logger6MC %>%
+              filter(date >= "2020-03-01 00:00:00" & date <= "2020-03-29 00:00:00"),
+            mapping = aes(date, sp.cond, color = "6MC")) +
+  geom_line(loggerDC %>%
+              filter(date >= "2020-03-01 00:00:00" & date <= "2020-03-29 00:00:00"),
+            mapping = aes(date, sp.cond, color = "DC")) +
+  geom_line(loggerPBMS %>%
+              filter(date >= "2020-03-01 00:00:00" & date <= "2020-03-29 00:00:00"),
+            mapping = aes(date, sp.cond, color = "PBMS"))
