@@ -1,8 +1,38 @@
 library(tidyverse)
 library(anytime)
+library(viridisLite)
+source("Functions/splot.R")
    
 #read in the csv file rbind them and save as .rds in the git project.
 
 ME_profile <- read_rds("DATA/ME_YSI_2020/ME_profiles.rds") %>%
   mutate(sampledate = anytime::anydate(sampledate)) #works better than lubridate in this circumstance
 
+
+
+ggplot(ME_profile, aes(sp_cond, depth)) +
+  geom_point() +
+  scale_y_reverse() +
+  facet_wrap(~sampledate, ncol = 3) +
+  geom_path() +
+  theme_bw() +
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       y = "\nDepth"~(m))
+splot("conductance_time_series/", "ME_summer2020_perdate")
+
+
+
+ggplot(ME_profile, aes(sampledate, sp_cond, color = depth)) +
+  geom_line(aes(group = depth)) +
+  scale_color_viridis_c(direction = -1) +
+  labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       x = "") +
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11))
+splot("conductance_time_series/", "ME_summer2020_perdepth")
