@@ -23,8 +23,8 @@ winterions <- ions %>%
   left_join(icedates, by = c("lakeid", "year4")) %>%
   left_join(icedepth, by = c("lakeid", "year4"))
 
-#formatting data
-winterions <- winterions %>%
+#formatting data .. not sure if this is the right thing to do or not
+ions_mass <- winterions %>%
   select(lakeid, season, year4, sampledate.x, depth, cl, so4, ca, mg, na, k, fe, mn, hp_factor, ice_on, ice_off, ice_duration, totice) %>%
   drop_na(cl) %>% 
   filter(cl > 0) %>%
@@ -41,5 +41,25 @@ winterions <- winterions %>%
   rowwise() %>%
   mutate(winter = ifelse(between(sampledate.x, ice_on, ice_off), 1, 0)) #to easily distinguish ice on vs. ice off data
 
+#Another option..
+ions_percconc <- winterions %>%
+  select(lakeid, season, year4, sampledate.x, depth, cl, so4, ca, mg, na, k, fe, mn, hp_factor, ice_on, ice_off, ice_duration, totice) %>%
+  drop_na(cl) %>% 
+  filter(cl > 0) %>%
+  mutate(cl_pconc = cl * hp_factor,
+         so4_pconc = so4 * hp_factor,
+         ca_pconc = ca * hp_factor,
+         mg_pconc = mg * hp_factor,
+         na_pconc = na * hp_factor,
+         k_pconc = k * hp_factor,
+         fe_pconc = fe * hp_factor,
+         mn_pconc = mn * hp_factor) %>% #hypsometrically weighting the concentrations of the ions
+  rowwise() %>%
+  mutate(winter = ifelse(between(sampledate.x, ice_on, ice_off), 1, 0))
 
+winterions_mass <- ions_mass %>%
+  filter(winter == 1)
+
+summerions_mass <- ions_mass %>%
+  filter(winter == 0)
 
