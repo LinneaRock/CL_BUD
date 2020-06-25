@@ -1,32 +1,32 @@
 library(tidyverse)
 library(lubridate)
 
-#load and format data 
-ions <- read_csv("Data/LTER_ions.csv") %>%
+#load and format the datasets
+ions <- read_csv("Data/LTER_ions.csv") %>% #all ion data from LTER
   filter(lakeid == "MO" | lakeid == "ME") %>%
-  mutate(depth = ifelse(depth == 0, 0.25, depth))
+  mutate(depth = replace(depth, depth == 0, 0.25)) %>% 
+  mutate(depth = replace(depth, depth == 21.9, 22)) #rounding depths to nearest depth with hp_factor to ensure dall data is included
+  
+hypso <- read_csv("Data/lake_hypsometry.csv") #hypsometry factor to multiply by total lake volume
 
-hypso <- read_csv("Data/lake_hypsometry.csv")
-
-icedepth <- read_csv("Data/winter.csv")
-
-icedates <- read_csv("Data/icedates.csv") %>%
+icedepth <- read_csv("Data/winter.csv") %>% #depth of ice
+  rename(icedate = sampledate)  
+  
+icedates <- read_csv("Data/icedates.csv") %>% #ice on and off dates
   filter(lakeid == "MO" | lakeid == "ME") %>%
   mutate(ice_on = mdy(ice_on),
          ice_off = mdy(ice_off),
          year4 = year4 + 1)
 
-
-#joining all the data together
-winterions <- ions %>%
+#joining all datasets together
+combined_data <- ions %>%
   left_join(hypso, by = c("lakeid", "depth")) %>%
   left_join(icedates, by = c("lakeid", "year4")) %>%
   left_join(icedepth, by = c("lakeid", "year4"))
 
-#formatting data .. not sure if this is the right thing to do or not
-ions_mass <- winterions %>%
-  select(lakeid, season, year4, sampledate.x, depth, cl, so4, ca, mg, na, k, fe, mn, hp_factor, ice_on, ice_off, ice_duration, totice) %>%
-  drop_na(cl) %>% 
+
+mass <- combined_data %>%
+  drop_na(cl) %>%
   filter(cl > 0) %>%
   mutate(vol_cubicmeters = ifelse(lakeid == "ME", hp_factor * 506880000, hp_factor * 111520000)) %>% #hypsometrically weighting lake volumes [m^-3]
   mutate(vol_liters = vol_cubicmeters * 1000) %>% #converting cubic meters to liters
@@ -39,27 +39,19 @@ ions_mass <- winterions %>%
          fe_mass = fe * vol_liters * 0.000000001,
          mn_mass = mn * vol_liters * 0.000000001) %>% #converting concentration [mg L^-1] to mass [Mg]
   rowwise() %>%
-  mutate(winter = ifelse(between(sampledate.x, ice_on, ice_off), 1, 0)) #to easily distinguish ice on vs. ice off data
+  mutate(winter = ifelse(between(sampledate, ice_on, ice_off), 1, 0)) %>% #to easily distinguish ice on vs. ice off data
+  mutate_if(is.numeric, ~replace_na(., 0)) %>% #converting NAs to 0 for the next step
+  mutate(All_ions = sum(cl_mass + so4_mass + ca_mass + mg_mass + na_mass + k_mass + fe_mass + mn_mass))
 
-#Another option..
-ions_percconc <- winterions %>%
-  select(lakeid, season, year4, sampledate.x, depth, cl, so4, ca, mg, na, k, fe, mn, hp_factor, ice_on, ice_off, ice_duration, totice) %>%
-  drop_na(cl) %>% 
-  filter(cl > 0) %>%
-  mutate(cl_pconc = cl * hp_factor,
-         so4_pconc = so4 * hp_factor,
-         ca_pconc = ca * hp_factor,
-         mg_pconc = mg * hp_factor,
-         na_pconc = na * hp_factor,
-         k_pconc = k * hp_factor,
-         fe_pconc = fe * hp_factor,
-         mn_pconc = mn * hp_factor) %>% #hypsometrically weighting the concentrations of the ions
-  rowwise() %>%
-  mutate(winter = ifelse(between(sampledate.x, ice_on, ice_off), 1, 0))
+simple_mass <- mass %>%
+  select(lakeid, sampledate, icedate, totice, All_ions, depth, winter) %>%
+  rename(iondate = sampledate,
+         iondepth = depth)
 
-winterions_mass <- ions_mass %>%
-  filter(winter == 1)
+ME_winter <- simple_mass %>%
+  filter(lakeid == "ME",
+         winter == 1)
 
-summerions_mass <- ions_mass %>%
-  filter(winter == 0)
-
+MO_winter <- simple_mass %>%
+  filter(lakeid == "MO",
+         winter == 1)
