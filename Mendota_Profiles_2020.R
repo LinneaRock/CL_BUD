@@ -4,10 +4,14 @@ library(viridisLite)
 source("Functions/splot.R")
    
 #read in the csv file rbind them and save as .rds in the git project.
+#attach <- read.csv("C:/Users/Linne/OneDrive/Documents/ME_profile_062520.csv") 
 
-ME_profile <- read_rds("DATA/ME_YSI_2020/ME_profiles.rds") %>%
-  mutate(sampledate = anytime::anydate(sampledate)) #works better than lubridate in this circumstance
+#attach2 <- rbind(ME_profile, attach)%>% #be sure that the previous version of ME_profiles is loaded
+#  mutate(sampledate = anytime::anydate(sampledate)) #works better than lubridate in this circumstance
 
+#write_rds(attach2, "Data/ME_YSI_2020/ME_profiles.rds")
+
+ME_profile <- read_rds("Data/ME_YSI_2020/ME_profiles.rds") 
 
 
 ggplot(ME_profile, aes(sp_cond, depth)) +
