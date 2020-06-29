@@ -137,10 +137,10 @@ labSH <- read_xlsx("Data/Historical_External/SpringHarborChloride.xlsx") %>%
 ##DISCHARGE DATA ####
 format <- function(d) {
   d %>%
-  rename(discharge = X_00060_00000) %>%
-  select(dateTime, discharge) %>%
-  mutate(discharge = discharge * 0.028316847) %>%
-  mutate(date = dateTime - hours(5)) #Puts time in CST (non DST) for easier use with the sensor data
+  rename(discharge = X_00060_00000,
+         date = dateTime) %>%
+  select(date, discharge) %>%
+  mutate(discharge = discharge * 0.028316847)
 }
 
 d.YN <- readNWISuv("05427850", "00060", "2019-01-01", "", tz = "GMT") %>%
@@ -163,8 +163,9 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "G
          sp_cond = X_00095_00000) %>%
   select(dateTime, discharge, sp_cond) %>%
   mutate(discharge = discharge * 0.028316847) %>%
-  rename(sp.cond = sp_cond) %>%
-  mutate(date = dateTime - hours(5)) #Puts time in CST (non DST) for easier use with the sensor data
+  rename(sp.cond = sp_cond,
+         date = dateTime)
+  m=
 
 
 #Data needed to calculate Water Depth
