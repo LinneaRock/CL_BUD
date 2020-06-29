@@ -24,7 +24,7 @@ readLL <- function(HOBO, AOS, subfile) {
     mutate(Date = Date - hours(5)) #time is in GMT so subtract 5 hours to ensure the times match correctly with the logger data
   
   level.data <- left_join(levellogger, AOS, by = "Date")  %>%
-    mutate(Date = as.POSIXct(Date, format = "%Y-%M-%D %H:%M:%S", tz = "America/Chicago"))
+    mutate(Date = as.POSIXct(Date, format = "%Y-%M-%D %H:%M:%S", tz = "GMT"))
   
   write_rds(level.data, paste("Data/HOBO_Loggers/YS/", subfile, "/level_data.rds", sep = "")) 
 }
