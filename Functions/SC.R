@@ -1,4 +1,4 @@
 #function to convert actual conductivity to specific conductivity 
-SC <- function(AC, t) {
-  AC / (1 - (25 - t) * .019)
+SC <- function(ActualCond, temp) {
+  ActualCond / (1 - (25 - temp) * .019)
 }
