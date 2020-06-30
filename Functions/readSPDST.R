@@ -1,5 +1,7 @@
 
-readSPlost_hour <- function(id, files) {
+#Read in data from logger and convert CDT to GMT
+
+readSPDST <- function(id, files) {
   logger <- read.csv(files[1]) # read in first file
   
   for(i in 1:length(files)){ # if there are more than one file, rbind files 
@@ -13,7 +15,7 @@ readSPlost_hour <- function(id, files) {
       date = as.POSIXct(strptime(Date, format = "%m-%d-%Y %H:%M:%S", tz = 'GMT'))) %>% #GMT - 5:00
     select(date, Low.Range, Full.Range, Temp) %>%
     mutate(sp.cond = SC(Full.Range, Temp)) %>%
-    mutate(date = date - hours(1)) %>%
+    mutate(date = date + hours(5)) %>% #converting to GMT from CDT
     mutate(ID = id)
   
   return(logger)

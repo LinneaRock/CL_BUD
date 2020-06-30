@@ -4,8 +4,7 @@ source("Functions/waterlevel_calc.R")
 
 level_Mar3 <- read_rds("Data/HOBO_Loggers/YS/Feb3_Mar16/level_data.rds")
 
-level_Mar16 <- read_rds("Data/HOBO_Loggers/YS/Mar16_Jun17/level_data.rds") %>%
-  mutate(Date = Date - hours(1)) #daylight savings grr..
+level_Mar16 <- read_rds("Data/HOBO_Loggers/YS/Mar16_Jun17/level_data.rds") 
 
 Mar3_Mar16 <- CalculateLevel(level_Mar3, 0.085)
 Mar16_Jun17 <- CalculateLevel(level_Mar16, 0.10)
