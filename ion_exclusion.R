@@ -10,7 +10,7 @@ ions <- read_csv("Data/LTER_ions.csv") %>% #all ion data from LTER
 hypso <- read_csv("Data/lake_hypsometry.csv") #hypsometry factor to multiply by total lake volume
 
 icedepth <- read_csv("Data/winter.csv") %>% #depth of ice
-  rename(icedate = sampledate)  
+  rename(icedate = sampledate)  #icedate refers to the date the ice depth was measured
   
 icedates <- read_csv("Data/icedates.csv") %>% #ice on and off dates
   filter(lakeid == "MO" | lakeid == "ME") %>%
@@ -37,21 +37,23 @@ mass <- combined_data %>%
          na_mass = na * vol_liters * 0.000000001,
          k_mass = k * vol_liters * 0.000000001,
          fe_mass = fe * vol_liters * 0.000000001,
-         mn_mass = mn * vol_liters * 0.000000001) %>% #converting concentration [mg L^-1] to mass [Mg]
+         mn_mass = mn * vol_liters * 0.000000001) %>% #converting concentration [mg L^-1] to mass in tonnes [Mg]
   rowwise() %>%
-  mutate(winter = ifelse(between(sampledate, ice_on, ice_off), 1, 0)) %>% #to easily distinguish ice on vs. ice off data
+  mutate(winter = ifelse(between(sampledate, ice_on, ice_off), "Y", "N")) %>% #to easily distinguish ice on vs. ice off data
   mutate_if(is.numeric, ~replace_na(., 0)) %>% #converting NAs to 0 for the next step
-  mutate(All_ions = sum(cl_mass + so4_mass + ca_mass + mg_mass + na_mass + k_mass + fe_mass + mn_mass))
-
-simple_mass <- mass %>%
-  select(lakeid, sampledate, icedate, totice, All_ions, depth, winter) %>%
+  mutate(All_ions = sum(cl_mass + so4_mass + ca_mass + mg_mass + na_mass + k_mass + fe_mass + mn_mass)) %>%
   rename(iondate = sampledate,
          iondepth = depth)
 
-ME_winter <- simple_mass %>%
-  filter(lakeid == "ME",
-         winter == 1)
 
-MO_winter <- simple_mass %>%
-  filter(lakeid == "MO",
-         winter == 1)
+
+
+
+
+ggplot(mass %>% filter(lakeid == "ME")) +
+  geom_point(aes(iondate, cl_mass, color = iondepth, shape = winter)) +
+  scale_color_viridis_c(direction = -1) 
+
+ggplot(mass %>% filter(lakeid == "ME"))+
+  geom_point(aes(iondate, cl, shape = winter, color = iondepth)) +
+  scale_color_viridis_c(direction = -1) 

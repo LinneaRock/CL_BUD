@@ -39,4 +39,6 @@ ggplot(ME_profile, aes(sampledate, sp_cond, color = depth)) +
                                         colour = "gray88"),
         axis.text = element_text(size = 11),
         axis.title = element_text(size = 11))
+
+
 splot("conductance_time_series/", "ME_summer2020_perdepth")
