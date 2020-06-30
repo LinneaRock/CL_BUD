@@ -1,6 +1,8 @@
 library(tidyverse)
 library(lubridate)
 library(ggpubr)
+library(patchwork)
+library(broom)
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("Functions/splot.R")
