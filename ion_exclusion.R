@@ -1,6 +1,7 @@
 library(tidyverse)
 library(lubridate)
 
+#joining datasets####
 #load and format the datasets
 ions <- read_csv("Data/LTER_ions.csv") %>% #all ion data from LTER
   filter(lakeid == "MO" | lakeid == "ME") %>%
@@ -30,6 +31,7 @@ combined_data <- ions %>%
   left_join(icedepth, by = c("lakeid", "year4"))
 
 
+#mass calculations####
 mass <- combined_data %>%
   drop_na(cl) %>%
   filter(cl > 0) %>%
@@ -62,6 +64,7 @@ ggplot(mass %>% filter(lakeid == "MO"))+
   scale_color_viridis_c(direction = -1) 
 
 
+#Ion exclusion calculations####
 #The ion exclusion calculations below only account for .25m of ice or less because data is not collected between .25 and 4m
 
 
