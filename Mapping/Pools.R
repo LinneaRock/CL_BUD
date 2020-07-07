@@ -102,3 +102,22 @@ receive <- All_pools %>%
   select(Receiving) %>%
   distinct()
 
+rivers <- st_read("C:/Users/linne/Downloads/Rivers_and_Streams-shp/Rivers_and_Streams.shp")
+lakes <- st_read("C:/Users/linne/Downloads/Lakes_and_Ponds-shp/Lakes_and_Ponds.shp")
+
+Mendota <- lakes %>%
+  filter(NAME == "Lake Mendota" |
+         NAME == "Lake Monona" |
+         NAME == "Starkweather Creek")
+
+ggplot(world) +
+  geom_sf() +
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(Mendota, mapping = aes()) +
+  #theme_bw() +
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + # North Arrow
+  coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE)
