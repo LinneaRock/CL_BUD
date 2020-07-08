@@ -105,16 +105,60 @@ receive <- All_pools %>%
 rivers <- st_read("C:/Users/linne/Downloads/Rivers_and_Streams-shp/Rivers_and_Streams.shp")
 lakes <- st_read("C:/Users/linne/Downloads/Lakes_and_Ponds-shp/Lakes_and_Ponds.shp")
 
-Mendota <- lakes %>%
-  filter(NAME == "Lake Mendota" |
-         NAME == "Lake Monona" |
-         NAME == "Starkweather Creek")
+
+
+low.stark <- rivers %>%
+  filter(NAME == "Starkweather Creek") %>%
+  mutate(NAME = "Lower Stark") %>%
+  select(OBJECTID, NAME, geometry)
+
+e.stark <- lakes %>%
+  filter(NAME == "Starkweather Creek") %>%
+  filter(OBJECTID == 8778 |
+           OBJECTID == 8762 |
+           OBJECTID == 8708 |
+           OBJECTID == 8740 |
+           OBJECTID == 8741) %>%
+  mutate(NAME = "E Starkweather") %>%
+  select(OBJECTID, NAME, geometry) 
+
+ME.sf <- lakes %>%
+  filter(NAME == "Lake Mendota") %>%
+  mutate(NAME = "Mendota")
+
+MO.sf <- lakes %>%
+  filter(NAME == "Lake Monona") %>%
+  mutate(NAME = "Monona")
+
+YR.sf <- lakes %>%
+  filter(NAME == "Yahara River") %>%
+  filter(OBJECTID == 9668 |
+           OBJECTID == 9579)
+
+6988 -nothing
+6990 -nothing
+6996 -nothing
+7015 - nothing
+7648 - nothing
+7794
+8354
+8463
+8469
+8750
+9377
+9579
+9668 - inlet ME
+
+
 
 ggplot(world) +
   geom_sf() +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(Mendota, mapping = aes()) +
-  #theme_bw() +
+  geom_sf(e.stark, mapping = aes(), color = "pink") +
+  geom_sf(low.stark, mapping = aes(), color = "purple") +
+  geom_sf(ME.sf, mapping = aes(), color = "blue") +
+  geom_sf(MO.sf, mapping = aes(), color = "red") +
+  geom_sf(YR.sf, mapping = aes(), color = "black") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
