@@ -14,8 +14,10 @@ source("Functions/splot.R")
 
 #read in pool data
 pools <- read_xlsx("Data/Historical_External/pool.xlsx") %>%
-  rename(chloride = 'Cl-')
-  
+  rename(chloride = 'Cl-') %>%
+  mutate(Volume = Volume * 3.785411784) %>% #convert volume in gallons to liters 
+  mutate(year = year(Date)) 
+
 
 #geocode from addresses
 pool_locations <- pools %>%
@@ -73,15 +75,15 @@ sites_sf <- st_as_sf(sites, coords = c("longitude", "latitude"),
 str(sites_sf)         
 
 #add shapefiles to All_pools
-All_pools <- left_join(All_pools, sites_sf, by = "Site") %>%
-  mutate(year = year(Date)) 
-
+All_pools <- left_join(All_pools, sites_sf, by = "Site") 
 
 
 #making dataframe to see all receiving waters
 receive <- All_pools %>%
   select(Receiving) %>%
   distinct()
+
+
 
 
 
@@ -110,6 +112,10 @@ ggplot(world) +
 splot("swimming_pools/", "pool_locations")
 
 
+
+
+
+
 #boxplots of pool discharges/year, faceted to receiving waters
 ggplot(All_pools) +
   geom_boxplot(aes(year, chloride, group = year))+
@@ -130,16 +136,51 @@ ggplot(All_pools) +
 ggsave("Plots/swimming_pools/cl_data.png", height = 8, width = 12)
 
 
+#Finding annual contribution (mass) of fall draining of outdoor pools
+
+#Find average pool volume using the 27 pools that provided pool volume and apply that volume to remaining 
+vol <- All_pools %>%
+  filter(!is.na(Volume)) 
+average_pool_vol <- mean(vol$Volume)
+
+Outdoor_Pools_ave_Vol <- All_pools %>% 
+  filter(location == "outdoor") %>%
+  mutate(Volume = ifelse(is.na(Volume), average_pool_vol, Volume)) %>% #adding average volume for pools when it is not given
+  mutate(full_drain = (chloride * Volume)/1000000) %>% #if 100% of the pool is drained, the mass in Kg of chloride
+  mutate(half_drain = full_drain/2) #mass if half the pool is drained
 
 
+annual_drainage_table <- Outdoor_Pools_ave_Vol %>%
+  select(year, Receiving, full_drain, half_drain) %>%
+  group_by(year, Receiving) %>%
+  mutate(total_full = sum(full_drain)) %>%
+  mutate(total_half = sum(half_drain)) %>%
+  ungroup() %>%
+  select(year, Receiving, total_full, total_half) %>%
+  distinct()
 
 
+ggplot(annual_drainage_table) +
+  geom_bar(aes(year, total_full), stat = "identity", fill = "#F24D29") +
+  geom_bar(aes(year, total_half), stat = "identity", fill = "#1C366B") +
+  facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
+  labs(x = "",
+       y = "Chloride mass of pool effluent"~(Kg),
+       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
+After each summer, the pools are drained of at least half of their volume. This figure represents the range of chloride mass by draining half volume or full volume of the pools.")+
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11),
+        plot.caption = element_text(size = 10, hjust = 0))
+  
+#add legend
 
-
-
-
-
-
+ggsave("Plots/swimming_pools/fas;ldfja.png", height = 8, width = 12)
 
 
 
