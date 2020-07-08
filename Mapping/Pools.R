@@ -15,6 +15,7 @@ source("Functions/splot.R")
 #read in pool data
 pools <- read_xlsx("Data/Historical_External/pool.xlsx") %>%
   rename(chloride = 'Cl-')
+  
 
 #geocode from addresses
 pool_locations <- pools %>%
