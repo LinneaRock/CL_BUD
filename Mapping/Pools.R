@@ -8,10 +8,13 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(rgeos)
 library(lubridate)
+source("Functions/splot.R")
+
 
 
 #read in pool data
-pools <- read_xlsx("Data/Historical_External/pool.xlsx")
+pools <- read_xlsx("Data/Historical_External/pool.xlsx") %>%
+  rename(chloride = 'Cl-')
 
 #geocode from addresses
 pool_locations <- pools %>%
@@ -70,10 +73,16 @@ str(sites_sf)
 
 #add shapefiles to All_pools
 All_pools <- left_join(All_pools, sites_sf, by = "Site") %>%
-  mutate(year = year(Date))
+  mutate(year = year(Date)) 
 
-pools_2019 <- All_pools %>%
-  filter(year == 2019)
+
+
+#making dataframe to see all receiving waters
+receive <- All_pools %>%
+  select(Receiving) %>%
+  distinct()
+
+
 
 #getting base map sf
 world <- ne_countries(scale = "medium", returnclass = "sf")
@@ -87,81 +96,66 @@ world_gray <-   paste0('https://services.arcgisonline.com/arcgis/rest/services/C
 ggplot(world) +
   geom_sf() +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(sites_sf, mapping = aes()) +
+  geom_sf(All_pools$geometry, mapping = aes(color = All_pools$Receiving)) +
   #theme_bw() +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
-  coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE)
+  coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE) +
+  scale_color_discrete("Recieving Waters")
+
+splot("swimming_pools/", "pool_locations")
 
 
-#making dataframe for receiving waters
-receive <- All_pools %>%
-  select(Receiving) %>%
-  distinct()
-
-rivers <- st_read("C:/Users/linne/Downloads/Rivers_and_Streams-shp/Rivers_and_Streams.shp")
-lakes <- st_read("C:/Users/linne/Downloads/Lakes_and_Ponds-shp/Lakes_and_Ponds.shp")
-
-
-
-low.stark <- rivers %>%
-  filter(NAME == "Starkweather Creek") %>%
-  mutate(NAME = "Lower Stark") %>%
-  select(OBJECTID, NAME, geometry)
-
-e.stark <- lakes %>%
-  filter(NAME == "Starkweather Creek") %>%
-  filter(OBJECTID == 8778 |
-           OBJECTID == 8762 |
-           OBJECTID == 8708 |
-           OBJECTID == 8740 |
-           OBJECTID == 8741) %>%
-  mutate(NAME = "E Starkweather") %>%
-  select(OBJECTID, NAME, geometry) 
-
-ME.sf <- lakes %>%
-  filter(NAME == "Lake Mendota") %>%
-  mutate(NAME = "Mendota")
-
-MO.sf <- lakes %>%
-  filter(NAME == "Lake Monona") %>%
-  mutate(NAME = "Monona")
-
-YR.sf <- lakes %>%
-  filter(NAME == "Yahara River") %>%
-  filter(OBJECTID == 9668 |
-           OBJECTID == 9579)
-
-6988 -nothing
-6990 -nothing
-6996 -nothing
-7015 - nothing
-7648 - nothing
-7794
-8354
-8463
-8469
-8750
-9377
-9579
-9668 - inlet ME
+#boxplots of pool discharges/year, faceted to receiving waters
+ggplot(All_pools) +
+  geom_boxplot(aes(year, chloride, group = year))+
+  facet_wrap(~Receiving, ncol = 5, scales = "free_y") +
+  labs(x = "",
+       y = "Chloride concentration of pool effluent"~(mg~L^-1),
+       caption = "Aggregated chloride concentration data from yearly samples of swimming pools in the Upper Yahara River watershed.")+
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11),
+        plot.caption = element_text(size = 10, hjust = 0))
+ 
+ggsave("Plots/swimming_pools/cl_data.png", height = 8, width = 12)
 
 
 
-ggplot(world) +
-  geom_sf() +
-  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(e.stark, mapping = aes(), color = "pink") +
-  geom_sf(low.stark, mapping = aes(), color = "purple") +
-  geom_sf(ME.sf, mapping = aes(), color = "blue") +
-  geom_sf(MO.sf, mapping = aes(), color = "red") +
-  geom_sf(YR.sf, mapping = aes(), color = "black") +
-  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
-  annotation_north_arrow(location = "bl", which_north = "true", 
-                         pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
-                         height = unit(0.5,'in'), width = unit(0.5,'in'),
-                         style = north_arrow_nautical) + # North Arrow
-  coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ggplot(world) +
+#  geom_sf() +
+#  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+#  geom_sf(e.stark, mapping = aes(), color = "magenta") +
+#  geom_sf(low.stark, mapping = aes(), color = "purple") +
+#  geom_sf(ME.sf, mapping = aes(), color = "blue") +
+#  geom_sf(MO.sf, mapping = aes(), color = "red") +
+#  geom_sf(YR.sf, mapping = aes(), color = "black") +
+#  geom_sf(Wingra.sf, mapping = aes(), color = "dark orange") +
+#  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+#  annotation_north_arrow(location = "bl", which_north = "true", 
+#                         pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+#                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+#                         style = north_arrow_nautical) + # North Arrow
+#  coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE)
