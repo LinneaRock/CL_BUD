@@ -9,6 +9,7 @@ library(rnaturalearthdata)
 library(rgeos)
 library(lubridate)
 source("Functions/splot.R")
+source("Functions/L_theme.R")
 
 
 
@@ -121,15 +122,7 @@ ggplot(All_pools) +
   labs(x = "",
        y = "Chloride concentration of pool effluent"~(mg~L^-1),
        caption = "Aggregated chloride concentration data from yearly samples of swimming pools in the Upper Yahara River watershed.")+
-  theme(panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11),
-        plot.caption = element_text(size = 10, hjust = 0))
+  L_theme()
  
 ggsave("Plots/swimming_pools/cl_data.png", height = 8, width = 12)
 
@@ -175,16 +168,7 @@ ggplot(annual_drainage_table) +
        y = "Chloride mass of pool effluent"~(Kg),
        caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
 After each summer, the pools are drained of at least half of their volume. This figure represents the range of chloride mass by draining half volume or full volume of the pools.")+
-  theme(panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11),
-        plot.caption = element_text(size = 10, hjust = 0),
-        legend.title = element_blank()) +
+  L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
 
@@ -197,19 +181,12 @@ ggplot(watershed_annual_drain) +
   geom_bar(aes(year, Halfvol, fill = "Half pool volume drained"), stat = "identity") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
-After each summer, the pools are drained of at least half of their volume. This figure represents the range of chloride mass to the study area by draining half volume or 
-full volume of the pools.")+
-  theme(panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11),
-        plot.caption = element_text(size = 10, hjust = 0),
-        legend.title = element_blank()) +
+       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or 
+average volumes of the pools and annual chloride concentration samples. After each 
+summer, the pools are drained of at least half of their volume. This figure represents 
+the range of chloride mass to the study area by draining half volume or full volume 
+of the pools.")+
+  L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
 
@@ -265,16 +242,7 @@ or Weekly backflushes for 5 min"), stat = "identity") +
        caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
 This figure represents the range of chloride mass during regular weekly or biweekly backflushing. Indoor pools are assumed maintained year round (52 weeks), outdoor pools 
 assumed maintained Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
-  theme(panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11),
-        plot.caption = element_text(size = 10, hjust = 0),
-        legend.title = element_blank()) +
+  L_theme() +
   scale_fill_manual(values = c("#E5C4A1", "#1C366B", "#F24D29"))
 
 
@@ -286,19 +254,12 @@ ggplot(watershed_backflush) +
   geom_bar(aes(year, low, fill = "Low backflush estimate"), stat = "identity") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
-This figure represents the range of chloride mass during regular weekly or biweekly backflushing. Indoor pools are assumed maintained year round (52 weeks), outdoor pools 
-assumed maintained Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
-  theme(panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11),
-        plot.caption = element_text(size = 10, hjust = 0),
-        legend.title = element_blank()) +
+       caption = "Aggregated chloride mass in Kg from swimming pools.This figure represents the 
+range of chloride mass during regular weekly or biweekly backflushing. Indoor pools 
+are assumed maintained year round (52 weeks), outdoor pools assumed maintained 
+Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative 
+since backflushingoccurs at higher frequency during periods of heavy use.")+
+  L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
 
@@ -320,16 +281,7 @@ ggplot(Chloride_Mass_Load_SP) +
        y = "Chloride mass of pool effluent"~(Kg),
        caption = "Aggregated chloride mass in Kg from swimming pools. This figure represents the range of annual chloride mass contributions from swimming pools.
   This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
-  theme(panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 11),
-        plot.caption = element_text(size = 10, hjust = 0),
-        legend.title = element_blank()) +
+  L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
 ggsave("Plots/swimming_pools/mass_range.png", height = 8, width = 12)
@@ -357,18 +309,3 @@ ggsave("Plots/swimming_pools/mass_range.png", height = 8, width = 12)
 
 
 
-#ggplot(world) +
-#  geom_sf() +
-#  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-#  geom_sf(e.stark, mapping = aes(), color = "magenta") +
-#  geom_sf(low.stark, mapping = aes(), color = "purple") +
-#  geom_sf(ME.sf, mapping = aes(), color = "blue") +
-#  geom_sf(MO.sf, mapping = aes(), color = "red") +
-#  geom_sf(YR.sf, mapping = aes(), color = "black") +
-#  geom_sf(Wingra.sf, mapping = aes(), color = "dark orange") +
-#  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
-#  annotation_north_arrow(location = "bl", which_north = "true", 
-#                         pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
-#                         height = unit(0.5,'in'), width = unit(0.5,'in'),
-#                         style = north_arrow_nautical) + # North Arrow
-#  coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE)
