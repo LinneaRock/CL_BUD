@@ -78,15 +78,13 @@ str(sites_sf)
 All_pools <- left_join(All_pools, sites_sf, by = "Site") 
 
 
-#making dataframe to see all receiving waters
+#making dataframe to see all receiving waters and pools
 receive <- All_pools %>%
-  select(Receiving) %>%
+  select(Receiving, Site, location) %>%
   distinct()
 
 
-
-
-
+  
 #getting base map sf
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
@@ -119,7 +117,7 @@ splot("swimming_pools/", "pool_locations")
 #boxplots of pool discharges/year, faceted to receiving waters
 ggplot(All_pools) +
   geom_boxplot(aes(year, chloride, group = year))+
-  facet_wrap(~Receiving, ncol = 5, scales = "free_y") +
+  facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
        y = "Chloride concentration of pool effluent"~(mg~L^-1),
        caption = "Aggregated chloride concentration data from yearly samples of swimming pools in the Upper Yahara River watershed.")+
@@ -149,20 +147,20 @@ Outdoor_Pools_ave_Vol <- All_pools %>%
   mutate(full_drain = (chloride * Volume)/1000000) %>% #if 100% of the pool is drained, the mass in Kg of chloride
   mutate(half_drain = full_drain/2) #mass if half the pool is drained
 
-
+#aggregating all pools by the recieving waterbodies to calculate annual mass
 annual_drainage_table <- Outdoor_Pools_ave_Vol %>%
   select(year, Receiving, full_drain, half_drain) %>%
   group_by(year, Receiving) %>%
-  mutate(total_full = sum(full_drain)) %>%
+  mutate(total_full = sum(full_drain)) %>% 
   mutate(total_half = sum(half_drain)) %>%
   ungroup() %>%
   select(year, Receiving, total_full, total_half) %>%
   distinct()
 
-
+#aggregated masses for each recieving water
 ggplot(annual_drainage_table) +
-  geom_bar(aes(year, total_full), stat = "identity", fill = "#F24D29") +
-  geom_bar(aes(year, total_half), stat = "identity", fill = "#1C366B") +
+  geom_bar(aes(year, total_full, fill = "Full pool volume drained"), stat = "identity") +
+  geom_bar(aes(year, total_half, fill = "Half pool volume drained"), stat = "identity") +
   facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
@@ -176,11 +174,120 @@ After each summer, the pools are drained of at least half of their volume. This 
                                         colour = "gray88"),
         axis.text = element_text(size = 11),
         axis.title = element_text(size = 11),
-        plot.caption = element_text(size = 10, hjust = 0))
-  
-#add legend
+        plot.caption = element_text(size = 10, hjust = 0),
+        legend.title = element_blank()) +
+  scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
-ggsave("Plots/swimming_pools/fas;ldfja.png", height = 8, width = 12)
+
+ggsave("Plots/swimming_pools/drain_mass.png", height = 8, width = 12)
+
+
+
+#Pool backflushing scenario 75.70824 L/min for 5-10 mins - chloride mass in Kg
+backflush <- function(concentration, duration) {
+  (75.70824 * concentration * duration)/1000000
+}
+
+flushing <- All_pools %>%
+  mutate(backflush_5min = backflush(chloride, 5), #5 minute backflushing chloride mass contribution
+         backflush_10min = backflush(chloride, 10)) %>% #10 minute backflushing chloride mass contribution
+  mutate(annual_weekly_5min = ifelse(location == "indoor", backflush_5min *52, backflush_5min * 14),
+         annual_weekly_10min = ifelse(location =="indoor", backflush_10min *52, backflush_10min * 14),
+         annual_biweekly_5min = ifelse(location == "indoor", backflush_5min *26, backflush_5min * 7),
+         annual_biweekly_10min = ifelse(location =="indoor", backflush_10min *26, backflush_10min * 7))
+
+
+#aggregating all pools by the recieving waterbodies to calculate annual mass
+annual_backflush_table <- flushing %>%
+  select(year, Receiving, annual_weekly_5min, annual_weekly_10min, annual_biweekly_5min, annual_biweekly_10min) %>%
+  group_by(year, Receiving) %>%
+  mutate(total_weekly_5min = sum(annual_weekly_5min)) %>% 
+  mutate(total_weekly_10min = sum(annual_weekly_10min)) %>%
+  mutate(total_biweekly_5min = sum(annual_biweekly_5min)) %>%
+  mutate(total_biweekly_10min = sum(annual_biweekly_10min)) %>%
+  ungroup() %>%
+  select(year, Receiving, total_weekly_10min, total_biweekly_10min, total_biweekly_5min, total_weekly_5min) %>%
+  distinct()
+
+
+#aggregated masses for each recieving water
+ggplot(annual_backflush_table) +
+  geom_bar(aes(year, total_weekly_10min, fill = "Weekly backflushes for 10 min"), stat = "identity") +
+  geom_bar(aes(year, total_weekly_5min), stat = "identity") +
+  geom_bar(aes(year, total_biweekly_10min, fill = "Biweekly backflushes for 10 min
+or Weekly backflushes for 5 min"), stat = "identity") +
+  geom_bar(aes(year, total_biweekly_5min, fill = "Biweekly backflushes for 5 min"), stat = "identity") +
+  facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
+  labs(x = "",
+       y = "Chloride mass of pool effluent"~(Kg),
+       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
+This figure represents the range of chloride mass during regular weekly or biweekly backflushing. Indoor pools are assumed maintained year round (52 weeks), outdoor pools 
+assumed maintained Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11),
+        plot.caption = element_text(size = 10, hjust = 0),
+        legend.title = element_blank()) +
+  scale_fill_manual(values = c("#E5C4A1", "#1C366B", "#F24D29"))
+
+
+ggsave("Plots/swimming_pools/backflush_mass.png", height = 8, width = 12)
+
+
+
+#Total annual chloride load due to swimming pools
+Chloride_Mass_Load_SP <- left_join(annual_backflush_table, annual_drainage_table, by = c("Receiving", "year")) %>%
+  rowwise() %>%
+  mutate(Low_end = sum(total_biweekly_5min, total_half, na.rm = TRUE),
+         High_end = sum(total_weekly_10min, total_full, na.rm = TRUE))
+
+
+#aggregated masses for each recieving water
+ggplot(Chloride_Mass_Load_SP) +
+  geom_bar(aes(year, High_end, fill = "High end estimate"), stat = "identity") +
+  geom_bar(aes(year, Low_end, fill = "Low end estimate"), stat = "identity") +
+  facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
+  labs(x = "",
+       y = "Chloride mass of pool effluent"~(Kg),
+       caption = "Aggregated chloride mass in Kg from swimming pools. This figure represents the range of annual chloride mass contributions from swimming pools.
+  This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11),
+        plot.caption = element_text(size = 10, hjust = 0),
+        legend.title = element_blank()) +
+  scale_fill_manual(values = c("#F24D29", "#1C366B"))
+
+ggsave("Plots/swimming_pools/mass_range.png", height = 8, width = 12)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
