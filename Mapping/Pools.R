@@ -157,6 +157,15 @@ annual_drainage_table <- Outdoor_Pools_ave_Vol %>%
   select(year, Receiving, total_full, total_half) %>%
   distinct()
 
+#aggregating all pools by year to calculate annual mass
+watershed_annual_drain <- annual_drainage_table %>%
+  select(!Receiving) %>%
+  group_by(year) %>%
+  mutate(Fullvol = sum(total_full),
+         Halfvol = sum(total_half)) %>%
+  select(year, Fullvol, Halfvol) %>%
+  distinct()
+
 #aggregated masses for each recieving water
 ggplot(annual_drainage_table) +
   geom_bar(aes(year, total_full, fill = "Full pool volume drained"), stat = "identity") +
@@ -180,6 +189,31 @@ After each summer, the pools are drained of at least half of their volume. This 
 
 
 ggsave("Plots/swimming_pools/drain_mass.png", height = 8, width = 12)
+
+
+#Figure of draining mass Cl for entire watershed
+ggplot(watershed_annual_drain) +
+  geom_bar(aes(year, Fullvol, fill = "Full pool volume drained"), stat = "identity") +
+  geom_bar(aes(year, Halfvol, fill = "Half pool volume drained"), stat = "identity") +
+  labs(x = "",
+       y = "Chloride mass of pool effluent"~(Kg),
+       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
+After each summer, the pools are drained of at least half of their volume. This figure represents the range of chloride mass to the study area by draining half volume or 
+full volume of the pools.")+
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11),
+        plot.caption = element_text(size = 10, hjust = 0),
+        legend.title = element_blank()) +
+  scale_fill_manual(values = c("#F24D29", "#1C366B"))
+
+
+splot("swimming_pools/", "watershed_drain_mass")
 
 
 
@@ -209,6 +243,14 @@ annual_backflush_table <- flushing %>%
   select(year, Receiving, total_weekly_10min, total_biweekly_10min, total_biweekly_5min, total_weekly_5min) %>%
   distinct()
 
+#aggregating all pools by year to calculate annual mass
+watershed_backflush <- annual_backflush_table %>%
+  select(year, total_weekly_10min, total_biweekly_5min) %>%
+  group_by(year) %>%
+  mutate(high = sum(total_weekly_10min),
+         low = sum(total_biweekly_5min)) %>%
+  select(year, high, low) %>%
+  distinct()
 
 #aggregated masses for each recieving water
 ggplot(annual_backflush_table) +
@@ -238,7 +280,29 @@ assumed maintained Memorial Day to Labor Day (average 14 weeks). This figure is 
 
 ggsave("Plots/swimming_pools/backflush_mass.png", height = 8, width = 12)
 
+#Figure of backflushing mass Cl for entire watershed
+ggplot(watershed_backflush) +
+  geom_bar(aes(year, high, fill = "High backflush estimate"), stat = "identity") +
+  geom_bar(aes(year, low, fill = "Low backflush estimate"), stat = "identity") +
+  labs(x = "",
+       y = "Chloride mass of pool effluent"~(Kg),
+       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
+This figure represents the range of chloride mass during regular weekly or biweekly backflushing. Indoor pools are assumed maintained year round (52 weeks), outdoor pools 
+assumed maintained Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
+  theme(panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11),
+        plot.caption = element_text(size = 10, hjust = 0),
+        legend.title = element_blank()) +
+  scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
+
+splot("swimming_pools/", "watershed_backflush_mass")
 
 #Total annual chloride load due to swimming pools
 Chloride_Mass_Load_SP <- left_join(annual_backflush_table, annual_drainage_table, by = c("Receiving", "year")) %>%
