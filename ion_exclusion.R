@@ -1,5 +1,6 @@
 library(tidyverse)
 library(lubridate)
+source("Functions/L_theme.R")
 
 #joining datasets####
 #load and format the datasets
@@ -73,7 +74,7 @@ ggplot(mass %>% filter(lakeid == "MO"))+
 surface_mass_ME <- mass %>%
   filter(lakeid == "ME",
          iondepth <= 4, #Only 0.25m will be appropriate to calculate the ion exclusion becuase data is collected at 0.25, 4, 8, etc.
-         winter == "N") %>% #Looking at the salt mass when the ice is off
+         winter == "N") %>% #Selecting the salt mass when the ice is off
   select(year4, iondate, iondepth, cl_mass, ave_icedepth) %>%
   group_by(year4, iondepth) %>%
   mutate(ave_clmass = mean(cl_mass)) %>% #getting the average chloride mass for the year based on ~2 sampling days (ice off)
@@ -83,15 +84,26 @@ surface_mass_ME <- mass %>%
 
 ME_Salt_Exclusion <- surface_mass_ME %>%
   filter(iondepth == 25) %>%
-  mutate(exclusion_mass = ifelse(iondepth <= ave_icedepth, 0.95 * ave_clmass, (ave_icedepth / iondepth) * ave_clmass * .95)) #salt mass excluded from ice. If ice thickness is less than 25cm, I took the proportion of the layer that is ice and assuming that the ions are evenly distributed, calculated the amount of ions then took 95% of that 
+  mutate(exclusion_mass = ifelse(iondepth <= ave_icedepth, 0.95 * ave_clmass, (ave_icedepth / iondepth) * ave_clmass * .95)) %>% #salt mass excluded from ice. If ice thickness is less than 25cm, I took the proportion of the layer that is ice and assuming that the ions are evenly distributed, calculated the amount of ions then took 95% of that 
+  mutate(ice_label = ifelse(25 < ave_icedepth, ">25cm", NA)) %>%
+  mutate(ice_label = ifelse(25 > ave_icedepth, "<25cm", ice_label)) %>%
+  mutate(ice_label = ifelse(ave_icedepth == 0, "No ice", ice_label)) %>%
+  mutate(ice_label = ifelse(25 == ave_icedepth, "=25cm", ice_label))
+  
 
+ggplot(ME_Salt_Exclusion, aes(year4, exclusion_mass)) +
+  geom_bar(stat = "identity", fill = "#1C366B", position = "dodge") +
+  L_theme() +
+  labs(x = "",
+       y = "Chloride Mass (Mg)") +
+  geom_text(aes(label = ice_label), position = position_dodge(width = 0.9), vjust = -0.25)
 
 #Monona ion exclusion
 
 surface_mass_MO <- mass %>%
   filter(lakeid == "MO",
          iondepth <= 4, #Only 0.25m will be appropriate to calculate the ion exclusion becuase data is collected at 0.25, 4, 8, etc.
-         winter == "N") %>% #Looking at the salt mass when the ice is off
+         winter == "N") %>% #Selecting the salt mass when the ice is off
   select(year4, iondate, iondepth, cl_mass, ave_icedepth) %>%
   group_by(year4, iondepth) %>%
   mutate(ave_clmass = mean(cl_mass)) %>% #getting the average chloride mass for the year based on ~2 sampling days (ice off)
@@ -101,7 +113,16 @@ surface_mass_MO <- mass %>%
 
 MO_Salt_Exclusion <- surface_mass_MO %>%
   filter(iondepth == 25) %>%
-  mutate(exclusion_mass = ifelse(iondepth <= ave_icedepth, 0.95 * ave_clmass, (ave_icedepth / iondepth) * ave_clmass * .95)) #salt mass excluded from ice. If ice thickness is less than 25cm, I took the proportion of the layer that is ice and assuming that the ions are evenly distributed, calculated the amount of ions then took 95% of that 
+  mutate(exclusion_mass = ifelse(iondepth <= ave_icedepth, 0.95 * ave_clmass, (ave_icedepth / iondepth) * ave_clmass * .95)) %>% #salt mass excluded from ice. If ice thickness is less than 25cm, I took the proportion of the layer that is ice and assuming that the ions are evenly distributed, calculated the amount of ions then took 95% of that 
+  mutate(ice_label = ifelse(25 < ave_icedepth, ">25cm", NA)) %>%
+  mutate(ice_label = ifelse(25 > ave_icedepth, "<25cm", ice_label)) %>%
+  mutate(ice_label = ifelse(ave_icedepth == 0, "No ice", ice_label)) %>%
+  mutate(ice_label = ifelse(25 == ave_icedepth, "=25cm", ice_label))
 
-
+ggplot(MO_Salt_Exclusion, aes(year4, exclusion_mass)) +
+  geom_bar(stat = "identity", fill = "#1C366B", position = "dodge") +
+  L_theme() +
+  labs(x = "",
+       y = "Chloride Mass (Mg)") +
+  geom_text(aes(label = ice_label), position = position_dodge(width = 0.9), vjust = -0.25)
 
