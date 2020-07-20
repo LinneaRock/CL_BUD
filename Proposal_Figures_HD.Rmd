@@ -15,6 +15,7 @@ library(dataRetrieval)
 source('datasets_asFunction.R')
 source("Functions/linreg.R")
 source("Functions/qcl.R")
+source("Functions/L_theme.R")
 
 ```
 

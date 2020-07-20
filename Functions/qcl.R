@@ -3,7 +3,8 @@
 q.cl <- function(dfx, dfy) {
   qsc <- dfx %>%
     left_join(dfy, by = "date") %>%
-    na.omit()
+    drop_na(chloride_mgL)
+  
   
   ggplot(qsc, aes(discharge, chloride_mgL)) +
     geom_point() +
