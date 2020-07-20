@@ -4,15 +4,7 @@ cond <- function(df) {
   ggplot(df, aes(date, sp.cond)) +
     geom_line() +
     labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
-         x = "") +
-    theme(panel.background = element_rect(fill = "white", colour = "white",
-                                          size = 2, linetype = "solid"),
-          panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"), 
-          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "gray88"),
-          axis.text = element_text(size =11),
-          axis.title = element_text(size =11))
+         x = "") + L_theme()
 }
 
 #df1 = epi dataset
@@ -47,3 +39,12 @@ capt_scseries <- function(customTitle, location) {
     caption = paste("Time series of specific conductivity concentrations in the ",location, ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 
+
+
+#function to plot historical conductance time series 
+hist_cond <- function(df) {
+  ggplot(df, aes(date, sp.cond)) +
+    geom_point() +
+    labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+         x = "") + L_theme()
+}

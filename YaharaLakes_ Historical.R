@@ -1,6 +1,7 @@
 library(tidyverse)
 library(readxl)
 source("Functions/splot.R")
+source("Functions/L_theme.R")
 
 watershed <- read_xlsx("Data/Historical_External/YaharaHist.xlsx") %>%
   mutate(KA = as.numeric(KA))
@@ -20,19 +21,7 @@ ggplot(watershed) +
        x = ""#,
        #caption = "Figure 3 The long-term increasing chloride concentration trend 
 #in the Yahara River watershed lakes (Public Health Madison Dane County, 2020)."
-) +
-  theme(legend.title = element_blank(),
-        legend.position = "top",
-        axis.text = element_text(size =11),
-        axis.title = element_text(size = 11),
-        panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        legend.text = element_text(size = 8),
-        plot.caption = element_text(size = 11, hjust = 0)) +
+) + L_theme() +
   scale_color_identity(guide = "legend",
                        breaks = c("#1C366B", "#F24D29", "#C4CFD0", "#1DACE8", "#E5C4A1"),
                        labels = c("Mendota", "Monona", "Wingra", "Waubesa", "Kegonsa"))

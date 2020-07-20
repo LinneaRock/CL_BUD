@@ -7,6 +7,7 @@ source("Functions/splot.R")
 source("Functions/histlinreg.R")
 source("Functions/clseries.R")
 source("Functions/cond.R")
+source("Functions/L_theme.R")
 
 #function to read in data for chloride
 hist <- function(X) {
@@ -93,32 +94,32 @@ splot("Historical_Data_Viz/cl_time_series/", "YR")
 
 #conductivity time series
 
-cond(HistMarsh) +
+hist_cond(HistMarsh) +
   capt_scseries("1918 Marsh", "1918 Marsh")
 splot("Historical_Data_Viz/cond_time_series/", "1918 Marsh")
 
-cond(HistDC) +
+hist_cond(HistDC) +
   capt_scseries("Dorn Creek", "Dorn Creek")
 splot("Historical_Data_Viz/cond_time_series/", "DC")
 
-cond(HistPB) +
+hist_cond(HistPB) +
   capt_scseries("Pheasant Branch Creek", "Pheasant Branch Creek")
 splot("Historical_Data_Viz/cond_time_series/", "PB")
 
-cond(Hist6MC) +
+hist_cond(Hist6MC) +
   capt_scseries("Sixmile Creek", "Sixmile Creek")
 splot("Historical_Data_Viz/cond_time_series/", "6MC")
 
-cond(HistUB) +
+hist_cond(HistUB) +
   capt_scseries("Univeristy Bay Creek", "University Bay Creek")
 splot("Historical_Data_Viz/cond_time_series/", "UB")
 
-cond(HistWI) +
+hist_cond(HistWI) +
   capt_scseries("Wingra Creek", "Wingra Creek")
 splot("Historical_Data_Viz/cond_time_series/", "WI")
 
-cond(HistYR) +
-  captsclseries("Yahara River", "Yahara River")
+hist_cond(HistYR) +
+  capt_scseries("Yahara River", "Yahara River")
 splot("Historical_Data_Viz/cond_time_series/", "YR")
 
 
@@ -133,19 +134,7 @@ ggplot(data, aes(date, chloride_mgL)) +
        x = "" #,
       # caption = "Figure 3 The long-term increasing chloride concentration trend in the 
 #upper Yahara River watershed lakes (Public Health Madison Dane County, 2020)."
-       ) +
-  theme(legend.title = element_blank(),
-        legend.position = "top",
-        axis.text = element_text(size =11),
-        axis.title = element_text(size = 11),
-        panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"),
-        legend.text = element_text(size = 8),
-        plot.caption = element_text(size = 11, hjust = 0)) +
+       ) + L_theme() +
   scale_color_manual(labels = c("Mendota", "Monona"),
                      values = c("#1C366B", "#F24D29"))
 
