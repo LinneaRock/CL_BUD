@@ -3,6 +3,7 @@ library(readxl)
 library(lubridate)
 library(patchwork)
 library(broom)
+library(scales)
 source("Functions/splot.R")
 source("Functions/histlinreg.R")
 source("Functions/clseries.R")
@@ -13,9 +14,25 @@ source("Functions/L_theme.R")
 hist <- function(X) {
   lab <- read_xlsx("Data/Historical_External/PHMDC.xlsx", sheet = X) %>%
     mutate(chloride_mgL = as.numeric(chloride_mgL)) %>%
-    mutate(year = year(date))
+    mutate(year = year(date)) %>% 
+    mutate(fakeDate = as.Date(paste(3000, format.POSIXct(date, "%m-%d"), sep = "-")))
   
 }
+
+#function to plot annual trends with panels for each year
+annual_trend <- function(df, customtitle, savename) {
+  ggplot(df, aes(fakeDate, chloride_mgL)) +
+    geom_point() +
+    geom_path() +
+    facet_wrap(~year) + 
+    labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
+         title = customtitle) +
+    scale_x_date(labels = date_format("%b-%d"),
+                 breaks = date_breaks("4 months")) +
+    L_theme()
+  ggsave(paste("Plots/Historical_Data_Viz/cl_time_series/", savename,".png", sep = ""), height = 8, width = 10, units = "in")
+  
+  }
 
 #read in lake data
 HistME <- hist("Mendota") %>%
@@ -32,15 +49,15 @@ HistUB <- hist("U Bay Creek")
 HistWI <- hist("Wingra") 
 HistYR <- hist("Yahara River")
 
-
-#This is the plot I am trying to make, something turns out horribly wrong though...
-ggplot(HistYR, aes(date, chloride_mgL)) +
-  geom_point() +
-  facet_wrap(~year, scales = "free_x") + 
-  labs(x = "", y = "Chloride Concentration"~(mg~L^-1)) +
-  L_theme()
-
-
+annual_trend(HistYR, "Yahara River", "YR_annual") 
+annual_trend(HistMarsh, "1918 Marsh", "Marsh_annual")
+annual_trend(HistDC, "Dorn Creek", "DC_annual")
+annual_trend(HistPB, "Pheasant Branch Creek", "PB_annual")
+annual_trend(Hist6MC, "Sixmile Creek", "6MC_annual")
+annual_trend(HistUB, "University Bay Creek", "UB_annual") #maybe needs more custom plot for this and the following           
+annual_trend(HistWI, "Wingra Creek", "WI_annual")
+annual_trend(HistME, "Mendota", "ME_annual")
+annual_trend(HistMO, "Monona", "MO_annual")
 
 #linear regressions of chloride vs conductivity 
 
@@ -151,6 +168,4 @@ ggplot(data, aes(date, chloride_mgL)) +
   scale_color_manual(labels = c("Mendota", "Monona"),
                      values = c("#1C366B", "#F24D29"))
 
-splot("Historical_Data_Viz/", "ME_MO")
-  
 
