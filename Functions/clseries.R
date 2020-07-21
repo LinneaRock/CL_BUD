@@ -16,3 +16,4 @@ capt_clseries <- function(customTitle, location) {
     caption = paste("Time series of chloride concentrations in the ",location, ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 
+

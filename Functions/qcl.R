@@ -1,8 +1,22 @@
 #Function to join chloride and discharge datasets together then plots chloride vs. discharge
+#dfx = chloride data
+#dfy = discharge data
 
 q.cl <- function(dfx, dfy) {
-  qsc <- dfx %>%
-    left_join(dfy, by = "date") %>%
+  labx <- dfx %>%
+    mutate(join_time = datetime_collected) %>%
+    mutate(date = datetime_collected) %>%
+    data.table()
+  
+  
+  d.y <- dfy %>%
+    mutate(join_time = date) %>%
+    data.table()
+  
+  setkey(labx, join_time)
+  setkey(d.y, join_time)
+  
+  qsc <- d.y[labx, roll = "nearest"] %>%
     drop_na(chloride_mgL)
   
   
@@ -17,11 +31,24 @@ q.cl <- function(dfx, dfy) {
 }
 
 #function to evaluate residuals
-evalq <- function(df1, df2) {
-  d <- df1 %>%
-    left_join(df2, by = "date")
+evalq <- function(dfx, dfy) {
+  labx <- dfx %>%
+    mutate(join_time = datetime_collected) %>%
+    mutate(date = datetime_collected) %>%
+    data.table()
   
-  info <- lm(chloride_mgL ~ discharge, d)
+  
+  d.y <- dfy %>%
+    mutate(join_time = date) %>%
+    data.table()
+  
+  setkey(labx, join_time)
+  setkey(d.y, join_time)
+  
+  qsc <- d.y[labx, roll = "nearest"] %>%
+    drop_na(chloride_mgL)
+  
+  info <- lm(chloride_mgL ~ discharge, qsc)
   
   #print plots
   layout(matrix(1:4,2,2))
@@ -31,11 +58,24 @@ evalq <- function(df1, df2) {
 
 
 #function to obtain coefficient information 
-infoq <- function(df1, df2) {
-  d <- df1 %>%
-    left_join(df2, by = "date")
+infoq <- function(dfx, dfy) {
+  labx <- dfx %>%
+    mutate(join_time = datetime_collected) %>%
+    mutate(date = datetime_collected) %>%
+    data.table()
   
-  info <- lm(chloride_mgL ~ discharge, d)
+  
+  d.y <- dfy %>%
+    mutate(join_time = date) %>%
+    data.table()
+  
+  setkey(labx, join_time)
+  setkey(d.y, join_time)
+  
+  qsc <- d.y[labx, roll = "nearest"] %>%
+    drop_na(chloride_mgL)
+  
+  info <- lm(chloride_mgL ~ discharge, qsc)
   
   #print coefficient information
   return(summary(info))
@@ -43,11 +83,11 @@ infoq <- function(df1, df2) {
 }
 
 #function to add captions
-captqc <- function(customTitle, location, df1, df2) {
+captqc <- function(customTitle, location, dfx, dfy) {
   plot_annotation(
     title = customTitle,
     caption = paste("Concentration - Discharge relationship in the",location, ". The linear regression is 
-represented by the equation y=", round(coef(infoq(df1, df2))[2,1], 4), "x + ", round(coef(infoq(df1, df2))[1,1], 4), ". The correlation has an r-squared value of ", round(glance(infoq(df1, df2))$r.squared, 4), " 
-and a p-value of ", round(glance(infoq(df1, df2))$p.value, 4), ".", sep = ""),
+represented by the equation y=", round(coef(infoq(dfx, dfy))[2,1], 4), "x + ", round(coef(infoq(dfx, dfy))[1,1], 4), ". The correlation has an r-squared value of ", round(glance(infoq(dfx, dfy))$r.squared, 4), " 
+and a p-value of ", round(glance(infoq(dfx, dfy))$p.value, 4), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 

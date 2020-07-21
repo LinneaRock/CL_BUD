@@ -3,9 +3,11 @@ library(lubridate)
 library(ggpubr)
 library(patchwork)
 library(broom)
+library(data.table)
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("Functions/splot.R")
+source("Functions/L_theme.R")
 
 
 #Discharge - conductivity plots
@@ -62,4 +64,8 @@ splot("QC_plots/", "PBMS_cl")
 q.cl(labPBSF, d.PBSF) +
   captqc('Pheasant Branch S.Fork', "South Fork of Pheasant Branch", labPBSF, d.PBSF)
 splot("QC_plots/", "PBSF_cl")
+
+
+
+
 

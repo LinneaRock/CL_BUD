@@ -1,8 +1,20 @@
 ##Function to join conductivity and discharge datasets together then plots specific conductivity vs. discharge
 
 q.sc <- function(dfx, dfy) {
-  qsc <- dfx %>%
-    left_join(dfy, by = "date")
+  labx <- dfx %>%
+    mutate(join_time = date) %>%
+    mutate(date = date) %>%
+    data.table()
+  
+  
+  d.y <- dfy %>%
+    mutate(join_time = date) %>%
+    data.table()
+  
+  setkey(labx, join_time)
+  setkey(d.y, join_time)
+  
+  qsc <- d.y[labx, roll = "nearest"] 
   
   ggplot(qsc, aes(discharge, sp.cond)) +
     geom_point() +
@@ -15,11 +27,23 @@ q.sc <- function(dfx, dfy) {
 }
 
 #function to evaluate residuals
-evalqec <- function(df1, df2) {
-  d <- df1 %>%
-    left_join(df2, by = "date")
+evalqec <- function(dfx, dfy) {
+  labx <- dfx %>%
+    mutate(join_time = date) %>%
+    mutate(date = date) %>%
+    data.table()
   
-  info <- lm(sp.cond ~ discharge, d)
+  
+  d.y <- dfy %>%
+    mutate(join_time = date) %>%
+    data.table()
+  
+  setkey(labx, join_time)
+  setkey(d.y, join_time)
+  
+  qsc <- d.y[labx, roll = "nearest"] 
+  
+  info <- lm(sp.cond ~ discharge, qsc)
   
   #print plots
   layout(matrix(1:4,2,2))
@@ -29,11 +53,23 @@ evalqec <- function(df1, df2) {
 
 
 #function to obtain coefficient information 
-infoqec <- function(df1, df2) {
-  d <- df1 %>%
-    left_join(df2, by = "date")
+infoqec <- function(dfx, dfy) {
+  labx <- dfx %>%
+    mutate(join_time = date) %>%
+    mutate(date = date) %>%
+    data.table()
   
-  info <- lm(sp.cond ~ discharge, d)
+  
+  d.y <- dfy %>%
+    mutate(join_time = date) %>%
+    data.table()
+  
+  setkey(labx, join_time)
+  setkey(d.y, join_time)
+  
+  qsc <- d.y[labx, roll = "nearest"] 
+  
+  info <- lm(sp.cond ~ discharge, qsc)
   
   #print coefficient information
   return(summary(info))
