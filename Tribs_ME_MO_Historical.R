@@ -12,21 +12,34 @@ source("Functions/L_theme.R")
 #function to read in data for chloride
 hist <- function(X) {
   lab <- read_xlsx("Data/Historical_External/PHMDC.xlsx", sheet = X) %>%
-    mutate(chloride_mgL = as.numeric(chloride_mgL))
+    mutate(chloride_mgL = as.numeric(chloride_mgL)) %>%
+    mutate(year = year(date))
   
 }
 
+#read in lake data
 HistME <- hist("Mendota") %>%
   mutate(lakeid = "ME")
 HistMO <- hist("Monona")  %>%
   mutate(lakeid = "MO")
+
+#read in tributary data
 HistMarsh <- hist("1918 Marsh")
 HistDC <- hist("Dorn Creek")
 HistPB <- hist("Pheasant Branch Creek")
 Hist6MC <- hist("Six Mile Creek")
-HistUB <- hist("U Bay Creek")
-HistWI <- hist("Wingra")
+HistUB <- hist("U Bay Creek") 
+HistWI <- hist("Wingra") 
 HistYR <- hist("Yahara River")
+
+
+#This is the plot I am trying to make, something turns out horribly wrong though...
+ggplot(HistYR, aes(date, chloride_mgL)) +
+  geom_point() +
+  facet_wrap(~year, scales = "free_x") + 
+  labs(x = "", y = "Chloride Concentration"~(mg~L^-1)) +
+  L_theme()
+
 
 
 #linear regressions of chloride vs conductivity 
