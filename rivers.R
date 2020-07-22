@@ -1,5 +1,6 @@
 library(tidyverse)
 library(lubridate)
+library(data.table)
 library(ggpubr)
 library(patchwork)
 library(broom)
@@ -11,6 +12,7 @@ source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
 source("Functions/histlinreg.R")
+source("Functions/join_datasets.R")
 
 
 
@@ -21,8 +23,8 @@ linreg(loggerYN, labYN) +
 splot("cl_cond_linear_regression/", "YN")
 
 
-linreg(loggerYI, labYI) + 
-  captlm('Yahara River @ Main St.',"Yahara River at E. Main St", loggerYI, labYI)
+linreg(labYI, loggerYI) + 
+  captlm('Yahara River @ Main St.',"Yahara River at E. Main St", labYI, loggerYI)
 splot("cl_cond_linear_regression/", "YI")
 
 
@@ -199,5 +201,6 @@ histlinreg(YRW %>%
              filter(sp.cond <= 3000)) +
   capthlm("Upper Yahara River Watershed", "study area sampling locations", YRW)
 splot("cl_cond_linear_regression/", "YRW")
+
 
 

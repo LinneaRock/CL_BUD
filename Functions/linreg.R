@@ -1,13 +1,12 @@
 #Function for linear regression of specific conductance vs. chloride
 #df1 = chloride dataset
 #df2 = conductivity dataset
-linreg <- function(df1, df2) {
-  d <- df1 %>%
-    left_join(df2, by = "date") %>%
-    drop_na(chloride_mgL)
+linreg <- function(cl, other) {
+ 
+  join_datasets(cl, other)
   
   
-  ggplot(d, aes(sp.cond, chloride_mgL)) +
+  ggplot(qsc, aes(sp.cond, chloride_mgL)) +
     geom_point() + 
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
     #stat_cor() + 
@@ -22,11 +21,11 @@ linreg <- function(df1, df2) {
 
 
 #function to evaluate residuals
-eval <- function(df1, df2) {
-  d <- df1 %>%
-    left_join(df2, by = "date")
+eval <- function(cl, other) {
+ 
+  join_datasets(cl, other)
   
-  info <- lm(chloride_mgL ~ sp.cond, d)
+  info <- lm(chloride_mgL ~ sp.cond, qsc)
   
   #print plots
   layout(matrix(1:4,2,2))
@@ -36,11 +35,11 @@ eval <- function(df1, df2) {
 
 
 #function to obtain coefficient information 
-info <- function(df1, df2) {
-  d <- df1 %>%
-    left_join(df2, by = "date")
+info <- function(cl, other) {
   
-  info <- lm(chloride_mgL ~ sp.cond, d)
+  join_datasets(cl, other)
+  
+  info <- lm(chloride_mgL ~ sp.cond, qsc)
   
   #print coefficient information
   return(summary(info))
