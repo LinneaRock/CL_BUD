@@ -1,4 +1,7 @@
 
+source("Functions/SC.R")
+
+
 #Read in data from logger and convert CDT to GMT
 
 readSPDST <- function(id, files) {

@@ -7,7 +7,7 @@ library(data.table)
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("Functions/splot.R")
-source("Functions/L_theme.R")
+
 
 
 #Discharge - conductivity plots
@@ -36,7 +36,7 @@ q.sc(loggerPBSF, d.PBSF)+
   captqec('Pheasant Branch S.Fork', "South Fork of Pheasant Branch", loggerPBSF, d.PBSF)
 splot("QC_plots/", "PBSF_cond")
 
-infoqec(loggerPBSF, d.PBSF)
+
 
 
 #Discharge - chloride plots
@@ -64,7 +64,6 @@ splot("QC_plots/", "PBMS_cl")
 q.cl(labPBSF, d.PBSF) +
   captqc('Pheasant Branch S.Fork', "South Fork of Pheasant Branch", labPBSF, d.PBSF)
 splot("QC_plots/", "PBSF_cl")
-
 
 
 

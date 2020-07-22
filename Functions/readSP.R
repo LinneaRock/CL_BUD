@@ -1,3 +1,7 @@
+
+
+source("Functions/SC.R")
+
 readSP <- function(id, files) {
   logger <- read.csv(files[1]) # read in first file
   

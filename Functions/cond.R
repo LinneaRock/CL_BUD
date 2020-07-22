@@ -1,3 +1,7 @@
+source("Functions/L_theme.R")
+
+
+
 #Function to plot time series of specific conductance 
 #df = name of conductivity dataset
 cond <- function(df) {

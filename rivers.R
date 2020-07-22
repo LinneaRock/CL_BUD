@@ -12,13 +12,13 @@ source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
 source("Functions/histlinreg.R")
-source("Functions/join_datasets.R")
+
 
 
 
 #Linear Regressions between Conductivity and Chloride
 
-linreg(loggerYN, labYN) +
+linreg(labYN, loggerYN) +
   captlm("Yahara River @ 113", "Yahara River at Highway 113", loggerYN, labYN) #from Functions/linreg.R
 splot("cl_cond_linear_regression/", "YN")
 
@@ -28,38 +28,39 @@ linreg(labYI, loggerYI) +
 splot("cl_cond_linear_regression/", "YI")
 
 
-linreg(loggerYS, labYS) +
+linreg(labYS, loggerYS) +
   captlm('Yahara River @ Broadway',"Yahara River at Broadway St", loggerYS, labYS)
 splot("cl_cond_linear_regression/", "YS")
 
 
-linreg(loggerSW, labSW) +
+linreg(labSW, loggerSW) +
   captlm('Starkweather Creek @ Olbrich',"Starkweather Creek at Olbrich Garden", loggerSW, labSW)
 splot("cl_cond_linear_regression/", "SW")
 
 
-linreg(logger6MC, lab6MC) +
+linreg(lab6MC, logger6MC) +
   captlm('Sixmile Creek @ M',"Sixmile Creek at Highway M", logger6MC, lab6MC)
 splot("cl_cond_linear_regression/", "6MC")
 
 
-linreg(loggerDC, labDC) +
+linreg(labDC, loggerDC) +
   captlm('Dorn Creek @ M',"Dorn Creek at Highway M", loggerDC, labDC)
 splot("cl_cond_linear_regression/", "DC")
 
 
-linreg(loggerPBMS, labPBMS) +
+linreg(labPBMS, loggerPBMS) +
   captlm('Pheasant Branch Main Stem',"Main Stem of Pheasant Branch Creek", loggerPBMS, labPBMS)
 splot("cl_cond_linear_regression/", "PBMS")
 
 
-#Needed to round time because the logger was collecting at H:15 and H:45 for a few weeks rather than at H:00 and H:30 and I am having trouble finding a better solution
-a <- loggerPBSF %>%
-  mutate(date = round_date(date, "30 minutes")) 
+#Deleting first two rows for now because logger was put in later than samples collected. Will be interpolated later
+a <- labPBSF %>%
+  filter(date > "2020-01-02 00:00:00")
 
-linreg(a, labPBSF) +
-  captlm('Pheasant Branch S.Fork',"South Fork of Pheasant Branch", a, labPBSF)
+linreg(a, loggerPBSF) +
+  captlm('Pheasant Branch S.Fork',"South Fork of Pheasant Branch", loggerPBSF, a)
 splot("cl_cond_linear_regression/", "PBSF")
+
 
 
 #######################################################################

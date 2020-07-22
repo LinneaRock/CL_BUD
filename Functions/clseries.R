@@ -1,3 +1,6 @@
+
+source("Functions/L_theme.R")
+
 #Function to plot time series of chloride
 clseries <- function(df) {
   ggplot(df, aes(date, chloride_mgL)) +

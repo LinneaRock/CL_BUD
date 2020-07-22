@@ -1,9 +1,12 @@
 #Function for linear regression of specific conductance vs. chloride
-#df1 = chloride dataset
-#df2 = conductivity dataset
+#cl = chloride dataset
+#other = conductivity dataset
+
+source("Functions/join_datasets_chloride.R")
+
 linreg <- function(cl, other) {
  
-  join_datasets(cl, other)
+  qsc <- join_datasets_chloride(cl, other)
   
   
   ggplot(qsc, aes(sp.cond, chloride_mgL)) +
@@ -23,7 +26,7 @@ linreg <- function(cl, other) {
 #function to evaluate residuals
 eval <- function(cl, other) {
  
-  join_datasets(cl, other)
+  qsc <- join_datasets_chloride(cl, other)
   
   info <- lm(chloride_mgL ~ sp.cond, qsc)
   
@@ -37,7 +40,7 @@ eval <- function(cl, other) {
 #function to obtain coefficient information 
 info <- function(cl, other) {
   
-  join_datasets(cl, other)
+  qsc <- join_datasets_chloride(cl, other)
   
   info <- lm(chloride_mgL ~ sp.cond, qsc)
   

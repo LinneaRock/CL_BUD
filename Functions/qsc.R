@@ -1,20 +1,15 @@
-##Function to join conductivity and discharge datasets together then plots specific conductivity vs. discharge
 
-q.sc <- function(dfx, dfy) {
-  labx <- dfx %>%
-    mutate(join_time = date) %>%
-    mutate(date = date) %>%
-    data.table()
+source("Functions/L_theme.R")
+
+##Function to join conductivity and discharge datasets together then plots specific conductivity vs. discharge
+#cond = logger dataset
+#discharge = discharge dataset
+
+source("Functions/join_datasets_cond.R")
+
+q.sc <- function(cond, discharge) {
   
-  
-  d.y <- dfy %>%
-    mutate(join_time = date) %>%
-    data.table()
-  
-  setkey(labx, join_time)
-  setkey(d.y, join_time)
-  
-  qsc <- d.y[labx, roll = "nearest"] 
+  qsc <- join_datasets_cond(cond, discharge)
   
   ggplot(qsc, aes(discharge, sp.cond)) +
     geom_point() +
@@ -27,21 +22,9 @@ q.sc <- function(dfx, dfy) {
 }
 
 #function to evaluate residuals
-evalqec <- function(dfx, dfy) {
-  labx <- dfx %>%
-    mutate(join_time = date) %>%
-    mutate(date = date) %>%
-    data.table()
-  
-  
-  d.y <- dfy %>%
-    mutate(join_time = date) %>%
-    data.table()
-  
-  setkey(labx, join_time)
-  setkey(d.y, join_time)
-  
-  qsc <- d.y[labx, roll = "nearest"] 
+evalqec <- function(cond, discharge) {
+
+  qsc <- join_datasets_cond(cond, discharge)
   
   info <- lm(sp.cond ~ discharge, qsc)
   
@@ -53,21 +36,9 @@ evalqec <- function(dfx, dfy) {
 
 
 #function to obtain coefficient information 
-infoqec <- function(dfx, dfy) {
-  labx <- dfx %>%
-    mutate(join_time = date) %>%
-    mutate(date = date) %>%
-    data.table()
+infoqec <- function(cond, discharge) {
   
-  
-  d.y <- dfy %>%
-    mutate(join_time = date) %>%
-    data.table()
-  
-  setkey(labx, join_time)
-  setkey(d.y, join_time)
-  
-  qsc <- d.y[labx, roll = "nearest"] 
+  qsc <- join_datasets_cond(cond, discharge)
   
   info <- lm(sp.cond ~ discharge, qsc)
   

@@ -1,23 +1,14 @@
-#Function to join chloride and discharge datasets together then plots chloride vs. discharge
-#dfx = chloride data
-#dfy = discharge data
+source("Functions/L_theme.R")
 
-q.cl <- function(dfx, dfy) {
-  labx <- dfx %>%
-    mutate(join_time = datetime_collected) %>%
-    mutate(date = datetime_collected) %>%
-    data.table()
-  
-  
-  d.y <- dfy %>%
-    mutate(join_time = date) %>%
-    data.table()
-  
-  setkey(labx, join_time)
-  setkey(d.y, join_time)
-  
-  qsc <- d.y[labx, roll = "nearest"] %>%
-    drop_na(chloride_mgL)
+#Function to join chloride and discharge datasets together then plots chloride vs. discharge
+#cl = chloride data
+#discharge = discharge data
+
+source("Functions/join_datasets_chloride.R")
+
+q.cl <- function(cl, other) {
+
+  qsc <- join_datasets_chloride(cl, other)
   
   
   ggplot(qsc, aes(discharge, chloride_mgL)) +
@@ -31,22 +22,9 @@ q.cl <- function(dfx, dfy) {
 }
 
 #function to evaluate residuals
-evalq <- function(dfx, dfy) {
-  labx <- dfx %>%
-    mutate(join_time = datetime_collected) %>%
-    mutate(date = datetime_collected) %>%
-    data.table()
-  
-  
-  d.y <- dfy %>%
-    mutate(join_time = date) %>%
-    data.table()
-  
-  setkey(labx, join_time)
-  setkey(d.y, join_time)
-  
-  qsc <- d.y[labx, roll = "nearest"] %>%
-    drop_na(chloride_mgL)
+evalq <- function(cl, other) {
+
+  qsc <- join_datasets_chloride(cl, other)
   
   info <- lm(chloride_mgL ~ discharge, qsc)
   
@@ -58,22 +36,9 @@ evalq <- function(dfx, dfy) {
 
 
 #function to obtain coefficient information 
-infoq <- function(dfx, dfy) {
-  labx <- dfx %>%
-    mutate(join_time = datetime_collected) %>%
-    mutate(date = datetime_collected) %>%
-    data.table()
-  
-  
-  d.y <- dfy %>%
-    mutate(join_time = date) %>%
-    data.table()
-  
-  setkey(labx, join_time)
-  setkey(d.y, join_time)
-  
-  qsc <- d.y[labx, roll = "nearest"] %>%
-    drop_na(chloride_mgL)
+infoq <- function(cl, other) {
+ 
+  qsc <- join_datasets_chloride(cl, other)
   
   info <- lm(chloride_mgL ~ discharge, qsc)
   

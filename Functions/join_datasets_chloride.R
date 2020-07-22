@@ -1,10 +1,10 @@
 
 #cl = chloride dataset (MUST be first)
 #other = the other dataset, e.g. conductivity or discharge
-#variable = the variable to be dropped
 
 
-join_datasets <- function(cl, other) {
+
+join_datasets_chloride <- function(cl, other) {
   
   labx <- cl %>%
     mutate(join_time = date) %>%
