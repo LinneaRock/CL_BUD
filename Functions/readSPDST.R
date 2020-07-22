@@ -8,7 +8,8 @@ readSPDST <- function(id, files) {
   logger <- read.csv(files[1]) # read in first file
   
   for(i in 1:length(files)){ # if there are more than one file, rbind files 
-    logger <- rbind(logger,read.csv(files[i]))
+    logger <- rbind(logger,read.csv(files[i])) %>%
+      distinct()
   }
   
   logger =  logger %>% 
