@@ -36,8 +36,7 @@ info <- function(chloride_data, logger_data) {
 }
 
 
-slope <- coef(info(chloride_data, logger_data))[2,1] #get slope value
-intercept <- coef(info(chloride_data, logger_data))[1,1] #intercept value 
+ 
 
 
 cl_load <- combined %>%
