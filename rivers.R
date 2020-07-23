@@ -19,7 +19,7 @@ source("Functions/histlinreg.R")
 #Linear Regressions between Conductivity and Chloride
 
 linreg(labYN, loggerYN) +
-  captlm("Yahara River @ 113", "Yahara River at Highway 113", loggerYN, labYN) #from Functions/linreg.R
+  captlm("Yahara River @ 113", "Yahara River at Highway 113", labYN, loggerYN) #from Functions/linreg.R
 splot("cl_cond_linear_regression/", "YN")
 
 
@@ -29,27 +29,27 @@ splot("cl_cond_linear_regression/", "YI")
 
 
 linreg(labYS, loggerYS) +
-  captlm('Yahara River @ Broadway',"Yahara River at Broadway St", loggerYS, labYS)
+  captlm('Yahara River @ Broadway',"Yahara River at Broadway St", labYS, loggerYS)
 splot("cl_cond_linear_regression/", "YS")
 
 
 linreg(labSW, loggerSW) +
-  captlm('Starkweather Creek @ Olbrich',"Starkweather Creek at Olbrich Garden", loggerSW, labSW)
+  captlm('Starkweather Creek @ Olbrich',"Starkweather Creek at Olbrich Garden", labSW, loggerSW)
 splot("cl_cond_linear_regression/", "SW")
 
 
 linreg(lab6MC, logger6MC) +
-  captlm('Sixmile Creek @ M',"Sixmile Creek at Highway M", logger6MC, lab6MC)
+  captlm('Sixmile Creek @ M',"Sixmile Creek at Highway M", lab6MC, logger6MC)
 splot("cl_cond_linear_regression/", "6MC")
 
 
 linreg(labDC, loggerDC) +
-  captlm('Dorn Creek @ M',"Dorn Creek at Highway M", loggerDC, labDC)
+  captlm('Dorn Creek @ M',"Dorn Creek at Highway M", labDC, loggerDC)
 splot("cl_cond_linear_regression/", "DC")
 
 
 linreg(labPBMS, loggerPBMS) +
-  captlm('Pheasant Branch Main Stem',"Main Stem of Pheasant Branch Creek", loggerPBMS, labPBMS)
+  captlm('Pheasant Branch Main Stem',"Main Stem of Pheasant Branch Creek", labPBMS, loggerPBMS)
 splot("cl_cond_linear_regression/", "PBMS")
 
 
@@ -58,7 +58,7 @@ a <- labPBSF %>%
   filter(date > "2020-01-02 00:00:00")
 
 linreg(a, loggerPBSF) +
-  captlm('Pheasant Branch S.Fork',"South Fork of Pheasant Branch", loggerPBSF, a)
+  captlm('Pheasant Branch S.Fork',"South Fork of Pheasant Branch", a, loggerPBSF)
 splot("cl_cond_linear_regression/", "PBSF")
 
 
