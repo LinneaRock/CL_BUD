@@ -18,6 +18,66 @@ lakecond(loggerMO_Epi, loggerMO_Hypo, "Monona 20m", "Monona 1.5m") +
 splot("conductance_time_series/", "MO")
 
 
+#Calculating residence time
+ME_vol <- 506880000 #volume in [m^3]
+MO_vol <- 111520000 #volume in [m^3]
+
+
+format_discharge <- function(d) {
+    d %>%
+    filter(year(date) == 2019) %>%
+    group_by(yday(date)) %>%
+    summarise(meandaily = mean(discharge * 3600 *24)) %>% 
+    ungroup() %>%
+    summarise(annual = sum(meandaily)) 
+  
+}
+
+
+ME_discharge_out <- d.YI %>%
+  filter(year(date) == 2019) %>%
+  group_by(yday(date)) %>%
+  summarise(meandaily = mean(discharge *3600 * 24)) %>% 
+  ungroup() %>%
+  summarise(annual = sum(meandaily)) 
+
+res.time <- ME_vol / ME_discharge_out
+
+PBMS_in <- d.PBMS %>%
+  filter(year(date) == 2019) %>%
+  group_by(yday(date)) %>%
+  summarise(meandaily = mean(discharge * 3600 *24)) %>% 
+  ungroup() %>%
+  summarise(annual = sum(meandaily))
+
+SMC_in <- d.6MC %>%
+  filter(year(date) == 2019) %>%
+  group_by(yday(date)) %>%
+  summarise(meandaily = mean(discharge * 3600 *24)) %>% 
+  ungroup() %>%
+  summarise(annual = sum(meandaily))
+
+YN_in <- d.YN %>%
+  filter(year(date) == 2019) %>%
+  group_by(yday(date)) %>%
+  summarise(meandaily = mean(discharge * 3600 *24)) %>% 
+  ungroup() %>%
+  summarise(annual = sum(meandaily))
+
+SH_in <- d.sc.SH %>%
+  filter(year(date) == 2019) %>%
+  na.omit %>%
+  group_by(yday(date)) %>%
+  summarise(meandaily = mean(discharge * 3600 *24)) %>% 
+  ungroup() %>%
+  summarise(annual = sum(meandaily))
+
+ME_discharge_in <- SH_in + PBMS_in + SMC_in + YN_in
+
+ME_discharge_in/ME_discharge_out
+
+(ME_vol + ME_discharge_in) - ME_discharge_out
+
 #checking max and min values for the Mendota data
 checkepi <- loggerME_Epi %>%
   mutate(day = as.Date(date, "%m/%d/%y", tz = "GMT")) %>%
@@ -62,6 +122,9 @@ RMhypoME <- RMhypoME %>%
   rename(sp.cond = rollingmean)
 
 lakecond(RMepiME, RMhypoME, "Mendota 24m", "Mendota 1.5m")
+
+#looking at lake sp. conductivity with inputs' sp. conductivity patterns
+
 
 ggplot() +
   geom_line(loggerME_Hypo %>%

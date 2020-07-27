@@ -25,6 +25,13 @@ lulc <- lagos$hu12.lulc %>%
            hu12_zoneid == "HU12_11998")
 
 
+
+
+
+
+
+
+
 iws = lagos$iws %>% dplyr::select(lagoslakeid,iws_nhdid,iws_ha)
 iws.lulc = lagos$iws.lulc %>% dplyr::select(lagoslakeid,iws_nlcd2011_ha_0:iws_roaddensity_density_mperha)  %>% 
   select(-contains('_ha_'))
