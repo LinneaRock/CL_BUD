@@ -5,7 +5,7 @@ source("Functions/splot.R")
 source("Functions/L_theme.R")
    
 #read in the csv file rbind them and save as .rds in the git project.
-#attach <- read.csv("C:/Users/Linne/OneDrive/Documents/ME_profile_071620.csv") %>%
+#attach <- read.csv("C:/Users/Linne/OneDrive/Documents/ME_profile_072420.csv") %>%
 #  mutate(sampledate = anytime::anydate(sampledate)) #works better than lubridate in this circumstance
 
 
@@ -15,8 +15,8 @@ source("Functions/L_theme.R")
 
 #write_rds(attach2, "Data/ME_YSI_2020/ME_profiles.rds")
 
-ME_profile <- read_rds("Data/ME_YSI_2020/ME_profiles.rds") #July 11 data may be incorrect.. we'll reassess after next profile is in
-
+ME_profile <- read_rds("Data/ME_YSI_2020/ME_profiles.rds") %>% #July 11 data may be incorrect.. we'll reassess after next profile is in
+  filter(sampledate != "2020-07-11")
 
 ggplot(ME_profile, aes(sp_cond, depth)) +
   geom_point() +
@@ -28,7 +28,7 @@ ggplot(ME_profile, aes(sp_cond, depth)) +
        y = "\nDepth"~(m))
 splot("conductance_time_series/", "ME_summer2020_perdate")
 
-
+ggsave("Plots/conductance_time_series/ME_summer2020_perdate.png", height = 8, width = 12, units = "in")
 
 ggplot(ME_profile, aes(sampledate, sp_cond, color = depth)) +
   geom_line(aes(group = depth)) +
