@@ -20,6 +20,19 @@ ggplot() +
   geom_line(cl.q.2, mapping = aes(date, cl_fromQ, color = "From Discharge"))
 
 
-
+#checkign starkweatehr low points
 SW_lowpoints <- loggerSW %>%
-  filter(date > "2020-02-28 23:30:00")
+  filter(date > "2020-04-30 23:30:00") %>%
+  filter(sp.cond < 600)
+
+SW_lowcond <- cond(SW_lowpoints)
+
+AOS <- read_csv("C:/Users/linne/Downloads/data.csv") %>%
+  mutate(char = as.character(Date)) %>%
+  mutate(char = gsub("T", " ", char),
+         char = gsub("Z", "", char)) %>%
+  mutate(date = as_datetime(char)) 
+
+ggplot() +
+  geom_bar(AOS, mapping = aes(date, (precip * 100)), stat = "identity") +
+  geom_line(SW_lowpoints, mapping = aes(date, sp.cond))
