@@ -34,5 +34,5 @@ AOS <- read_csv("C:/Users/linne/Downloads/data.csv") %>%
   mutate(date = as_datetime(char)) 
 
 ggplot() +
-  geom_bar(AOS, mapping = aes(date, (precip * 100)), stat = "identity") +
+  geom_bar(AOS, mapping = aes(date, (precip * 200)), stat = "identity") +
   geom_line(SW_lowpoints, mapping = aes(date, sp.cond))
