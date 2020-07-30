@@ -1,17 +1,19 @@
 library(tidyverse)
 library(LAGOSNE)
+library(sf)
+library(ggspatial)
 
-lagosne_get(dest_folder = lagos_path())
+#lagosne_get(dest_folder = lagos_path())
 
 
 lagos <- lagosne_load()
 names(lagos)
 
+#get LAGOS info for ME and MO
 ME_info <- lake_info(name = "Mendota", state = "Wisconsin")
 MO_info <- lake_info(name = "Monona", state = "Wisconsin")
 
-# Get Lagos Data
-#lagos <- lagosne_load("1.087.1") #Location data 
+#Pull data
 locus <- lagos$locus %>%
   filter(lagoslakeid == 5371 |
            lagoslakeid == 4559)
@@ -24,21 +26,48 @@ lulc <- lagos$hu12.lulc %>%
   filter(hu12_zoneid == "HU12_12000" |
            hu12_zoneid == "HU12_11998")
 
-res <- coordinatize(lulc$hu12_zoneid)
+
+#Commented out code below is gathering shapefiles for subwatersheds in Mendota/Monona watersheds. Saved the shapefiles as .rds files for future use to save space.
+
+#HUC12.sf <- st_read("C:/Users/linne/Downloads/HU12/HU12.shp") 
+#HUC12.sf.ME <- HUC12.sf %>%
+#  filter(HUC12 == "070900020601" |
+#           HUC12 == "070900020602" |
+#           HUC12 == "070900020603" |
+#           HUC12 == "070900020604" |
+#           HUC12 == "070900020501" |
+#           HUC12 == "070900020502" |
+#           HUC12 == "070900020503" |
+#           HUC12 == "070900020504")
+
+#write_rds(HUC12.sf.ME, "Data/shapefiles/HUC12_ME.rds")
+
+HUC12.sf.ME <- read_rds("Data/shapefiles/HUC12_ME.rds")
+
+#HUC12.sf.MO <- HUC12.sf %>%
+#  filter(HUC12 == "070900020701" |
+#           HUC12 == "070900020702")
+
+#write_rds(HUC12.sf.MO, "Data/shapefiles/HUC12_MO.rds")
+
+HUC12.sf.MO <- read_rds("Data/shapefiles/HUC12_MO.rds")
+
+#Plot the subwatersheds!
+## Esri basemap URLs ####
+#esri_land <-  paste0('https://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/${z}/${y}/${x}.jpeg')
+world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/${z}/${y}/${x}.jpeg')
 
 
-
-
-iws = lagos$iws %>% dplyr::select(lagoslakeid,iws_nhdid,iws_ha)
-iws.lulc = lagos$iws.lulc %>% dplyr::select(lagoslakeid,iws_nlcd2011_ha_0:iws_roaddensity_density_mperha)  %>% 
-  select(-contains('_ha_'))
-iws.100 = lagos$buffer100m.lulc %>% dplyr::select(lagoslakeid,buffer100m_nlcd2011_pct_0:buffer100m_roaddensity_density_mperha) %>% 
-  select(-contains('_ha_'))
-iws.500 = lagos$buffer500m.lulc %>% dplyr::select(lagoslakeid,buffer500m_nlcd2011_pct_0:buffer500m_roaddensity_density_mperha) %>% 
-  select(-contains('_ha_'))
-lakes_limno = lagos$lakes_limno %>% dplyr::select(lagoslakeid,maxdepth)
-locus = lagos$locus #%>% dplyr::select(lagoslakeid:lake_area_ha,edu_zoneid,state_zoneid)
-lakes.geo = lagos$lakes.geo %>% dplyr::select(lagoslakeid,lakeconnection,latewisconsinglaciation_glacial:wlconnections_allwetlands_contributing_area_ha)
-
-
+ggplot(gage.bb.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = HUC12.sf.MO, fill = NA, color = "#F24D29") + 
+  geom_sf(data = HUC12.sf.ME, fill = NA, color = "#1C366B") +
+    theme_bw() + # Hilary's default theme
+  theme(legend.position = c(0.9,0.85)) +
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + # North Arrow
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
 
