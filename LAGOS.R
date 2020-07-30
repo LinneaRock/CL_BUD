@@ -24,10 +24,7 @@ lulc <- lagos$hu12.lulc %>%
   filter(hu12_zoneid == "HU12_12000" |
            hu12_zoneid == "HU12_11998")
 
-
-
-
-
+res <- coordinatize(lulc$hu12_zoneid)
 
 
 
@@ -40,7 +37,7 @@ iws.100 = lagos$buffer100m.lulc %>% dplyr::select(lagoslakeid,buffer100m_nlcd201
 iws.500 = lagos$buffer500m.lulc %>% dplyr::select(lagoslakeid,buffer500m_nlcd2011_pct_0:buffer500m_roaddensity_density_mperha) %>% 
   select(-contains('_ha_'))
 lakes_limno = lagos$lakes_limno %>% dplyr::select(lagoslakeid,maxdepth)
-locus = lagos$locus %>% dplyr::select(lagoslakeid:lake_area_ha,edu_zoneid,state_zoneid)
+locus = lagos$locus #%>% dplyr::select(lagoslakeid:lake_area_ha,edu_zoneid,state_zoneid)
 lakes.geo = lagos$lakes.geo %>% dplyr::select(lagoslakeid,lakeconnection,latewisconsinglaciation_glacial:wlconnections_allwetlands_contributing_area_ha)
 
 

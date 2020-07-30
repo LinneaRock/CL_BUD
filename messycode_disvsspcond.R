@@ -18,4 +18,8 @@ cl.q.2 <- cl.2 %>%
 ggplot() +
   geom_line(a, mapping = aes(date, chloride_mgL, color = "From Sp. Cond")) +
   geom_line(cl.q.2, mapping = aes(date, cl_fromQ, color = "From Discharge"))
-            
+
+
+
+SW_lowpoints <- loggerSW %>%
+  filter(date > "2020-02-28 23:30:00")
