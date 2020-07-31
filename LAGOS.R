@@ -2,6 +2,7 @@ library(tidyverse)
 library(LAGOSNE)
 library(sf)
 library(ggspatial)
+library(raster)
 
 #lagosne_get(dest_folder = lagos_path())
 
@@ -64,6 +65,24 @@ ggplot(gage.bb.sf) +
   geom_sf(data = HUC12.sf.ME, fill = NA, color = "#1C366B") +
     theme_bw() + # Hilary's default theme
   theme(legend.position = c(0.9,0.85)) +
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + # North Arrow
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
+
+#Commented out code for getting IWS shapefiles
+iws.sf <- st_read("C:/Users/linne/Downloads/IWS/IWS.shp")
+iws.sf.ME_MO <- iws.sf %>%
+  filter(NHD_ID == "143249470" |
+           NHD_ID == "143249640")
+
+ggplot(gage.bb.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = iws.sf.ME_MO, fill = NA, aes(color = NHD_ID)) + 
+  theme_bw() + # Hilary's default theme
+  theme(legend.position = "none") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
