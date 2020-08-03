@@ -73,14 +73,19 @@ ggplot(gage.bb.sf) +
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
 
 #Commented out code for getting IWS shapefiles
-iws.sf <- st_read("C:/Users/linne/Downloads/IWS/IWS.shp")
-iws.sf.ME_MO <- iws.sf %>%
-  filter(NHD_ID == "143249470" |
-           NHD_ID == "143249640")
+#iws.sf <- st_read("C:/Users/linne/Downloads/IWS/IWS.shp")
+#iws.sf.ME_MO <- iws.sf %>%
+#  filter(NHD_ID == "143249470" |
+#           NHD_ID == "143249640")
+#write_rds(iws.sf.ME_MO, "Data/shapefiles/iws_ME_MO.rds")
+
+iws.sf.ME_MO <- read_rds("Data/shapefiles/iws_ME_MO.rds")
 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = iws.sf.ME_MO, fill = NA, aes(color = NHD_ID)) + 
+  geom_sf(data = iws.sf.ME_MO, aes(fill = NHD_ID)) + 
+  geom_sf(data = HUC12.sf.MO, fill = NA, color = "#F24D29") + 
+  geom_sf(data = HUC12.sf.ME, fill = NA, color = "#1C366B") +
   theme_bw() + # Hilary's default theme
   theme(legend.position = "none") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
@@ -90,3 +95,5 @@ ggplot(gage.bb.sf) +
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
 
+#Commented out code for getting hydro shapefiles
+hydro <- st_read("C:/Users/linne/Downloads/Stream_Polylines_gbd/Stream_Polylines")
