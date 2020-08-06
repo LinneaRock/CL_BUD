@@ -1,17 +1,13 @@
-
+library(DataCombine)
 #Function to calculate land use percetages for each subwatershed (HUC12) area using LAGOS LULC data combined with data on the area of each subwatershed
-
-
-
-
-
-
 
 LandUse <- function(lulcdata) {
   
   #Calculate the area for the watershed and each land use [hectare]:
   WatershedArea <- lulcdata %>%
-    summarise(sum(hu12_ha_in_usa))
+    mutate(WatershedArea = sum(hu12_ha_in_usa)) %>%
+    select(WatershedArea) %>%
+    distinct()
   
   OpenWater <- lulcdata %>%
     mutate(OpenWater = sum(hu12_nlcd2011_ha_11)) %>%
@@ -89,14 +85,34 @@ LandUse <- function(lulcdata) {
     select(EmergentWetlands) %>%
     distinct()
   
-  #
+  #build dataframe 
+  newrow <- rep(NA, 16) #percentages will be in the second row, this is an empty row to add to the dataframe
   
-  df <- OpenWater %>%
-    cbind(c(DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity, BarrenLand, DeciduousForest, EvergreenForest, MixedForest, ShrubScrub, GrasslandHerb, PastureHay, CultivatedCrop, WoodyWetlands, EmergentWetlands))
+  df <- WatershedArea %>%
+    cbind(c(OpenWater, DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity, BarrenLand, DeciduousForest, EvergreenForest, MixedForest, ShrubScrub, GrasslandHerb, PastureHay, CultivatedCrop, WoodyWetlands, EmergentWetlands)) %>%
+    InsertRow(newrow)
+
+  #Percentages calcualted
+  for(i in 2:nrow(df)) {
+    for(j in 1:ncol(df)) {
+      df[i,j] = (df[i-1, j]/WatershedArea) * 100
+    }
+  }
+  
   
   return(df)
   
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

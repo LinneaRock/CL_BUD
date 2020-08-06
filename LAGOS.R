@@ -1,5 +1,6 @@
 library(tidyverse)
 library(LAGOSNE)
+source("Functions/LandUse.R")
 
 
 #Download LAGOS dataset
@@ -61,7 +62,6 @@ ME.HUC12.lulc <- lagos$hu12.lulc %>%
   left_join(HUC12, c("HUC12" = "hu12")) %>%
   select(-geometry)
 
-write.csv(ME.HUC12.lulc, "Mendota.csv")
 
 #same for Monona
 MO <- read_rds("Data/shapefiles/HUC12_MO.rds") %>%
@@ -75,19 +75,16 @@ MO.HUC12.lulc <- lagos$hu12.lulc %>%
   left_join(HUC12, c("HUC12" = "hu12")) %>%
   select(-geometry)
 
-#Lake Mendota Watershed Land Use Calculations
-#calculate area of all 6 HUC12s:
-Mendota.Watershed.Area <- ME.HUC12.lulc %>%
-  summarise(sum(hu12_ha_in_usa))
-
-OpenWater <- ME.HUC12.lulc %>%
-  mutate(OpenWater = sum(hu12_nlcd2011_ha_11)) %>%
-  select(OpenWater) %>%
-  distinct()
-  
-  
-
-OpenWaterPerc <- OpenWater/Mendota.Watershed.Area * 100
-
-
-
+#Land Use Percentages for all applicable watersheds that I want to write about
+Mendota.Watershed <- LandUse(ME.HUC12.lulc)
+YaharaHeadwaters.Watershed <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11991" | 
+                                                                 hu12_zoneid == "HU12_11992" |
+                                                                 hu12_zoneid == "HU12_11993" | 
+                                                                 hu12_zoneid == "HU12_11994" ))
+DC_6MC.Watershed <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11995" |
+                                                       hu12_zoneid == "HU12_11996"))
+PB.Watershed <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11997"))
+StormSewer_Lake <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11998"))
+Monona.Watershed <- LandUse(MO.HUC12.lulc)
+Yahara_Lake <- LandUse(MO.HUC12.lulc %>% filter(hu12_zoneid == "HU12_12000"))
+Starkweather <- LandUse(MO.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11999"))
