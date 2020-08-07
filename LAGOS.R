@@ -77,14 +77,29 @@ MO.HUC12.lulc <- lagos$hu12.lulc %>%
 
 #Land Use Percentages for all applicable watersheds that I want to write about
 Mendota.Watershed <- LandUse(ME.HUC12.lulc)
+Simple.Mendota.Watershed <- SimpleLandUse(Mendota.Watershed)
+
 YaharaHeadwaters.Watershed <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11991" | 
                                                                  hu12_zoneid == "HU12_11992" |
                                                                  hu12_zoneid == "HU12_11993" | 
                                                                  hu12_zoneid == "HU12_11994" ))
+Simple.Headwaters.Watershed <- SimpleLandUse(YaharaHeadwaters.Watershed)
+
 DC_6MC.Watershed <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11995" |
                                                        hu12_zoneid == "HU12_11996"))
+Simple.DC_6MC.Watershed <- SimpleLandUse(DC_6MC.Watershed)
+
 PB.Watershed <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11997"))
+Simple.PB.Watershed <- SimpleLandUse(PB.Watershed)
+
 StormSewer_Lake <- LandUse(ME.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11998"))
+Simple.StormSewer.ME <- SimpleLandUse(StormSewer_Lake)
+
 Monona.Watershed <- LandUse(MO.HUC12.lulc)
+Simple.Monona.Watershed <- SimpleLandUse(Monona.Watershed)
+
 Yahara_Lake <- LandUse(MO.HUC12.lulc %>% filter(hu12_zoneid == "HU12_12000"))
+Simple.Yahara.MO <- SimpleLandUse(Yahara_Lake)
+
 Starkweather <- LandUse(MO.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11999"))
+Simple.Starkweather.Watershed <- SimpleLandUse(Starkweather)

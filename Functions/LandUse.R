@@ -105,10 +105,22 @@ LandUse <- function(lulcdata) {
 }
 
 
-
-
-
-
+SimpleLandUse <- function(calculated_land_use) {
+  
+  calculated_land_use <- calculated_land_use[-1, ]
+  
+  use <- data.frame(matrix(ncol = 6, nrow = 1))
+  colnames(use) <- c("Water", "DevelopedLand", "Forest", "Shrub_Grass_BarrenLand", "Agricultural", "Wetland")
+  
+  use <- use %>%
+    mutate(Water = calculated_land_use$OpenWater,
+           DevelopedLand = calculated_land_use$DevelopedOpenSpace + calculated_land_use$DevelopedLowIntensity + calculated_land_use$DevelopedMedIntensity + calculated_land_use$DevelopedHighIntensity,
+           Forest = calculated_land_use$DeciduousForest + calculated_land_use$EvergreenForest + calculated_land_use$MixedForest,
+           Shrub_Grass_BarrenLand = calculated_land_use$BarrenLand + calculated_land_use$ShrubScrub + calculated_land_use$GrasslandHerb,
+           Agricultural = calculated_land_use$PastureHay + calculated_land_use$CultivatedCrop,
+           Wetland = calculated_land_use$WoodyWetlands + calculated_land_use$EmergentWetlands)
+  
+}
 
 
 
