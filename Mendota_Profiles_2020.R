@@ -5,7 +5,7 @@ source("Functions/splot.R")
 source("Functions/L_theme.R")
    
 #read in the csv file rbind them and save as .rds in the git project.
-#attach <- read.csv("C:/Users/Linne/OneDrive/Documents/ME_profile_072920.csv") %>%
+#attach <- read.csv("C:/Users/Linne/OneDrive/Documents/ME_profile_080520.csv") %>%
 #  mutate(sampledate = anytime::anydate(sampledate)) #works better than lubridate in this circumstance
 
 
@@ -26,7 +26,7 @@ ggplot(ME_profile, aes(sp_cond, depth)) +
   L_theme() +
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
        y = "\nDepth"~(m))
-splot("conductance_time_series/", "ME_summer2020_perdate")
+#splot("conductance_time_series/", "ME_summer2020_perdate") dimensions are too small in this code
 
 ggsave("Plots/conductance_time_series/ME_summer2020_perdate.png", height = 8, width = 12, units = "in")
 
@@ -41,7 +41,7 @@ ggplot(ME_profile, aes(sampledate, sp_cond, color = depth)) +
 splot("conductance_time_series/", "ME_summer2020_perdepth")
 
 
-#heat map? not really what I was going for
+#heat map? not really what I was going for but kind of. Maybe there is not enough data for it to look great?
 ggplot(ME_profile %>% filter(sampledate != "2020-07-11"), aes(sampledate, depth, fill = sp_cond)) +
   geom_tile() +
   scale_fill_viridis_c() +
