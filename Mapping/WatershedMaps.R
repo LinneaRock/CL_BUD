@@ -36,11 +36,13 @@ world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Can
 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = HUC12.sf.MO, fill = NA, aes(color = "Mendota Watershed")) + 
-  geom_sf(data = HUC12.sf.ME, fill = NA, aes(color = "Monona Watershed")) +
-  scale_color_manual(values = c("#F24D29", "#1C366B")) +
+  geom_sf(data = HUC12.sf.ME, fill = NA, aes(color = "Mendota Watershed")) + 
+  geom_sf(data = HUC12.sf.MO, fill = NA, aes(color = "Monona Watershed")) +
+  geom_sf_label(HUC12.sf.ME, mapping = aes(label = HUC12), color = "#1C366B") +
+  geom_sf_label(HUC12.sf.MO, mapping = aes(label = HUC12), color = "#F24D29") +
+  scale_color_manual(values = c("#1C366B", "#F24D29")) +
   theme_bw() + # Hilary's default theme
-  theme(legend.position = c(0.9,0.85),
+  theme(legend.position = c(0.9,0.85), #This needs to change, legend is cut off of image
         legend.title = element_blank()) +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
@@ -49,7 +51,7 @@ ggplot(gage.bb.sf) +
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
  
-ggsave('Plots/Huc12Map.png', width = 6, height = 6, units = 'in')
+ggsave('Plots/Huc12Map_label.png', width = 6, height = 6, units = 'in') #change name depending on if geom_sf_text/label is used
 
 #Interlake watersheds shapefile (LAGOS delineated, not using)
 iws.sf <- st_read("C:/Users/linne/Downloads/IWS/IWS.shp")

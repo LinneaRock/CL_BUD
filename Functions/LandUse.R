@@ -85,11 +85,17 @@ LandUse <- function(lulcdata) {
     select(EmergentWetlands) %>%
     distinct()
   
+  TotalRoad <- lulcdata %>%
+    mutate(TotalRoad = (sum(hu12_roaddensity_sum_lengthm) / 100)) %>% #dividing by 100 for ease in a later step of multiplying the entire row by 100
+    select(TotalRoad) %>%
+    distinct()
+  
+  
   #build dataframe 
-  newrow <- rep(NA, 16) #percentages will be in the second row, this is an empty row to add to the dataframe
+  newrow <- rep(NA, 17) #percentages will be in the second row, this is an empty row to add to the dataframe
   
   df <- WatershedArea %>%
-    cbind(c(OpenWater, DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity, BarrenLand, DeciduousForest, EvergreenForest, MixedForest, ShrubScrub, GrasslandHerb, PastureHay, CultivatedCrop, WoodyWetlands, EmergentWetlands)) %>%
+    cbind(c(OpenWater, DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity, BarrenLand, DeciduousForest, EvergreenForest, MixedForest, ShrubScrub, GrasslandHerb, PastureHay, CultivatedCrop, WoodyWetlands, EmergentWetlands, TotalRoad)) %>%
     InsertRow(newrow)
 
   #Percentages calcualted
