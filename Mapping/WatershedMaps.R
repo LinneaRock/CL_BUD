@@ -28,6 +28,7 @@ HUC12.sf.ME <- read_rds("Data/shapefiles/HUC12_ME.rds")
 
 HUC12.sf.MO <- read_rds("Data/shapefiles/HUC12_MO.rds")
 
+
 #Plot the subwatersheds!
 ## Esri basemap URLs ####
 #esri_land <-  paste0('https://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/${z}/${y}/${x}.jpeg')
@@ -100,3 +101,18 @@ ggplot(gage.bb.sf) +
 
 
 ggsave('Plots/HydroMap.png', width = 6, height = 6, units = 'in')
+
+#####################
+unsure <- st_read("C:/Users/linne/OneDrive/Documents/SALT/SALT/UWSaltLayers.gdb/UWSaltLayers.gdb")
+
+ggplot(gage.bb.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = unsure) +
+  theme_bw() + 
+  theme(legend.position = "none") +
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + # North Arrow
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes

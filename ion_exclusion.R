@@ -2,6 +2,31 @@ library(tidyverse)
 library(lubridate)
 source("Functions/L_theme.R")
 
+
+#code example from Hilary::
+
+#Here’s an example for Mendota.
+area = 39610000 #m2
+# say the ice is 27 cm thick
+ice = 39610000 * 0.27 * 1000 #L
+# Say concentation at the surface is 50 mg/L
+conc.ice = ice * 50 # mg
+rejected = conc.ice * 0.95
+#This is the amount rejected in mg
+volume.mendota = 39610000 * 12.5 *1000 #L
+#If all the ions rejected from the ice were mixed with the water column, this is how much it would increase in concentation
+total.increase = rejected / (volume.mendota -ice)
+#~ 1 mg/L
+#But what if it all went to the bottom 5 m (here I just took the bottom 5 hypso factors for mendota)
+rejected / ((0.0120+0.0076+0.0042+0.0016+0.0002) * volume.mendota)
+#So this would be about a 40 mg/L increase
+
+
+
+#########################################################################################
+#########################################################################################
+
+
 #joining datasets####
 #load and format the datasets
 ions <- read_csv("Data/LTER_ions.csv") %>% #all ion data from LTER
