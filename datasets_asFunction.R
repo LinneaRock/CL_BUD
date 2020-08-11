@@ -53,7 +53,7 @@ loggerYS <- readSP("YS", c("Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv","Da
 
 
 loggerSW <- readSP("SW", c("Data/HOBO_Loggers/SW/Dec19_Feb3/20378151_SW.csv", "Data/HOBO_Loggers/SW/Feb3_Mar16/20378151_SW.csv")) %>%
-  rbind(readSPDST("YS", "Data/HOBO_Loggers/SW/Mar16_Jun17/20378151_SW.csv"))
+  rbind(readSPDST("SW", "Data/HOBO_Loggers/SW/Mar16_Jun17/20378151_SW.csv"))
 
 
 
