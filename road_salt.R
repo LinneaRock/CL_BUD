@@ -17,7 +17,7 @@ format_salt <- function(original) {
 }
 
 
-E19 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx")
+E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx")
 
 
 E19_perdate <- E19 %>%
@@ -26,7 +26,7 @@ E19_perdate <- E19 %>%
 
 sum(E19_perdate$total_ton)
 
-W19 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx")
+W2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx")
 
 
 W19_perdate <- W19 %>%
