@@ -34,7 +34,6 @@ q.sc(loggerPBMS, d.PBMS)+
 splot("QC_plots/", "PBMS_cond")
 
 q.sc(loggerPBSF, d.PBSF)+
-  geom_jitter(width = 0.5, size = 1)
   captqec('Pheasant Branch S.Fork', "South Fork of Pheasant Branch", loggerPBSF, d.PBSF)
 splot("QC_plots/", "PBSF_cond")
 

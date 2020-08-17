@@ -18,7 +18,9 @@ q.sc <- function(cond, discharge) {
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
     labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
          x = "\nDischarge"~(m^3~s^-1)) +
-    L_theme()
+    L_theme() +
+    geom_jitter(width = 0.5, size = 1)
+    
 }
 
 #function to evaluate residuals
