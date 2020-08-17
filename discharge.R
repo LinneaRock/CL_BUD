@@ -13,7 +13,6 @@ source("Functions/splot.R")
 #Discharge - conductivity plots
 
 q.sc(loggerYN, d.YN)+
-  geom_jitter(width = 0.5, size = 1) +
   captqec('Yahara River @ 113',"Yahara River at Highway 113", loggerYN, d.YN)
 splot("QC_plots/", "YN_cond")
 
