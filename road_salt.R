@@ -20,7 +20,7 @@ format_salt <- function(original) {
 E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx")
 
 
-E19_perdate <- E19 %>%
+E19_perdate <- E2019 %>%
   group_by(DATE) %>%
   summarise(total_ton = sum(Total_Salt_Mg))
 
@@ -29,7 +29,7 @@ sum(E19_perdate$total_ton)
 W2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx")
 
 
-W19_perdate <- W19 %>%
+W19_perdate <- W2019 %>%
   group_by(DATE) %>%
   summarise(total_ton = sum(Total_Salt_Mg))
 
