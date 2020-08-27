@@ -32,7 +32,7 @@ loggerMO_Hypo <- readSP("MO", c("Data/HOBO_Loggers/MONONA/BOTTOM_2019-20/2075834
 
 
 loggerYN <- readSP("YN", c("Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv", "Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv"))
-loggerYN <- rbind(loggerYN, readSPDST("YN","Data/HOBO_Loggers/YN/Mar16_Jun17/20758343_YN.csv")) %>%
+loggerYN <- rbind(loggerYN, readSPDST("YN",c("Data/HOBO_Loggers/YN/Mar16_Jun17/20758343_YN.csv", "Data/HOBO_Loggers/YN/Jun17_Aug26/20758343_YN.csv"))) %>%
   mutate(Low.Range = ifelse(date == ymd_hms("2020-05-11 13:00:00"), 424.3, Low.Range),
          Full.Range = ifelse(date == ymd_hms("2020-05-11 13:00:00"), 424.05, Full.Range),
          sp.cond = ifelse(date == ymd_hms("2020-05-11 13:00:00"), SC(424.05, 9.25), sp.cond)) #There is a massive spike at this timestep only in the original dataset so I am setting the values to the mean of previous and post timestep.
@@ -42,41 +42,41 @@ loggerYN <- rbind(loggerYN, readSPDST("YN","Data/HOBO_Loggers/YN/Mar16_Jun17/207
 
 loggerYI <- readSP("YI",c("Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv", "Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")) %>%
   filter(date != ymd_hms("2020-02-04 20:30:00")) %>%
-  rbind(readSPDST("YI", c("Data/HOBO_Loggers/YI/Mar16_Jun17/20758347_YI.csv", "Data/HOBO_Loggers/YI/Jun17_Jul22/20758347_YI.csv")))
+  rbind(readSPDST("YI", c("Data/HOBO_Loggers/YI/Mar16_Jun17/20758347_YI.csv", "Data/HOBO_Loggers/YI/Jun17_Jul22/20758347_YI.csv", "Data/HOBO_Loggers/YI/Jul22_Aug26/20758347_YI.csv")))
 
 
 
 loggerYS <- readSP("YS", c("Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv","Data/HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv")) %>% 
   filter(date != ymd_hms("2020-03-16 14:30:00")) %>%  #getting rid of data that were collected while logger was out of the water
-  rbind(readSPDST("YS", "Data/HOBO_Loggers/YS/Mar16_Jun17/20758348_YS.csv"))
+  rbind(readSPDST("YS", c("Data/HOBO_Loggers/YS/Mar16_Jun17/20758348_YS.csv", "Data/HOBO_Loggers/YS/Jun17_Aug26/20758348_YS.csv")))
 
 
 
 loggerSW <- readSP("SW", c("Data/HOBO_Loggers/SW/Dec19_Feb3/20378151_SW.csv", "Data/HOBO_Loggers/SW/Feb3_Mar16/20378151_SW.csv")) %>%
-  rbind(readSPDST("SW", "Data/HOBO_Loggers/SW/Mar16_Jun17/20378151_SW.csv"))
+  rbind(readSPDST("SW", c("Data/HOBO_Loggers/SW/Mar16_Jun17/20378151_SW.csv", "Data/HOBO_Loggers/SW/Jun17_Aug26/20378151_SW.csv")))
 
 
 
   
 logger6MC <- readSP("6MC", c("Data/HOBO_Loggers/6MC/Dec19_Feb4/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Feb4_Mar16/20758342_6MC.csv"))  %>%
   filter(date != ymd_hms("2020-03-16 16:00:00")) %>%
-  rbind(readSPDST("6MC", c("Data/HOBO_Loggers/6MC/Mar16_Jun17/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Jun17_Jul21/20758342_6MC.csv")))
+  rbind(readSPDST("6MC", c("Data/HOBO_Loggers/6MC/Mar16_Jun17/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Jun17_Jul21/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Jul21_Aug26/20758342_6MC.csv")))
 
 
 
 
 loggerDC <- readSP("DC", c("Data/HOBO_Loggers/DC/Dec19_Feb4/20758338_DC.csv", "Data/HOBO_Loggers/DC/Feb4_Mar16/20758338_DC.csv")) %>%
-  rbind(readSPDST("DC", c("Data/HOBO_Loggers/DC/Mar16_Jun17/20758338_DC.csv", "Data/HOBO_Loggers/DC/Jun17_Jul21/20758338_DC.csv")))
+  rbind(readSPDST("DC", c("Data/HOBO_Loggers/DC/Mar16_Jun17/20758338_DC.csv", "Data/HOBO_Loggers/DC/Jun17_Jul21/20758338_DC.csv", "Data/HOBO_Loggers/DC/Jul21_Aug26/20758338_DC.csv")))
 
 
   
 loggerPBMS <- readSP("PBMS", c("Data/HOBO_Loggers/PBMS/Dec19_Feb3/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Feb3_Mar16/20758344_PBMS.csv")) %>%
-  rbind(readSPDST("PBMS", c("Data/HOBO_Loggers/PBMS/Mar16_Jun17/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Jun17_Jul21/20758344_PBMS.csv")))
+  rbind(readSPDST("PBMS", c("Data/HOBO_Loggers/PBMS/Mar16_Jun17/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Jun17_Jul21/20758344_PBMS.csv", "Data/HOBO_Loggers/PBMS/Jul21_Aug26/20758344_PBMS.csv")))
   
 
 
 loggerPBSF <- readSP("PBSF", c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.csv","Data/HOBO_Loggers/PBSF/Jan21_Feb4/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Feb4_Mar16/20758339_PBSF.csv")) %>%
-  rbind(readSPDST("PBSF", c("Data/HOBO_Loggers/PBSF/Mar16_Jun17/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Jun17_Jul21/20758339_PBSF.csv")))
+  rbind(readSPDST("PBSF", c("Data/HOBO_Loggers/PBSF/Mar16_Jun17/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Jun17_Jul21/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Jul21_Aug26/20758339_PBSF.csv")))
 
 
 fieldcondYN <- readfieldcond("YN")
