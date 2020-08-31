@@ -3,7 +3,8 @@ readLL <- function(HOBO, AOS, subfile) {
   logger <- read.csv(HOBO[1]) # read in first file
   
   for(i in 1:length(HOBO)){ # if there are more than one file, rbind files(HOBO) 
-    logger <- rbind(logger,read.csv(HOBO[i]))
+    logger <- rbind(logger,read.csv(HOBO[i])) %>%
+      distinct()
   }
   
   levellogger <- logger %>% 
