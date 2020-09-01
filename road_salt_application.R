@@ -12,13 +12,18 @@ SaltRoutes <- st_read("C:/Users/linne/OneDrive/Documents/SALT/SALT/UWSaltLayers.
 road_info <- SaltRoutes %>% as.data.frame() %>%
   left_join(Pavement %>% as.data.frame(), by = "mslink") %>%
   select(mslink, funct_class.x, calc_length_ft, surface_width, SaltRt_Name, RouteNumber, lanes) %>%
-  mutate(routeloc = ifelse(str_detect(SaltRt_Name, "E "), "E", "W")) %>%
-  mutate(routeno = parse_number(SaltRt_Name))
-
+  mutate(routeloc = ifelse(str_detect(SaltRt_Name, "E "), "E", "W")) %>% #indicates East or West route
+  mutate(routeno = parse_number(SaltRt_Name)) %>% #route number 
+  mutate(calc_length_m = calc_length_ft / 3.280839895) %>% #convert length of road to [meters]
+  mutate(surface_width_m = surface_width / 3.280839895) %>% #convert road widths to [meters] 
+  mutate(surface_area_m2 = calc_length_m * surface_width_m) %>% #road area in [m^2]
+  mutate(centerline_miles = calc_length_ft / 5280) %>% #calculate roadway in mileage
+  mutate(lane_miles = centerline_miles * lanes) #calculate lane miles in each roadway
 
 
 #Read in Road salt application data from city
-#function to convert tons and gallons to metric tonnes and liters
+#function format road salt application data
+#Convert tons and gallons to metric tonnes and liters, dates
 format_salt <- function(original) {
   df <- read_xlsx(original, sheet = "SHIFT TOTALS") %>%
     mutate(DATE = as.Date(as.character(DATE))) %>%
@@ -31,9 +36,57 @@ format_salt <- function(original) {
   
 }
 
-
+#2019-20 East Madison salt application per route per event
 E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx")
+#2019-20 West Madison salt application per route per event
 W2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx")
+
+
+#some roads are missing 
+
+E_roads <- road_info %>%
+  filter(routeloc == "E") %>%
+  group_by(routeno) %>%
+  mutate(
+    sum_centerline_miles = sum(centerline_miles),
+    sum_lane_miles = sum(lane_miles),
+    sum_length_m = sum(calc_length_m),
+    sum_area = sum(surface_area_m2)
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
