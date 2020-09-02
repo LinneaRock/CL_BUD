@@ -11,7 +11,11 @@ SaltRoutes <- st_read("C:/Users/linne/OneDrive/Documents/SALT/SALT/UWSaltLayers.
 #keep applicable columns so I don't have to deal with 97 variables...
 road_info <- SaltRoutes %>% as.data.frame() %>%
   left_join(Pavement %>% as.data.frame(), by = "mslink") %>%
-  select(mslink, funct_class.x, calc_length_ft, surface_width, SaltRt_Name, RouteNumber, lanes) %>%
+  dplyr::select(mslink, funct_class.x, calc_length_ft, surface_width, SaltRt_Name, RouteNumber, lanes) %>%
+  mutate(lanes = ifelse(mslink == 2780, 2, lanes),
+         lanes = ifelse(mslink == 2707, 2, lanes),
+         lanes = ifelse(mslink == 23284, 2, lanes),
+         lanes = ifelse(mslink == 25731, 4, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
   mutate(routeloc = ifelse(str_detect(SaltRt_Name, "E "), "E", "W")) %>% #indicates East or West route
   mutate(routeno = parse_number(SaltRt_Name)) %>% #route number 
   mutate(calc_length_m = calc_length_ft / 3.280839895) %>% #convert length of road to [meters]
@@ -42,25 +46,38 @@ E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx")
 W2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx")
 
 
-#some roads are missing 
 
 E_roads <- road_info %>%
   filter(routeloc == "E") %>%
+ # mutate(lanes = ifelse(mslink == 2780, 2, lanes),
+#         lanes = ifelse(mslink == 2707, 2, lanes),
+#         lanes = ifelse(mslink == 23284, 2, lanes),
+#         lanes = ifelse(mslink == 25731, 4, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
   group_by(routeno) %>%
-  mutate(
+  summarise(
     sum_centerline_miles = sum(centerline_miles),
     sum_lane_miles = sum(lane_miles),
     sum_length_m = sum(calc_length_m),
     sum_area = sum(surface_area_m2)
-  )
+  ) 
 
 
 
 
+check <- SaltRoutes %>%
+  filter(mslink == 	2780 |
+           mslink == 	23284 |
+           mslink == 	2707 |
+           mslink == 	25731 |
+           segment_name == "WINNEBAGO ST")
 
 
-
-
+CHECK2 <- Pavement %>%
+  filter(mslink == 	2780 |
+           mslink == 	23284 |
+           mslink == 	2707 |
+           mslink == 	25731 |
+           segment_name == "E JOHNSON ST")
 
 
 
