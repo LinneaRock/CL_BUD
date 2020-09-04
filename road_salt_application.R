@@ -15,9 +15,14 @@ road_info <- SaltRoutes %>% as.data.frame() %>%
   mutate(lanes = ifelse(mslink == 2780, 2, lanes),
          lanes = ifelse(mslink == 2707, 2, lanes),
          lanes = ifelse(mslink == 23284, 2, lanes),
-         lanes = ifelse(mslink == 25731, 4, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
+         lanes = ifelse(mslink == 25731, 4, lanes),
+         lanes = ifelse(mslink == 5777, 2, lanes),
+         lanes = ifelse(mslink == 26011, 2, lanes),
+         lanes = ifelse(mslink == 14012, 2, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
   mutate(routeloc = ifelse(str_detect(SaltRt_Name, "E "), "E", "W")) %>% #indicates East or West route
+  mutate(routeloc = ifelse(SaltRt_Name == "<Null>", "E", routeloc)) %>% #Manual check of these null routes shows these are part of E route 4
   mutate(routeno = parse_number(SaltRt_Name)) %>% #route number 
+  mutate(routeno = ifelse(SaltRt_Name == "<Null>", 4, routeno)) %>% #Manual check of these null routes shows these are part of E route 4
   mutate(calc_length_m = calc_length_ft / 3.280839895) %>% #convert length of road to [meters]
   mutate(surface_width_m = surface_width / 3.280839895) %>% #convert road widths to [meters] 
   mutate(surface_area_m2 = calc_length_m * surface_width_m) %>% #road area in [m^2]
@@ -61,23 +66,30 @@ E_roads <- road_info %>%
     sum_area = sum(surface_area_m2)
   ) 
 
+W_roads <- road_info %>%
+  filter(routeloc == "W") %>%
+  # mutate(lanes = ifelse(mslink == 2780, 2, lanes),
+  #         lanes = ifelse(mslink == 2707, 2, lanes),
+  #         lanes = ifelse(mslink == 23284, 2, lanes),
+  #         lanes = ifelse(mslink == 25731, 4, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
+  group_by(routeno) %>%
+  summarise(
+    sum_centerline_miles = sum(centerline_miles),
+    sum_lane_miles = sum(lane_miles),
+    sum_length_m = sum(calc_length_m),
+    sum_area = sum(surface_area_m2)
+  ) 
 
 
 
 check <- SaltRoutes %>%
-  filter(mslink == 	2780 |
-           mslink == 	23284 |
-           mslink == 	2707 |
-           mslink == 	25731 |
-           segment_name == "WINNEBAGO ST")
+  filter(mslink == 		5777 |
+           mslink == 		14012 |
+           mslink == 		26011)
 
 
 CHECK2 <- Pavement %>%
-  filter(mslink == 	2780 |
-           mslink == 	23284 |
-           mslink == 	2707 |
-           mslink == 	25731 |
-           segment_name == "E JOHNSON ST")
+  filter(segment_name == "KENDALL AVE")
 
 
 
