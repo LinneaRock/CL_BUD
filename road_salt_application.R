@@ -83,9 +83,7 @@ W_roads <- road_info %>%
 
 
 check <- SaltRoutes %>%
-  filter(mslink == 		5777 |
-           mslink == 		14012 |
-           mslink == 		26011)
+  filter(is.na(SaltRt_Name))
 
 
 CHECK2 <- Pavement %>%
