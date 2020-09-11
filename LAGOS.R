@@ -37,8 +37,16 @@ geo <- lagos$lakes.geo %>%
            lagoslakeid == 4559)
 
 conn <- lagos$hu12.conn %>%
-  filter(hu12_zoneid == "HU12_12000" |
-           hu12_zoneid == "HU12_11998")
+  filter(hu12_zoneid == "HU12_11991" | 
+           hu12_zoneid == "HU12_11992" |
+           hu12_zoneid == "HU12_11993" | 
+           hu12_zoneid == "HU12_11994" |
+           hu12_zoneid == "HU12_11995" |
+           hu12_zoneid == "HU12_11996" |
+           hu12_zoneid == "HU12_11997" |
+           hu12_zoneid == "HU12_11998" |
+           hu12_zoneid == "HU12_12000" | 
+           hu12_zoneid == "HU12_11999" )
 
 chag <- lagos$hu12.chag %>%
   filter(hu12_zoneid == "HU12_12000" |
