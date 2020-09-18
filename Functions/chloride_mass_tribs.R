@@ -61,7 +61,7 @@ plot_load <- function(data, title) {
 plot_load_daily <- function(data, title) {
   
   ggplot(data %>% filter(date < "2020-05-01 00:00:00")) +
-    geom_line(aes(date, cl_mass)) +
+    geom_line(aes(date, cl_load)) +
     L_theme() +
     labs(title = title,
          y = "Chloride Loading"~(Mg),
