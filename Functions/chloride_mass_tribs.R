@@ -35,15 +35,25 @@ info <- function(chloride_data, logger_data) {
   
 }
 
-
- 
+slope <- coef(info(chloride_data, logger_data))[2,1] #get slope value
+intercept <- coef(info(chloride_data, logger_data))[1,1] #intercept value 
 
 
 cl_load <- combined %>%
-  mutate(chloride_mgL = ifelse(is.na(chloride_mgL), (slope * sp.cond) + intercept, chloride_mgL)) %>% #interpolate chloride [mg L^-1] for each specific conductivity measure
-  mutate(cl_load = chloride_mgL * discharge * 0.001) #load in [g s^-1]
+  mutate(chloride_predict = (slope * sp.cond) + intercept) %>% #interpolate chloride [mg L^-1] for each specific conductivity measure
+  mutate(cl_load = chloride_predict * discharge * 0.001) #load in [g s^-1]
 
 return(cl_load)
 
+}
+
+plot_load <- function(data, title) {
+  
+  ggplot(data %>% filter(date < "2020-05-01 00:00:00")) +
+    geom_line(aes(date, cl_load)) +
+    L_theme() +
+    labs(title = title,
+         y = "Chloride Loading"~(g~s^-1),
+         x = "")
 }
          

@@ -1,23 +1,27 @@
 source("Functions/chloride_mass_tribs.R")
+source("Functions/L_theme.R")
 
 a <- chloride_mass_load_rate(labYI, loggerYI, d.YI)
 
-slopeQ <- coef(infoq(labYI, d.YI))[2,1] #get slope value
-interceptQ <- coef(infoq(labYI, d.YI))[1,1] #intercept value 
+a <- chloride_mass_load_rate(labYN, loggerYN, d.YN)
 
-clq <- join_datasets_chloride(labYI, d.YI)
+a <- chloride_mass_load_rate(lab6MC, logger6MC, d.6MC)
 
-cl.2 <- d.YI %>%
-  left_join(clq, by = "date")
+a <- chloride_mass_load_rate(labDC, loggerDC, d.DC)
 
-cl.q.2 <- cl.2 %>%
-  mutate(cl_fromQ = ifelse(is.na(chloride_mgL), (slopeQ * discharge) + interceptQ, chloride_mgL))
+a <- chloride_mass_load_rate(labPBMS, loggerPBMS, d.PBMS)
+
+a <- chloride_mass_load_rate(labPBSF, loggerPBSF, d.PBSF)
+
+jointest <- join_datasets_chloride(labYI, loggerYI)
 
 
-
-ggplot() +
-  geom_line(a, mapping = aes(date, chloride_mgL, color = "From Sp. Cond")) +
-  geom_line(cl.q.2, mapping = aes(date, cl_fromQ, color = "From Discharge"))
+ggplot(a %>% filter(date < "2020-05-01 00:00:00")) +
+  geom_line(aes(date, cl_load)) +
+  L_theme() +
+  labs(title = "Pheas",
+       y = "Chloride Loading"~(g~s^-1),
+       x = "")
 
 
 #checkign starkweatehr low points
@@ -36,3 +40,5 @@ AOS <- read_csv("C:/Users/linne/Downloads/data.csv") %>%
 ggplot() +
   geom_bar(AOS, mapping = aes(date, (precip * 200)), stat = "identity") +
   geom_line(SW_lowpoints, mapping = aes(date, sp.cond))
+rm(intercept)
+rm(slope)
