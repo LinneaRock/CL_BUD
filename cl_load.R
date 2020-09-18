@@ -12,6 +12,16 @@ new <- massdata %>%
 }
 
 
+format_daily <- function(massdata) {
+  new <- massdata %>%
+    mutate(cl_mass = cl_rate * 1800) %>% #integral to determine ~chloride mass during 1800 seconds or the 30 minute timestep
+    separate(date, c("date", "time"), sep = " ") %>%
+    mutate(date = as.Date(date)) %>%
+    group_by(date) %>% #steps above to create a column for date for grouping
+    mutate(cl_load <- sum(cl_mass)) %>% #total daily chloride mass
+    mutate(cl_load = cl_load / 1000000) #daily chloride mass in metric tonnes
+    }
+
 #Mendota Loading####
 
 ##YN
