@@ -6,6 +6,7 @@ library(broom)
 source("Functions/join_datasets_chloride.R")
 source("Functions/join_datasets_cond.R")
 source("Functions/linreg.R")
+source("functions/L_theme.R")
 
 
 chloride_mass_load_rate <- function(chloride_data, logger_data, discharge_data) {
@@ -56,4 +57,13 @@ plot_load <- function(data, title) {
          y = "Chloride Loading"~(g~s^-1),
          x = "")
 }
-         
+
+plot_load_daily <- function(data, title) {
+  
+  ggplot(data %>% filter(date < "2020-05-01 00:00:00")) +
+    geom_line(aes(date, cl_load)) +
+    L_theme() +
+    labs(title = title,
+         y = "Chloride Loading"~(Mg),
+         x = "")
+}         
