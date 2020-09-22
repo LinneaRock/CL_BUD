@@ -11,14 +11,61 @@ SaltRoutes <- st_read("C:/Users/linne/OneDrive/Documents/SALT/SALT/UWSaltLayers.
 #keep applicable columns so I don't have to deal with 97 variables...
 road_info <- SaltRoutes %>% as.data.frame() %>%
   left_join(Pavement %>% as.data.frame(), by = "mslink") %>%
-  dplyr::select(mslink, funct_class.x, calc_length_ft, surface_width, SaltRt_Name, RouteNumber, lanes) %>%
+  dplyr::select(mslink, segment_name.x, funct_class.x, calc_length_ft, surface_width, SaltRt_Name, RouteNumber, lanes) %>%
   mutate(lanes = ifelse(mslink == 2780, 2, lanes),
          lanes = ifelse(mslink == 2707, 2, lanes),
          lanes = ifelse(mslink == 23284, 2, lanes),
          lanes = ifelse(mslink == 25731, 4, lanes),
          lanes = ifelse(mslink == 5777, 2, lanes),
          lanes = ifelse(mslink == 26011, 2, lanes),
-         lanes = ifelse(mslink == 14012, 2, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
+         lanes = ifelse(mslink == 14012, 2, lanes),
+         lanes = ifelse(mslink == 3963, 4, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
+  mutate(RouteNumber = ifelse(segment_name.x == "MILLPOND RD" |
+                                segment_name.x == "LONG DR" |
+                                segment_name.x == "SAVANNAH RD" |
+                                segment_name.x == "EVAN ACRES RD" |
+                                mslink == 4167 |
+                                mslink == 4168 |
+                                mslink == 4169 |
+                                mslink == 4172 |
+                                mslink == 4232,
+                              15, RouteNumber)) %>% #manually adding segments to route 15
+  mutate(RouteNumber = ifelse(segment_name.x == "DUNWOODY DR" |
+                                segment_name.x == "BADGER LN" |
+                                segment_name.x == "FELL RD" |
+                                segment_name.x == "GOLDEN GATE WAY" |
+                                segment_name.x == "MOORLAND RD" |
+                                segment_name.x == "LAKE FARM RD" |
+                                segment_name.x == "NOB HILL RD" |
+                                segment_name.x == "E BADGER RD" |
+                                segment_name.x == "WAUNONA WAY" |
+                                segment_name.x == "HARRIMAN LN" |
+                                segment_name.x == "ETHELWYN RD" |
+                                segment_name.x == "GREENLEAF DR" |
+                                segment_name.x == "ESTHER BEACH RD" |
+                                segment_name.x == "FRAZIER AVE" |
+                                segment_name.x == "FAYETTE AVE" |
+                                segment_name.x == "HOBOKEN RD" |
+                                segment_name.x == "LAKE POINT DR" |
+                                segment_name.x == "BRIDGE RD" |
+                                mslink == 14051 |
+                                mslink == 4166 |
+                                segment_name.x == "DUTCH MILL RD" |
+                                segment_name.x == "E BROADWAY" |
+                                segment_name.x == "E BROADWAY (EB)" |
+                                segment_name.x == "COLLINS CT" |
+                                mslink == 17102 |
+                                mslink == 21272 |
+                                mslink == 21273 |
+                                mslink == 21274 |
+                                segment_name.x == "MARSH RD" |
+                                segment_name.x == "VOGES RD" |
+                                segment_name.x == "OWL CREEK DR" |
+                                segment_name.x == "GREAT GRAY DR" |
+                                segment_name.x == "VALOR WAY" |
+                                segment_name.x == "BRANDENBURG WAY" |
+                                segment_name.x == "FREESE LN",
+                              16, RouteNumber)) %>% #manually adding segments for route 16
   mutate(routeloc = ifelse(str_detect(SaltRt_Name, "E "), "E", "W")) %>% #indicates East or West route
   mutate(routeloc = ifelse(SaltRt_Name == "<Null>", "E", routeloc)) %>% #Manual check of these null routes shows these are part of E route 4
   mutate(routeno = parse_number(SaltRt_Name)) %>% #route number 
@@ -50,21 +97,25 @@ E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx")
 #2019-20 West Madison salt application per route per event
 W2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx")
 
+check <- road_info %>%
+  filter(RouteNumber == 14)
+
 
 
 E_roads <- road_info %>%
-  filter(routeloc == "E") %>%
+  filter(RouteNumber != "NA") %>%
  # mutate(lanes = ifelse(mslink == 2780, 2, lanes),
 #         lanes = ifelse(mslink == 2707, 2, lanes),
 #         lanes = ifelse(mslink == 23284, 2, lanes),
 #         lanes = ifelse(mslink == 25731, 4, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
-  group_by(routeno) %>%
+  group_by(RouteNumber) %>%
   summarise(
     sum_centerline_miles = sum(centerline_miles),
     sum_lane_miles = sum(lane_miles),
     sum_length_m = sum(calc_length_m),
     sum_area = sum(surface_area_m2)
-  ) 
+  ) %>%
+  mutate(RouteNumber = as.character(RouteNumber))
 
 W_roads <- road_info %>%
   filter(routeloc == "W") %>%
