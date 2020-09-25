@@ -18,7 +18,7 @@ WingraSubbasins <- st_read("C:/Users/linne/OneDrive/Documents/SALT/SALT/UWSaltLa
 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = check, aes(color = SaltRt_Name)) +
+  geom_sf(data = W_Map_Geo, aes(color = SaltRt_Name)) +
   theme_bw() + 
   #theme(legend.position = "none") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
