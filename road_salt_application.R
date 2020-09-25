@@ -21,6 +21,16 @@ road_info <- SaltRoutes %>% as.data.frame() %>%
          lanes = ifelse(mslink == 26011, 2, lanes),
          lanes = ifelse(mslink == 14012, 2, lanes),
          lanes = ifelse(mslink == 3963, 4, lanes)) %>% #manually adding lane numbers to rows that had missing values. Checked using google maps and road segments before and after in the database 
+  mutate(RouteNumber = ifelse(segment_name.x == "S BEDFORD ST" |
+                                mslink == 4718 |
+                                mslink == 4719 |
+                                mslink == 4708 |
+                                mslink == 4993 |
+                                mslink == 4969 |
+                                mslink == 4381 |
+                                mslink == 4728 |
+                                segment_name.x == "E WILSON ST"
+                                , 1, RouteNumber)) %>% #manually adding segments to E route 1 (some overlap with W route 1)
   mutate(RouteNumber = ifelse(segment_name.x == "MILLPOND RD" |
                                 segment_name.x == "LONG DR" |
                                 segment_name.x == "SAVANNAH RD" |
@@ -29,8 +39,9 @@ road_info <- SaltRoutes %>% as.data.frame() %>%
                                 mslink == 4168 |
                                 mslink == 4169 |
                                 mslink == 4172 |
-                                mslink == 4232,
-                              15, RouteNumber)) %>% #manually adding segments to E route 15
+                                mslink == 4232 |
+                                mslink == 4036
+                              , 15, RouteNumber)) %>% #manually adding segments to E route 15
   mutate(RouteNumber = ifelse(segment_name.x == "DUNWOODY DR" |
                                 segment_name.x == "BADGER LN" |
                                 segment_name.x == "FELL RD" |
@@ -126,10 +137,21 @@ road_info <- SaltRoutes %>% as.data.frame() %>%
 
 
 #East roads dataset for mapping only
+library(plyr)
 eastkey <- road_info %>%
   filter(RouteNumber != "NA")
-library(plyr)
+
 E_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% eastkey$mslink, ] %>%
+  mutate(RouteNumber = ifelse(segment_name == "S BEDFORD ST" |
+                                mslink == 4718 |
+                                mslink == 4719 |
+                                mslink == 4708 |
+                                mslink == 4993 |
+                                mslink == 4969 |
+                                mslink == 4381 |
+                                mslink == 4728 |
+                                segment_name == "E WILSON ST"
+                              , 1, RouteNumber)) %>% #manually adding segments to E route 1 (some overlap with W route 1)
   mutate(RouteNumber = ifelse(segment_name == "MILLPOND RD" |
                                 segment_name == "LONG DR" |
                                 segment_name == "SAVANNAH RD" |
@@ -138,8 +160,9 @@ E_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% eastkey$mslink, ] %>%
                                 mslink == 4168 |
                                 mslink == 4169 |
                                 mslink == 4172 |
-                                mslink == 4232,
-                              15, RouteNumber)) %>% #manually adding segments to route 15
+                                mslink == 4232 |
+                                mslink == 4036
+                              , 15, RouteNumber)) %>% #manually adding segments to E route 15
   mutate(RouteNumber = ifelse(segment_name == "DUNWOODY DR" |
                                 segment_name == "BADGER LN" |
                                 segment_name == "FELL RD" |
@@ -175,7 +198,7 @@ E_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% eastkey$mslink, ] %>%
                                 segment_name == "VALOR WAY" |
                                 segment_name == "BRANDENBURG WAY" |
                                 segment_name == "FREESE LN",
-                              16, RouteNumber)) %>% #manually adding segments for route 16
+                              16, RouteNumber)) %>% #manually adding segments for E route 16
   mutate(RouteNumber = as.character(RouteNumber))
 
 #West roads dataset for mapping only

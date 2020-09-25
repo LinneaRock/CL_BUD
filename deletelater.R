@@ -1,13 +1,5 @@
 check <- SaltRoutes %>%
-  filter(SaltRt_Name == "W Salt Route 17" |
-           SaltRt_Name == "W Salt Route 18" |
-           SaltRt_Name == "W Salt Route 20" |
-           SaltRt_Name == "W Salt Route 21" |
-           SaltRt_Name == "W Salt Route 22" |
-           SaltRt_Name == "W Salt Route 23" |
-           SaltRt_Name == "W Salt Route 24" |
-           SaltRt_Name == "W Salt Route 27" |
-           SaltRt_Name == "W Salt Route 30")
+  filter(segment_name == "S SPRECHER RD")
 
 
   
@@ -21,7 +13,7 @@ mutate(SaltRt_Name = ifelse(mslink == 1002 |
                               mslink == 1012 
                             , "W Salt Route 14", SaltRt_Name)) %>%
 
-
+segment_name.x == "S BEDFORD ST" |
 
 
 
