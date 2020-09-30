@@ -87,16 +87,50 @@ road_info <- SaltRoutes %>% as.data.frame() %>%
   mutate(SaltRt_Name = ifelse(mslink == 6257, "W Salt Route 2", SaltRt_Name)) %>% #manually adding segments for W route 2 from route 18??
   mutate(SaltRt_Name = ifelse(mslink == 1185 | #route 20?
                                 mslink == 1184 | #route 20?
-                                mslink == 25750   #route 21?
+                                mslink == 25750 |  #route 21?  
+                                mslink == 6070 |
+                                mslink == 6074 |
+                                mslink == 6683 |
+                                mslink == 6682 |
+                                mslink == 6741 |
+                                mslink == 6742|
+                                mslink == 6743 |
+                                mslink == 6744 |
+                                segment_name.x == "ANN ST" |
+                                segment_name.x == "PERRY ST" |
+                                segment_name.x == "GILMORE ST" |
+                                segment_name.x == "WESTERN AVE"
                               , "W Salt Route 5", SaltRt_Name)) %>% #manually adding segments for w route 5
+  mutate(SaltRt_Name = ifelse(segment_name.x == "S MIDVALE BLVD" |
+                                segment_name.x == "GLEN DR" |
+                                segment_name.x == "S MIDVALE BLVD"|
+                                mslink == 23108 | 
+                                mslink == 23107
+                              , "W Salt Route 6", SaltRt_Name)) %>% #manually adding segments for w route 6
+  mutate(SaltRt_Name = ifelse(segment_name.x == "MINERAL POINT RD" &
+                                SaltRt_Name == "W Salt Route 4"
+                              , "W Salt Route 7", SaltRt_Name)) %>%
   mutate(SaltRt_Name = ifelse(mslink == 23139 |
                                 mslink == 5915 | #route 22
                                 mslink == 23141 | #route 22
                                 mslink == 23139 | #route 22
-                                mslink == 5915 #route 22
+                                mslink == 5915 | #route 22
+                                mslink == 5868 |
+                                mslink == 5867 |
+                                mslink == 5978 |
+                                mslink == 5979 |
+                                mslink == 5953 |
+                                segment_name.x == "N FRANKLIN AVE" |
+                                segment_name.x == "FARLEY AVE"
                               , "W Salt Route 7", SaltRt_Name)) %>% #manually adding segments for w route 7
-  mutate(SaltRt_Name = ifelse(mslink == 	5993	, "W Salt Route 8", SaltRt_Name)) %>% #manually adding segmetns for w route 8 from route 23??
-  mutate(SaltRt_Name = ifelse(mslink == 6943 |
+  mutate(SaltRt_Name = ifelse(mslink == 	5993 |
+                                mslink ==	6844 |
+                                mslink == 6846 |
+                                segment_name.x == "N WHITNEY WAY"
+                                , "W Salt Route 8", SaltRt_Name)) %>% #manually adding segmetns for w route 8 from route 23??
+  mutate(SaltRt_Name = ifelse(segment_name.x == "NEW WASHBURN WAY" |
+                                segment_name.x == "WELTON DR" |
+                                mslink == 6943 |
                                 mslink ==	6941 |
                                 mslink == 6942 |
                                 mslink == 6823 | #route 24?
@@ -121,7 +155,15 @@ road_info <- SaltRoutes %>% as.data.frame() %>%
                               , "W Salt Route 14", SaltRt_Name)) %>% #manually adding segments for w route 14
   mutate(SaltRt_Name = ifelse(mslink == 10209 |
                                 mslink == 627 |
-                                mslink == 630
+                                mslink == 630 |
+                                segment_name.x == "EXCELSIOR DR" |
+                                segment_name.x == "DEMING WAY" |
+                                segment_name.x == "FOURIER DR" |
+                                mslink ==	12078 |
+                                segment_name.x == "SWALLOWTAIL DR" |
+                                segment_name.x == "TIMBER WOLF TRL" |
+                                segment_name.x == "SETTLERS RD" |
+                                segment_name.x == "VALLEY VIEW RD"
                               , "W Salt Route 16", SaltRt_Name)) %>% #manually adding segments for w route 16 from route 30??
   mutate(routeloc = ifelse(str_detect(SaltRt_Name, "E "), "E", "W")) %>% #indicates East or West route
   mutate(routeloc = ifelse(SaltRt_Name == "<Null>", "E", routeloc)) %>% #Manual check of these null routes shows these are part of E route 4
@@ -201,6 +243,7 @@ E_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% eastkey$mslink, ] %>%
                               16, RouteNumber)) %>% #manually adding segments for E route 16
   mutate(RouteNumber = as.character(RouteNumber))
 
+
 #West roads dataset for mapping only
 westkey <- road_info %>%
   filter(routeloc == "W")
@@ -215,16 +258,50 @@ W_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% westkey$mslink, ] %>%
   mutate(SaltRt_Name = ifelse(mslink == 6257, "W Salt Route 2", SaltRt_Name)) %>% #manually adding segments for W route 2 from route 18??
   mutate(SaltRt_Name = ifelse(mslink == 1185 | #route 20?
                                 mslink == 1184 | #route 20?
-                                mslink == 25750   #route 21?             
+                                mslink == 25750 |  #route 21?  
+                                mslink == 6070 |
+                                mslink == 6074 |
+                                mslink == 6683 |
+                                mslink == 6682 |
+                                mslink == 6741 |
+                                mslink == 6742|
+                                mslink == 6743 |
+                                mslink == 6744 |
+                                segment_name == "ANN ST" |
+                                segment_name == "PERRY ST" |
+                                segment_name == "GILMORE ST" |
+                                segment_name == "WESTERN AVE"
                               , "W Salt Route 5", SaltRt_Name)) %>% #manually adding segments for w route 5
+  mutate(SaltRt_Name = ifelse(segment_name == "S MIDVALE BLVD" |
+                                segment_name == "GLEN DR" |
+                                segment_name == "S MIDVALE BLVD" |
+                                mslink == 23108 | 
+                                mslink == 23107
+                              , "W Salt Route 6", SaltRt_Name)) %>% #manually adding segments for w route 6
+  mutate(SaltRt_Name = ifelse(segment_name == "MINERAL POINT RD" &
+                                SaltRt_Name == "W Salt Route 4"
+                              , "W Salt Route 7", SaltRt_Name)) %>%
   mutate(SaltRt_Name = ifelse(mslink == 23139 |
                                 mslink == 5915 | #route 22
                                 mslink == 23141 | #route 22
                                 mslink == 23139 | #route 22
-                                mslink == 5915 #route 22
+                                mslink == 5915 | #route 22
+                                mslink == 5868 |
+                                mslink == 5867 |
+                                mslink == 5978 |
+                                mslink == 5979 |
+                                mslink == 5953 |
+                                segment_name == "N FRANKLIN AVE" |
+                                segment_name == "FARLEY AVE"
                               , "W Salt Route 7", SaltRt_Name)) %>% #manually adding segments for w route 7
-  mutate(SaltRt_Name = ifelse(mslink == 	5993	, "W Salt Route 8", SaltRt_Name)) %>% #manually adding segmetns for w route 8 from route 23??
-  mutate(SaltRt_Name = ifelse(mslink == 6943 | 
+  mutate(SaltRt_Name = ifelse(mslink == 5993	|
+                                mslink ==	6844 |
+                                mslink == 6846 |
+                                segment_name == "N WHITNEY WAY"
+                                , "W Salt Route 8", SaltRt_Name)) %>% #manually adding segmetns for w route 8 from route 23??
+  mutate(SaltRt_Name = ifelse(segment_name == "NEW WASHBURN WAY" |
+                                segment_name == "WELTON DR" |
+                                mslink == 6943 | 
                                 mslink ==	6941 |
                                 mslink == 6942 |
                                 mslink == 6823 | #route 24?
@@ -249,8 +326,16 @@ W_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% westkey$mslink, ] %>%
                               , "W Salt Route 14", SaltRt_Name)) %>% #manually adding segments for w route 14
   mutate(SaltRt_Name = ifelse(mslink == 10209 |
                                 mslink == 627 |
-                                mslink == 630
-                              , "W Salt Route 16", SaltRt_Name)) #manually adding segments for w route 16 from route 30??
+                                mslink == 630 |
+                                segment_name == "EXCELSIOR DR" |
+                                segment_name == "DEMING WAY" |
+                                segment_name == "FOURIER DR" |
+                                mslink ==	12078 |
+                                segment_name == "SWALLOWTAIL DR" |
+                                segment_name == "TIMBER WOLF TRL" |
+                                segment_name == "SETTLERS RD" |
+                                segment_name == "VALLEY VIEW RD"
+                              , "W Salt Route 16", SaltRt_Name))  #manually adding segments for w route 16 from route 30??
   detach(package:plyr)
 
 
