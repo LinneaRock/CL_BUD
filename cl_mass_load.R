@@ -51,7 +51,8 @@ Total_ME_Mass <- rbind(PBMS_load_daily, DC_load_daily, SMC_load_daily, YN_load_d
   group_by(date) %>% 
   summarise(tot.mass = sum(cl_load)) #total sum mass chloride [Mg] loading into ME from tribs
 
-
+ggplot(Total_ME_Mass) +
+  geom_bar(aes(date, tot.mass), stat = "identity")
 
 #Monona Loading####
 ##YI
@@ -76,7 +77,7 @@ ggplot(Total_Mass) +
   geom_bar(aes(date, tot.mass), stat = "identity")
   
 
-#call in Winter19 dataframe from road_salt_application.R - apologies for the messy code in that script
+#call in Winter19 dataframe from road_salt_application.R
 Winter19 <- Winter19  #be sure date column is named date, not DATE
 
 Chloride_by_date <- merge(Winter19, Total_Mass, by = "date", all = TRUE) %>% #join datasets together to directly compare chloride mass
