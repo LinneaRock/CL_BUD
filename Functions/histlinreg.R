@@ -41,6 +41,6 @@ capthlm <- function(customTitle, location, df) {
     title = customTitle,
     caption = paste("Chloride concentration vs. specific conductivity relationship in the ",location, ". The 
 linear regression is represented by the equation y=", round(coef(infoh(df))[2,1], 4), "x + ", round(coef(infoh(df))[1,1], 4), ". The correlation has an r-squared 
-value of ", round(glance(infoh(df))$r.squared, 4),"and a p-value of ", round(glance(infoh(df))$p.value, 4), ".", sep = ""),
+value of ", round(glance(infoh(df))$adj.r.squared, 4)," and a p-value of ", round(glance(infoh(df))$p.value, 4), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 

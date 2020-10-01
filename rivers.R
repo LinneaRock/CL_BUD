@@ -109,42 +109,42 @@ splot("conductance_time_series/", "PBSF")
 #Chloride concentration time series 
 
 clseries(labYN %>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Yahara North", "Yahara River at Highway 113")
 splot("chloride_time_series/", "YN")
 
 clseries(labYI%>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Yahara - Isthmus", "Yahara River at E. Main St")
 splot("chloride_time_series/", "YI")
 
 clseries(labYS%>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Yahara South", "Yahara River at Broadway St")
 splot("chloride_time_series/", "YS")
 
 clseries(labSW%>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Starkweather Creek", "Starkweather Creek at Olbrich Garden")
 splot("chloride_time_series/", "SW")
 
 clseries(lab6MC %>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Sixmile Creek", "Sixmile Creek at Highway M")
 splot("chloride_time_series/", "6MC")
 
 clseries(labDC %>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Dorn Creek", "Dorn Creek at Highway M")
 splot("chloride_time_series/", "DC")
 
 clseries(labPBMS %>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Pheasant Branch Creek - Main Stem", "main stem of Pheasant Branch Creek")
 splot("chloride_time_series/", "PBMS")
 
 clseries(labPBSF %>%
-           filter(datetime_collected <= "2020-02-01 00:00:00")) +
+           filter(datetime_collected <= "2020-03-01 00:00:00")) +
   capt_clseries("Pheasant Branch Creek - South Fork", "south fork of Pheasant Branch Creek")
 splot("chloride_time_series/", "PBSF")
 
@@ -192,16 +192,16 @@ cond_compare(fieldcondPBSF, loggerPBSF)
 #####################################################################
 
 #watershed linear regression
-YRW_cond <- rbind(loggerYN, loggerYI, loggerYS, loggerSW, logger6MC, loggerDC, loggerPBMS, a) #combining all conductivity datasets into one master dataset
-YRW_cl <- rbind(labYN, labYI, labYS, labSW, lab6MC, labDC, labPBMS, labPBSF) #combining all chloride datasets into one master dataset
+#YRW_cond <- rbind(loggerYN, loggerYI, loggerYS, loggerSW, logger6MC, loggerDC, loggerPBMS, a) #combining all conductivity datasets into one master dataset
+#YRW_cl <- rbind(labYN, labYI, labYS, labSW, lab6MC, labDC, labPBMS, labPBSF) #combining all chloride datasets into one master dataset
 
-YRW <- left_join(YRW_cond, YRW_cl, by = c("date", "ID")) #joining the chloride and conductivity datasets by date and location so each chloride concentration matches up with the appropriate sp. conductivity concentration
+#YRW <- left_join(YRW_cond, YRW_cl, by = c("date", "ID")) #joining the chloride and conductivity datasets by date and location so each chloride concentration matches up with the appropriate sp. conductivity concentration
 
 #Plotting the entire watershed! I am using the functions from histlinreg.R because of the difference in functions using one or multiple datasets (I cannot figure out how to write the code to join multiple datasets like in readSP.R)
-histlinreg(YRW %>%
-             filter(sp.cond <= 3000)) +
-  capthlm("Upper Yahara River Watershed", "study area sampling locations", YRW)
-splot("cl_cond_linear_regression/", "YRW")
+#histlinreg(YRW %>%
+ #            filter(sp.cond <= 3000)) +
+#  capthlm("Upper Yahara River Watershed", "study area sampling locations", YRW)
+#splot("cl_cond_linear_regression/", "YRW")
 
 
 
