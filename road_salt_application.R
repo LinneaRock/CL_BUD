@@ -58,6 +58,14 @@ W19_perdate <- W2019 %>%
   group_by(DATE, ROUTE) %>%
   summarise(total_ton = sum(Total_Salt_Mg))
 
+#2019-20 East Madison salt application per route per season
+E19_season <- E2019 %>%
+  group_by(ROUTE) %>%
+  summarise(total_ton = sum(Total_Salt_Mg))
+#2019-20 West Madison salt application per route per season
+W19_season <- W2019 %>%
+  group_by(ROUTE) %>%
+  summarise(total_ton = sum(Total_Salt_Mg))
 
 #2019-20 salt application per date for City
 Winter19 <- E2019 %>%
@@ -65,13 +73,37 @@ Winter19 <- E2019 %>%
   group_by(DATE) %>%
   summarise(total_ton = sum(Total_Salt_Mg))
 
-
+#Salt per lane mile at each salting route during an event
 #East Madison Salt per Lane Mile
-E_salt_lanemi <- left_join(E2019, E_roads, by = "ROUTE") %>%
+E_salt_lanemi_route <- left_join(E2019, E_roads, by = "ROUTE") %>%
   select(DATE, ROUTE, Total_Salt_Mg, sum_lane_miles) %>%
   mutate(app_rate = (Total_Salt_Mg / sum_lane_miles)*1000) #[kg lane mile^-1]
 
 #West Madison Salt per Lane Mile 
-W_salt_lanemi <- left_join(W2019, W_roads, by = "ROUTE") %>%
+W_salt_lanemi_route <- left_join(W2019, W_roads, by = "ROUTE") %>%
   select(DATE, ROUTE, Total_Salt_Mg, sum_lane_miles) %>%
   mutate(app_rate = (Total_Salt_Mg / sum_lane_miles)*1000) #[kg lane mile^-1]
+
+
+#Salt per lane mile at each salting route during a day
+#East Madison Salt per Lane Mile
+E_salt_lanemi_day <- left_join(E19_perdate, E_roads, by = "ROUTE")%>%
+  select(DATE, ROUTE, total_ton, sum_lane_miles) %>%
+  mutate(app_rate = (total_ton / sum_lane_miles)*1000) #[kg lane mile^-1]
+
+#West Madison Salt per Lane Mile 
+W_salt_lanemi_day <- left_join(W19_perdate, W_roads, by = "ROUTE")%>%
+  select(DATE, ROUTE, total_ton, sum_lane_miles) %>%
+  mutate(app_rate = (total_ton / sum_lane_miles)*1000) #[kg lane mile^-1]
+
+
+#Salt per lane mile at each salting route during season
+#East Madison Salt per Lane Mile
+E_salt_lanemi_season <- left_join(E19_season, E_roads, by = "ROUTE")%>%
+  select(ROUTE, total_ton, sum_lane_miles) %>%
+  mutate(app_rate = (total_ton / sum_lane_miles)) #[Mg lane mile^-1]
+
+#West Madison Salt per Lane Mile 
+W_salt_lanemi_season <- left_join(W19_season, W_roads, by = "ROUTE")%>%
+  select(ROUTE, total_ton, sum_lane_miles) %>%
+  mutate(app_rate = (total_ton / sum_lane_miles)) #[Mg lane mile^-1]
