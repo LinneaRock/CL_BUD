@@ -1,18 +1,18 @@
-#cl = chloride dataset (MUST be first)
-#other = the other dataset, e.g. conductivity or discharge
+#chloride_data = chloride dataset (MUST be first)
+#other_dataset = the other dataset, e.g. conductivity or discharge
 
 
 
-join_datasets_chloride <- function(cl, other) {
+join_datasets_chloride <- function(chloride_data, other_dataset) {
   
-  labx <- cl %>%
+  labx <- chloride_data %>%
     mutate(join_time = date) %>%
     mutate(date = date) %>%
     mutate(check = date(date)) %>%
     data.table()
   
   
-  d.y <- other %>%
+  d.y <- other_dataset %>%
     mutate(join_time = date) %>%
     mutate(check = date(date)) %>%
     data.table()

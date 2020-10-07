@@ -75,13 +75,15 @@ cond(loggerYI) +
   capt_scseries("Yahara - Isthmus", "Yahara River at E. Main St")
 splot("conductance_time_series/", "YI")
 
-cond(loggerYI %>% filter(sp.cond < 750))
+cond(loggerYI %>% filter(sp.cond < 650 &
+                           sp.cond > 440))
 
 cond(loggerYS) +
   capt_scseries("Yahara South", "Yahara River at Broadway St")
 splot("conductance_time_series/", "YS")
 
-cond(loggerYS %>% filter(sp.cond < 750))
+cond(loggerYS %>% filter(sp.cond < 750 &
+                           sp.cond > 375))
 
 cond(loggerSW) +
   capt_scseries("Starkweather Creek", "Starkweather Creek at Olbrich Garden")
