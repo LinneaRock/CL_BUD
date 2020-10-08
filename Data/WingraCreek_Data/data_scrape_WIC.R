@@ -30,84 +30,69 @@ checkplot <- function(df, parameter) {
 }
 
 #Read in latest data from the website
-df = fromJSON('http://infosyahara.org/plot/7days.mononaoutlet.json')
+df = fromJSON('http://infosyahara.org/plot/7days.wingra.json')
 str(df)
 
 #Read in old data
-velocity <- read.csv("Data/Monona_Outlet_Data/velocity_YS.csv") %>%
-  select(date, velocity) %>%
-  mutate(date = ymd_hms(date))
-
-stage <- read.csv("Data/Monona_Outlet_Data/stage_YS.csv") %>%
+stage <- read.csv("Data/WingraCreek_Data/stage_WIC.csv") %>%
   select(date, stage) %>%
   mutate(date = ymd_hms(date))
 
-discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv") %>%
+discharge <- read.csv("Data/WingraCreek_Data/d_WIC.csv") %>%
   select(date, discharge) %>%
   mutate(date = ymd_hms(date))
 
-temp <- read.csv("Data/Monona_Outlet_Data/temp_YS.csv") %>%
+temp <- read.csv("Data/WingraCreek_Data/temp_WIC.csv") %>%
   select(date, temp) %>%
   mutate(date = ymd_hms(date))
 
 
 #find last dates in old datasets
-v.day <- max(temp$date)
 s.day <- max(stage$date)
 d.day <- max(discharge$date)
 t.day <- max(temp$date)
 
 
 #Format the new data based on last datetime of old data
-YS_temp.df <- format_scraped_DST(df$temp, temp) %>%
+WIC_temp.df <- format_scraped_DST(df$temp, temp) %>%
   rename(temp = parameter) %>%
   mutate(temp = temp_coversion(temp)) %>%
   filter(date > t.day)
-checkplot(YS_temp.df, YS_temp.df$temp)
+checkplot(WIC_temp.df, WIC_temp.df$temp)
 
 
-YS_discharge.df <- format_scraped_DST(df$discharge, discharge) %>%
+WIC_discharge.df <- format_scraped_DST(df$discharge, discharge) %>%
   rename(discharge = parameter) %>%
   mutate(discharge = discharge * 0.028316847) %>% #convert [ft^3 s^-1] to [m^3 s^-1]
   filter(date > d.day)
-checkplot(YS_discharge.df, YS_discharge.df$discharge)
+checkplot(WIC_discharge.df, WIC_discharge.df$discharge)
 
 
-YS_velocity.df <- format_scraped_DST(df$velocity, velocity) %>%
-  rename(velocity = parameter) %>%
-  mutate(velocity = velocity / 3.281) %>% #convert [ft s^-1] to [m s^-1]
-  filter(date > v.day)
-checkplot(YS_velocity.df, YS_velocity.df$velocity)
-
-
-YS_stage.df <- format_scraped_DST(df$stage, stage) %>%
+WIC_stage.df <- format_scraped_DST(df$stage, stage) %>%
   rename(stage = parameter) %>%
   mutate(stage = stage / 3.281) %>% #convert ft to m
   filter(date > s.day)
-checkplot(YS_stage.df, YS_stage.df$stage)
+checkplot(WIC_stage.df, WIC_stage.df$stage)
 
 
 
 
-#combine old and new data.. always check here before saving
-YS_velocity <- rbind(velocity, YS_velocity.df) %>% 
+#combine old and new data.. alwaWIC check here before saving
+WIC_stage <- rbind(stage, WIC_stage.df) %>% 
   distinct() 
 
-YS_stage <- rbind(stage, YS_stage.df) %>% 
+WIC_discharge<- rbind(discharge, WIC_discharge.df) %>% 
   distinct() 
 
-YS_discharge<- rbind(discharge, YS_discharge.df) %>% 
-  distinct() 
-
-YS_temp <- rbind(temp, YS_temp.df) %>% 
+WIC_temp <- rbind(temp, WIC_temp.df) %>% 
   distinct() 
 
 
 #final failsafe while saving, if there is a mistake, try again and the old dataset still exists in the folder
-write.csv(YS_temp.df, "Data/Monona_Outlet_Data/temp_YSCHECK.csv")
+write.csv(WIC_temp, "Data/WingraCreek_Data/temp_WICCHECK.csv")
 
-write.csv(YS_discharge.df, "Data/Monona_Outlet_Data/d_YSCHECK.csv")
+write.csv(WIC_discharge, "Data/WingraCreek_Data/d_WICCHECK.csv")
 
-write.csv(YS_velocity.df, "Data/Monona_Outlet_Data/velocity_YSCHECK.csv")
+write.csv(WIC_stage, "Data/WingraCreek_Data/stage_WICCHECK.csv")
 
-write.csv(YS_stage.df, "Data/Monona_Outlet_Data/stage_YSCHECK.csv")
+
