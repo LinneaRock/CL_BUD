@@ -38,7 +38,7 @@ stage <- read.csv("Data/WingraCreek_Data/stage_WIC.csv") %>%
   select(date, stage) %>%
   mutate(date = ymd_hms(date))
 
-discharge <- read.csv("Data/WingraCreek_Data/d_WIC.csv") %>%
+discharge <- read.csv("Data/WingraCreek_Data/discharge_WIC.csv") %>%
   select(date, discharge) %>%
   mutate(date = ymd_hms(date))
 
@@ -80,18 +80,20 @@ checkplot(WIC_stage.df, WIC_stage.df$stage)
 #combine old and new data.. alwaWIC check here before saving
 WIC_stage <- rbind(stage, WIC_stage.df) %>% 
   distinct() 
+checkplot(WIC_stage, WIC_stage$stage)
 
 WIC_discharge<- rbind(discharge, WIC_discharge.df) %>% 
   distinct() 
+checkplot(WIC_discharge, WIC_discharge$discharge)
 
 WIC_temp <- rbind(temp, WIC_temp.df) %>% 
   distinct() 
-
+checkplot(WIC_temp, WIC_temp$temp)
 
 #final failsafe while saving, if there is a mistake, try again and the old dataset still exists in the folder
 write.csv(WIC_temp, "Data/WingraCreek_Data/temp_WICCHECK.csv")
 
-write.csv(WIC_discharge, "Data/WingraCreek_Data/d_WICCHECK.csv")
+write.csv(WIC_discharge, "Data/WingraCreek_Data/discharge_WICCHECK.csv")
 
 write.csv(WIC_stage, "Data/WingraCreek_Data/stage_WICCHECK.csv")
 

@@ -32,10 +32,10 @@ loggerMO_Hypo <- readSP("MO", c("Data/HOBO_Loggers/MONONA/BOTTOM_2019-20/2075834
 
 
 loggerYN <- readSP("YN", c("Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv", "Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv"))
-loggerYN <- rbind(loggerYN, readSPDST("YN",c("Data/HOBO_Loggers/YN/Mar16_Jun17/20758343_YN.csv", "Data/HOBO_Loggers/YN/Jun17_Aug26/20758343_YN.csv"))) %>%
-  mutate(Low.Range = ifelse(date == ymd_hms("2020-05-11 13:00:00"), 424.3, Low.Range),
-         Full.Range = ifelse(date == ymd_hms("2020-05-11 13:00:00"), 424.05, Full.Range),
-         sp.cond = ifelse(date == ymd_hms("2020-05-11 13:00:00"), SC(424.05, 9.25), sp.cond)) #There is a massive spike at this timestep only in the original dataset so I am setting the values to the mean of previous and post timestep.
+loggerYN <- rbind(loggerYN, readSPDST("YN",c("Data/HOBO_Loggers/YN/Mar16_Jun17/20758343_YN.csv", "Data/HOBO_Loggers/YN/Jun17_Aug26/20758343_YN.csv"))) #%>%
+  #mutate(Low.Range = ifelse(date == ymd_hms("2020-05-11 13:00:00"), 424.3, Low.Range),
+         #Full.Range = ifelse(date == ymd_hms("2020-05-11 13:00:00"), 424.05, Full.Range),
+         #sp.cond = ifelse(date == ymd_hms("2020-05-11 13:00:00"), SC(424.05, 9.25), sp.cond)) #There is a massive spike at this timestep only in the original dataset so I am setting the values to the mean of previous and post timestep.
   
 
 
@@ -87,7 +87,8 @@ fieldcond6MC <- readfieldcond("6MC")
 fieldcondDC <- readfieldcond("DC")
 fieldcondPBMS <- readfieldcond("PBMS")
 fieldcondPBSF <- readfieldcond("PBSF")
-
+fieldcondME <- readfieldcond("ME")
+fieldcondMO <- readfieldcond("MO")
 
 #Willow Creek data retrieved outside of function because it is not a standardized file
 frmt <- function(d) {
@@ -115,6 +116,7 @@ lab6MC <- readCL("6MC")
 labDC <- readCL("DC")
 labPBMS <- readCL("PBMS")
 labPBSF <- readCL("PBSF")
+labME <- readCL("ME")
 
 fieldclYN <- readfieldcl("YN")
 fieldclYI <- readfieldcl("YI")

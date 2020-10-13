@@ -17,6 +17,10 @@ lakecond(loggerMO_Epi, loggerMO_Hypo, "Monona 20m", "Monona 1.5m") +
   capt_scseries("Lake Monona", "deep hole of Lake Monona")
 splot("conductance_time_series/", "MO")
 
+cond_compare(fieldcondME %>% filter(depth == 24.0), loggerME_Hypo)
+cond_compare(fieldcondME %>% filter(depth == 1.5), loggerME_Epi)
+cond_compare(fieldcondMO %>% filter(depth == 20), loggerMO_Hypo)
+cond_compare(fieldcondMO %>% filter(depth == 1.5), loggerMO_Epi)
 
 #Calculating residence time
 ME_vol <- 506880000 #volume in [m^3]
