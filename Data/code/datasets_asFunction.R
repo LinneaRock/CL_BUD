@@ -41,13 +41,13 @@ loggerYN <- rbind(loggerYN, readSPDST("YN",c("Data/HOBO_Loggers/YN/Mar16_Jun17/2
 
 
 loggerYI <- readSP("YI",c("Data/HOBO_Loggers/YI/Dec19_Feb4/20758347_YI.csv", "Data/HOBO_Loggers/YI/Feb4_Mar16/20758347_YI.csv")) %>%
-  filter(date != ymd_hms("2020-02-04 20:30:00")) %>%
+  #filter(date != ymd_hms("2020-02-04 20:30:00")) %>%
   rbind(readSPDST("YI", c("Data/HOBO_Loggers/YI/Mar16_Jun17/20758347_YI.csv", "Data/HOBO_Loggers/YI/Jun17_Jul22/20758347_YI.csv", "Data/HOBO_Loggers/YI/Jul22_Aug26/20758347_YI.csv")))
 
 
 
 loggerYS <- readSP("YS", c("Data/HOBO_Loggers/YS/Dec19_Feb3/20758348_YS.csv","Data/HOBO_Loggers/YS/Feb3_Mar16/20758348_YS.csv")) %>% 
-  filter(date != ymd_hms("2020-03-16 14:30:00")) %>%  #getting rid of data that were collected while logger was out of the water
+  #filter(date != ymd_hms("2020-03-16 14:30:00")) %>%  #getting rid of data that were collected while logger was out of the water
   rbind(readSPDST("YS", c("Data/HOBO_Loggers/YS/Mar16_Jun17/20758348_YS.csv", "Data/HOBO_Loggers/YS/Jun17_Aug26/20758348_YS.csv")))
 
 
@@ -59,7 +59,7 @@ loggerSW <- readSP("SW", c("Data/HOBO_Loggers/SW/Dec19_Feb3/20378151_SW.csv", "D
 
   
 logger6MC <- readSP("6MC", c("Data/HOBO_Loggers/6MC/Dec19_Feb4/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Feb4_Mar16/20758342_6MC.csv"))  %>%
-  filter(date != ymd_hms("2020-03-16 16:00:00")) %>%
+ # filter(date != ymd_hms("2020-03-16 16:00:00")) %>%
   rbind(readSPDST("6MC", c("Data/HOBO_Loggers/6MC/Mar16_Jun17/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Jun17_Jul21/20758342_6MC.csv", "Data/HOBO_Loggers/6MC/Jul21_Aug26/20758342_6MC.csv")))
 
 
