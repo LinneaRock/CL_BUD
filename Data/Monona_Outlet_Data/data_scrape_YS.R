@@ -1,5 +1,7 @@
 #Run at least weekly
 library(RJSONIO)
+library(tidyverse)
+library(lubridate)
 
 temp_coversion <- function(temperature) {
   (temperature - 32) * (5/9)

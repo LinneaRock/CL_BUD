@@ -5,7 +5,7 @@ temp_coversion <- function(temperature) {
   (temperature - 32) * (5/9)
 }
 
-format_scraped_DST <- function(dataname, parameter) {
+format_scraped <- function(dataname, parameter) {
   do.call(rbind.data.frame, dataname) %>%
     rename(date = 1, parameter = 2) %>%
     mutate(parameter = as.numeric(parameter)) %>%
