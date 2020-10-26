@@ -7,7 +7,7 @@ temp_coversion <- function(temperature) {
   (temperature - 32) * (5/9)
 }
 
-format_scraped_DST <- function(dataname, parameter) {
+format_scraped <- function(dataname, parameter) {
   do.call(rbind.data.frame, dataname) %>%
     rename(date = 1, parameter = 2) %>%
     mutate(parameter = as.numeric(parameter)) %>%
@@ -94,16 +94,19 @@ checkplot(YS_stage.df, YS_stage.df$stage)
 #combine old and new data.. always check here before saving
 YS_velocity <- rbind(velocity, YS_velocity.df) %>% 
   distinct() 
+checkplot(YS_velocity, YS_velocity$velocity)
 
 YS_stage <- rbind(stage, YS_stage.df) %>% 
   distinct() 
+checkplot(YS_stage, YS_stage$stage)
 
 YS_discharge<- rbind(discharge, YS_discharge.df) %>% 
   distinct() 
+checkplot(YS_discharge, YS_discharge$discharge)
 
 YS_temp <- rbind(temp, YS_temp.df) %>% 
   distinct() 
-
+checkplot(YS_temp, YS_temp$temp)
 
 #final failsafe while saving, if there is a mistake, try again and the old dataset still exists in the folder
 write.csv(YS_temp, "Data/Monona_Outlet_Data/temp_YSCHECK.csv")
