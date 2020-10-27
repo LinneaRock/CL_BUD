@@ -13,8 +13,10 @@ source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
 source("Functions/histlinreg.R")
 
-
-
+test <- info(labYN, loggerYN)
+summary(test)
+rSquared <- test$r.squared
+pvalue <- test$p.value
 
 #Linear Regressions between Conductivity and Chloride
 
