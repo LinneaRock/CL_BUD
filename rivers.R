@@ -3,7 +3,7 @@ library(lubridate)
 library(data.table)
 library(ggpubr)
 library(patchwork)
-library(broom)
+
 source("Functions/linreg.R")
 source("Functions/splot.R")
 source("Functions/cond.R")
@@ -13,10 +13,7 @@ source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
 source("Functions/histlinreg.R")
 
-test <- info(labYN, loggerYN)
-summary(test)
-rSquared <- test$r.squared
-pvalue <- test$p.value
+pvalue(labYN, loggerYN)
 
 #Linear Regressions between Conductivity and Chloride
 
@@ -34,6 +31,7 @@ linreg(labYS, loggerYS) +
   captlm('Yahara River @ Broadway',"Yahara River at Broadway St", labYS, loggerYS)
 splot("cl_cond_linear_regression/", "YS")
 
+info(labYS, loggerYS)
 
 linreg(labSW, loggerSW) +
   captlm('Starkweather Creek @ Olbrich',"Starkweather Creek at Olbrich Garden", labSW, loggerSW)

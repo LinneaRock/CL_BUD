@@ -49,12 +49,53 @@ info <- function(cl, other) {
   
 }
 
+#funtion to calculate p-value from f statistic 
+pvalue <- function(cl,other) {
+  qsc <- join_datasets_chloride(cl, other)
+  
+  info <- lm(chloride_mgL ~ sp.cond, qsc)
+  
+  pvalue <- 1-pf(as.numeric(info$fstatistic[1]), as.numeric(info$fstatistic[2]), as.numeric(info$fstatistic[3]))
+  
+  return(pvalue)
+}
+
 #function to add captions
 captlm <- function(customTitle, location, cl, other) {
   plot_annotation(
     title = customTitle,
     caption = paste("Chloride concentration vs. specific conductivity relationship in the ",location, ". The 
-linear regression is represented by the equation y=", round(coef(info(cl, other))[2,1], 4), "x + ", round(coef(info(cl, other))[1,1], 4), ". The correlation has an r-squared 
-value of ", round(glance(info(cl, other)$adj.r.squared, 4))," and a p-value of ", round(glance(info(cl, other)$p.value, 4)), ".", sep = ""),
+linear regression is represented by the equation y=", round(coef(info(cl, other))[2,1], 2), "x + ", round(coef(info(cl, other))[1,1], 2), ". The correlation has an r-squared 
+value of ", round((info(cl, other)$adj.r.squared), 2)," and a p-value of ", round(coef(info(cl, other))[2,4], 2), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 
+
+
+
+
+
+
+
+
+#round(coef(info(cl, other))[2,4], 2) #another option to get the p-value (I think)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
