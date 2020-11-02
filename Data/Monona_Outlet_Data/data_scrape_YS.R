@@ -11,21 +11,11 @@ format_scraped <- function(dataname, parameter) {
   do.call(rbind.data.frame, dataname) %>%
     rename(date = 1, parameter = 2) %>%
     mutate(parameter = as.numeric(parameter)) %>%
-    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = 'US/Central'))) %>%
+    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = 'US/Central'))) #%>%
     mutate(date = date + hours(6))  #converting to GMT from CST
-  
+    #mutate(date = date + hours(5))  #converting to GMT from CDT; use only during daylight savings time.. eye roll
 }
 
-
-#use only during daylight savings time.. eye roll
-format_scraped_DST <- function(dataname, parameter) {
-  do.call(rbind.data.frame, dataname) %>%
-    rename(date = 1, parameter = 2) %>%
-    mutate(parameter = as.numeric(parameter)) %>%
-    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = 'US/Central'))) %>%
-    mutate(date = date + hours(5))  #converting to GMT from CDT
-  
-}
 
 checkplot <- function(df, parameter) {
   ggplot(df) + geom_path(aes(x = date, y = parameter))
@@ -61,28 +51,28 @@ t.day <- max(temp$date)
 
 
 #Format the new data based on last datetime of old data
-YS_temp.df <- format_scraped_DST(df$temp, temp) %>%
+YS_temp.df <- format_scraped(df$temp, temp) %>%
   rename(temp = parameter) %>%
   mutate(temp = temp_coversion(temp)) %>%
   filter(date > t.day)
 checkplot(YS_temp.df, YS_temp.df$temp)
 
 
-YS_discharge.df <- format_scraped_DST(df$discharge, discharge) %>%
+YS_discharge.df <- format_scraped(df$discharge, discharge) %>%
   rename(discharge = parameter) %>%
   mutate(discharge = discharge * 0.028316847) %>% #convert [ft^3 s^-1] to [m^3 s^-1]
   filter(date > d.day)
 checkplot(YS_discharge.df, YS_discharge.df$discharge)
 
 
-YS_velocity.df <- format_scraped_DST(df$velocity, velocity) %>%
+YS_velocity.df <- format_scraped(df$velocity, velocity) %>%
   rename(velocity = parameter) %>%
   mutate(velocity = velocity / 3.281) %>% #convert [ft s^-1] to [m s^-1]
   filter(date > v.day)
 checkplot(YS_velocity.df, YS_velocity.df$velocity)
 
 
-YS_stage.df <- format_scraped_DST(df$stage, stage) %>%
+YS_stage.df <- format_scraped(df$stage, stage) %>%
   rename(stage = parameter) %>%
   mutate(stage = stage / 3.281) %>% #convert ft to m
   filter(date > s.day)
@@ -116,3 +106,53 @@ write.csv(YS_discharge, "Data/Monona_Outlet_Data/d_YSCHECK.csv")
 write.csv(YS_velocity, "Data/Monona_Outlet_Data/velocity_YSCHECK.csv")
 
 write.csv(YS_stage, "Data/Monona_Outlet_Data/stage_YSCHECK.csv")
+
+
+
+
+
+#annoying code to deal with daylight savings change
+# YS_temp_CDTGMT <- YS_temp.df %>%
+#   filter(row_number() <= 1740) %>%
+#   mutate(date = date + hours(5))
+# 
+# YS_temp_CSTGMT <- YS_temp.df %>%
+#   filter(row_number() >= 1741) %>%
+#   mutate(date = date + hours(6))
+# 
+# YS_temp <- rbind(temp, YS_temp_CDTGMT, YS_temp_CSTGMT) %>%
+#   distinct()
+# 
+# YS_discharge_CDTGMT <- YS_discharge.df %>%
+#   filter(row_number() <= 1740) %>%
+#   mutate(date = date + hours(5))
+# 
+# YS_discharge_CSTGMT <- YS_discharge.df %>%
+#   filter(row_number() >= 1741) %>%
+#   mutate(date = date + hours(6))
+# 
+# YS_discharge <- rbind(discharge, YS_discharge_CDTGMT, YS_discharge_CSTGMT) %>%
+#   distinct()
+# 
+# YS_stage_CDTGMT <- YS_stage.df %>%
+#   filter(row_number() <= 1740) %>%
+#   mutate(date = date + hours(5))
+# 
+# YS_stage_CSTGMT <- YS_stage.df %>%
+#   filter(row_number() >= 1741) %>%
+#   mutate(date = date + hours(6))
+# 
+# YS_stage <- rbind(stage, YS_stage_CDTGMT, YS_stage_CSTGMT) %>%
+#   distinct()
+# 
+# 
+# YS_velocity_CDTGMT <- YS_velocity.df %>%
+#   filter(row_number() <= 1740) %>%
+#   mutate(date = date + hours(5))
+# 
+# YS_velocity_CSTGMT <- YS_velocity.df %>%
+#   filter(row_number() >= 1741) %>%
+#   mutate(date = date + hours(6))
+# 
+# YS_velocity <- rbind(velocity, YS_velocity_CDTGMT, YS_velocity_CSTGMT) %>%
+#   distinct()

@@ -37,17 +37,20 @@ YN_check_1perc<- logYN %>%
            lograw < 5.786284 |
            logsp < 6.119447)
 
+outlier.YN <- tsoutliers::tso(check, types = c("AO", "IO", "LS", "TC", "SLS"))
+
+
+check <- loggerYN %>%
+  select( Full.Range)
+
+check <- ts(check) 
 
 
 
 
 
-
-
-
-
-
-
+myvector <- 1:72
+myts <- ts(myvector, start=c(2009, 1), end=c(2014, 12), frequency=12)
 
 
 
