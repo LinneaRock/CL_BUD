@@ -36,21 +36,22 @@ YN_check_1perc<- logYN %>%
            sp.cond < 454.6133 |
            lograw < 5.786284 |
            logsp < 6.119447)
-
+  
 outlier.YN <- tsoutliers::tso(check, types = c("AO", "IO", "LS", "TC", "SLS"))
 
 
 check <- loggerYN %>%
-  select( Full.Range)
+  filter(date < "2020-01-01 00:00:00") %>%
+  select(sp.cond)
 
 check <- ts(check) 
 
+ggplot(check) +
+  geom_line(aes(date, sp.cond))
 
 
 
 
-myvector <- 1:72
-myts <- ts(myvector, start=c(2009, 1), end=c(2014, 12), frequency=12)
 
 
 
