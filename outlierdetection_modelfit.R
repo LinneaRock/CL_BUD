@@ -1,5 +1,50 @@
-library(tsoutliers)
+#library(tsoutliers)
 library(tidyverse)
+library(anomalize)
+library(TTR)
+library(zoo)
+
+
+YN_tib <- loggerYN %>%
+  #filter(date < "2020-02-01 00:00:00") %>%
+  as_tibble() %>%
+  time_decompose(sp.cond, method = "twitter") %>%
+  anomalize(remainder, 
+            method = "GESD",
+            alpha = 0.01)
+
+nrow(subset(YN_tib, anomaly == "Yes")) #482
+nrow(subset(YN_tib, anomaly == "No")) #14321
+ (482 / 14803) * 100 #3.3% using twitter, IQR
+ (530 / 14803) * 100 #3.6% using stl, IQR
+ (775 / 14803) * 100 #5.2% using twitter, GESD
+
+p_twitter_gesd <- YN_tib %>%
+  plot_anomaly_decomposition() 
+
+p2 <- YN_tib %>%
+  plot_anomalies()
+
+
+p2
+
+p_twitter_gesd
+
+
+YN_runmean <- loggerYN %>%
+  mutate(runningmean = rollmean(sp.cond, 12, fill = NA)) %>%
+  mutate(res = sp.cond - runningmean)
+
+ggplot(YN_runmean) +
+  geom_line(aes(date, sp.cond), color = "blue") +
+  geom_line(aes(date, runningmean), color = "red")
+
+
+ggplot(YN_runmean %>% filter(res >= 100 |
+                               res <= -100)) +
+  geom_point(aes(date, res))
+
+
 # Create a boxplot of the dataset where outliers are shown as distinct points 
 #add $out after the end parenthesis to get a dataset with all outliers according to this boxplot
 boxplot(loggerYN$Full.Range)
@@ -13,7 +58,8 @@ boxplot(loggerPBSF$Full.Range)
 
 ggplot(loggerYN) +
   geom_line(aes(date, Full.Range, color = "Full Range")) +
-  geom_line(aes(date, sp.cond, color = "Specific Conducticity"))
+  geom_line(aes(date, sp.cond, color = "Specific Conducticity")) +
+  geom_line(aes(date, temp * 1000, color = "temperature"))
 
 logYN <- loggerYN %>%
   mutate(lograw = log(Full.Range)) %>%

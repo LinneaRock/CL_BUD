@@ -11,7 +11,7 @@ format_scraped <- function(dataname, parameter) {
   do.call(rbind.data.frame, dataname) %>%
     rename(date = 1, parameter = 2) %>%
     mutate(parameter = as.numeric(parameter)) %>%
-    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = 'US/Central'))) #%>%
+    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = 'US/Central'))) %>%
     mutate(date = date + hours(6))  #converting to GMT from CST
     #mutate(date = date + hours(5))  #converting to GMT from CDT; use only during daylight savings time.. eye roll
 }
