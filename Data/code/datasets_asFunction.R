@@ -80,7 +80,7 @@ loggerPBSF <- readSP("PBSF", c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.
   rbind(readSPDST("PBSF", "Data/HOBO_Loggers/PBSF/Aug26_Oct22/20758339_PBSF.csv"))
 
 
-
+fieldcondWIC <- readfieldcond("WIC")
 fieldcondYN <- readfieldcond("YN")
 fieldcondYI <- readfieldcond("YI")
 fieldcondYS <- readfieldcond("YS")
@@ -91,6 +91,7 @@ fieldcondPBMS <- readfieldcond("PBMS")
 fieldcondPBSF <- readfieldcond("PBSF")
 fieldcondME <- readfieldcond("ME")
 fieldcondMO <- readfieldcond("MO")
+
 
 #Willow Creek data retrieved outside of function because it is not a standardized file
 frmt <- function(d) {
@@ -109,7 +110,7 @@ upstream <- read_xlsx("Data/WRM_data/Upstream.xlsx") %>%
   frmt()
 
 #CHLORIDE DATA####
-
+labWIC <- readCL("WIC")
 labYN <- readCL("YN")
 labYI <- readCL("YI")
 labYS <- readCL("YS")
@@ -120,6 +121,7 @@ labPBMS <- readCL("PBMS")
 labPBSF <- readCL("PBSF")
 labME <- readCL("ME")
 
+fieldclWIC <- readfieldcl("WIC")
 fieldclYN <- readfieldcl("YN")
 fieldclYI <- readfieldcl("YI")
 fieldclYS <- readfieldcl("YS")
@@ -147,17 +149,17 @@ format <- function(d) {
   mutate(discharge = discharge * 0.028316847)
 }
 
-d.YN <- readNWISuv("05427850", "00060", "2019-01-01", "", tz = "GMT") %>%
+d.YN <- readNWISuv("05427850", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
-d.YI <- readNWISuv("05428500", "00060", "2019-01-01", "", tz = "GMT") %>%
+d.YI <- readNWISuv("05428500", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
-d.6MC <- readNWISuv("05427910", "00060", "2019-01-01", "", tz = "GMT") %>%
+d.6MC <- readNWISuv("05427910", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
-d.DC <- readNWISuv("05427930", "00060", "2019-01-01", "", tz = "GMT") %>%
+d.DC <- readNWISuv("05427930", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
-d.PBMS <- readNWISuv("05427948", "00060", "2019-01-01", "", tz = "GMT") %>%
+d.PBMS <- readNWISuv("05427948", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
-d.PBSF <- readNWISuv("054279465", "00060", "2019-01-01", "", tz = "GMT") %>%
+d.PBSF <- readNWISuv("054279465", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
 
 
@@ -177,5 +179,6 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "G
 #The data is saved as an rds file when the function is run!! So it only needs to be run once for each time interval 
 #readLL("Data/HOBO_Loggers/YS/Feb3_Mar16/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Feb3_Mar16")
 #readLLDST("Data/HOBO_Loggers/YS/Mar16_Jun17/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Mar16_Jun17")
-readLLDST("Data/HOBO_Loggers/YS/Jun17_Aug26/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Jun17_Aug26")
+#readLLDST("Data/HOBO_Loggers/YS/Jun17_Aug26/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Jun17_Aug26")
+#readLLDST("Data/HOBO_Loggers/YS/Aug26_Oct22/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Aug26_Oct22")
 

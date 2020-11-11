@@ -13,11 +13,13 @@ level_Jun17 <- read_rds("Data/HOBO_Loggers/YS/Jun17_Aug26/level_data.rds") %>%
   distinct() %>%
   filter(Date < ymd_hms("2020-08-26 19:15:00")) #to delete the last datapoint that was measured outside of the river
 
+level_Aug26 <- read_rds("Data/HOBO_Loggers/YS/Aug26_Oct22/level_data.rds") %>% distinct()
 
 #The model written in waterlevel_calc.R will calculate the water level 
 Mar3_Mar16 <- CalculateLevel(level_Mar3, 0.085)
 Mar16_Jun17 <- CalculateLevel(level_Mar16, 0.10)
 Jun17_Aug26 <- CalculateLevel(level_Jun17, 0.4572) 
+Aug26_Oct22 <- CalculateLevel(level_Aug26, 0.595)
 #Bind the datasets together for easy graphing
 level.data <- rbind(Mar3_Mar16, Mar16_Jun17, Jun17_Aug26)
 

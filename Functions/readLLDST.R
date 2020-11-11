@@ -12,7 +12,7 @@ readLLDST <- function(HOBO, AOS, subfile) {
   levellogger <- logger %>% 
     mutate(char = as.character(Date),
            Date = as_datetime(char)) %>%
-    mutate(Date = Date + hours(5)) %>% #actually converting to GMT
+    mutate(Date = Date + hours(5)) %>% #converting to GMT
     select(Date, Pressure, Temp)
   
   AOS <- read.csv(AOS) %>% #The file downloaded from AOS
