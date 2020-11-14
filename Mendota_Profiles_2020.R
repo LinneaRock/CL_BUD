@@ -6,15 +6,14 @@ source("Functions/splot.R")
 source("Functions/L_theme.R")
    
 #read in the csv file rbind them and save as .rds in the git project.
-#  attach <- read.csv("C:/Users/Linne/OneDrive/Documents/ME_profile_110620.csv") %>%
-#    mutate(sampledate = anytime::anydate(sampledate)) #works better than lubridate in this circumstance
-# # 
-# # 
-#  ME_profile <- read_rds("Data/ME_YSI_2020/ME_profiles.rds")
-# # 
-#  attach2 <- bind_rows(ME_profile, attach) #be sure that the previous version of ME_profiles is loaded
-# # 
-#  write_rds(attach2, "Data/ME_YSI_2020/ME_profiles.rds")
+  # attach <- read.csv("C:/Users/Linne/OneDrive/Documents/ME_profile_111220.csv") %>%
+  #   mutate(sampledate = anytime::anydate(sampledate)) #works better than lubridate in this circumstance
+  # 
+  # ME_profile <- read_rds("Data/ME_YSI_2020/ME_profiles.rds")
+  # 
+  # attach2 <- bind_rows(ME_profile, attach) #be sure that the previous version of ME_profiles is loaded
+  # 
+  # write_rds(attach2, "Data/ME_YSI_2020/ME_profiles.rds")
 
 ME_profile <- read_rds("Data/ME_YSI_2020/ME_profiles.rds") %>% 
   filter(sampledate != "2020-07-11") #sensors malfunctioned this date

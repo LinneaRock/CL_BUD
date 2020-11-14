@@ -3,6 +3,9 @@ library(lubridate)
 library(data.table)
 library(ggpubr)
 library(patchwork)
+library(anomalize)
+library(zoo)
+library(cowplot)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -12,6 +15,7 @@ source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
 source("Functions/histlinreg.R")
+source("Functions/outlierdetection.R")
 
 pvalue(labYN, loggerYN)
 
@@ -110,8 +114,7 @@ splot("conductance_time_series/", "PBSF")
 
 #Chloride concentration time series 
 
-clseries(labYN %>%
-           filter(datetime_collected <= "2020-03-01 00:00:00")) +
+clseries(labYN) +
   capt_clseries("Yahara North", "Yahara River at Highway 113")
 splot("chloride_time_series/", "YN")
 
