@@ -3,6 +3,8 @@ library(RJSONIO)
 library(tidyverse)
 library(lubridate)
 
+setwd("C:/Users/linne/Box Sync/CL_BUD")
+
 temp_coversion <- function(temperature) {
   (temperature - 32) * (5/9)
 }
