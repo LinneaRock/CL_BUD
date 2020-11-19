@@ -80,17 +80,17 @@ loggerPBSF <- readSP("PBSF", c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.
   rbind(readSPDST("PBSF", "Data/HOBO_Loggers/PBSF/Aug26_Oct22/20758339_PBSF.csv"))
 
 
-fieldcondWIC <- readfieldcond("WIC")
-fieldcondYN <- readfieldcond("YN")
-fieldcondYI <- readfieldcond("YI")
-fieldcondYS <- readfieldcond("YS")
-fieldcondSW <- readfieldcond("SW")
-fieldcond6MC <- readfieldcond("6MC")
-fieldcondDC <- readfieldcond("DC")
-fieldcondPBMS <- readfieldcond("PBMS")
-fieldcondPBSF <- readfieldcond("PBSF")
-fieldcondME <- readfieldcond("ME")
-fieldcondMO <- readfieldcond("MO")
+fieldcondWIC <- readfieldcond("WIC", "WIC")
+fieldcondYN <- readfieldcond("YN", "YN")
+fieldcondYI <- readfieldcond("YI", "YI")
+fieldcondYS <- readfieldcond("YS", "YS")
+fieldcondSW <- readfieldcond("SW", "SW")
+fieldcond6MC <- readfieldcond("6MC", "6MC")
+fieldcondDC <- readfieldcond("DC", "DC")
+fieldcondPBMS <- readfieldcond("PBMS", "PBMS")
+fieldcondPBSF <- readfieldcond("PBSF", "PBSF")
+fieldcondME <- readfieldcond("ME", "ME")
+fieldcondMO <- readfieldcond("MO", "MO")
 
 
 #Willow Creek data retrieved outside of function because it is not a standardized file

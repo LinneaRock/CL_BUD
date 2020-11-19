@@ -18,18 +18,27 @@ source("Functions/histlinreg.R")
 source("Functions/outlierdetection.R")
 
 #calling and naming raw data
-YS_logger_data <- loggerYS #HOBO conductivity data
+YS_logger_data <- loggerYS  #HOBO conductivity data
 YS_chloride <- labYS #IC data 
 YS_discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv")
 
 #Preparing datasets through rolling averages and removing outliers that greatly impact the data
 YS_runmean <- rollavg6hr(YS_logger_data)
 YS_outlier <- find_outliers(YS_runmean)
-plot_outliers(YS_runmean, YS_outlier)
-anom_detect(YS_logger_data)
+plot_outliers(YS_runmean, YS_outlier, fieldcondYS) 
+YS_anom <- anom_detect(YS_logger_data)
+plot_anomaly_decomposition(YS_anom)
+
+plot_anom(YS_runmean, YS_anom, fieldcondYS)
 YS_runmean2 <- remove_outliers(YS_logger_data, YS_outlier)
 plot_6hrave(YI_runmean2)
 
+YS_anom2 <- YS_anom %>%
+  filter(remainder > 120 | remainder < -120)
+plot_outliers(YS_runmean, YS_outlier, fieldcondYS) + geom_point(YS_anom2, mapping = aes(date, observed), color = "purple")
+
+YS_anom3 <- YS_anom2 %>%
+  clean_anomalies()
 #Conductivity time series
 
 #Chloride time series

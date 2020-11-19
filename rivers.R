@@ -194,6 +194,16 @@ cond_compare(fieldcondDC, loggerDC)
 cond_compare(fieldcondPBMS, loggerPBMS)
 cond_compare(fieldcondPBSF, loggerPBSF)
 
+sp.cond_compare <- function(fieldcond, loggercond) {
+  ggplot()+
+    geom_point(loggercond, mapping = aes(date, sp.cond)) +
+    geom_point(fieldcond, mapping = aes(date, sp.cond), color = "red") + 
+    geom_jitter()
+}
+
+sp.cond_compare(fieldcondYN, loggerYN)
+sp.cond_compare((fieldcondPBSF %>% filter(date >= "2020-04-01 00:00:00" & date <= "2020-09-01 00:00:00")), (loggerPBSF %>% filter(date >= "2020-04-01 00:00:00" & date <= "2020-09-01 00:00:00")))
+
 #####################################################################
 
 #watershed linear regression
