@@ -1,7 +1,7 @@
 library(tidyverse)
 library(lubridate)
 library(zoo)
-library(anomalize)
+
 
 
 #step 1: using the specific conductance, find a 6 hour rolling mean 
@@ -401,11 +401,11 @@ ggplot(YN2) +
 YS2 <- loggerYS %>%
   mutate(Year_Month = paste(year(date), month(date), sep = "-")) %>%
   group_by(Year_Month) %>%
-  mutate(IQR_0.01 = quantile(sp.cond, 0.01)) %>%
-  mutate(IQR_0.99 = quantile(sp.cond, 0.99)) %>%
+  mutate(Q_0.01 = quantile(sp.cond, 0.01)) %>%
+  mutate(Q_0.99 = quantile(sp.cond, 0.99)) %>%
   mutate(monthly_ave = mean(sp.cond)) %>%
   ungroup() %>%
-  mutate(outlier = ifelse(sp.cond < (0.75 * IQR_0.01) | sp.cond > (1.5 * IQR_0.99), "Y", "N")) %>%
+  mutate(outlier = ifelse(sp.cond < (0.75 * Q_0.01) | sp.cond > (1.5 * Q_0.99), "Y", "N")) #%>%
   mutate(runningmean = rollmean(sp.cond, 13, fill = NA)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
   mutate(runningmean = ifelse(row_number() <= 6, mean(sp.cond[1:6]), runningmean)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of the remaining rows
   mutate(runningmean = ifelse(row_number() >= (nrow(YS2) - 5), mean(sp.cond[(nrow(YS2) - 5):nrow(YS2)]), runningmean)) %>%
@@ -421,16 +421,16 @@ ggplot(YS4) +
 YS3 <- YS2 %>%
   group_by(Year_Month) %>%
   mutate(corr_sp.cond = ifelse(outlier2 != "N", runningmean, sp.cond)) %>%
-  mutate(IQR_0.01 = quantile(sp.cond, 0.01)) %>%
-  mutate(IQR_0.99 = quantile(sp.cond, 0.99)) %>%
-  mutate(monthly_ave = mean(sp.cond)) %>%
+  mutate(IQR_0.01 = quantile(sp.cond, 0.01)) %>% #monthly 1th percentile
+  mutate(IQR_0.99 = quantile(sp.cond, 0.99)) %>% #monthly 99th percentile
+  mutate(monthly_ave = mean(sp.cond)) %>% #monthly mean
   ungroup() %>%
-  mutate(outlier = ifelse(sp.cond < (0.75 * IQR_0.01) | sp.cond > (1.5 * IQR_0.99), "Y", "N")) %>%
+  mutate(outlier1 = ifelse(sp.cond < (0.75 * IQR_0.01) | sp.cond > (1.5 * IQR_0.99), "Y", "N")) %>% #finding obvious outliers 
   mutate(runningmean = rollmean(sp.cond, 13, fill = NA)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
   mutate(runningmean = ifelse(row_number() <= 6, mean(sp.cond[1:6]), runningmean)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of the remaining rows
   mutate(runningmean = ifelse(row_number() >= (nrow(YS2) - 5), mean(sp.cond[(nrow(YS2) - 5):nrow(YS2)]), runningmean)) %>%
   mutate(res = sp.cond - runningmean) %>% # residuals used to determine outliers in the next step
-  mutate(outlier2 = ifelse(res >= 120 | res <= -120, "Yes", outlier))
+  mutate(outlier2 = ifelse(res >= 120 | res <= -120, "Yes", outlier)) #finding outliers far from the 6 hour moving average
 
 YS4 <- YS3 %>%
   group_by(Year_Month) %>%
