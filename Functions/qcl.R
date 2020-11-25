@@ -52,7 +52,7 @@ captqc <- function(customTitle, location, dfx, dfy) {
   plot_annotation(
     title = customTitle,
     caption = paste("Concentration - Discharge relationship in the",location, ". The linear regression is 
-represented by the equation y=", round(coef(infoq(dfx, dfy))[2,1], 4), "x + ", round(coef(infoq(dfx, dfy))[1,1], 4), ". The correlation has an r-squared value of ", round(glance(infoq(dfx, dfy))$r.squared, 4), " 
-and a p-value of ", round(glance(infoq(dfx, dfy))$p.value, 4), ".", sep = ""),
+represented by the equation y=", round(coef(infoq(dfx, dfy))[2,1], 4), "x + ", round(coef(infoq(dfx, dfy))[1,1], 4), ". The correlation has an r-squared value of ", round((infoq(dfx, dfy))$adj.r.squared, 4), " 
+and a p-value of ", round(coef(infoq(dfx, dfy))[2,4], 2), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 

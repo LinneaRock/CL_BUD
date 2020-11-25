@@ -5,8 +5,9 @@ source("Functions/L_theme.R")
 #Function to plot time series of specific conductance 
 #df = name of conductivity dataset
 cond <- function(df) {
-  ggplot(df, aes(date, sp.cond)) +
-    geom_line() +
+  ggplot(df) +
+    geom_line(aes(date, corr_sp.cond), color = "snow3") +
+    geom_line(aes(date, runningmean)) +
     labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
          x = "") + L_theme()
 }
@@ -17,8 +18,8 @@ cond <- function(df) {
 #Y = epi name for legend
 lakecond <- function(df1, df2, X, Y) {
   ggplot() +
-    geom_line(df1, mapping = aes(date, sp.cond, color = "#1DACE8")) +
-    geom_line(df2, mapping = aes(date, sp.cond, color = "#1C366B")) +
+    geom_line(df1, mapping = aes(date, runningmean, color = "#1DACE8")) +
+    geom_line(df2, mapping = aes(date, runningmean, color = "#1C366B")) +
     labs(x = "",
          y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n") +
     scale_color_manual(labels = c(X, Y),

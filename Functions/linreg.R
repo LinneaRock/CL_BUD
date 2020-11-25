@@ -9,7 +9,7 @@ linreg <- function(cl, other) {
   qsc <- join_datasets_chloride(cl, other)
   
   
-  ggplot(qsc, aes(sp.cond, chloride_mgL)) +
+  ggplot(qsc, aes(runningmean, chloride_mgL)) +
     geom_point() + 
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
     #stat_cor() + 
@@ -28,7 +28,7 @@ eval <- function(cl, other) {
  
   qsc <- join_datasets_chloride(cl, other)
   
-  info <- lm(chloride_mgL ~ sp.cond, qsc)
+  info <- lm(chloride_mgL ~ runningmean, qsc)
   
   #print plots
   layout(matrix(1:4,2,2))
@@ -42,7 +42,7 @@ info <- function(cl, other) {
   
   qsc <- join_datasets_chloride(cl, other)
   
-  info <- lm(chloride_mgL ~ sp.cond, qsc)
+  info <- lm(chloride_mgL ~ runningmean, qsc)
   
   #print coefficient information
   return(summary(info))
@@ -53,7 +53,7 @@ info <- function(cl, other) {
 pvalue <- function(cl,other) {
   qsc <- join_datasets_chloride(cl, other)
   
-  info <- lm(chloride_mgL ~ sp.cond, qsc)
+  info <- lm(chloride_mgL ~ runningmean, qsc)
   
   pvalue <- 1-pf(as.numeric(info$fstatistic[1]), as.numeric(info$fstatistic[2]), as.numeric(info$fstatistic[3]))
   

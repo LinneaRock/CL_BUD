@@ -120,6 +120,7 @@ labDC <- readCL("DC")
 labPBMS <- readCL("PBMS")
 labPBSF <- readCL("PBSF")
 labME <- readCL("ME")
+labMO <- readCL("MO")
 
 fieldclWIC <- readfieldcl("WIC")
 fieldclYN <- readfieldcl("YN")

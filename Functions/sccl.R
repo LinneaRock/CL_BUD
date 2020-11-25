@@ -16,7 +16,7 @@ sccl <- function(logger, lab) {
   
   par(new = TRUE)
   
-  plot(logger$date, logger$sp.cond,
+  plot(logger$date, logger$runningmean,
        col="#27223C",type="l",xaxt="n",yaxt="n",xlab="",ylab="",axes=FALSE)
   
   axis(4, col = "#27223C", col.axis = "#27223C")

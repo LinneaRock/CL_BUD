@@ -11,7 +11,7 @@ q.sc <- function(cond, discharge) {
   
   qsc <- join_datasets_cond(cond, discharge)
   
-  ggplot(qsc, aes(discharge, sp.cond)) +
+  ggplot(qsc, aes(discharge, runningmean)) +
     geom_point() +
     #stat_cor() + 
     #stat_regline_equation() +
@@ -28,7 +28,7 @@ evalqec <- function(cond, discharge) {
 
   qsc <- join_datasets_cond(cond, discharge)
   
-  info <- lm(sp.cond ~ discharge, qsc)
+  info <- lm(runningmean ~ discharge, qsc)
   
   #print plots
   layout(matrix(1:4,2,2))
@@ -42,7 +42,7 @@ infoqec <- function(cond, discharge) {
   
   qsc <- join_datasets_cond(cond, discharge)
   
-  info <- lm(sp.cond ~ discharge, qsc)
+  info <- lm(runningmean ~ discharge, qsc)
   
   #print coefficient information
   return(summary(info))
@@ -55,6 +55,6 @@ captqec <- function(customTitle, location, df1, df2) {
     title = customTitle,
     caption = paste("Concentration - Discharge relationship in the",location, ". The linear regression is 
 represented by the equation y=", round(coef(infoqec(df1, df2))[2,1], 4), "x + ", round(coef(infoqec(df1, df2))[1,1], 4), ".", " The correlation has an r-squared value of 
-", round(glance(infoqec(df1, df2))$r.squared, 4), " and a p-value of ", round(glance(infoqec(df1, df2))$p.value, 4), ".", sep = ""),
+", round((infoqec(df1, df2))$adj.r.squared, 2), " and a p-value of ", round(coef(infoqec(df1, df2))[2,4], 2), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 

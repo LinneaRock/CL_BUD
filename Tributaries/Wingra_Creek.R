@@ -3,9 +3,7 @@ library(lubridate)
 library(data.table)
 library(ggpubr)
 library(patchwork)
-library(anomalize)
 library(zoo)
-library(cowplot)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -14,22 +12,56 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/histlinreg.R")
-source("Functions/outlierdetection.R")
+source("Functions/find_outlier.R")
+source("Functions/qsc.R")
+source("Functions/qcl.R")
+source("functions/discharge_ts.R")
 
-#Preparing datasets through rolling averages and removing outliers that greatly impact the data
+#calling and naming raw data
+loggerWIC <- loggerWIC  #HOBO conductivity data
+fieldcondWIC <- fieldcondWIC #conductivity measured in the field
+labWIC <- labWIC #IC data 
+WIC_discharge <- read.csv("Data/WingraCreek_Data/discharge_WIC.csv") %>%
+  mutate(date = ymd_hms(date))
+
+#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
+#outlier figures automatically saved to plots folder
+#use runningmean for analyses going forward
+WIC_cond_data <- find_outlier(loggerWIC, fieldcondWIC, "WICoutliers", "WICoutliers_month")
 
 #Conductivity time series
+WIC_cond_plot <- cond(WIC_cond_data) +
+  capt_scseries("Wingra Creek", "Wingra Creek at Monona Inlet")
+splot("conductance_time_series/", "WIC")
 
 #Chloride time series
+WIC_cl_plot <- clseries(labWIC) +
+  capt_clseries("Wingra Creek", "Wingra Creek at Monona Inlet")
+splot("chloride_time_series/", "WIC")
 
 #Discharge time series
+WIC_discharge_plot <- discharge_ts(WIC_discharge)
+
+#cQ - conductivity
+q.sc(WIC_cond_data, WIC_discharge)+
+  captqec('Wingra Creek',"Wingra Creek at Monona Inlet", WIC_cond_data, WIC_discharge)
+splot("QC_plots/", "WIC_cond")
+
+#cQ - chloride
+q.cl(labWIC, WIC_discharge) +
+  captqc('Wingra Creek',"Wingra Creek at Monona Inlet", labWIC, WIC_discharge)
+splot("QC_plots/", "WIC_cl")
 
 #Linear Regression between Conductivity and Chloride
+WIC_linreg_plot <- linreg(labWIC, WIC_cond_data) +
+  captlm('Wingra Creek',"Wingra Creek at Monona Inlet", labWIC, WIC_cond_data)
+splot("cl_cond_linear_regression/", "WIC")
 
 #conductivity time series with chloride points overlain
+sccl(WIC_cond_data, labWIC)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
+cond_compare(fieldcondWIC, loggerWIC)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
-
+cl_compare(fieldclWIC, labWIC)

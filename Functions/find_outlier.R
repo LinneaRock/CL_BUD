@@ -2,7 +2,7 @@ library(tidyverse)
 library(lubridate)
 library(zoo)
 
-find_outlier <- function(loggerdata, filename1, filename2) {
+find_outlier <- function(loggerdata, fieldcond, filename1, filename2) {
 
 #data1 contains the obvious outliers that are very far from the rest of the data
 data1 <- loggerdata %>%
@@ -41,7 +41,8 @@ g <- ggplot() +
   geom_point(data3, mapping = aes(date, corr_sp.cond), color = "#E6A2C5") +
   geom_point(data1 %>% filter(outlier == "Y"), mapping = aes(date, sp.cond), color = "#D8A49B") +
   geom_point(data2 %>% filter(outlier == "Y"), mapping = aes(date, sp.cond), color = "#D8A49B" ) +
-  geom_point(data3 %>% filter(outlier == "Y"), mapping = aes(date, sp.cond), color = "#D8A49B") +
+  geom_point(data3 %>% filter(outlier == "Y"), mapping = aes(date, sp.cond), color = "green") +
+  geom_point(fieldcond, mapping = aes(date, sp.cond), color = "purple") +
   geom_line(data3, mapping = aes(date, runningmean), color = "#7496D2") +
   geom_jitter(width = 0.5, size = 1) +
   theme_bw()
@@ -63,11 +64,11 @@ return(data3)
 }
 
 #WIC_outlier <- find_outlier(loggerWIC, "WICoutliers", "WICoutliers_month")
-YS_outlier <- find_outlier(loggerYS, "YSoutliers", "YSoutliers_month")
-SW_outlier <- find_outlier(loggerSW, "SWoutliers", "SWoutliers_month")
-YN_outlier <- find_outlier(loggerYN, "YNoutliers", "YNoutliers_month")
-YI_outlier <- find_outlier(loggerYI, "YIoutliers", "YIoutliers_month")
-SMC_outlier <- find_outlier(logger6MC, "6MCoutliers", "6MCoutliers_month")
-DC_outlier <- find_outlier(loggerDC, "DCoutliers", "DCoutliers_month") #needs help
-PBMS_outlier <- find_outlier(loggerPBMS, "PBMSoutliers", "PBMSoutliers_month")
-PBSF_outlier <- find_outlier(loggerPBSF, "PBSFoutliers", "PBSFoutliers_month") #needs help
+# YS_outlier <- find_outlier(loggerYS, "YSoutliers", "YSoutliers_month")
+# SW_outlier <- find_outlier(loggerSW, "SWoutliers", "SWoutliers_month")
+# YN_outlier <- find_outlier(loggerYN, "YNoutliers", "YNoutliers_month")
+# YI_outlier <- find_outlier(loggerYI, "YIoutliers", "YIoutliers_month")
+# SMC_outlier <- find_outlier(logger6MC, "6MCoutliers", "6MCoutliers_month")
+# DC_outlier <- find_outlier(loggerDC, "DCoutliers", "DCoutliers_month") #needs help
+# PBMS_outlier <- find_outlier(loggerPBMS, "PBMSoutliers", "PBMSoutliers_month")
+# PBSF_outlier <- find_outlier(loggerPBSF, "PBSFoutliers", "PBSFoutliers_month") #needs help

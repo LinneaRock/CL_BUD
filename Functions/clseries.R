@@ -5,7 +5,7 @@ source("Functions/L_theme.R")
 clseries <- function(df) {
   ggplot(df, aes(date, chloride_mgL)) +
     geom_point() +
-    geom_smooth(method = "lm", se = FALSE) +
+    #geom_smooth(method = "lm", se = FALSE) +
     labs(y = "Chloride Concentration"~(mg~L^-1)~"\n", 
        x = "") + L_theme()
 }
