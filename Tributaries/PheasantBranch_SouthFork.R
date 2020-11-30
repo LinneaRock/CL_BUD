@@ -15,10 +15,33 @@ source("Functions/cond_compare.R")
 source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
-source("functions/discharge_ts.R")
+source("Functions/discharge_ts.R")
+
+#looking at raw data to find when logger was logging outside of the stream
+pbsf <- loggerPBSF %>%
+  mutate(Year_Month = paste(year(date), month(date), sep = "-"), #year month 
+         YMD = paste(year(date), month(date), day(date), sep = "-")) 
+ggplot(pbsf) +
+  geom_point(aes(date, Full.Range)) +
+  facet_wrap("Year_Month", scales = "free")
+
+pbsf_dis <- PBSF_discharge %>%
+  mutate(Year_Month = paste(year(date), month(date), sep = "-"), #year month 
+         YMD = paste(year(date), month(date), day(date), sep = "-")) %>%
+  filter(date <= "2020-11-01 00:00:00")
+
+ggplot(pbsf_dis) +
+  geom_point(aes(date, discharge)) +
+  facet_wrap("Year_Month", scales = "free")
 
 #calling and naming raw data
-loggerPBSF <- loggerPBSF  #HOBO conductivity data
+loggerPBSF2 <- loggerPBSF %>%  #HOBO conductivity data - when water is low, sensor is not under water. Adding NAs where this occurs 
+  mutate(sp.cond = ifelse(date >= "2020-04-18 17:30:00" & date <= "2020-04-22 18:00:00", NA, sp.cond)) %>%  
+  mutate(sp.cond = ifelse(date >= "2020-05-05 21:30:00" & date <= "2020-05-13 21:00:00", NA, sp.cond)) %>%
+  mutate(sp.cond = ifelse(date >= "2020-07-31 19:30:00" & date <= "2020-08-15 9:00:00", NA, sp.cond)) %>%
+  mutate(sp.cond = ifelse(date >= "2020-08-18 17:00:00" & date <= "2020-08-26 12:30:00", NA, sp.cond))
+
+
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
 labPBSF <- labPBSF #IC data 
 PBSF_discharge <- d.PBSF
@@ -26,7 +49,7 @@ PBSF_discharge <- d.PBSF
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
 #use runningmean for analyses going forward
-PBSF_cond_data <- find_outlier(loggerPBSF, fieldcondPBSF, "PBSFoutliers", "PBSFoutliers_month")
+PBSF_cond_data <- find_outlier(loggerPBSF2, fieldcondPBSF, "PBSFoutliers", "PBSFoutliers_month")
 
 #Conductivity time series
 PBSF_cond_plot <- cond(PBSF_cond_data) +

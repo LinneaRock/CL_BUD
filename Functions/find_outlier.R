@@ -9,12 +9,12 @@ data1 <- loggerdata %>%
 mutate(Year_Month = paste(year(date), month(date), sep = "-"), #year month 
        YMD = paste(year(date), month(date), day(date), sep = "-")) %>% #year month day
   group_by(Year_Month) %>%
-  mutate(Q_0.01 = quantile(sp.cond, 0.01)) %>% #1% of monthly data is below this threshold
-  mutate(Q_0.99 = quantile(sp.cond, 0.99)) %>% #1% of monthly data is above this threshold
-  mutate(monthly_ave = mean(sp.cond)) %>% #monthly average
+  mutate(Q_0.01 = quantile(sp.cond, 0.01, na.rm = TRUE)) %>% #1% of monthly data is below this threshold
+  mutate(Q_0.99 = quantile(sp.cond, 0.99, na.rm = TRUE)) %>% #1% of monthly data is above this threshold
+  mutate(monthly_ave = mean(sp.cond, na.rm = TRUE)) %>% #monthly average
   ungroup() %>%
   group_by(YMD) %>%
-  mutate(daily_ave = mean(sp.cond)) %>% #daily average
+  mutate(daily_ave = mean(sp.cond, na.rm = TRUE)) %>% #daily average
   ungroup() %>%
   mutate(outlier = ifelse(sp.cond < (0.75 * Q_0.01) | sp.cond > (1.5 * Q_0.99), "Y", "N")) #finding the obvious outliers, should be few to none in some datasets
 

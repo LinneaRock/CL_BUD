@@ -163,6 +163,10 @@ d.PBMS <- readNWISuv("05427948", "00060", "2019-12-01", "", tz = "GMT") %>%
 d.PBSF <- readNWISuv("054279465", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
 
+stage_PBSF <- readNWISuv("054279465", "00065", "2019-12-01", "", tz = "GMT") %>%
+  rename(stage = X_00065_00000,
+         date = dateTime) %>%
+  select(date, stage)
 
 #Spring Harbor Data retrieved outside of function because we are retrieving specific conductivity and discharge at the same time ####
 d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "GMT") %>%
