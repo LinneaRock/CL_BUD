@@ -50,6 +50,8 @@ SW_linreg_plot <- linreg(labSW, SW_cond_data) +
   captlm('Starkweather Creek',"Starkweather Creek at Olbrich Garden", labSW, SW_cond_data)
 splot("cl_cond_linear_regression/", "SW")
 
+eval(labSW, SW_cond_data)
+
 #conductivity time series with chloride points overlain
 sccl(SW_cond_data, labSW)
 

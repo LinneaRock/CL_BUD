@@ -23,6 +23,7 @@ fieldcondYS <- fieldcondYS #conductivity measured in the field
 labYS <- labYS #IC data 
 YS_discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv") %>%
   mutate(date = ymd_hms(date))
+YS_discharge <- rolling_ave_discharge(loggerYS, YS_discharge)
 
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
@@ -41,21 +42,28 @@ splot("chloride_time_series/", "YS")
 
 #Discharge time series
 YS_discharge_plot <- discharge_ts(YS_discharge)
+splot("discharge_time_series/", "YS")
 
 #cQ - conductivity
 q.sc(YS_cond_data, YS_discharge)+
   captqec('Yahara River @ Broadway',"Yahara River at Broadway St", YS_cond_data, YS_discharge)
 splot("QC_plots/", "YS_cond")
 
+evalqec(YS_cond_data, YS_discharge)
+
 #cQ - chloride
 q.cl(labYS, YS_discharge) +
   captqc('Yahara River @ Broadway',"Yahara River at Broadway St", labYS, YS_discharge)
 splot("QC_plots/", "YS_cl")
+
+evalq(labYS, YS_discharge)
   
 #Linear Regression between Conductivity and Chloride
 YS_linreg_plot <- linreg(labYS, YS_cond_data) +
   captlm('Yahara River @ Broadway',"Yahara River at Broadway St", labYS, YS_cond_data)
 splot("cl_cond_linear_regression/", "YS")
+
+eval(labYS, YS_cond_data)
 
 #conductivity time series with chloride points overlain
 sccl(YS_cond_data, labYS)

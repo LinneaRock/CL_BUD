@@ -21,7 +21,7 @@ source("functions/discharge_ts.R")
 loggerPBMS <- loggerPBMS  #HOBO conductivity data
 fieldcondPBMS <- fieldcondPBMS #conductivity measured in the field
 labPBMS <- labPBMS #IC data 
-PBMS_discharge <- d.PBMS
+PBMS_discharge <- rolling_ave_discharge(loggerPBMS, d.PBMS)
 
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
@@ -40,21 +40,28 @@ splot("chloride_time_series/", "PBMS")
 
 #Discharge time series
 PBMS_discharge_plot <- discharge_ts(PBMS_discharge)
+splot("discharge_time_series/", "PBMS")
 
 #cQ - conductivity
 q.sc(PBMS_cond_data, PBMS_discharge)+
   captqec('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", PBMS_cond_data, PBMS_discharge)
 splot("QC_plots/", "PBMS_cond")
 
+evalqec(PBMS_cond_data, PBMS_discharge)
+
 #cQ - chloride
 q.cl(labPBMS, PBMS_discharge) +
   captqc('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", labPBMS, PBMS_discharge)
 splot("QC_plots/", "PBMS_cl")
 
+evalq(labPBMS, PBMS_discharge)
+
 #Linear Regression between Conductivity and Chloride
 PBMS_linreg_plot <- linreg(labPBMS, PBMS_cond_data) +
   captlm('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", labPBMS, PBMS_cond_data)
 splot("cl_cond_linear_regression/", "PBMS")
+
+eval(labPBMS, PBMS_cond_data)
 
 #conductivity time series with chloride points overlain
 sccl(PBMS_cond_data, labPBMS)

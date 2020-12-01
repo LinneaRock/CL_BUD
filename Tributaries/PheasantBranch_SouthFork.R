@@ -18,21 +18,21 @@ source("Functions/qcl.R")
 source("Functions/discharge_ts.R")
 
 #looking at raw data to find when logger was logging outside of the stream
-pbsf <- loggerPBSF %>%
-  mutate(Year_Month = paste(year(date), month(date), sep = "-"), #year month 
-         YMD = paste(year(date), month(date), day(date), sep = "-")) 
-ggplot(pbsf) +
-  geom_point(aes(date, Full.Range)) +
-  facet_wrap("Year_Month", scales = "free")
-
-pbsf_dis <- PBSF_discharge %>%
-  mutate(Year_Month = paste(year(date), month(date), sep = "-"), #year month 
-         YMD = paste(year(date), month(date), day(date), sep = "-")) %>%
-  filter(date <= "2020-11-01 00:00:00")
-
-ggplot(pbsf_dis) +
-  geom_point(aes(date, discharge)) +
-  facet_wrap("Year_Month", scales = "free")
+# pbsf <- loggerPBSF %>%
+#   mutate(Year_Month = paste(year(date), month(date), sep = "-"), #year month 
+#          YMD = paste(year(date), month(date), day(date), sep = "-")) 
+# ggplot(pbsf) +
+#   geom_point(aes(date, Full.Range)) +
+#   facet_wrap("Year_Month", scales = "free")
+# 
+# pbsf_dis <- PBSF_discharge %>%
+#   mutate(Year_Month = paste(year(date), month(date), sep = "-"), #year month 
+#          YMD = paste(year(date), month(date), day(date), sep = "-")) %>%
+#   filter(date <= "2020-11-01 00:00:00")
+# 
+# ggplot(pbsf_dis) +
+#   geom_point(aes(date, discharge)) +
+#   facet_wrap("Year_Month", scales = "free")
 
 #calling and naming raw data
 loggerPBSF2 <- loggerPBSF %>%  #HOBO conductivity data - when water is low, sensor is not under water. Adding NAs where this occurs 
@@ -44,7 +44,7 @@ loggerPBSF2 <- loggerPBSF %>%  #HOBO conductivity data - when water is low, sens
 
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
 labPBSF <- labPBSF #IC data 
-PBSF_discharge <- d.PBSF
+PBSF_discharge <- rolling_ave_discharge(loggerPBSF2, d.PBSF)
 
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
@@ -63,21 +63,28 @@ splot("chloride_time_series/", "PBSF")
 
 #Discharge time series
 PBSF_discharge_plot <- discharge_ts(PBSF_discharge)
+splot("discharge_time_series/", "PBSF")
 
 #cQ - conductivity
 q.sc(PBSF_cond_data, PBSF_discharge) +
   captqec('Pheasant Branch South Fork',"Pheasant Branch South Fork", PBSF_cond_data, PBSF_discharge)
 splot("QC_plots/", "PBSF_cond")
 
+evalqec(PBSF_cond_data, PBSF_discharge)
+
 #cQ - chloride
 q.cl(labPBSF, PBSF_discharge) +
   captqc('Pheasant Branch South Fork',"Pheasant Branch South Fork", labPBSF, PBSF_discharge)
 splot("QC_plots/", "PBSF_cl")
 
+evalq(labPBSF, PBSF_discharge)
+
 #Linear Regression between Conductivity and Chloride
 PBSF_linreg_plot <- linreg(labPBSF, PBSF_cond_data) +
   captlm('Pheasant Branch South Fork',"Pheasant Branch South Fork", labPBSF, PBSF_cond_data)
 splot("cl_cond_linear_regression/", "PBSF")
+
+eval(labPBSF, PBSF_cond_data)
 
 #conductivity time series with chloride points overlain
 sccl(PBSF_cond_data, labPBSF)
@@ -87,3 +94,8 @@ cond_compare(fieldcondPBSF, loggerPBSF)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclPBSF, labPBSF)
+
+
+
+
+

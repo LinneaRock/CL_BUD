@@ -21,7 +21,7 @@ source("functions/discharge_ts.R")
 logger6MC <- logger6MC  #HOBO conductivity data
 fieldcond6MC <- fieldcond6MC #conductivity measured in the field
 lab6MC <- lab6MC #IC data 
-SMC_discharge <- d.6MC
+SMC_discharge <- rolling_ave_discharge(logger6MC, d.6MC)
 
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
@@ -40,21 +40,28 @@ splot("chloride_time_series/", "6MC")
 
 #Discharge time series
 SMC_discharge_plot <- discharge_ts(SMC_discharge)
+splot("discharge_time_series/", "6MC")
 
 #cQ - conductivity
 q.sc(SMC_cond_data, SMC_discharge)+
   captqec('Sixmile Creek',"Sixmile Creek at Highway M", SMC_cond_data, SMC_discharge)
 splot("QC_plots/", "6MC_cond")
 
+evalqec(SMC_cond_data, SMC_discharge)
+
 #cQ - chloride
 q.cl(lab6MC, SMC_discharge) +
   captqc('Sixmile Creek',"Sixmile Creek at Highway M", lab6MC, SMC_discharge)
 splot("QC_plots/", "6MC_cl")
 
+evalq(lab6MC, SMC_discharge)
+
 #Linear Regression between Conductivity and Chloride
 SMC_linreg_plot <- linreg(lab6MC, SMC_cond_data) +
   captlm('Sixmile Creek',"Sixmile Creek at Highway M", lab6MC, SMC_cond_data)
 splot("cl_cond_linear_regression/", "6MC")
+
+eval(lab6MC, SMC_cond_data)
 
 #conductivity time series with chloride points overlain
 sccl(SMC_cond_data, lab6MC)

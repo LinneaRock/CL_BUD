@@ -21,7 +21,7 @@ source("functions/discharge_ts.R")
 loggerYN <- loggerYN  #HOBO conductivity data
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
-YN_discharge <- d.YN
+YN_discharge <- rolling_ave_discharge(loggerYN, d.YN)
 
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
@@ -40,21 +40,28 @@ splot("chloride_time_series/", "YN")
 
 #Discharge time series
 YN_discharge_plot <- discharge_ts(YN_discharge)
+splot("discharge_time_series/", "YN")
 
 #cQ - conductivity
 q.sc(YN_cond_data, YN_discharge)+
   captqec('Yahara River @ 113',"Yahara River at Highway 113", YN_cond_data, YN_discharge)
 splot("QC_plots/", "YN_cond")
 
+evalqec(YN_cond_data, YN_discharge)
+
 #cQ - chloride
 q.cl(labYN, YN_discharge) +
   captqc('Yahara River @ 113',"Yahara River at Highway 113", labYN, YN_discharge)
 splot("QC_plots/", "YN_cl")
 
+evalq(labYN, YN_discharge)
+
 #Linear Regression between Conductivity and Chloride
 YN_linreg_plot <- linreg(labYN, YN_cond_data) +
   captlm('Yahara River @ 113',"Yahara River at Highway 113", labYN, YN_cond_data)
 splot("cl_cond_linear_regression/", "YN")
+
+eval(labYN, YN_cond_data)
 
 #conductivity time series with chloride points overlain
 sccl(YN_cond_data, labYN)
