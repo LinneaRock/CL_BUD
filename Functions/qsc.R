@@ -3,15 +3,15 @@ source("Functions/L_theme.R")
 
 ##Function to join conductivity and discharge datasets together then plots specific conductivity vs. discharge
 #cond = logger dataset
-#discharge = discharge dataset
+#discharge_data = discharge dataset
 
 source("Functions/join_datasets_cond.R")
 
-q.sc <- function(cond, discharge) {
+q.sc <- function(cond, discharge_data) {
   
-  qsc <- join_datasets_cond(cond, discharge)
+  qsc <- join_datasets_cond(cond, discharge_data)
   
-  ggplot(qsc, aes(discharge, runningmean)) +
+  ggplot(qsc, aes(runningmeandis, runningmean)) +
     geom_point() +
     #stat_cor() + 
     #stat_regline_equation() +
@@ -24,25 +24,25 @@ q.sc <- function(cond, discharge) {
 }
 
 #function to evaluate residuals
-evalqec <- function(cond, discharge) {
-
-  qsc <- join_datasets_cond(cond, discharge)
+evalqec <- function(cond, discharge_data) {
+ 
+  qsc <- join_datasets_cond(cond, discharge_data)
   
-  info <- lm(runningmean ~ discharge, qsc)
+  info <- lm(runningmean ~ runningmeandis, qsc)
   
   #print plots
-  layout(matrix(1:4,2,2))
+    layout(matrix(1:4,2,2))
   return(plot(info))
   
 }
 
 
 #function to obtain coefficient information 
-infoqec <- function(cond, discharge) {
+infoqec <- function(cond, discharge_data) {
   
-  qsc <- join_datasets_cond(cond, discharge)
+  qsc <- join_datasets_cond(cond, discharge_data)
   
-  info <- lm(runningmean ~ discharge, qsc)
+  info <- lm(runningmean ~ runningmeandis, qsc)
   
   #print coefficient information
   return(summary(info))
@@ -53,8 +53,8 @@ infoqec <- function(cond, discharge) {
 captqec <- function(customTitle, location, df1, df2) {
   plot_annotation(
     title = customTitle,
-    caption = paste("Concentration - Discharge relationship in the",location, ". The linear regression is 
-represented by the equation y=", round(coef(infoqec(df1, df2))[2,1], 4), "x + ", round(coef(infoqec(df1, df2))[1,1], 4), ".", " The correlation has an r-squared value of 
-", round((infoqec(df1, df2))$adj.r.squared, 2), " and a p-value of ", round(coef(infoqec(df1, df2))[2,4], 2), ".", sep = ""),
+    caption = paste("Concentration - Discharge relationship in the ",location, ". The linear regression is 
+represented by the equation y = ", round(coef(infoqec(df1, df2))[2,1], 2), "x + ", round(coef(infoqec(df1, df2))[1,1], 2), ". The correlation has an r-squared value of ", round((infoqec(df1, df2))$adj.r.squared, 2), " 
+and a p-value of ", round(coef(infoqec(df1, df2))[2,4], 6), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 

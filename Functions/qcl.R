@@ -11,7 +11,7 @@ q.cl <- function(cl, other) {
   qsc <- join_datasets_chloride(cl, other)
   
   
-  ggplot(qsc, aes(discharge, chloride_mgL)) +
+  ggplot(qsc, aes(runningmeandis, chloride_mgL)) +
     geom_point() +
     #stat_cor() + 
     #stat_regline_equation() +
@@ -26,12 +26,12 @@ evalq <- function(cl, other) {
 
   qsc <- join_datasets_chloride(cl, other)
   
-  info <- lm(chloride_mgL ~ discharge, qsc)
+  info <- lm(chloride_mgL ~ runningmeandis, qsc)
   
   #print plots
-  layout(matrix(1:4,2,2))
+layout(matrix(1:4,2,2))
   return(plot(info))
-  
+
 }
 
 
@@ -40,7 +40,7 @@ infoq <- function(cl, other) {
  
   qsc <- join_datasets_chloride(cl, other)
   
-  info <- lm(chloride_mgL ~ discharge, qsc)
+  info <- lm(chloride_mgL ~ runningmeandis, qsc)
   
   #print coefficient information
   return(summary(info))
@@ -51,8 +51,8 @@ infoq <- function(cl, other) {
 captqc <- function(customTitle, location, dfx, dfy) {
   plot_annotation(
     title = customTitle,
-    caption = paste("Concentration - Discharge relationship in the",location, ". The linear regression is 
-represented by the equation y=", round(coef(infoq(dfx, dfy))[2,1], 4), "x + ", round(coef(infoq(dfx, dfy))[1,1], 4), ". The correlation has an r-squared value of ", round((infoq(dfx, dfy))$adj.r.squared, 4), " 
-and a p-value of ", round(coef(infoq(dfx, dfy))[2,4], 2), ".", sep = ""),
+    caption = paste("Concentration - Discharge relationship in the ",location, ". The linear regression is 
+represented by the equation y = ", round(coef(infoq(dfx, dfy))[2,1], 2), "x + ", round(coef(infoq(dfx, dfy))[1,1], 2), ". The correlation has an r-squared value of ", round((infoq(dfx, dfy))$adj.r.squared, 2), " 
+and a p-value of ", round(coef(infoq(dfx, dfy))[2,4], 6), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 
