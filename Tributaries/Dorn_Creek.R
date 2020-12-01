@@ -58,6 +58,7 @@ q.cl(labDC, DC_discharge) +
   captqc('Dorn Creek',"Dorn Creek at Highway M", labDC, DC_discharge)
 splot("QC_plots/", "DC_cl")
 
+
 evalq(labDC, DC_discharge)
 
 
