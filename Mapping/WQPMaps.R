@@ -1,6 +1,7 @@
 library(tidyverse)
 library(urbnmapr)
 library(lubridate)
+library(sf)
 source("Functions/statemap.R")
 
 #read in and manipulate dataset to be useable
@@ -21,10 +22,16 @@ SW <- wicl %>%
   filter(LocationType == "Lake" | LocationType == "Pond-Stormwater" | LocationType == "Lake, Reservoir, Impoundment" | LocationType == "Other-Surface Water" | LocationType == "Reservoir" | LocationType == "River/Stream" | LocationType == "River/Stream Perennial" | LocationType == "Riverine Impoundment" | LocationType == "Stream" | LocationType == "Stream: Canal" | LocationType == "Stream: Ditch")
 
 #using urbnmapr to get state/county shape
-counties <- counties %>%
+counties <- st_read("C:/Users/linne/Downloads/County_Boundaries_24K-shp/County_Boundaries_24K.shp")
   filter(state_abbv == "WI") %>%
   mutate(county_fips = as.numeric(county_fips))
-
+  
+counties <-  get_urbn_map("counties", sf = TRUE) %>%
+  filter(state_abbv == "WI") %>%
+  mutate(county_fips = as.numeric(county_fips))
+  
+  
+  
 breaks <- SW %>% #creating categories for legend
   mutate(br = ifelse(result4 <= 1, 1, NA),
          br = ifelse(result4 > 1 & result4 <= 10, 2, br),
@@ -46,11 +53,12 @@ breaks902010 <- breaks %>%
 breaks1020 <- breaks %>%
   filter(year >= 2010)
 
-
+breaks_as_sf <- st_as_sf(breaks, coords = c("Long", "Lat"), remove = FALSE, 
+                         crs = 4326, agr = "constant")
 
 
 #Map of all historical river/lake data
-statemap(breaks, "1960-2020")
+statemap2(breaks_as_sf, "1960-2020")
 
 #Map of all historical river/lake data from 1960-1990
 statemap(breaks6090, "1960-1990")
