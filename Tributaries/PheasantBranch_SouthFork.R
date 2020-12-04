@@ -97,24 +97,19 @@ cl_compare(fieldclPBSF, labPBSF)
 
 
 #trying to impute values
-impute_PBSF_cond <- PBSF_cond_data %>%
-  select(date, corr_sp.cond) %>%
+impute_PBSF_cond <- loggerPBSF3 %>%
+  select(date, sp.cond) %>%
   as.ts()
 
-imps <- na_kalman(impute_PBSF_cond)
+imps <- na_ma(impute_PBSF_cond, 6, "exponential")
 
 imps2 <- as.data.frame(imps)  %>%
-  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) %>%
-  rename(imputed = corr_sp.cond)
+  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) #%>%
+  #rename(imputed = runningmean)
 
 ggplot(imps2,
-       aes(date, corr_sp.cond)) +
-  geom_line()
-
-ggplot(loggerPBSF %>% 
-         filter(date >= "2020-09-01 18:00:00" & date <= "2020-09-17 23:30:00")) +
-  geom_line(aes(date, sp.cond)) +
-  geom_line(aes(date, Full.Range), color = "red")
+       aes(date, sp.cond)) +
+  geom_point()
    
 
 test <- PBSF_cond_data %>%
@@ -124,3 +119,13 @@ test <- PBSF_cond_data %>%
 ggplot(test) +
   geom_point(aes(date, corr_sp.cond)) +
   geom_point(aes(date, imputed), color = "red")
+
+test2 <- find_outlier(imps2, fieldcondPBSF, "test1", "test2")
+
+finder <- join_datasets_chloride(labDC, imps2)
+
+loggerPBSF3 <- loggerPBSF2 %>%
+  complete(date = seq.POSIXt(as.POSIXct("2020-01-15 19:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins"))
+
+loggerPBSF4 <- loggerPBSF2 %>%
+  fill_gaps()

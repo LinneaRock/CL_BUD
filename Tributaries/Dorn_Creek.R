@@ -4,6 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
+library(imputeTS)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -80,21 +81,25 @@ cl_compare(fieldclDC, labDC)
 
 
 #trying to impute values
-impute_DC_cond <- DC_cond_data %>%
-  select(date, corr_sp.cond) %>%
+impute_DC_cond <- loggerDC2 %>%
+  select(date, sp.cond) %>%
   as.ts()
 
-imps <- na_kalman(impute_DC_cond)
+imps <- na_ma(impute_DC_cond, 13, "exponential")
 
 imps2 <- as.data.frame(imps)  %>%
-  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT"))
+  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) #%>%
+  #rename(imputed = sp.cond)
 
-ggplot(imps2 %>% 
-         filter(date >= "2020-09-14 18:00:00" & date <= "2020-09-22 23:30:00"), 
-       aes(date, corr_sp.cond)) +
-  geom_line()
+test <- DC_cond_data %>%
+  left_join(imps2, by = "date") %>%
+  mutate(imputed = ifelse(is.na(corr_sp.cond), imputed, NA))
 
-ggplot(loggerDC %>% 
-         filter(date >= "2020-09-01 18:00:00" & date <= "2020-09-17 23:30:00")) +
-  geom_line(aes(date, sp.cond)) +
-  geom_line(aes(date, Full.Range), color = "red")
+ggplot(test) +
+  geom_point(aes(date, runningmean)) +
+  geom_point(aes(date, imputed), color = "red")
+
+
+test2 <- find_outlier(imps2, fieldcondDC, "test1", "test2")
+
+finder <- join_datasets_chloride(labDC, imps2)
