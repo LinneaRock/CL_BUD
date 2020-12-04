@@ -77,3 +77,24 @@ cond_compare(fieldcondDC, loggerDC)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclDC, labDC)
+
+
+#trying to impute values
+impute_DC_cond <- DC_cond_data %>%
+  select(date, corr_sp.cond) %>%
+  as.ts()
+
+imps <- na_kalman(impute_DC_cond)
+
+imps2 <- as.data.frame(imps)  %>%
+  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT"))
+
+ggplot(imps2 %>% 
+         filter(date >= "2020-09-14 18:00:00" & date <= "2020-09-22 23:30:00"), 
+       aes(date, corr_sp.cond)) +
+  geom_line()
+
+ggplot(loggerDC %>% 
+         filter(date >= "2020-09-01 18:00:00" & date <= "2020-09-17 23:30:00")) +
+  geom_line(aes(date, sp.cond)) +
+  geom_line(aes(date, Full.Range), color = "red")
