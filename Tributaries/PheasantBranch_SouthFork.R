@@ -4,6 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
+library(imputeTS)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -39,7 +40,10 @@ loggerPBSF2 <- loggerPBSF %>%  #HOBO conductivity data - when water is low, sens
   mutate(sp.cond = ifelse(date >= "2020-04-18 17:30:00" & date <= "2020-04-22 18:00:00", NA, sp.cond)) %>%  
   mutate(sp.cond = ifelse(date >= "2020-05-05 21:30:00" & date <= "2020-05-13 21:00:00", NA, sp.cond)) %>%
   mutate(sp.cond = ifelse(date >= "2020-07-31 19:30:00" & date <= "2020-08-15 9:00:00", NA, sp.cond)) %>%
-  mutate(sp.cond = ifelse(date >= "2020-08-18 17:00:00" & date <= "2020-08-26 12:30:00", NA, sp.cond))
+  mutate(sp.cond = ifelse(date >= "2020-08-18 17:00:00" & date <= "2020-08-26 12:30:00", NA, sp.cond)) %>%
+  complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
+  arrange(date)
+
 
 
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
@@ -98,7 +102,7 @@ cl_compare(fieldclPBSF, labPBSF)
 
 #trying to impute values
 impute_PBSF_cond <- loggerPBSF3 %>%
-  select(date, sp.cond) %>%
+  #select(date, sp.cond) %>%
   as.ts()
 
 imps <- na_ma(impute_PBSF_cond, 6, "exponential")
@@ -125,7 +129,21 @@ test2 <- find_outlier(imps2, fieldcondPBSF, "test1", "test2")
 finder <- join_datasets_chloride(labDC, imps2)
 
 loggerPBSF3 <- loggerPBSF2 %>%
-  complete(date = seq.POSIXt(as.POSIXct("2020-01-15 19:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins"))
+  complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
+  arrange(date)
 
-loggerPBSF4 <- loggerPBSF2 %>%
-  fill_gaps()
+loggerPBSF <- loggerPBSF %>%  #HOBO conductivity data - when water is low, sensor is not under water. Adding NAs where this occurs 
+  mutate(sp.cond = ifelse(date >= "2020-04-18 17:30:00" & date <= "2020-04-22 18:00:00", NA, sp.cond)) %>%  
+  mutate(sp.cond = ifelse(date >= "2020-05-05 21:30:00" & date <= "2020-05-13 21:00:00", NA, sp.cond)) %>%
+  mutate(sp.cond = ifelse(date >= "2020-07-31 19:30:00" & date <= "2020-08-15 9:00:00", NA, sp.cond)) %>%
+  mutate(sp.cond = ifelse(date >= "2020-08-18 17:00:00" & date <= "2020-08-26 12:30:00", NA, sp.cond)) %>%
+  complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
+  arrange(date) 
+loggerPBS2 <- loggerPBSF %>%  
+  as.ts() %>%
+  na_ma(6, "exponential") %>%
+  as.data.frame() %>%
+  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) %>%
+  left_join(loggerPBSF, by = "date") %>%
+  mutate(imputed = ifelse(is.na(sp.cond.y), sp.cond.x, NA))
+
