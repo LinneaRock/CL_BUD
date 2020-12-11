@@ -101,3 +101,8 @@ cl_compare(fieldclPBSF, labPBSF)
 
 
 
+#plotting a grid of timeseries data
+ts_grid(precip_temp_data, PBSF_discharge, PBSF_cond_data, labPBSF)
+ggsave("Plots/TS_Grids/PBSF.png", height = 12, width = 16)
+
+

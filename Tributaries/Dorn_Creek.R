@@ -17,6 +17,7 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
+source("functions/ts_grid.R")
 
 #calling and naming raw data
 loggerDC1 <- loggerDC %>% #HOBO conductivity data
@@ -94,4 +95,9 @@ cond_compare(fieldcondDC, loggerDC)
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclDC, labDC)
 
+
+
+#plotting a grid of timeseries data
+ts_grid(precip_temp_data, DC_discharge, DC_cond_data, labDC)
+ggsave("Plots/TS_Grids/DC.png", height = 12, width = 16)
 

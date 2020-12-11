@@ -1,5 +1,5 @@
 
-bar <- function(x, y, axistitle) {
+bar <- function(data, x, y, axistitle) {
   ggplot(data, aes(x, y)) +
     geom_bar(stat = "identity") +
     labs(x = "", 
