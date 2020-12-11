@@ -168,15 +168,17 @@ stage_PBSF <- readNWISuv("054279465", "00065", "2019-12-01", "", tz = "GMT") %>%
   select(date, stage)
 
 #Spring Harbor Data retrieved outside of function because we are retrieving specific conductivity and discharge at the same time ####
-d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "GMT") %>%
+d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2019-12-01", "", tz = "GMT") %>%
   rename(discharge = X_00060_00000,
          sp_cond = X_00095_00000) %>%
   select(dateTime, discharge, sp_cond) %>%
   mutate(discharge = discharge * 0.028316847) %>%
   rename(sp.cond = sp_cond,
          date = dateTime)
-  
 
+
+cl_data_flow_sc <- readNWISuv("05427965", c("00060", "00095"), "2014-02-20", "2016-09-29", tz = "GMT")
+cl_data_daily <- readNWISdv("05427965", c("00940", "70290", "00060"), "2014-02-20", "2016-09-29")
 
 #Data needed to calculate Water Depth - readLLDST is used to deal with dates in central daylight savings time. 
 #datasets need to be downloaded and saved by their dates because the model needs reference height points based on specific times. 
