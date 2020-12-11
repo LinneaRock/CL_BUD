@@ -9,41 +9,63 @@ format_daily <- function(massdata) {
     group_by(date) %>% #steps above to create a column for date grouping
     mutate(cl_load = sum(cl_mass)) %>% #total daily chloride mass [g]
     mutate(cl_load = cl_load / 1000000) #daily chloride mass in metric tonnes [Mg]
-    }
+}
+
 
 #Mendota Loading####
 
 ##YN
-YN_Load <- chloride_mass_load_rate(labYN, loggerYN, d.YN) #table containing chloride loading values in [g s^-1] per time step 
+YN_Load <- chloride_mass_load_rate(labYN, YN_cond_data, YN_discharge) #table containing chloride loading values in [g s^-1] per time step 
 plot_load(YN_Load, "Yahara North")
+splot("chloride_loading/", "YN_ts")
 YN_load_daily <- format_daily(YN_Load)
 plot_load_daily(YN_load_daily, "Yahara North") #daily mass of chloride from tributary
+splot("chloride_loading/", "YN_daily")
+plot_cumulative(YN_load_daily, "Yahara North")
+splot("chloride_loading/", "YN_cumulative")
+
 
 ##6MC
-SMC_Load <- chloride_mass_load_rate(lab6MC, logger6MC, d.6MC)
+SMC_Load <- chloride_mass_load_rate(lab6MC, SMC_cond_data, SMC_discharge)
 plot_load(SMC_Load, "Sixmile Creek")
+splot("chloride_loading/", "6MC_ts")
 SMC_load_daily <- format_daily(SMC_Load)
 plot_load_daily(SMC_load_daily, "Sixmile Creek")
+splot("chloride_loading/", "6MC_daily")
+plot_cumulative(SMC_load_daily, "Sixmile Creek")
+splot("chloride_loading/", "6MC_cumulative")
 
 ##DC
-DC_Load <- chloride_mass_load_rate(labDC, loggerDC, d.DC)
+DC_Load <- chloride_mass_load_rate(labDC, DC_cond_data, DC_discharge)
 plot_load(DC_Load, "Dorn Creek")
+splot("chloride_loading/", "DC_ts")
 DC_load_daily <- format_daily(DC_Load)
 plot_load_daily(DC_load_daily, "Dorn Creek")
+splot("chloride_loading/", "DC_daily")
+plot_cumulative(DC_load_daily, "Dorn Creek")
+splot("chloride_loading/", "DC_cumulative")
 
 ##PBMS
-PBMS_Load <- chloride_mass_load_rate(labPBMS, loggerPBMS, d.PBMS)
+PBMS_Load <- chloride_mass_load_rate(labPBMS, PBMS_cond_data, PBMS_discharge)
 plot_load(PBMS_Load, "Pheasant Branch Main Stem")
+splot("chloride_loading/", "PBMS_ts")
 PBMS_load_daily <- format_daily(PBMS_Load)
 plot_load_daily(PBMS_load_daily, "Pheasant Branch Main Stem")
+splot("chloride_loading/", "PBMS_daily")
+plot_cumulative(PBMS_load_daily, "Pheasant Branch Main Stem")
+splot("chloride_loading/", "PBMS_cumulative")
 
 ##PBSF
-PBSF_Load <- chloride_mass_load_rate(labPBSF, loggerPBSF, d.PBSF)
+PBSF_Load <- chloride_mass_load_rate(labPBSF, PBSF_cond_data, PBSF_discharge)
 plot_load(PBSF_Load, "Pheasant Branch South Fork")
+splot("chloride_loading/", "PBSF_ts")
 PBSF_load_daily <- format_daily(PBSF_Load)
 plot_load_daily(PBSF_load_daily, "Pheasant Branch South Fork")
+splot("chloride_loading/", "PBSF_ts")
+plot_cumulative(PBSF_load_daily, "Pheasant Branch South Fork")
+splot("chloride_loading/", "PBSF_cumulative")
 
-###Total Mass Loading for Mendota
+   ###Total Mass Loading for Mendota
 #not including PBSF because PBMS is better representative of the water entering Mendota
 Total_ME_Mass <- rbind(PBMS_load_daily, DC_load_daily, SMC_load_daily, YN_load_daily) %>% #stack dataframes 
   select(date, cl_load) %>% 
@@ -56,10 +78,14 @@ ggplot(Total_ME_Mass) +
 
 #Monona Loading####
 ##YI
-YI_Load <-chloride_mass_load_rate(labYI, loggerYI, d.YI)
+YI_Load <-chloride_mass_load_rate(labYI, YI_cond_data, YI_discharge)
 plot_load(YI_Load, "Yahara Isthmus")
+splot("chloride_loading/", "YI_ts")
 YI_load_daily <- format_daily(YI_Load)
 plot_load_daily(YI_load_daily, "Yahara Isthmus")
+splot("chloride_loading/", "YI_daily")
+plot_cumulative(YI_load_daily, "Yahara Isthmus")
+splot("chloride_loading/", "YI_cumulative")
 
 #not sure how to do this for SW and YS yet
 

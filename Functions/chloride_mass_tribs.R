@@ -16,9 +16,9 @@ a <- join_datasets_chloride(chloride_data, logger_data) %>%
 
 
 b <- join_datasets_cond(logger_data, discharge_data) %>%
-  select(i.date, discharge) %>%
+  select(i.date, runningmeandis) %>%
   rename(date = i.date) %>%
-  mutate(discharge = discharge * 1000) #convert [m^3 s^-1 to L s^-1]
+  mutate(runningmeandis = runningmeandis * 1000) #convert [m^3 s^-1 to L s^-1]
 
 combined <- logger_data %>%
   left_join(a, by = "date") %>%
@@ -29,7 +29,7 @@ info <- function(chloride_data, logger_data) {
   
   qsc <- join_datasets_chloride(chloride_data, logger_data)
   
-  info <- lm(chloride_mgL ~ sp.cond, qsc)
+  info <- lm(chloride_mgL ~ runningmean, qsc)
   
   #print coefficient information
   return(summary(info))
@@ -41,8 +41,8 @@ intercept <- coef(info(chloride_data, logger_data))[1,1] #intercept value
 
 
 cl_load <- combined %>%
-  mutate(chloride_predict = (slope * sp.cond) + intercept) %>% #interpolate chloride [mg L^-1] for each specific conductivity measure
-  mutate(cl_rate = chloride_predict * discharge * 0.001) #load rate in [g s^-1]
+  mutate(chloride_predict = (slope * runningmean) + intercept) %>% #interpolate chloride [mg L^-1] for each specific conductivity measure
+  mutate(cl_rate = chloride_predict * runningmeandis * 0.001) #load rate in [g s^-1]
 
 return(cl_load)
 
@@ -50,7 +50,7 @@ return(cl_load)
 
 plot_load <- function(data, title) {
   
-  ggplot(data %>% filter(date < "2020-05-01 00:00:00")) +
+  ggplot(data) +
     geom_line(aes(date, cl_rate)) +
     L_theme() +
     labs(title = title,
@@ -60,10 +60,26 @@ plot_load <- function(data, title) {
 
 plot_load_daily <- function(data, title) {
   
-  ggplot(data %>% filter(date < "2020-05-01 00:00:00")) +
+  ggplot(data) +
     geom_line(aes(date, cl_load)) +
     L_theme() +
     labs(title = title,
          y = "Chloride Loading"~(Mg),
          x = "")
-}         
+}      
+
+
+plot_cumulative <- function(data, title) {
+  data2 <- data %>%
+    select(date, cl_load) %>%
+    distinct() %>%
+    ungroup() %>%
+    mutate(cumulative_cl = cumsum(cl_load))
+  
+ ggplot(data2) +
+    geom_line(aes(date, cumulative_cl))+
+    L_theme() +
+    labs(title = title,
+         y = "Cumulative Chloride Loading"~(Mg),
+         x = "")
+}

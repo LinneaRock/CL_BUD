@@ -180,7 +180,7 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2014-02-19", "", tz = "G
 
 #Data needed to calculate Water Depth - readLLDST is used to deal with dates in central daylight savings time. 
 #datasets need to be downloaded and saved by their dates because the model needs reference height points based on specific times. 
-#The data is saved as an rds file when the function is run!! So it only needs to be run once for each time interval 
+#The data is saved as an rds file when the function is run!! So it only needs to be run once (ever) for each time interval 
 #readLL("Data/HOBO_Loggers/YS/Feb3_Mar16/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Feb3_Mar16")
 #readLLDST("Data/HOBO_Loggers/YS/Mar16_Jun17/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Mar16_Jun17")
 #readLLDST("Data/HOBO_Loggers/YS/Jun17_Aug26/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Jun17_Aug26")

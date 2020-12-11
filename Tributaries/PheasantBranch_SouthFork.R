@@ -29,11 +29,11 @@ loggerPBSF1 <- loggerPBSF %>%  #HOBO conductivity data - when water is low, sens
   mutate(sp.cond = ifelse(sp.cond < 200, NA, sp.cond)) %>%
   complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
   arrange(date)
-
+#creating dataset to perform imputations on missing data
 to_imp <- loggerPBSF1 %>%
   select(date, sp.cond) %>%
   rename(imputed = sp.cond)
-
+#imputing missing data and converting back to a dataframe
 loggerPBSF2 <- to_imp %>%  
   as.ts() %>%
   na_ma(6, "exponential") %>%

@@ -19,8 +19,23 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 
 #calling and naming raw data
-loggerDC2 <- loggerDC %>% #HOBO conductivity data
-  mutate(sp.cond = ifelse(date >= "2020-09-22 17:00:00" & date <= "2020-10-06 10:30:00", NA, sp.cond))
+loggerDC1 <- loggerDC %>% #HOBO conductivity data
+  mutate(sp.cond = ifelse(date >= "2020-09-22 17:00:00" & date <= "2020-10-06 10:30:00", NA, sp.cond)) # logger was removed from water during this period
+#creating dataset to perform imputations on missing data
+to_imp <- loggerDC1 %>%
+  select(date, sp.cond) %>%
+  rename(imputed = sp.cond)
+#imputing missing data and converting back to a dataframe
+loggerDC2 <- to_imp %>%  
+  as.ts() %>%
+  na_ma(6, "exponential") %>%
+  as.data.frame() %>%
+  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) %>%
+  left_join(loggerDC1, by = "date") %>%
+  mutate(imputed = ifelse(is.na(sp.cond), imputed, NA)) %>%
+  mutate(sp.cond = ifelse(is.na(sp.cond), imputed, sp.cond))
+
+
 fieldcondDC <- fieldcondDC #conductivity measured in the field
 labDC <- labDC #IC data 
 DC_discharge <- rolling_ave_discharge(loggerDC2, d.DC)
@@ -80,26 +95,3 @@ cond_compare(fieldcondDC, loggerDC)
 cl_compare(fieldclDC, labDC)
 
 
-#trying to impute values
-impute_DC_cond <- loggerDC2 %>%
-  select(date, sp.cond) %>%
-  as.ts()
-
-imps <- na_ma(impute_DC_cond, 13, "exponential")
-
-imps2 <- as.data.frame(imps)  %>%
-  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) #%>%
-  #rename(imputed = sp.cond)
-
-test <- DC_cond_data %>%
-  left_join(imps2, by = "date") %>%
-  mutate(imputed = ifelse(is.na(corr_sp.cond), imputed, NA))
-
-ggplot(test) +
-  geom_point(aes(date, runningmean)) +
-  geom_point(aes(date, imputed), color = "red")
-
-
-test2 <- find_outlier(imps2, fieldcondDC, "test1", "test2")
-
-finder <- join_datasets_chloride(labDC, imps2)
