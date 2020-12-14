@@ -71,3 +71,10 @@ cond_compare(fieldcondYN, loggerYN)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclYN, labYN)
+
+
+#plotting a grid of timeseries data
+ts_grid(precip_temp_data, YN_discharge, YN_cond_data, labYN)
+ggsave("Plots/TS_Grids/YN.png", height = 12, width = 16)
+
+

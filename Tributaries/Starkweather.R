@@ -60,3 +60,8 @@ cond_compare(fieldcondSW, loggerSW)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclSW, labSW)
+
+
+#plotting a grid of timeseries data
+ts_grid(precip_temp_data, SW_discharge, SW_cond_data, labSW)
+ggsave("Plots/TS_Grids/SW.png", height = 12, width = 16)

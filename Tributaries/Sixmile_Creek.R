@@ -71,3 +71,9 @@ cond_compare(fieldcond6MC, logger6MC)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldcl6MC, lab6MC)
+
+
+#plotting a grid of timeseries data
+ts_grid(precip_temp_data, SMC_discharge, SMC_cond_data, lab6MC)
+ggsave("Plots/TS_Grids/6MC.png", height = 12, width = 16)
+

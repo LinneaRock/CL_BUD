@@ -71,3 +71,11 @@ cond_compare(fieldcondPBMS, loggerPBMS)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclPBMS, labPBMS)
+
+
+
+#plotting a grid of timeseries data
+ts_grid(precip_temp_data, PBMS_discharge, PBMS_cond_data, labPBMS)
+ggsave("Plots/TS_Grids/PBMS.png", height = 12, width = 16)
+
+
