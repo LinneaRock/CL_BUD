@@ -25,6 +25,7 @@ plot_cumulative(YN_load_daily, "Yahara North")
 splot("chloride_loading/", "YN_cumulative")
 
 
+
 ##6MC
 SMC_Load <- chloride_mass_load_rate(lab6MC, SMC_cond_data, SMC_discharge)
 plot_load(SMC_Load, "Sixmile Creek")
@@ -118,3 +119,12 @@ ggplot() +
   L_theme() +
   labs(x ="",
        y= "Chloride Mass"~(Mg))
+
+
+
+
+#plotting modeled chloride and real values
+
+ggplot(PBMS_Load) +
+  geom_point(aes(date, chloride_predict)) +
+  geom_point(aes(date, chloride_mgL), color = "red")
