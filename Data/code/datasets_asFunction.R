@@ -78,6 +78,8 @@ loggerPBSF <- readSP("PBSF", c("Data/HOBO_Loggers/PBSF/Jan2_Jan15/20758339_PBSF.
   rbind(readSPDST("PBSF", c("Data/HOBO_Loggers/PBSF/Mar16_Jun17/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Jun17_Jul21/20758339_PBSF.csv", "Data/HOBO_Loggers/PBSF/Jul21_Aug26/20758339_PBSF.csv"))) %>%
   rbind(readSPDST("PBSF", "Data/HOBO_Loggers/PBSF/Aug26_Oct22/20758339_PBSF.csv"))
 
+loggerWIC <- readSPDST("WIC", c("Data/HOBO_Loggers/WIC/OCt22_Dec15/20882406_WIC.csv"))
+
 
 fieldcondWIC <- readfieldcond("WIC", "WIC")
 fieldcondYN <- readfieldcond("YN", "YN")
