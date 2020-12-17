@@ -78,3 +78,22 @@ ts_grid(precip_temp_data, YN_discharge, YN_cond_data, labYN)
 ggsave("Plots/TS_Grids/YN.png", height = 12, width = 16)
 
 
+
+
+library(anomalize)
+YN <- loggerYN %>% 
+  as_tibble() %>%
+  time_decompose(sp.cond)
+
+YN <- YN %>%
+  anomalize(remainder)
+  
+
+YN2 <- YN %>%
+  clean_anomalies()
+
+ggplot() + 
+  geom_line(YN2, mapping = aes(date, trend), color = "red") +
+  geom_line(YN2, mapping = aes(date, observed_cleaned), color = "grey") +
+  geom_line(YN2, mapping = aes(date, runningmean), color = "blue")
+
