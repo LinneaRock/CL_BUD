@@ -4,6 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
+library(imputeTS)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -17,8 +18,27 @@ source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 
-#calling and naming raw data
-loggerYN <- loggerYN  #HOBO conductivity data
+#imputed values during logger calibration (out of water for a week)
+loggerYN1 <- loggerYN %>%#HOBO conductivity data
+  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:30:00"), as.POSIXct("2020-10-30 9:30:00"), by = "30 mins")) %>%
+  arrange(date)
+#creating dataset to perform imputations on missing data
+to_imp <- loggerYN1 %>%
+  select(date, sp.cond) %>%
+  rename(imputed = sp.cond)
+#imputing missing data and converting back to a dataframe
+loggerYN <- to_imp %>%  
+  as.ts() %>%
+  na_ma(6, "exponential") %>%
+  as.data.frame() %>%
+  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) %>%
+  left_join(loggerYN1, by = "date") %>%
+  mutate(imputed = ifelse(is.na(sp.cond), imputed, NA)) %>%
+  mutate(sp.cond = ifelse(is.na(sp.cond), imputed, sp.cond))
+
+
+
+
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
 YN_discharge <- rolling_ave_discharge(loggerYN, d.YN)
@@ -26,7 +46,7 @@ YN_discharge <- rolling_ave_discharge(loggerYN, d.YN)
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
 #use runningmean for analyses going forward
-YN_cond_data <- find_outlier(loggerYN, fieldcondYN, "YNoutliers", "YNoutliers_month")
+YN_cond_data <- find_outlier(loggerYN2, fieldcondYN, "YNoutliers", "YNoutliers_month")
 
 #Conductivity time series
 YN_cond_plot <- cond(YN_cond_data) +
@@ -81,19 +101,24 @@ ggsave("Plots/TS_Grids/YN.png", height = 12, width = 16)
 
 
 library(anomalize)
-YN <- loggerYN %>% 
+YN <- loggerYN2 %>% 
   as_tibble() %>%
   time_decompose(sp.cond)
 
 YN <- YN %>%
-  anomalize(remainder)
+  anomalize(remainder) %>% mutate(Year_Month = paste(year(date), month(date), sep = "-"))
+
+YN %>% plot_anomalies() + facet_wrap("Year_Month", scales = "free") 
   
+loggerYN3 <- loggerYN2 %>% mutate(Year_Month = paste(year(date), month(date), sep = "-"))
+
+ggplot(loggerYN3) + geom_point(aes(date, sp.cond)) + facet_wrap("Year_Month", scales = "free") 
 
 YN2 <- YN %>%
   clean_anomalies()
 
 ggplot() + 
-  geom_line(YN2, mapping = aes(date, trend), color = "red") +
-  geom_line(YN2, mapping = aes(date, observed_cleaned), color = "grey") +
-  geom_line(YN2, mapping = aes(date, runningmean), color = "blue")
+ # geom_line(YN2, mapping = aes(date, trend), color = "red") +
+  geom_line(YN2, mapping = aes(date, observed_cleaned), color = "grey") #+
+  #geom_line(YN2, mapping = aes(date, runningmean), color = "blue")
 

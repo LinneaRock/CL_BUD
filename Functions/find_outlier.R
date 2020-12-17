@@ -63,12 +63,39 @@ return(data3)
 
 }
 
-#WIC_outlier <- find_outlier(loggerWIC, "WICoutliers", "WICoutliers_month")
-# YS_outlier <- find_outlier(loggerYS, "YSoutliers", "YSoutliers_month")
-# SW_outlier <- find_outlier(loggerSW, "SWoutliers", "SWoutliers_month")
-# YN_outlier <- find_outlier(loggerYN, "YNoutliers", "YNoutliers_month")
-# YI_outlier <- find_outlier(loggerYI, "YIoutliers", "YIoutliers_month")
-# SMC_outlier <- find_outlier(logger6MC, "6MCoutliers", "6MCoutliers_month")
-# DC_outlier <- find_outlier(loggerDC, "DCoutliers", "DCoutliers_month") #needs help
-# PBMS_outlier <- find_outlier(loggerPBMS, "PBMSoutliers", "PBMSoutliers_month")
-# PBSF_outlier <- find_outlier(loggerPBSF, "PBSFoutliers", "PBSFoutliers_month") #needs help
+
+
+library(anomalize)
+library(tidyverse)
+
+#Visualize outliers and decide which flagged ones need to be corrected.
+#use data after it has imputed values added already
+flagged_data <- function(loggerdata) {
+  data <- loggerdata %>%
+    as_tibble() %>%
+    time_decompose(sp.cond) %>%
+    anomalize(remainder) %>%
+    mutate(Year_Month = paste(year(date), month(date), sep = "-"))
+}
+
+plot_flagged <- function(flaggedloggerdata) {
+  flaggedloggerdata %>% plot_anomalies() + facet_wrap("Year_Month", scales = "free") 
+}
+
+YN_outlier <- flagged_data(loggerYN)
+plot_flagged(YN_outlier)
+
+#after inspecting 
+YN_outlier2 <- YN_outlier %>%
+  filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
+           Year_Month == "2020-6" & date > "2020-06-04 00:00:00" |
+           Year_Month == "2020-7" & observed > 1000) %>%
+  clean_anomalies()
+
+ggplot(YN_outlier2) +
+  geom_point(aes(date, observed_cleaned)) +
+  facet_wrap("Year_Month", scales = "free") 
+
+
+
+

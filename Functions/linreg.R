@@ -10,7 +10,7 @@ linreg <- function(cl, other) {
   
   
   ggplot(qsc, aes(runningmean, chloride_mgL)) +
-    geom_point() + 
+    geom_point(aes(color = season)) + 
     geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
     #stat_cor() + 
     #stat_regline_equation() + 
