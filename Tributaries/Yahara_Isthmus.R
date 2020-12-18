@@ -4,6 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
+library(imputeTS)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -16,9 +17,29 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
+source("functions/impute_missing.R")
 
-#calling and naming raw data
-loggerYI <- loggerYI  #HOBO conductivity data
+#HOBO conductivity data, add missing dates
+loggerYI1 <- loggerYI %>% 
+  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:00:00"), as.POSIXct("2020-10-30 9:00:00"), by = "30 mins")) %>%
+  arrange(date)
+#impute missing data
+loggerYI <- impute_missing(loggerYI1)
+
+#flag outliers using anomalize package
+YI_outlier <- flagged_data(loggerYI)
+#plot to inspect where to correct outliers
+plot_flagged(YI_outlier)
+#after inspecting, filter and clean anomalies
+YI_cleaned <- YI_outlier %>%
+  clean_anomalies()
+#insepect cleaned points
+plot_cleaned(YI_cleaned)
+#final dataset with runningmean, trend, and corrected specific conductance data
+YI_cond_data <- final_cond_data(loggerYI, YI_cleaned, YI_outlier)
+
+
+
 fieldcondYI <- fieldcondYI #conductivity measured in the field
 labYI <- labYI #IC data 
 YI_discharge <- rolling_ave_discharge(loggerYI, d.YI)

@@ -5,6 +5,7 @@ library(ggpubr)
 library(patchwork)
 library(zoo)
 library(imputeTS)
+library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -16,32 +17,35 @@ source("Functions/cond_compare.R")
 source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
-source("Functions/discharge_ts.R")
-
+source("functions/discharge_ts.R")
+source("functions/impute_missing.R")
 
 
 #getting conductivity data ready
-loggerPBSF1 <- loggerPBSF %>%  #HOBO conductivity data - when water is low, sensor is not under water. Adding NAs where this occurs 
-  # mutate(sp.cond = ifelse(date >= "2020-04-18 17:30:00" & date <= "2020-04-22 18:00:00", NA, sp.cond)) %>%  
-  # mutate(sp.cond = ifelse(date >= "2020-05-05 21:30:00" & date <= "2020-05-13 21:00:00", NA, sp.cond)) %>%
-  # mutate(sp.cond = ifelse(date >= "2020-07-31 19:30:00" & date <= "2020-08-15 9:00:00", NA, sp.cond)) %>%
-  # mutate(sp.cond = ifelse(date >= "2020-08-18 17:00:00" & date <= "2020-08-26 12:30:00", NA, sp.cond)) %>%
+loggerPBSF1 <- loggerPBSF %>%  
   mutate(sp.cond = ifelse(sp.cond < 200, NA, sp.cond)) %>%
   complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
+  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 12:00:00"), as.POSIXct("2020-10-30 11:00:00"), by = "30 mins")) %>%
   arrange(date)
-#creating dataset to perform imputations on missing data
-to_imp <- loggerPBSF1 %>%
-  select(date, sp.cond) %>%
-  rename(imputed = sp.cond)
-#imputing missing data and converting back to a dataframe
-loggerPBSF2 <- to_imp %>%  
-  as.ts() %>%
-  na_ma(6, "exponential") %>%
-  as.data.frame() %>%
-  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) %>%
-  left_join(loggerPBSF1, by = "date") %>%
-  mutate(imputed = ifelse(is.na(sp.cond), imputed, NA)) %>%
-  mutate(sp.cond = ifelse(is.na(sp.cond), imputed, sp.cond))
+
+#impute missing data
+loggerPBSF <- impute_missing(loggerPBSF1)
+
+
+#flag outliers using anomalize package
+PBSF_outlier <- flagged_data(loggerPBSF)
+#plot to inspect where to correct outliers
+plot_flagged(PBSF_outlier)
+#after inspecting, filter and clean anomalies
+PBSF_cleaned <- PBSF_outlier %>%
+  filter(Year_Month != "2019-12" &
+           Year_Month != "2020-1" &
+           Year_Month != "2020-2") %>%
+  clean_anomalies()
+#insepect cleaned points
+plot_cleaned(PBSF_cleaned)
+#final dataset with runningmean, trend, and corrected specific conductance data
+PBSF_cond_data <- final_cond_data(loggerPBSF, PBSF_cleaned, PBSF_outlier)
 
 
 
@@ -56,7 +60,7 @@ PBSF_cond_data <- find_outlier(loggerPBSF2, fieldcondPBSF, "PBSFoutliers", "PBSF
 
 #Conductivity time series
 PBSF_cond_plot <- cond(PBSF_cond_data) +
-  geom_line(aes(date, imputed), color = "red") +
+  #geom_line(aes(date, imputed), color = "red") +
   capt_scseries("Pheasant Branch South Fork", "Pheasant Branch South Fork")
 splot("conductance_time_series/", "PBSF")
 

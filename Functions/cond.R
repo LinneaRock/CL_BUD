@@ -6,7 +6,7 @@ source("Functions/L_theme.R")
 #df = name of conductivity dataset
 cond <- function(df) {
   ggplot(df) +
-    geom_line(aes(date, corr_sp.cond), color = "snow3") +
+    geom_line(aes(date, sp.cond), color = "snow3") +
     geom_line(aes(date, runningmean)) +
     labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
          x = "") + L_theme()

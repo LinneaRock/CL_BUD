@@ -4,6 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
+library(imputeTS)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -16,9 +17,33 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
+source("functions/impute_missing.R")
 
-#calling and naming raw data
-loggerYS <- loggerYS  #HOBO conductivity data
+#HOBO conductivity data, add missing dates
+loggerYS1 <- loggerYS %>% 
+  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 13:00:00"), as.POSIXct("2020-10-30 14:00:00"), by = "30 mins")) %>%
+  arrange(date)
+#impute missing data
+loggerYS <- impute_missing(loggerYS1)
+
+#flag outliers using anomalize package
+YS_outlier <- flagged_data(loggerYS)
+#plot to inspect where to correct outliers
+plot_flagged(YS_outlier)
+#after inspecting, filter and clean anomalies
+YS_cleaned <- YS_outlier %>%
+  clean_anomalies()
+#insepect cleaned points
+plot_cleaned(YS_cleaned)
+#final dataset with runningmean, trend, and corrected specific conductance data
+YS_cond_data <- final_cond_data(loggerYS, YS_cleaned, YS_outlier)
+
+
+
+
+
+
+
 fieldcondYS <- fieldcondYS #conductivity measured in the field
 labYS <- labYS #IC data 
 YS_discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv") %>%

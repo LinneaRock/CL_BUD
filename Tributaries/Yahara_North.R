@@ -6,6 +6,7 @@ library(patchwork)
 library(zoo)
 library(imputeTS)
 
+
 source("Functions/linreg.R")
 source("Functions/splot.R")
 source("Functions/cond.R")
@@ -17,26 +18,29 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
+source("functions/impute_missing.R")
 
 #imputed values during logger calibration (out of water for a week)
 loggerYN1 <- loggerYN %>%#HOBO conductivity data
   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:30:00"), as.POSIXct("2020-10-30 9:30:00"), by = "30 mins")) %>%
   arrange(date)
-#creating dataset to perform imputations on missing data
-to_imp <- loggerYN1 %>%
-  select(date, sp.cond) %>%
-  rename(imputed = sp.cond)
-#imputing missing data and converting back to a dataframe
-loggerYN <- to_imp %>%  
-  as.ts() %>%
-  na_ma(6, "exponential") %>%
-  as.data.frame() %>%
-  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) %>%
-  left_join(loggerYN1, by = "date") %>%
-  mutate(imputed = ifelse(is.na(sp.cond), imputed, NA)) %>%
-  mutate(sp.cond = ifelse(is.na(sp.cond), imputed, sp.cond))
 
+loggerYN <- impute_missing(loggerYN1)
 
+#flag outliers using anomalize package
+YN_outlier <- flagged_data(loggerYN)
+#plot to inspect where to correct outliers
+plot_flagged(YN_outlier)
+#after inspecting, filter and clean anomalies
+YN_cleaned <- YN_outlier %>%
+  filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
+           Year_Month == "2020-6" & date > "2020-06-04 00:00:00" |
+           Year_Month == "2020-7" & observed > 1000) %>%
+  clean_anomalies()
+#insepect cleaned points
+plot_cleaned(YN_cleaned)
+#final dataset with runningmean, trend, and corrected specific conductance data
+YN_cond_data <- final_cond_data(loggerYN, YN_cleaned, YN_outlier)
 
 
 fieldcondYN <- fieldcondYN #conductivity measured in the field
@@ -46,7 +50,7 @@ YN_discharge <- rolling_ave_discharge(loggerYN, d.YN)
 #Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
 #outlier figures automatically saved to plots folder
 #use runningmean for analyses going forward
-YN_cond_data <- find_outlier(loggerYN2, fieldcondYN, "YNoutliers", "YNoutliers_month")
+#YN_cond_data <- find_outlier(loggerYN2, fieldcondYN, "YNoutliers", "YNoutliers_month")
 
 #Conductivity time series
 YN_cond_plot <- cond(YN_cond_data) +
@@ -99,26 +103,4 @@ ggsave("Plots/TS_Grids/YN.png", height = 12, width = 16)
 
 
 
-
-library(anomalize)
-YN <- loggerYN2 %>% 
-  as_tibble() %>%
-  time_decompose(sp.cond)
-
-YN <- YN %>%
-  anomalize(remainder) %>% mutate(Year_Month = paste(year(date), month(date), sep = "-"))
-
-YN %>% plot_anomalies() + facet_wrap("Year_Month", scales = "free") 
-  
-loggerYN3 <- loggerYN2 %>% mutate(Year_Month = paste(year(date), month(date), sep = "-"))
-
-ggplot(loggerYN3) + geom_point(aes(date, sp.cond)) + facet_wrap("Year_Month", scales = "free") 
-
-YN2 <- YN %>%
-  clean_anomalies()
-
-ggplot() + 
- # geom_line(YN2, mapping = aes(date, trend), color = "red") +
-  geom_line(YN2, mapping = aes(date, observed_cleaned), color = "grey") #+
-  #geom_line(YN2, mapping = aes(date, runningmean), color = "blue")
 

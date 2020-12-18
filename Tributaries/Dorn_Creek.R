@@ -5,6 +5,7 @@ library(ggpubr)
 library(patchwork)
 library(zoo)
 library(imputeTS)
+library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -17,24 +18,27 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/ts_grid.R")
+source("functions/impute_missing.R")
 
 #calling and naming raw data
 loggerDC1 <- loggerDC %>% #HOBO conductivity data
-  mutate(sp.cond = ifelse(date >= "2020-09-22 17:00:00" & date <= "2020-10-06 10:30:00", NA, sp.cond)) # logger was removed from water during this period
-#creating dataset to perform imputations on missing data
-to_imp <- loggerDC1 %>%
-  select(date, sp.cond) %>%
-  rename(imputed = sp.cond)
-#imputing missing data and converting back to a dataframe
-loggerDC2 <- to_imp %>%  
-  as.ts() %>%
-  na_ma(6, "exponential") %>%
-  as.data.frame() %>%
-  mutate(date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", origin = "1970-01-01 00:00:00", tz = "GMT")) %>%
-  left_join(loggerDC1, by = "date") %>%
-  mutate(imputed = ifelse(is.na(sp.cond), imputed, NA)) %>%
-  mutate(sp.cond = ifelse(is.na(sp.cond), imputed, sp.cond))
+  mutate(sp.cond = ifelse(date >= "2020-09-22 17:00:00" & date <= "2020-10-06 10:30:00", NA, sp.cond)) %>% # logger was removed from water during this period
+  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:00:00"), as.POSIXct("2020-10-30 10:00:00"), by = "30 mins")) %>%
+  arrange(date)
+#impute missing data
+loggerDC <- impute_missing(loggerDC1)
+
+#flag outliers using anomalize package
+DC_outlier <- flagged_data(loggerDC)
+#plot to inspect where to correct outliers
+plot_flagged(DC_outlier)
+#after inspecting, filter and clean anomalies
+DC_cleaned <- DC_outlier %>%
+  clean_anomalies()
+#insepect cleaned points
+plot_cleaned(DC_cleaned)
+#final dataset with runningmean, trend, and corrected specific conductance data
+DC_cond_data <- final_cond_data(loggerDC, DC_cleaned, DC_outlier)
 
 
 fieldcondDC <- fieldcondDC #conductivity measured in the field
