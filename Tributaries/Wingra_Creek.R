@@ -19,43 +19,40 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
 
-#HOBO conductivity data
-loggerWIC <- loggerWIC
+# #HOBO conductivity data
+# loggerWIC <- loggerWIC
+# 
+# #flag outliers using anomalize package
+# WIC_outlier <- flagged_data(loggerWIC)
+# #plot to inspect where to correct outliers
+# plot_flagged(WIC_outlier)
+# #after inspecting, filter and clean anomalies
+# WIC_cleaned <- WIC_outlier %>%
+#   filter(Year_Month != "2020-12") %>%
+#   clean_anomalies()
+# #insepect cleaned points
+# plot_cleaned(WIC_cleaned)
+# #final dataset with runningmean, trend, and corrected specific conductance data
+# WIC_cond_data <- loggerWIC %>%
+#   left_join(WIC_cleaned, by = "date") %>%
+#   left_join(WIC_outlier %>% select(date, trend), by = "date") %>%
+#   mutate(sp.cond = ifelse(is.na(observed_cleaned), sp.cond, observed_cleaned)) %>%
+#   select(date, sp.cond, trend.y, Low.Range, Full.Range, Temp, observed_cleaned) %>%
+#   rename(trend = trend.y) %>%
+#   mutate(runningmean = rollmean(sp.cond, 13, fill = NA, na.rm = TRUE)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
+#   mutate(runningmean = ifelse(row_number() <= 6, mean(sp.cond[1:6]), runningmean)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of those empty rows
+#   mutate(runningmean = ifelse(row_number() >= (nrow(loggerWIC) - 5), mean(sp.cond[(nrow(loggerWIC) - 5):nrow(loggerWIC)]), runningmean)) 
+# 
+# write_rds(WIC_cond_data, "Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
 
-#flag outliers using anomalize package
-WIC_outlier <- flagged_data(loggerWIC)
-#plot to inspect where to correct outliers
-plot_flagged(WIC_outlier)
-#after inspecting, filter and clean anomalies
-WIC_cleaned <- WIC_outlier %>%
-  filter(Year_Month != "2020-12") %>%
-  clean_anomalies()
-#insepect cleaned points
-plot_cleaned(WIC_cleaned)
-#final dataset with runningmean, trend, and corrected specific conductance data
-WIC_cond_data <- loggerWIC %>%
-  left_join(WIC_cleaned, by = "date") %>%
-  left_join(WIC_outlier %>% select(date, trend), by = "date") %>%
-  mutate(sp.cond = ifelse(is.na(observed_cleaned), sp.cond, observed_cleaned)) %>%
-  select(date, sp.cond, trend.y, Low.Range, Full.Range, Temp, observed_cleaned) %>%
-  rename(trend = trend.y) %>%
-  mutate(runningmean = rollmean(sp.cond, 13, fill = NA, na.rm = TRUE)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
-  mutate(runningmean = ifelse(row_number() <= 6, mean(sp.cond[1:6]), runningmean)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of those empty rows
-  mutate(runningmean = ifelse(row_number() >= (nrow(loggerWIC) - 5), mean(sp.cond[(nrow(loggerWIC) - 5):nrow(loggerWIC)]), runningmean)) 
 
-
-
-
+WIC_cond_data <- read_rds("Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
 fieldcondWIC <- fieldcondWIC #conductivity measured in the field
 labWIC <- labWIC #IC data 
 WIC_discharge <- read.csv("Data/WingraCreek_Data/discharge_WIC.csv") %>%
   mutate(date = ymd_hms(date))
 WIC_discharge <- rolling_ave_discharge(loggerWIC, WIC_discharge)
 
-#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
-#outlier figures automatically saved to plots folder
-#use runningmean for analyses going forward
-WIC_cond_data <- find_outlier(loggerWIC, fieldcondWIC, "WICoutliers", "WICoutliers_month")
 
 #Conductivity time series
 WIC_cond_plot <- cond(WIC_cond_data) +

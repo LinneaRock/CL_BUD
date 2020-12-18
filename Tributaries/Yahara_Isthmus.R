@@ -19,35 +19,32 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
 
-#HOBO conductivity data, add missing dates
-loggerYI1 <- loggerYI %>% 
-  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:00:00"), as.POSIXct("2020-10-30 9:00:00"), by = "30 mins")) %>%
-  arrange(date)
-#impute missing data
-loggerYI <- impute_missing(loggerYI1)
+# #HOBO conductivity data, add missing dates
+# loggerYI1 <- loggerYI %>% 
+#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:00:00"), as.POSIXct("2020-10-30 9:00:00"), by = "30 mins")) %>%
+#   arrange(date)
+# #impute missing data
+# loggerYI <- impute_missing(loggerYI1)
+# 
+# #flag outliers using anomalize package
+# YI_outlier <- flagged_data(loggerYI)
+# #plot to inspect where to correct outliers
+# plot_flagged(YI_outlier)
+# #after inspecting, filter and clean anomalies
+# YI_cleaned <- YI_outlier %>%
+#   clean_anomalies()
+# #insepect cleaned points
+# plot_cleaned(YI_cleaned)
+# #final dataset with runningmean, trend, and corrected specific conductance data
+# YI_cond_data <- final_cond_data(loggerYI, YI_cleaned, YI_outlier)
+# write_rds(YI_cond_data, "Data/HOBO_Loggers/YI/YI_cond_data.rds")
 
-#flag outliers using anomalize package
-YI_outlier <- flagged_data(loggerYI)
-#plot to inspect where to correct outliers
-plot_flagged(YI_outlier)
-#after inspecting, filter and clean anomalies
-YI_cleaned <- YI_outlier %>%
-  clean_anomalies()
-#insepect cleaned points
-plot_cleaned(YI_cleaned)
-#final dataset with runningmean, trend, and corrected specific conductance data
-YI_cond_data <- final_cond_data(loggerYI, YI_cleaned, YI_outlier)
 
-
-
+YI_cond_data <- read_rds("Data/HOBO_Loggers/YI/YI_cond_data.rds")
 fieldcondYI <- fieldcondYI #conductivity measured in the field
 labYI <- labYI #IC data 
 YI_discharge <- rolling_ave_discharge(loggerYI, d.YI)
 
-#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
-#outlier figures automatically saved to plots folder
-#use runningmean for analyses going forward
-YI_cond_data <- find_outlier(loggerYI, fieldcondYI, "YIoutliers", "YIoutliers_month")
 
 #Conductivity time series
 YI_cond_plot <- cond(YI_cond_data) +

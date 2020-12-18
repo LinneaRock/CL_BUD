@@ -20,37 +20,35 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
 
-#imputed values during logger calibration (out of water for a week)
-loggerYN1 <- loggerYN %>%#HOBO conductivity data
-  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:30:00"), as.POSIXct("2020-10-30 9:30:00"), by = "30 mins")) %>%
-  arrange(date)
+# #imputed values during logger calibration (out of water for a week)
+# loggerYN1 <- loggerYN %>%#HOBO conductivity data
+#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:30:00"), as.POSIXct("2020-10-30 9:30:00"), by = "30 mins")) %>%
+#   arrange(date)
+# 
+# loggerYN <- impute_missing(loggerYN1)
+# 
+# #flag outliers using anomalize package
+# YN_outlier <- flagged_data(loggerYN)
+# #plot to inspect where to correct outliers
+# plot_flagged(YN_outlier)
+# #after inspecting, filter and clean anomalies
+# YN_cleaned <- YN_outlier %>%
+#   filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
+#            Year_Month == "2020-6" & date > "2020-06-04 00:00:00" |
+#            Year_Month == "2020-7" & observed > 1000) %>%
+#   clean_anomalies()
+# #insepect cleaned points
+# plot_cleaned(YN_cleaned)
+# #final dataset with runningmean, trend, and corrected specific conductance data
+# YN_cond_data <- final_cond_data(loggerYN, YN_cleaned, YN_outlier)
+# write_rds(YN_cond_data, "Data/HOBO_Loggers/YN/YN_cond_data.rds")
 
-loggerYN <- impute_missing(loggerYN1)
 
-#flag outliers using anomalize package
-YN_outlier <- flagged_data(loggerYN)
-#plot to inspect where to correct outliers
-plot_flagged(YN_outlier)
-#after inspecting, filter and clean anomalies
-YN_cleaned <- YN_outlier %>%
-  filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
-           Year_Month == "2020-6" & date > "2020-06-04 00:00:00" |
-           Year_Month == "2020-7" & observed > 1000) %>%
-  clean_anomalies()
-#insepect cleaned points
-plot_cleaned(YN_cleaned)
-#final dataset with runningmean, trend, and corrected specific conductance data
-YN_cond_data <- final_cond_data(loggerYN, YN_cleaned, YN_outlier)
-
-
+YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
 YN_discharge <- rolling_ave_discharge(loggerYN, d.YN)
 
-#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
-#outlier figures automatically saved to plots folder
-#use runningmean for analyses going forward
-#YN_cond_data <- find_outlier(loggerYN2, fieldcondYN, "YNoutliers", "YNoutliers_month")
 
 #Conductivity time series
 YN_cond_plot <- cond(YN_cond_data) +

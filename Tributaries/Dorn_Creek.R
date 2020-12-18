@@ -20,36 +20,35 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
 
-#calling and naming raw data
-loggerDC1 <- loggerDC %>% #HOBO conductivity data
-  mutate(sp.cond = ifelse(date >= "2020-09-22 17:00:00" & date <= "2020-10-06 10:30:00", NA, sp.cond)) %>% # logger was removed from water during this period
-  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:00:00"), as.POSIXct("2020-10-30 10:00:00"), by = "30 mins")) %>%
-  arrange(date)
-#impute missing data
-loggerDC <- impute_missing(loggerDC1)
+# #calling and naming raw data
+# loggerDC1 <- loggerDC %>% #HOBO conductivity data
+#   mutate(sp.cond = ifelse(date >= "2020-09-22 17:00:00" & date <= "2020-10-06 10:30:00", NA, sp.cond)) %>% # logger was removed from water during this period
+#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:00:00"), as.POSIXct("2020-10-30 10:00:00"), by = "30 mins")) %>%
+#   arrange(date)
+# #impute missing data
+# loggerDC <- impute_missing(loggerDC1)
+# 
+# #flag outliers using anomalize package
+# DC_outlier <- flagged_data(loggerDC)
+# #plot to inspect where to correct outliers
+# plot_flagged(DC_outlier)
+# #after inspecting, filter and clean anomalies
+# DC_cleaned <- DC_outlier %>%
+#   clean_anomalies()
+# #insepect cleaned points
+# plot_cleaned(DC_cleaned)
+# #final dataset with runningmean, trend, and corrected specific conductance data
+# DC_cond_data <- final_cond_data(loggerDC, DC_cleaned, DC_outlier)
+#write_rds(DC_cond_data, "Data/HOBO_Loggers/DC/DC_cond_data.rds")
 
-#flag outliers using anomalize package
-DC_outlier <- flagged_data(loggerDC)
-#plot to inspect where to correct outliers
-plot_flagged(DC_outlier)
-#after inspecting, filter and clean anomalies
-DC_cleaned <- DC_outlier %>%
-  clean_anomalies()
-#insepect cleaned points
-plot_cleaned(DC_cleaned)
-#final dataset with runningmean, trend, and corrected specific conductance data
-DC_cond_data <- final_cond_data(loggerDC, DC_cleaned, DC_outlier)
 
-
+DC_cond_data <- read_rds("Data/HOBO_Loggers/DC/DC_cond_data.rds")
 fieldcondDC <- fieldcondDC #conductivity measured in the field
 labDC <- labDC #IC data 
 DC_discharge <- rolling_ave_discharge(loggerDC2, d.DC)
   
 
-#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
-#outlier figures automatically saved to plots folder
-#use runningmean for analyses going forward
-DC_cond_data <- find_outlier(loggerDC2, fieldcondDC, "DCoutliers", "DCoutliers_month")
+
 
 #Conductivity time series
 DC_cond_plot <- cond(DC_cond_data) +

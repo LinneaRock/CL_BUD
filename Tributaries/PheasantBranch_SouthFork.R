@@ -21,42 +21,40 @@ source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
 
 
-#getting conductivity data ready
-loggerPBSF1 <- loggerPBSF %>%  
-  mutate(sp.cond = ifelse(sp.cond < 200, NA, sp.cond)) %>%
-  complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
-  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 12:00:00"), as.POSIXct("2020-10-30 11:00:00"), by = "30 mins")) %>%
-  arrange(date)
+# #getting conductivity data ready
+# loggerPBSF1 <- loggerPBSF %>%  
+#   mutate(sp.cond = ifelse(sp.cond < 200, NA, sp.cond)) %>%
+#   complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
+#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 12:00:00"), as.POSIXct("2020-10-30 11:00:00"), by = "30 mins")) %>%
+#   arrange(date)
+# 
+# #impute missing data
+# loggerPBSF <- impute_missing(loggerPBSF1)
+# 
+# 
+# #flag outliers using anomalize package
+# PBSF_outlier <- flagged_data(loggerPBSF)
+# #plot to inspect where to correct outliers
+# plot_flagged(PBSF_outlier)
+# #after inspecting, filter and clean anomalies
+# PBSF_cleaned <- PBSF_outlier %>%
+#   filter(Year_Month != "2019-12" &
+#            Year_Month != "2020-1" &
+#            Year_Month != "2020-2") %>%
+#   clean_anomalies()
+# #insepect cleaned points
+# plot_cleaned(PBSF_cleaned)
+# #final dataset with runningmean, trend, and corrected specific conductance data
+# PBSF_cond_data <- final_cond_data(loggerPBSF, PBSF_cleaned, PBSF_outlier)
+#write_rds(PBSF_cond_data, "Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 
-#impute missing data
-loggerPBSF <- impute_missing(loggerPBSF1)
 
-
-#flag outliers using anomalize package
-PBSF_outlier <- flagged_data(loggerPBSF)
-#plot to inspect where to correct outliers
-plot_flagged(PBSF_outlier)
-#after inspecting, filter and clean anomalies
-PBSF_cleaned <- PBSF_outlier %>%
-  filter(Year_Month != "2019-12" &
-           Year_Month != "2020-1" &
-           Year_Month != "2020-2") %>%
-  clean_anomalies()
-#insepect cleaned points
-plot_cleaned(PBSF_cleaned)
-#final dataset with runningmean, trend, and corrected specific conductance data
-PBSF_cond_data <- final_cond_data(loggerPBSF, PBSF_cleaned, PBSF_outlier)
-
-
-
+PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
 labPBSF <- labPBSF #IC data 
 PBSF_discharge <- rolling_ave_discharge(loggerPBSF2, d.PBSF)
 
-#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
-#outlier figures automatically saved to plots folder
-#use runningmean for analyses going forward
-PBSF_cond_data <- find_outlier(loggerPBSF2, fieldcondPBSF, "PBSFoutliers", "PBSFoutliers_month")
+
 
 #Conductivity time series
 PBSF_cond_plot <- cond(PBSF_cond_data) +

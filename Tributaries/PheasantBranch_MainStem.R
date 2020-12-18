@@ -19,38 +19,35 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
 
-#HOBO conductivity data, add missing dates
-loggerPBMS1 <- loggerPBMS %>% 
-  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:30:00"), as.POSIXct("2020-10-30 10:30:00"), by = "30 mins")) %>%
-  arrange(date)
-#impute missing data
-loggerPBMS <- impute_missing(loggerPBMS1)
+# #HOBO conductivity data, add missing dates
+# loggerPBMS1 <- loggerPBMS %>% 
+#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:30:00"), as.POSIXct("2020-10-30 10:30:00"), by = "30 mins")) %>%
+#   arrange(date)
+# #impute missing data
+# loggerPBMS <- impute_missing(loggerPBMS1)
+# 
+# #flag outliers using anomalize package
+# PBMS_outlier <- flagged_data(loggerPBMS)
+# #plot to inspect where to correct outliers
+# plot_flagged(PBMS_outlier)
+# #after inspecting, filter and clean anomalies
+# PBMS_cleaned <- PBMS_outlier %>%
+#   filter(Year_Month == "2020-5" & observed > 1250 |
+#            Year_Month == "2020-6" & observed > 1000 |
+#            Year_Month == "2020-7" & observed > 1000) %>%
+#   clean_anomalies()
+# #insepect cleaned points
+# plot_cleaned(PBMS_cleaned)
+# #final dataset with runningmean, trend, and corrected specific conductance data
+# PBMS_cond_data <- final_cond_data(loggerPBMS, PBMS_cleaned, PBMS_outlier)
+# write_rds(PBMS_cond_data, "Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
 
-#flag outliers using anomalize package
-PBMS_outlier <- flagged_data(loggerPBMS)
-#plot to inspect where to correct outliers
-plot_flagged(PBMS_outlier)
-#after inspecting, filter and clean anomalies
-PBMS_cleaned <- PBMS_outlier %>%
-  filter(Year_Month == "2020-5" & observed > 1250 |
-           Year_Month == "2020-6" & observed > 1000 |
-           Year_Month == "2020-7" & observed > 1000) %>%
-  clean_anomalies()
-#insepect cleaned points
-plot_cleaned(PBMS_cleaned)
-#final dataset with runningmean, trend, and corrected specific conductance data
-PBMS_cond_data <- final_cond_data(loggerPBMS, PBMS_cleaned, PBMS_outlier)
 
-
-
+PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
 fieldcondPBMS <- fieldcondPBMS #conductivity measured in the field
 labPBMS <- labPBMS #IC data 
 PBMS_discharge <- rolling_ave_discharge(loggerPBMS, d.PBMS)
 
-#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
-#outlier figures automatically saved to plots folder
-#use runningmean for analyses going forward
-PBMS_cond_data <- find_outlier(loggerPBMS, fieldcondPBMS, "PBMSoutliers", "PBMSoutliers_month")
 
 #Conductivity time series
 PBMS_cond_plot <- cond(PBMS_cond_data) +

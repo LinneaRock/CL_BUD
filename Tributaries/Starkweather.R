@@ -19,41 +19,35 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
 
-#HOBO conductivity data, add missing dates
-loggerSW1 <- loggerSW %>% 
-  complete(date = seq.POSIXt(as.POSIXct("2020-10-22 13:00:00"), as.POSIXct("2020-10-30 13:00:00"), by = "30 mins")) %>%
-  arrange(date)
-#impute missing data
-loggerSW <- impute_missing(loggerSW1)
-
-#flag outliers using anomalize package
-SW_outlier <- flagged_data(loggerSW)
-#plot to inspect where to correct outliers
-plot_flagged(SW_outlier)
-#after inspecting, filter and clean anomalies
-SW_cleaned <- SW_outlier %>%
-  filter(Year_Month != "2019-12" &
-           Year_Month != "2020-1" &
-           Year_Month != "2020-2" &
-           Year_Month != "2020-12") %>%
-  clean_anomalies()
-#insepect cleaned points
-plot_cleaned(SW_cleaned)
-#final dataset with runningmean, trend, and corrected specific conductance data
-SW_cond_data <- final_cond_data(loggerSW, SW_cleaned, SW_outlier)
-
-
-
+# #HOBO conductivity data, add missing dates
+# loggerSW1 <- loggerSW %>% 
+#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 13:00:00"), as.POSIXct("2020-10-30 13:00:00"), by = "30 mins")) %>%
+#   arrange(date)
+# #impute missing data
+# loggerSW <- impute_missing(loggerSW1)
+# 
+# #flag outliers using anomalize package
+# SW_outlier <- flagged_data(loggerSW)
+# #plot to inspect where to correct outliers
+# plot_flagged(SW_outlier)
+# #after inspecting, filter and clean anomalies
+# SW_cleaned <- SW_outlier %>%
+#   filter(Year_Month != "2019-12" &
+#            Year_Month != "2020-1" &
+#            Year_Month != "2020-2" &
+#            Year_Month != "2020-12") %>%
+#   clean_anomalies()
+# #insepect cleaned points
+# plot_cleaned(SW_cleaned)
+# #final dataset with runningmean, trend, and corrected specific conductance data
+# SW_cond_data <- final_cond_data(loggerSW, SW_cleaned, SW_outlier)
+# write_rds(SW_cond_data, "Data/HOBO_Loggers/SW/SW_cond_data.rds")
 
 
+SW_cond_data <- read_rds("Data/HOBO_Loggers/SW/SW_cond_data.rds")
 fieldcondSW <- fieldcondSW #conductivity measured in the field
 labSW <- labSW #IC data 
 
-
-#Preparing conductivity data through rolling averages and removing outliers that greatly impact the data
-#outlier figures automatically saved to plots folder
-#use runningmean for analyses going forward
-SW_cond_data <- find_outlier(loggerSW, fieldcondSW, "SWoutliers", "SWoutliers_month")
 
 #Conductivity time series
 SW_cond_plot <- cond(SW_cond_data) +
