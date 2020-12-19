@@ -45,7 +45,7 @@ fieldcondYS <- fieldcondYS #conductivity measured in the field
 labYS <- labYS #IC data 
 YS_discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv") %>%
   mutate(date = ymd_hms(date))
-YS_discharge <- rolling_ave_discharge(loggerYS, YS_discharge)
+YS_discharge <- rolling_ave_discharge(YS_cond_data, YS_discharge)
 
 
 #Conductivity time series
@@ -87,12 +87,10 @@ eval(labYS, YS_cond_data)
 sccl(YS_cond_data, labYS)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcondYS, loggerYS)
+cond_compare(fieldcondYS, YS_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclYS, labYS)
-
-
 
 
 

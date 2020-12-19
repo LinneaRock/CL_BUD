@@ -77,7 +77,7 @@ eval(labSW, SW_cond_data)
 sccl(SW_cond_data, labSW)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcondSW, loggerSW)
+cond_compare(fieldcondSW, SW_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclSW, labSW)

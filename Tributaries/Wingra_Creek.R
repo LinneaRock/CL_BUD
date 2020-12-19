@@ -51,7 +51,7 @@ fieldcondWIC <- fieldcondWIC #conductivity measured in the field
 labWIC <- labWIC #IC data 
 WIC_discharge <- read.csv("Data/WingraCreek_Data/discharge_WIC.csv") %>%
   mutate(date = ymd_hms(date))
-WIC_discharge <- rolling_ave_discharge(loggerWIC, WIC_discharge)
+WIC_discharge <- rolling_ave_discharge(WIC_cond_data, WIC_discharge)
 
 
 #Conductivity time series
@@ -93,7 +93,7 @@ eval(labWIC, WIC_cond_data)
 sccl(WIC_cond_data, labWIC)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcondWIC, loggerWIC)
+cond_compare(fieldcondWIC, WIC_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclWIC, labWIC)

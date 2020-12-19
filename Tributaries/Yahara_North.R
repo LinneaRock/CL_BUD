@@ -47,7 +47,7 @@ source("functions/impute_missing.R")
 YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
-YN_discharge <- rolling_ave_discharge(loggerYN, d.YN)
+YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
 
 
 #Conductivity time series
@@ -89,7 +89,7 @@ eval(labYN, YN_cond_data)
 sccl(YN_cond_data, labYN)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcondYN, loggerYN)
+cond_compare(fieldcondYN, YN_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclYN, labYN)

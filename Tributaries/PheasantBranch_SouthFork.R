@@ -52,7 +52,7 @@ source("functions/impute_missing.R")
 PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
 labPBSF <- labPBSF #IC data 
-PBSF_discharge <- rolling_ave_discharge(loggerPBSF2, d.PBSF)
+PBSF_discharge <- rolling_ave_discharge(PBSF_cond_data, d.PBSF)
 
 
 
@@ -96,7 +96,7 @@ eval(labPBSF, PBSF_cond_data)
 sccl(PBSF_cond_data, labPBSF)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcondPBSF, loggerPBSF)
+cond_compare(fieldcondPBSF, PBSF_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclPBSF, labPBSF)

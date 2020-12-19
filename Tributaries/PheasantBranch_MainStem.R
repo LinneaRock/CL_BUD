@@ -46,7 +46,7 @@ source("functions/impute_missing.R")
 PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
 fieldcondPBMS <- fieldcondPBMS #conductivity measured in the field
 labPBMS <- labPBMS #IC data 
-PBMS_discharge <- rolling_ave_discharge(loggerPBMS, d.PBMS)
+PBMS_discharge <- rolling_ave_discharge(PBMS_cond_data, d.PBMS)
 
 
 #Conductivity time series
@@ -88,7 +88,7 @@ eval(labPBMS, PBMS_cond_data)
 sccl(PBMS_cond_data, labPBMS)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcondPBMS, loggerPBMS)
+cond_compare(fieldcondPBMS, PBMS_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclPBMS, labPBMS)

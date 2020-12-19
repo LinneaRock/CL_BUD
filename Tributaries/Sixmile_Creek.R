@@ -18,6 +18,7 @@ source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
+source("functions/ts_grid.R")
 
 # #HOBO conductivity data, add missing dates
 # logger6MC1 <- logger6MC %>% 
@@ -43,7 +44,7 @@ source("functions/impute_missing.R")
 SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
 fieldcond6MC <- fieldcond6MC #conductivity measured in the field
 lab6MC <- lab6MC #IC data 
-SMC_discharge <- rolling_ave_discharge(logger6MC, d.6MC)
+SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
 
 
 #Conductivity time series
@@ -85,7 +86,7 @@ eval(lab6MC, SMC_cond_data)
 sccl(SMC_cond_data, lab6MC)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcond6MC, logger6MC)
+cond_compare(fieldcond6MC, SMC_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldcl6MC, lab6MC)
