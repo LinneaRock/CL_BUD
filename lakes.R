@@ -135,7 +135,7 @@ labMO <- labMO
 fieldcondME <- fieldcondME
 fieldcondMO <- fieldcondMO
 
-#plotting Mendota time series for 2019-2020
+
 lakecond(ME_Epi_cond_data, ME_Hypo_cond_data, "Mendota 24m", "Mendota 1.5m") +
   capt_scseries("Lake Mendota", "deep hole of Lake Mendota")
 splot("conductance_time_series/", "ME")
@@ -177,7 +177,8 @@ MO_chloride_plot <- clseries(labMO) + geom_point(aes(color = Depth_m)) + scale_c
 splot("chloride_time_series/", "MO")
 
 
-
+ggplot(labME, aes(Depth_m, chloride_mgL, group = Depth_m)) +
+  geom_boxplot() 
 
 
 
