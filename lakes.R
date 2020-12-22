@@ -3,9 +3,12 @@ library(lubridate)
 library(patchwork)
 library(ggpubr)
 library(zoo)
+library(viridisLite)
 source("Functions/cond.R")
 source("Functions/splot.R")
 source("Functions/find_outlier.R")
+source("Functions/cond_compare.R")
+source("Functions/clseries.R")
 
 
 
@@ -127,6 +130,11 @@ ME_Hypo_cond_data <- read_rds("Data/HOBO_Loggers/MENDOTA/ME_Hypo_cond_data.rds")
 MO_Epi_cond_data <- read_rds("Data/HOBO_Loggers/MONONA/MO_Epi_cond_data.rds")
 MO_Hypo_cond_data <- read_rds("Data/HOBO_Loggers/MONONA/MO_Hypo_cond_data.rds")
 
+labME <- labME
+labMO <- labMO
+fieldcondME <- fieldcondME
+fieldcondMO <- fieldcondMO
+
 #plotting Mendota time series for 2019-2020
 lakecond(ME_Epi_cond_data, ME_Hypo_cond_data, "Mendota 24m", "Mendota 1.5m") +
   capt_scseries("Lake Mendota", "deep hole of Lake Mendota")
@@ -159,10 +167,14 @@ cond_compare(fieldcondMO %>% filter(depth == 1.5), loggerMO_Epi)
 
 
 
+ME_chloride_plot <- clseries(labME) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c(direction = -1) +
+  capt_clseries("Mendota", "Lake Mendota")
+splot("chloride_time_series/", "ME")
 
 
-
-
+MO_chloride_plot <- clseries(labMO) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c(direction = -1) +
+  capt_clseries("Monona", "Lake Monona")
+splot("chloride_time_series/", "MO")
 
 
 
