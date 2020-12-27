@@ -9,7 +9,8 @@ rolling_ave_discharge <- function(logger_data, discharge_data) {
     mutate(runningmeandis = rollmean(discharge, 13, fill = NA, na.rm = TRUE)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
     mutate(runningmeandis = ifelse(row_number() <= 6, mean(discharge[1:6]), runningmeandis)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of those empty rows
     mutate(runningmeandis = ifelse(row_number() >= (nrow(dis_data1) - 5), mean(discharge[(nrow(dis_data1) - 5):nrow(dis_data1)]), runningmeandis)) %>%
-    mutate(res = discharge - runningmeandis)
+    mutate(res = discharge - runningmeandis) %>%
+    mutate(runningmeandis = ifelse(runningmeandis <= 0, 0, runningmeandis))
   
 }
 

@@ -6,6 +6,7 @@ library(patchwork)
 library(zoo)
 library(imputeTS)
 library(anomalize)
+library(ggforce)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -70,6 +71,21 @@ splot("chloride_time_series/", "PBSF")
 #Discharge time series
 PBSF_discharge_plot <- discharge_ts(PBSF_discharge)
 splot("discharge_time_series/", "PBSF")
+
+#discharge plot by logging data
+PBSF_log_discharge <- PBSF_discharge %>%
+  mutate(log_dis = log(runningmeandis, base =  10))
+ggplot(PBSF_log_discharge) +
+  geom_line(aes(date, log_dis))
+
+#discharge plot with coord_cartesian
+PBSF_discharge_plot_zoom <- PBSF_discharge_plot +
+  coord_cartesian(ylim = c(0, 0.25))
+splot("discharge_time_series/", "PBSF_zoomed")
+
+#plot using ggforce
+PBSF_discharge_plot + facet_zoom(ylim = c(0, 0.25))
+splot("discharge_time_series/", "PBSF_final")
 
 #cQ - conductivity
 q.sc(PBSF_cond_data, PBSF_discharge) +
