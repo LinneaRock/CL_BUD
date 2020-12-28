@@ -79,23 +79,81 @@ value of ", round((info(cl, other)$adj.r.squared), 2)," and a p-value of ", roun
 
 #round(coef(info(cl, other))[2,4], 2) #another option to get the p-value (I think)
 
+#using segmented
+joined <- join_datasets_chloride(labYI, YI_cond_data)
+orig.lm <- lm(chloride_mgL ~ runningmean, joined)
+summary(orig.lm)
+seg.lm <- segmented(orig.lm, seg.Z = ~runningmean)
+summary(seg.lm)
+seg.lm$psi[2]
+upper <- joined %>% filter(runningmean > seg.lm$psi[2])
+lower <- joined %>% filter(runningmean < seg.lm$psi[2])
 
 
 
+plot_segreg <- function(data) {
+  
+  ggplot(data, aes(runningmean, chloride_mgL)) +
+  geom_point(aes(color = season)) + 
+  scale_color_viridis_d() +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  #stat_cor() + 
+  #stat_regline_equation() + 
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       y = "\nChloride Concentration"~(mg~L^-1)) +
+  L_theme()
+}
+
+info_seg_reg <- function(data) {
+  info <- lm(chloride_mgL ~ runningmean, data)
+  return(summary(info))
+}
+
+plot_segreg(upper)
+info_seg_reg(upper)
+plot_segreg(lower)
+info_seg_reg(lower)
 
 
+ggplot() +
+  geom_point(upper, mapping = aes(runningmean, chloride_mgL, color = season)) + 
+  geom_point(lower, mapping = aes(runningmean, chloride_mgL, color = season)) + 
+  scale_color_viridis_d() +
+  geom_smooth(upper, mapping = aes(runningmean, chloride_mgL),  method = "lm", se = FALSE, color = "black") +
+  geom_smooth(lower, mapping = aes(runningmean, chloride_mgL),  method = "lm", se = FALSE, color = "black") +
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       y = "\nChloride Concentration"~(mg~L^-1)) +
+  L_theme()
+
+#using dates Nov - April
+
+salting <- joined %>% filter(mon == "January" |
+                               mon == "February" |
+                               mon == "March" |
+                               mon == "April" |
+                               mon == "November" |
+                               mon == "December")
+not_salting <- joined %>% filter(mon == "May" |
+                                   mon == "June" |
+                                   mon == "July" |
+                                   mon == "August" |
+                                   mon == "September" |
+                                   mon == "October")
+
+salting.lm <- lm(chloride_mgL ~ runningmean, salting)
+info_seg_reg(salting)
+plot_segreg(salting)
+
+info_seg_reg(not_salting)
+plot_segreg(not_salting)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ggplot() +
+  geom_point(salting, mapping = aes(runningmean, chloride_mgL, color = season)) + 
+  geom_point(not_salting, mapping = aes(runningmean, chloride_mgL, color = season)) + 
+  scale_color_viridis_d() +
+  geom_smooth(salting, mapping = aes(runningmean, chloride_mgL),  method = "lm", se = FALSE, color = "black") +
+  geom_smooth(not_salting, mapping = aes(runningmean, chloride_mgL),  method = "lm", se = FALSE, color = "black") +
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       y = "\nChloride Concentration"~(mg~L^-1)) +
+  L_theme()

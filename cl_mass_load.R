@@ -36,6 +36,10 @@ splot("chloride_loading/", "6MC_daily")
 plot_cumulative(SMC_load_daily, "Sixmile Creek")
 splot("chloride_loading/", "6MC_cumulative")
 
+ggplot(YN_load_daily) +
+  geom_point(aes(date, chloride_predict)) +
+  geom_point(aes(date, chloride_mgL), color ="red")
+
 ##DC
 DC_Load <- chloride_mass_load_rate(labDC, DC_cond_data, DC_discharge)
 plot_load(DC_Load, "Dorn Creek")

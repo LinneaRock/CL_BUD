@@ -42,7 +42,8 @@ intercept <- coef(info(chloride_data, logger_data))[1,1] #intercept value
 
 cl_load <- combined %>%
   mutate(chloride_predict = (slope * runningmean) + intercept) %>% #interpolate chloride [mg L^-1] for each specific conductivity measure
-  mutate(cl_rate = chloride_predict * runningmeandis * 0.001) #load rate in [g s^-1]
+  mutate(chloride_use = ifelse(is.na(chloride_mgL), chloride_predict, chloride_mgL)) %>%
+  mutate(cl_rate = chloride_use * runningmeandis * 0.001) #load rate in [g s^-1]
 
 return(cl_load)
 
