@@ -80,7 +80,7 @@ value of ", round((info(cl, other)$adj.r.squared), 2)," and a p-value of ", roun
 #round(coef(info(cl, other))[2,4], 2) #another option to get the p-value (I think)
 
 #using segmented
-joined <- join_datasets_chloride(labYI, YI_cond_data)
+joined <- join_datasets_chloride(labYS, YS_cond_data)
 orig.lm <- lm(chloride_mgL ~ runningmean, joined)
 summary(orig.lm)
 seg.lm <- segmented(orig.lm, seg.Z = ~runningmean)
@@ -127,20 +127,34 @@ ggplot() +
 
 #using dates Nov - April
 
-salting <- joined %>% filter(mon == "January" |
-                               mon == "February" |
-                               mon == "March" |
-                               mon == "April" |
-                               mon == "November" |
-                               mon == "December")
-not_salting <- joined %>% filter(mon == "May" |
-                                   mon == "June" |
-                                   mon == "July" |
-                                   mon == "August" |
-                                   mon == "September" |
-                                   mon == "October")
+salting <- joined %>% filter(date >= "2019-10-15 00:00:00" &
+                               date <= "2020-04-15 23:30:00" |
+                               date >= "2020-10-15 00:00:00" &
+                               date <= "2021-04-15 23:30:00")
 
-salting.lm <- lm(chloride_mgL ~ runningmean, salting)
+
+# 
+# (mon == "January" |
+#                                mon == "February" |
+#                                mon == "March" |
+#                                mon == "April" |
+#                                mon == "November" |
+#                                mon == "December")
+not_salting <- joined %>% filter(date >= "2020-04-16 00:00:00" &
+                                   date <= "2020-10-14 23:30:00" |
+                                   date >= "2021-04-16 00:00:00" &
+                                   date <= "2021-10-14 23:30:00")
+
+
+
+# (mon == "May" |
+#                                    mon == "June" |
+#                                    mon == "July" |
+#                                    mon == "August" |
+#                                    mon == "September" |
+#                                    mon == "October")
+
+
 info_seg_reg(salting)
 plot_segreg(salting)
 
