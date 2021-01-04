@@ -7,6 +7,7 @@ format_daily <- function(massdata) {
     separate(date, c("date", "time"), sep = " ") %>%
     mutate(date = as.Date(date)) %>%
     group_by(date) %>% #steps above to create a column for date grouping
+    mutate(daily_mean_conc = mean(chloride_use)) %>% #daily average concentration [mg/L]
     mutate(cl_load = sum(cl_mass)) %>% #total daily chloride mass [g]
     mutate(cl_load = cl_load / 1000000) #daily chloride mass in metric tonnes [Mg]
 }
@@ -16,9 +17,11 @@ format_daily <- function(massdata) {
 
 ##YN
 YN_Load <- chloride_mass_load_rate(labYN, YN_cond_data, YN_discharge) #table containing chloride loading values in [g s^-1] per time step 
+plot_concentration(YN_Load, "Yahara North")
 plot_load(YN_Load, "Yahara North")
 splot("chloride_loading/", "YN_ts")
 YN_load_daily <- format_daily(YN_Load)
+plot_concentration_ave(YN_load_daily, "Yahara North")
 plot_load_daily(YN_load_daily, "Yahara North") #daily mass of chloride from tributary
 splot("chloride_loading/", "YN_daily")
 plot_cumulative(YN_load_daily, "Yahara North")

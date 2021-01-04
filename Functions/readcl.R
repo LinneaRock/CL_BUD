@@ -7,17 +7,25 @@ readCL <- function(X) {
     mutate(ID = X) %>%
     mutate(mon = months.POSIXt(date)) %>%
     mutate(season = NA) %>%
-    mutate(season = ifelse(mon == "January" |
-                             mon == "February" |
-                             mon == "March", "Winter", season),
-           season = ifelse(mon == "April" |
-                             mon == "May" |
-                             mon == "June", "Spring", season),
-           season = ifelse(mon == "July" |
-                             mon == "August" |
-                             mon == "September", "Summer", season),
-           season = ifelse(mon == "October" |
+    mutate(season = ifelse(mon == "October" |
                              mon == "November" |
-                             mon == "December", "Fall", season))
+                             mon == "December" |
+                             mon == "January" |
+                             mon == "February" |
+                             mon == "March" |
+                             mon == "April", "October - April", season),
+           season = ifelse(is.na(season), "May - September", season))
+    # mutate(season = ifelse(mon == "January" |
+    #                          mon == "February" |
+    #                          mon == "March", "Winter", season),
+    #        season = ifelse(mon == "April" |
+    #                          mon == "May" |
+    #                          mon == "June", "Spring", season),
+    #        season = ifelse(mon == "July" |
+    #                          mon == "August" |
+    #                          mon == "September", "Summer", season),
+    #        season = ifelse(mon == "October" |
+    #                          mon == "November" |
+    #                          mon == "December", "Fall", season))
    
 }

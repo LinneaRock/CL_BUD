@@ -1,0 +1,166 @@
+---
+title: "Regressions & Chloride Loads"
+author: "Linnea"
+date: "1/4/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE, warning = FALSE}
+library(tidyverse)
+library(lubridate)
+library(gt)
+library(webshot)
+library(data.table)
+library(segmented)
+library(readxl)
+library(dataRetrieval)
+library(zoo)
+source("Functions/readcl.R")
+source("Functions/join_datasets_cond.R")
+source("Functions/join_datasets_chloride.R")
+source("Functions/L_theme.R")
+
+#CHLORIDE DATA####
+labWIC <- readCL("WIC")
+labYN <- readCL("YN")
+labYI <- readCL("YI")
+labYS <- readCL("YS")
+labSW <- readCL("SW")
+lab6MC <- readCL("6MC")
+labDC <- readCL("DC")
+labPBMS <- readCL("PBMS")
+labPBSF <- readCL("PBSF")
+
+#cond data
+DC_cond_data <- read_rds("Data/HOBO_Loggers/DC/DC_cond_data.rds")
+YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
+YI_cond_data <- read_rds("Data/HOBO_Loggers/YI/YI_cond_data.rds")
+YS_cond_data <- read_rds("Data/HOBO_Loggers/YS/YS_cond_data.rds")
+SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
+PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
+PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
+WIC_cond_data <- read_rds("Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
+SW_cond_data <- read_rds("Data/HOBO_Loggers/SW/SW_cond_data.rds")
+
+
+source("functions/discharge_ts.R")
+
+#discharge data
+format <- function(d) {
+  d %>%
+  rename(discharge = X_00060_00000,
+         date = dateTime) %>%
+  select(date, discharge) %>%
+  mutate(discharge = discharge * 0.028316847)
+}
+
+d.DC <- readNWISuv("05427930", "00060", "2019-12-01", "", tz = "GMT") %>%
+  format()
+DC_discharge <- rolling_ave_discharge(DC_cond_data, d.DC)
+
+d.PBMS <- readNWISuv("05427948", "00060", "2019-12-01", "", tz = "GMT") %>%
+  format()
+PBMS_discharge <- rolling_ave_discharge(PBMS_cond_data, d.PBMS)
+
+source("Functions/linreg.R")
+source("regression_stats.R")
+source("testing.R")
+
+```
+
+
+I am trying out segmented linear regressions using the segmented package (which picks the natural breaking point). I tried breaking up the regressions by salting vs. non-salting seasons (Oct-April and May-September) and that only slightly improved the relationships. 
+
+
+Simple Linear Regression Plots
+```{r regressionPlots, include=FALSE, warning = FALSE}
+
+YN <- linreg(labYN, YN_cond_data) + labs(title = "Yahara North")
+YI <- linreg(labYI, YI_cond_data) + labs(title = "Yahara Isthmus")
+YS <- linreg(labYS, YS_cond_data) + labs(title = "Yahara South")
+SMC <- linreg(lab6MC, SMC_cond_data) + labs(title = "Sixmile Creek")
+DC <- linreg(labDC, DC_cond_data) + labs(title = "Dorn Creek")
+PBMS <- linreg(labPBMS, PBMS_cond_data) + labs(title = "Pheasant Branch Creek - Main")
+PBSF <- linreg(labPBSF, PBSF_cond_data) + labs(title = "Pheasant Branch Creek - South")
+SW <- linreg(labSW, SW_cond_data) + labs(title = "Stakweather Creek")
+WIC <- linreg(labWIC, WIC_cond_data) + labs(title = "Wingra Creek")
+
+
+
+```
+
+```{r, warning = F, message = F, echo = FALSE, fig.width = 7, fig.height = 4}
+YN
+SMC
+DC
+PBMS
+PBSF
+YI
+WIC
+SW
+YS
+
+simpleregtable
+
+```
+
+Segmented Linear Regression Plots
+```{r seg.regressionPlots, include=FALSE, warning = FALSE}
+
+YN_sg <- seglinreg(labYN, YN_cond_data) + labs(title = "Yahara North")
+YI_sg <- seglinreg(labYI, YI_cond_data) + labs(title = "Yahara Isthmus")
+YS_sg <- seglinreg(labYS, YS_cond_data) + labs(title = "Yahara South")
+SMC_sg <- seglinreg(lab6MC, SMC_cond_data) + labs(title = "Sixmile Creek")
+DC_sg <- seglinreg(labDC, DC_cond_data) + labs(title = "Dorn Creek")
+PBMS_sg <- seglinreg(labPBMS, PBMS_cond_data) + labs(title = "Pheasant Branch Creek - Main")
+PBSF_sg <- seglinreg(labPBSF, PBSF_cond_data) + labs(title = "Pheasant Branch Creek - South")
+SW_sg <- seglinreg(labSW, SW_cond_data) + labs(title = "Stakweather Creek")
+WIC_sg <- seglinreg(labWIC, WIC_cond_data) + labs(title = "Wingra Creek")
+
+```
+
+```{r, warning = F, message = F, echo = FALSE, fig.width = 7, fig.height = 4}
+YN_sg
+SMC_sg
+DC_sg
+PBMS_sg
+PBSF_sg
+YI_sg
+WIC_sg
+SW_sg
+YS_sg
+
+segmented_tbl
+
+#Some of the regression lines seem a little funky, but the R^2 values are so much better. 
+
+```
+
+Here are a couple examples of chloride concentration and daily mass loading using the two methods. 
+
+First is the Pheasant Branch Main Stem. The simple linear regression was good (0.86) and segmented was better (0.95). There does not seem to be a dramatic difference and using the segmented regression helps to eliminate the chloride concentrations/loads that are negative because of the intercept value. 
+
+```{r, warning = F, message = F, echo = FALSE, fig.width = 7, fig.height = 4}
+#Using simple linear regression
+PBMS_example1
+PBMS_example2
+
+#Using segmented linear regression
+PBMS_example3
+PBMS_example4
+
+```
+
+These figures made with Dorn Creek data are a bit weirder. And maybe the lesson of this is I just can't predict chloride from specific conductivity in rivers with poor correlation. The simple linear regression was bad (0.33) and the segmented linear regression improved the correlation by nearly double (0.61). 
+
+```{r, warning = F, message = F, echo = FALSE, fig.width = 7, fig.height = 4}
+#Using simple linear regression
+DC_example1
+DC_example2
+
+#Using segmented linear regression
+DC_example3
+DC_example4
+
+```
+

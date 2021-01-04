@@ -74,3 +74,36 @@ NAS <- d.sc.SH %>% #creating a garbage dataset to enable use of the function (it
 q.sc(d.sc.SH, NAS) +
   captqec("Spring Harbor", "Spring Harbor storm sewer", d.sc.SH, NAS)
 splot("QC_plots/", "SH_cond")
+
+
+
+
+SH_cond_discharge <- cl_data_flow_sc %>%
+  rename(discharge = X_00060_00000,
+         sp_cond = X_00095_00000) %>%
+  select(dateTime, discharge, sp_cond) %>%
+  mutate(discharge = discharge * 0.028316847) %>%
+  rename(sp.cond = sp_cond,
+         date = dateTime) %>%
+  na.omit() %>%
+  mutate(day = as.Date(date, format = "%Y-%M-%D")) %>%
+  group_by(day) %>%
+  summarise(discharge = mean(discharge),
+            sp.cond = mean(sp.cond)) %>%
+  rename(date = day) %>%
+  left_join(labSH)
+
+SH.lm <- lm(chloride_mgL ~ sp.cond, SH_cond_discharge)
+summary(SH.lm)
+
+SH_load <- SH_cond_discharge %>%
+  mutate(daily_rate = chloride_mgL * discharge) %>%
+  mutate(daily_load = daily_rate * 3600 * 24)
+
+
+
+
+
+
+
+

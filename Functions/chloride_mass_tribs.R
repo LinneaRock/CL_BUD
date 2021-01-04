@@ -17,8 +17,7 @@ a <- join_datasets_chloride(chloride_data, logger_data) %>%
 
 b <- join_datasets_cond(logger_data, discharge_data) %>%
   select(i.date, runningmeandis) %>%
-  rename(date = i.date) %>%
-  mutate(runningmeandis = runningmeandis * 1000) #convert [m^3 s^-1 to L s^-1]
+  rename(date = i.date)
 
 combined <- logger_data %>%
   left_join(a, by = "date") %>%
@@ -47,6 +46,25 @@ cl_load <- combined %>%
 
 return(cl_load)
 
+}
+
+plot_concentration <- function(data, title) {
+  ggplot(data) +
+    geom_line(aes(date, chloride_use)) +
+    L_theme() +
+    labs(title = title,
+         y = "Chloride Concentration Time Series"~(mg~L^-1),
+         x = "")
+}
+
+
+plot_concentration_ave <- function(data, title) {
+  ggplot(data) +
+    geom_line(aes(date, daily_mean_conc)) +
+    L_theme() +
+    labs(title = title,
+         y = "Chloride Concentration Time Series"~(mg~L^-1),
+         x = "")
 }
 
 plot_load <- function(data, title) {
