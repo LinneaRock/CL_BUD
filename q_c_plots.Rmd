@@ -1,0 +1,87 @@
+---
+title: "Discharge - Specific Conductivity"
+author: "Linnea"
+date: "1/6/2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE, warning = FALSE}
+library(tidyverse)
+library(lubridate)
+library(data.table)
+library(readxl)
+library(dataRetrieval)
+library(zoo)
+source("Functions/qsc.R")
+source("Functions/join_datasets_cond.R")
+source("Functions/L_theme.R")
+source("functions/discharge_ts.R")
+
+#cond data
+DC_cond_data <- read_rds("Data/HOBO_Loggers/DC/DC_cond_data.rds")
+YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
+YI_cond_data <- read_rds("Data/HOBO_Loggers/YI/YI_cond_data.rds")
+YS_cond_data <- read_rds("Data/HOBO_Loggers/YS/YS_cond_data.rds")
+SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
+PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
+PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
+WIC_cond_data <- read_rds("Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
+SW_cond_data <- read_rds("Data/HOBO_Loggers/SW/SW_cond_data.rds")
+
+
+
+#discharge data
+PBMS_discharge <- read_rds("Data/discharge/PBMS_discharge.rds")
+DC_discharge <- read_rds("Data/discharge/DC_discharge.rds")
+PBSF_discharge <- read_rds("Data/discharge/PBSF_discharge.rds")
+WIC_discharge <- read.csv("Data/WingraCreek_Data/discharge_WIC.csv") %>%
+  mutate(date = ymd_hms(date))
+WIC_discharge <- rolling_ave_discharge(WIC_cond_data, WIC_discharge)
+YS_discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv") %>%
+  mutate(date = ymd_hms(date))
+YS_discharge <- rolling_ave_discharge(YS_cond_data, YS_discharge)
+YI_discharge <- read_rds("Data/discharge/YI_discharge.rds")
+YN_discharge <- read_rds("Data/discharge/YN_discharge.rds")
+SMC_discharge <- read_rds("Data/discharge/SMC_discharge.rds")
+
+
+
+```
+
+
+q-C plots of flow (cms) and specific conductivity (µS/cm) for each tributary in the Upper Yahara River Watershed. Lots of the tribs have backward flows (represented as negative). 
+
+```{r q-c plots, include=FALSE, warning = FALSE}
+
+YN <- q.sc(YN_cond_data, YN_discharge)+ labs(title = "Yahara North")
+YI <- q.sc(YI_cond_data, YI_discharge) + labs(title = "Yahara Isthmus")
+YS <- q.sc(YS_cond_data, YS_discharge) + labs(title = "Yahara South")
+SMC <- q.sc(SMC_cond_data, SMC_discharge) + labs(title = "Sixmile Creek")
+DC <- q.sc(DC_cond_data, DC_discharge) + labs(title = "Dorn Creek")
+PBMS <- q.sc(PBMS_cond_data, PBMS_discharge) + labs(title = "Pheasant Branch Creek - Main")
+PBSF <- q.sc(PBSF_cond_data, PBSF_discharge) + labs(title = "Pheasant Branch Creek - South")
+WIC <- q.sc(WIC_cond_data, WIC_discharge) + labs(title = "Wingra Creek")
+
+
+
+```
+
+```{r, warning = F, message = F, echo = FALSE, fig.width = 7, fig.height = 4}
+YN
+SMC
+DC
+PBMS
+PBSF
+YI
+
+```
+
+These have weird/incomplete flow data: 
+
+```{r, warning = F, message = F, echo = FALSE, fig.width = 7, fig.height = 4}
+YS
+WIC
+
+```

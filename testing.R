@@ -96,10 +96,15 @@ annual_load <- function(mass_data) {
 }
 
 
-dcload <- chloride_ts_mass(labPBMS, PBMS_cond_data, PBMS_discharge)
-PBMS_example1 <- ggplot(dcload, aes(date, chloride_use)) + geom_line() + L_theme() + labs(y = "Chloride Concentration"~(mg~L^-1), x = "", title = "PBMS Concentration Timeseries Simple Regression")
-dcdaily_lr <- daily_load(dcload)
-PBMS_example2 <- ggplot(dcdaily_lr, aes(date, daily_mass)) + geom_line() + L_theme() + labs(y = "Chloride Daily Mass"~(kg), x = "", title = "PBMS Mass Loading Timeseries Simple Regression")
+#problem with daily load
+
+load <- chloride_ts_mass(labPBMS, PBMS_cond_data, PBMS_discharge)
+PBMS_example1 <- ggplot(load, aes(date, chloride_use)) + geom_line() + L_theme() + labs(y = "Chloride Concentration"~(mg~L^-1), x = "", title = "PBMS Concentration Timeseries Simple Regression")
+
+
+
+#daily_lr <- daily_load(load)
+PBMS_example2 <- ggplot(load, aes(date, cl_load/1000)) + geom_line() + L_theme() + labs(y = "Chloride Daily Mass"~(kg), x = "", title = "PBMS Mass Loading Timeseries Simple Regression")
 dcmonthly_lr <- monthly_load(dcload)
 dcseason_lr <- seasonal_load(dcload)
 dcannual_lr <- annual_load(dcload)

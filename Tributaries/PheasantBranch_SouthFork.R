@@ -53,9 +53,9 @@ source("functions/impute_missing.R")
 PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
 labPBSF <- labPBSF #IC data 
-PBSF_discharge <- rolling_ave_discharge(PBSF_cond_data, d.PBSF)
-
-
+# PBSF_discharge <- rolling_ave_discharge(PBSF_cond_data, d.PBSF)
+# write_rds(PBSF_discharge, "Data/discharge/PBSF_discharge.rds")
+PBSF_discharge <- read_rds("Data/discharge/PBSF_discharge.rds")
 
 #Conductivity time series
 PBSF_cond_plot <- cond(PBSF_cond_data) +

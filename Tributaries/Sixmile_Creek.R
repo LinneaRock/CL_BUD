@@ -44,8 +44,9 @@ source("functions/ts_grid.R")
 SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
 fieldcond6MC <- fieldcond6MC #conductivity measured in the field
 lab6MC <- lab6MC #IC data 
-SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
-
+# SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
+# write_rds(SMC_discharge, "Data/discharge/SMC_discharge.rds")
+SMC_discharge <- read_rds("Data/discharge/SMC_discharge.rds")
 
 #Conductivity time series
 SMC_cond_plot <- cond(SMC_cond_data) +

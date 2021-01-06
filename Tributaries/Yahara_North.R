@@ -47,8 +47,9 @@ source("functions/impute_missing.R")
 YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
-YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
-
+# YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
+# write_rds(YN_discharge, "Data/discharge/YN_discharge.rds")
+YN_discharge <- read_rds("Data/discharge/YN_discharge.rds")
 
 #Conductivity time series
 YN_cond_plot <- cond(YN_cond_data) +

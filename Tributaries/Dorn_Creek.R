@@ -46,8 +46,9 @@ source("functions/ts_grid.R")
 DC_cond_data <- read_rds("Data/HOBO_Loggers/DC/DC_cond_data.rds")
 fieldcondDC <- fieldcondDC #conductivity measured in the field
 labDC <- labDC #IC data 
-DC_discharge <- rolling_ave_discharge(DC_cond_data, d.DC)
-  
+# DC_discharge <- rolling_ave_discharge(DC_cond_data, d.DC)
+# write_rds(DC_discharge, "Data/discharge/DC_discharge.rds")
+DC_discharge <- read_rds("Data/discharge/DC_discharge.rds")
 
 
 

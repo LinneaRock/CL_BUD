@@ -19,6 +19,7 @@ source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("functions/impute_missing.R")
+source("functions/ts_grid.R")
 
 # #HOBO conductivity data, add missing dates
 # loggerPBMS1 <- loggerPBMS %>% 
@@ -47,8 +48,9 @@ source("functions/impute_missing.R")
 PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
 fieldcondPBMS <- fieldcondPBMS #conductivity measured in the field
 labPBMS <- labPBMS #IC data 
-PBMS_discharge <- rolling_ave_discharge(PBMS_cond_data, d.PBMS)
-
+# PBMS_discharge <- rolling_ave_discharge(PBMS_cond_data, d.PBMS)
+# write_rds(PBMS_discharge, "Data/discharge/PBMS_discharge.rds")
+PBMS_discharge <- read_rds("Data/discharge/PBMS_discharge.rds")
 
 #Conductivity time series
 PBMS_cond_plot <- cond(PBMS_cond_data) +
