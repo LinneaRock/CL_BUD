@@ -57,3 +57,24 @@ ggplot(gage.bb.sf) +
 ggsave('Plots/Map.png', width = 6, height = 6, units = 'in')
 
 
+#  Map2 #### 
+ggplot(gage.bb.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = gage.bb.sf, color = 'black', size = 1.6) + # USGS gages
+  geom_sf(data = nogage.bb.sf,color = 'black', size = 1.6) + #rivers without gages
+  geom_sf(data = lakebuoys.sf, color = 'black', size = 1.6) + #lake sites
+  #scale_shape_manual('Legend', values=c('USGS River' = 17, 'Rivers' = 19, 'Lakes' = 15, 'USGS Storm Sewer' = 24, 'Storm Sewer' = 21)) + 
+  theme_bw() + # Hilary's default theme
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + # North Arrow
+  coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
+  #labs(caption = "Figure 6 Map of study area in the upper Yahara River watershed. 
+  #Legend describes the location types as lake, river, or storm sewer 
+  #and with or without USGS gaging.") +
+  theme(plot.caption = element_text(size = 10, hjust = 0)) 
+
+
+ggsave('Plots/Map.png', width = 6, height = 6, units = 'in')

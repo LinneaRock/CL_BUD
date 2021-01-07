@@ -3,8 +3,8 @@ title: "Discharge - Specific Conductivity"
 author: "Linnea"
 date: "1/6/2021"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE, warning = FALSE}
@@ -46,7 +46,25 @@ YI_discharge <- read_rds("Data/discharge/YI_discharge.rds")
 YN_discharge <- read_rds("Data/discharge/YN_discharge.rds")
 SMC_discharge <- read_rds("Data/discharge/SMC_discharge.rds")
 
-
+q <- function(cond, discharge_data) {
+  
+  qsc <- join_datasets_cond(cond, discharge_data) %>%
+    mutate(days = paste(year(date), month(date), day(date), sep = "-")) %>%
+    group_by(days) %>%
+    mutate(daily_dis = mean(runningmeandis)) %>%
+    mutate(daily_cond = mean(runningmean))
+  
+  ggplot(qsc, aes(daily_dis, daily_cond)) +
+    geom_point() +
+    #stat_cor() + 
+    #stat_regline_equation() +
+    geom_smooth(method = "lm", se = FALSE, color = "#7496D2") +
+    labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+         x = "\nDischarge"~(m^3~s^-1)) +
+    L_theme() +
+    geom_jitter(width = 0.5, size = 1)
+    
+}
 
 ```
 
@@ -85,3 +103,33 @@ YS
 WIC
 
 ```
+
+These figures are using daily averages only. 
+
+```{r q-c plots - daily ave, include=FALSE, warning = FALSE}
+
+YN <- q(YN_cond_data, YN_discharge)+ labs(title = "Yahara North")
+YI <- q(YI_cond_data, YI_discharge) + labs(title = "Yahara Isthmus")
+YS <- q(YS_cond_data, YS_discharge) + labs(title = "Yahara South")
+SMC <- q(SMC_cond_data, SMC_discharge) + labs(title = "Sixmile Creek")
+DC <- q(DC_cond_data, DC_discharge) + labs(title = "Dorn Creek")
+PBMS <- q(PBMS_cond_data, PBMS_discharge) + labs(title = "Pheasant Branch Creek - Main")
+PBSF <- q(PBSF_cond_data, PBSF_discharge) + labs(title = "Pheasant Branch Creek - South")
+WIC <- q(WIC_cond_data, WIC_discharge) + labs(title = "Wingra Creek")
+
+
+
+```
+
+```{r, warning = F, message = F, echo = FALSE, fig.width = 7, fig.height = 4}
+YN
+SMC
+DC
+PBMS
+PBSF
+YI
+YS
+WIC
+
+```
+

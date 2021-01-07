@@ -109,10 +109,10 @@ MO <- read_rds("Data/shapefiles/MO.rds")
 #map of study area with hydrolines for salt wise article
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  #geom_sf(data = hydro, color = "#1C366B") + 
-  geom_sf(data = HUC12.sf.MO, fill = "#F24D29AA") + 
+  geom_sf(data = hydro, color = "#1C366B") +
+  geom_sf(data = HUC12.sf.MO, fill = "#F24D29AA") +
   geom_sf(data = HUC12.sf.ME, fill = "#F24D29AA") +
-  geom_sf(data = hydro, color = "#1C366B") + 
+  geom_sf(data = hydro, color = "#1C366B") +
   geom_sf(data = ME, fill = "#1C366B") +
   geom_sf(data = MO, fill = "#1C366B") +
   theme_bw() + 
@@ -123,4 +123,10 @@ ggplot(gage.bb.sf) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
+
+
+
+
+
+
 

@@ -121,8 +121,6 @@ source("Functions/clseries.R")
 # write_rds(MO_Hypo_cond_data, "Data/HOBO_Loggers/MONONA/MO_Hypo_cond_data.rds")
 
 
-
-
 ##lake data import####
 ME_Epi_cond_data <- read_rds("Data/HOBO_Loggers/MENDOTA/ME_Epi_cond_data.rds")
 ME_Hypo_cond_data <- read_rds("Data/HOBO_Loggers/MENDOTA/ME_Hypo_cond_data.rds")
@@ -180,6 +178,76 @@ splot("chloride_time_series/", "MO")
 ggplot(labME, aes(Depth_m, chloride_mgL, group = Depth_m)) +
   geom_boxplot() 
 
+
+
+
+##All chloride data####
+#function to read in data for chloride from PHMDC
+hist <- function(X) {
+  lab <- read_xlsx("Data/Historical_External/PHMDC.xlsx", sheet = X) %>%
+    mutate(chloride_mgL = as.numeric(chloride_mgL)) %>%
+    mutate(year = year(date)) %>% 
+    mutate(fakeDate = as.Date(paste(3000, format.POSIXct(date, "%m-%d"), sep = "-")))
+  
+}
+
+#read in lake data
+HistME <- hist("Mendota") %>%
+  mutate(lakeid = "ME")
+HistMO <- hist("Monona")  %>%
+  mutate(lakeid = "MO")
+
+
+
+#read in data for chloride from LTER
+LTER <- read.csv("Data/LTER_ions.csv") %>%
+  mutate(date = as.Date(as.character(sampledate))) %>%
+  filter(lakeid == "ME" | lakeid == "MO" ) %>%
+  rename(chloride_mgL = cl) %>%
+  select(lakeid, date, depth, chloride_mgL)
+
+
+#join datasets together
+all_ME <- labME %>%
+  bind_rows(LTER %>% filter(lakeid == "ME")) %>%
+  bind_rows(HistME) %>%
+  drop_na(chloride_mgL) %>%
+  filter(chloride_mgL > 0) %>%
+  mutate(lakeid = "ME")
+
+all_MO <- labMO %>%
+  bind_rows(LTER %>% filter(lakeid == "MO")) %>%
+  bind_rows(HistMO) %>%
+  drop_na(chloride_mgL) %>%
+  filter(chloride_mgL > 0) %>%
+  mutate(lakeid = "MO")
+
+data <- rbind(all_ME, all_MO) %>%
+  filter(chloride_mgL < 200)
+
+ggplot(data, aes(date, chloride_mgL)) +
+  geom_point(aes(color = lakeid)) +
+  geom_smooth(aes(group = lakeid, color = lakeid), se = FALSE) +
+  labs(y = "Chloride Concentration"~(mg~L^-1)~"\n",
+       x = "" #,
+       # caption = "Figure 3 The long-term increasing chloride concentration trend in the 
+       #upper Yahara River watershed lakes (Public Health Madison Dane County, 2020)."
+  ) + L_theme() +
+  scale_color_manual(labels = c("Mendota", "Monona"),
+                     values = c("#1C366B", "#F24D29")) +
+  theme(legend.title = element_blank(), legend.position = "top",
+        axis.text = element_text(size = 11),
+        axis.title = element_text(size = 11),
+        panel.background = element_rect(fill = "white", colour = "white",
+                                        size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                        colour = "gray88"),
+        legend.text = element_text(size =9)) +
+  scale_color_manual(labels = c("Mendota", "Monona"),
+                     values = c("#1C366B", "#F24D29")) 
+ggsave("Plots/chloride_time_series/ME_MO_alldata.png")
 
 
 #Calculating residence time
