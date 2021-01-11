@@ -223,7 +223,7 @@ all_MO <- labMO %>%
   mutate(lakeid = "MO")
 
 data <- rbind(all_ME, all_MO) %>%
-  filter(chloride_mgL < 200)
+  filter(chloride_mgL < 125)
 
 ggplot(data, aes(date, chloride_mgL)) +
   geom_point(aes(color = lakeid)) +
@@ -246,7 +246,8 @@ ggplot(data, aes(date, chloride_mgL)) +
                                         colour = "gray88"),
         legend.text = element_text(size =9)) +
   scale_color_manual(labels = c("Mendota", "Monona"),
-                     values = c("#1C366B", "#F24D29")) 
+                     values = c("#1C366B", "#F24D29")) +
+  plot_annotation(caption = "Data from PHMDC, LTER, and collected by Linnea Rock. Figure by Linnea Rock.")
 ggsave("Plots/chloride_time_series/ME_MO_alldata.png")
 
 

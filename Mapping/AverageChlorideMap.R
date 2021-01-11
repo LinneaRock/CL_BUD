@@ -49,8 +49,8 @@ WIC.sf <- read_rds("Data/shapefiles/WIC.rds") %>%
   rename(NAME = RIVER_SYS_)
 
 SW.sf <- read_rds("Data/shapefiles/SW.rds") %>%
-  mutate(chloride = mean(labSW$chloride_mgL, na.rm = TRUE)) %>%
-  rename(NAME = RIVER_SYS_)
+  mutate(chloride = mean(labSW$chloride_mgL, na.rm = TRUE)) #%>%
+ # rename(NAME = RIVER_SYS_)
 
 tribs.sf <- bind_rows(YN.sf, YI.sf, YS.sf, SMC.sf, DC.sf, PBMS.sf, PBSF.sf, WIC.sf, SW.sf) 
 lakes.sf <- bind_rows(ME.sf, MO.sf)
@@ -61,12 +61,19 @@ all.chloride <- as.data.frame(lakes.sf) %>%
   dplyr::select(NAME, chloride, geometry) 
 
 tribs <- as.data.frame(tribs.sf)%>%
-  dplyr::select(NAME, chloride, geometry)
+  dplyr::select(NAME, chloride) %>%
+  group_by(NAME) %>%
+  summarise(chloride = mean(chloride))
+
+tribs.geom = data.frame(NAME = c('Yahara River North', 'Sixmile Creek', 'Dorn Creek', 'Pheasant Branch Main Stem', 'Pheasant Branch South Fork', 'Yahara River Isthmus', 'Starkweather Creek', 'Yahara River South', 'Wingra Creek'),lat = c(43.15083333, 43.14683333, 43.145262, 43.10333333, 43.075910, 43.08944444, 43.104292, 43.04718, 43.048883), lon = c(-89.40194444, -89.43694444, -89.475643, -89.51166667, -89.519880, -89.36083333, -89.334455, -89.33605, -89.394132))
+tribs.geom <- tribs.geom %>%
+  left_join(tribs, by = "NAME")
+tribs.geom.sf = st_as_sf(tribs.geom, coords = c("lon", "lat"), 
+                      crs = 4326)
 
 all.chloride <- all.chloride %>%
-  rbind(tribs)
+  rbind(tribs.geom.sf)
 
-all.chloride <- all.chloride[!duplicated(all.chloride$NAME), ]
 
 all.chloride <- st_sf(all.chloride)
 
@@ -74,14 +81,18 @@ ggplot(ME.sf) +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = tribs.sf, aes(color = chloride)) + 
   geom_sf(data = lakes.sf, aes(color = chloride)) +
+  geom_sf(data = ME.sf, fill = "#5F3673") +
+  geom_sf(data = MO.sf, fill = "#3E246C") +
   geom_sf_label(data = all.chloride, mapping = aes(label = round(chloride,2))) +
   scale_color_viridis_c() +
   #scale_fill_viridis_c() +
   theme_bw() + 
-  labs(color = "Average Chloride Concentration (mg/L)") +
+  labs(color = "Average Chloride Concentration (mg/L)", x = "", y = "") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.29), xlim = c(-89.55, -89.25), expand = FALSE) # limit axes
+
+ggsave('Plots/averagechloride_map.png', width = 12, height = 12, units = 'in')
