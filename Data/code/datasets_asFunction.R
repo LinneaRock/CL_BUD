@@ -192,4 +192,4 @@ cl_data_daily <- readNWISdv("05427965", c("00940", "70290", "00060"), "2014-02-2
 #readLLDST("Data/HOBO_Loggers/YS/Mar16_Jun17/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Mar16_Jun17")
 #readLLDST("Data/HOBO_Loggers/YS/Jun17_Aug26/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Jun17_Aug26")
 #readLLDST("Data/HOBO_Loggers/YS/Aug26_Oct22/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Aug26_Oct22")
-
+#Presssure data not available??? readLLDST("Data/HOBO_Loggers/YS/Oct22_Dec15/WL20484276.csv", "C:/Users/linne/Downloads/pressure_AOS.csv", "Aug26_Oct22")
