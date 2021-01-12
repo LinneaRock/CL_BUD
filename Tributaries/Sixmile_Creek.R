@@ -4,7 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
+#library(imputeTS)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -21,7 +21,7 @@ source("functions/impute_missing.R")
 source("functions/ts_grid.R")
 
 # #HOBO conductivity data, add missing dates
-# logger6MC1 <- logger6MC %>% 
+# logger6MC1 <- logger6MC %>%
 #   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:00:00"), as.POSIXct("2020-10-30 10:00:00"), by = "30 mins")) %>%
 #   arrange(date)
 # #impute missing data

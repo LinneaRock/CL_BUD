@@ -31,7 +31,7 @@ final_cond_data <- function(loggerdata, cleaned_data, flaggedloggerdata) {
     left_join(cleaned_data, by = "date") %>%
     left_join(flaggedloggerdata %>% select(date, trend), by = "date") %>%
     mutate(sp.cond = ifelse(is.na(observed_cleaned), sp.cond, observed_cleaned)) %>%
-    select(date, sp.cond, trend.y, Low.Range, Full.Range, Temp, imputed, observed_cleaned) %>%
+    select(date, sp.cond, trend.y, Low.Range, Full.Range, Temp, observed_cleaned) %>%
     rename(trend = trend.y) %>%
     mutate(runningmean = rollmean(sp.cond, 13, fill = NA, na.rm = TRUE)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
     mutate(runningmean = ifelse(row_number() <= 6, mean(sp.cond[1:6]), runningmean)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of those empty rows
