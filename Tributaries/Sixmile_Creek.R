@@ -17,22 +17,21 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
+#source("functions/impute_missing.R")
 source("functions/ts_grid.R")
 
-# #HOBO conductivity data, add missing dates
-# logger6MC1 <- logger6MC %>%
-#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:00:00"), as.POSIXct("2020-10-30 10:00:00"), by = "30 mins")) %>%
-#   arrange(date)
-# #impute missing data
-# logger6MC <- impute_missing(logger6MC1)
-# 
-# #flag outliers using anomalize package
+
+
+#flag outliers using anomalize package
 # SMC_outlier <- flagged_data(logger6MC)
 # #plot to inspect where to correct outliers
 # plot_flagged(SMC_outlier)
 # #after inspecting, filter and clean anomalies
 # SMC_cleaned <- SMC_outlier %>%
+#   filter(Year_Month == "2020-10" |
+#           Year_Month == "2020-3" |
+#            Year_Month == "2020-4" |
+#            Year_Month == "2020-8") %>%
 #   clean_anomalies()
 # #insepect cleaned points
 # plot_cleaned(SMC_cleaned)
@@ -77,8 +76,8 @@ splot("QC_plots/", "6MC_cl")
 evalq(lab6MC, SMC_discharge)
 
 #Linear Regression between Conductivity and Chloride
-SMC_linreg_plot <- linreg(lab6MC, SMC_cond_data) +
-  captlm('Sixmile Creek',"Sixmile Creek at Highway M", lab6MC, SMC_cond_data)
+SMC_linreg_plot <- linreg(lab6MC, SMC_cond_data) + labs(title = "Sixmile Creek")
+  #captlm('Sixmile Creek',"Sixmile Creek at Highway M", lab6MC, SMC_cond_data)
 splot("cl_cond_linear_regression/", "6MC")
 
 eval(lab6MC, SMC_cond_data)

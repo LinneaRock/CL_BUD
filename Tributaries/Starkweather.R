@@ -4,7 +4,8 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
+#library(imputeTS)
+library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -17,15 +18,10 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
+#source("functions/impute_missing.R")
 
-# #HOBO conductivity data, add missing dates
-# loggerSW1 <- loggerSW %>% 
-#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 13:00:00"), as.POSIXct("2020-10-30 13:00:00"), by = "30 mins")) %>%
-#   arrange(date)
-# #impute missing data
-# loggerSW <- impute_missing(loggerSW1)
-# 
+
+
 # #flag outliers using anomalize package
 # SW_outlier <- flagged_data(loggerSW)
 # #plot to inspect where to correct outliers
@@ -67,8 +63,8 @@ splot("chloride_time_series/", "SW")
 
 
 #Linear Regression between Conductivity and Chloride
-SW_linreg_plot <- linreg(labSW, SW_cond_data) +
-  captlm('Starkweather Creek',"Starkweather Creek at Olbrich Garden", labSW, SW_cond_data)
+SW_linreg_plot <- linreg(labSW, SW_cond_data) + labs(title = "Starkweather Creek")
+  #captlm('Starkweather Creek',"Starkweather Creek at Olbrich Garden", labSW, SW_cond_data)
 splot("cl_cond_linear_regression/", "SW")
 
 eval(labSW, SW_cond_data)

@@ -4,7 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
+#library(imputeTS)
 library(anomalize)
 library(ggforce)
 
@@ -19,35 +19,36 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
+#source("functions/impute_missing.R")
 
 
 # #getting conductivity data ready
-# loggerPBSF1 <- loggerPBSF %>%  
-#   mutate(sp.cond = ifelse(sp.cond < 200, NA, sp.cond)) %>%
-#   complete(date = seq.POSIXt(as.POSIXct("2020-01-15 13:30:00"), as.POSIXct("2020-01-21 16:30:00"), by = "30 mins")) %>%
-#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 12:00:00"), as.POSIXct("2020-10-30 11:00:00"), by = "30 mins")) %>%
-#   arrange(date)
-# 
-# #impute missing data
-# loggerPBSF <- impute_missing(loggerPBSF1)
+# loggerPBSF1 <- loggerPBSF %>%
+#   left_join(stage_PBSF, by = "date") %>%
+#   mutate(SC_orig = sp.cond) %>%
+#   mutate(sp.cond = ifelse(stage <= 2.11, NA, sp.cond)) %>%
+#   mutate(sp.cond = ifelse(is.na(stage), SC_orig, sp.cond)) %>%
+#   mutate(sp.cond = ifelse(sp.cond < 60, NA, sp.cond))
+
 # 
 # 
 # #flag outliers using anomalize package
-# PBSF_outlier <- flagged_data(loggerPBSF)
+# PBSF_outlier <- flagged_data(loggerPBSF1)
 # #plot to inspect where to correct outliers
 # plot_flagged(PBSF_outlier)
 # #after inspecting, filter and clean anomalies
 # PBSF_cleaned <- PBSF_outlier %>%
-#   filter(Year_Month != "2019-12" &
+#   filter(Year_Month != "2020-11" &
 #            Year_Month != "2020-1" &
-#            Year_Month != "2020-2") %>%
+#            Year_Month != "2020-2" &
+#            Year_Month != "2020-6"&
+#            Year_Month != "2020-8") %>%
 #   clean_anomalies()
 # #insepect cleaned points
 # plot_cleaned(PBSF_cleaned)
 # #final dataset with runningmean, trend, and corrected specific conductance data
-# PBSF_cond_data <- final_cond_data(loggerPBSF, PBSF_cleaned, PBSF_outlier)
-#write_rds(PBSF_cond_data, "Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
+# PBSF_cond_data <- final_cond_data(loggerPBSF1, PBSF_cleaned, PBSF_outlier)
+# write_rds(PBSF_cond_data, "Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 
 
 PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
@@ -102,8 +103,8 @@ splot("QC_plots/", "PBSF_cl")
 evalq(labPBSF, PBSF_discharge)
 
 #Linear Regression between Conductivity and Chloride
-PBSF_linreg_plot <- linreg(labPBSF, PBSF_cond_data) +
-  captlm('Pheasant Branch South Fork',"Pheasant Branch South Fork", labPBSF, PBSF_cond_data)
+PBSF_linreg_plot <- linreg(labPBSF, PBSF_cond_data) + labs(title = "Pheasant Branch South Fork")
+  #captlm('Pheasant Branch South Fork',"Pheasant Branch South Fork", labPBSF, PBSF_cond_data)
 splot("cl_cond_linear_regression/", "PBSF")
 
 eval(labPBSF, PBSF_cond_data)
@@ -122,5 +123,15 @@ cl_compare(fieldclPBSF, labPBSF)
 #plotting a grid of timeseries data
 ts_grid(precip_temp_data, PBSF_discharge, PBSF_cond_data, labPBSF)
 ggsave("Plots/TS_Grids/PBSF.png", height = 12, width = 16)
+
+
+##################
+stage_PBSF <- stage_PBSF %>%
+  select(date, stage)
+
+ggplot(stage_PBSF) + geom_point(aes(date, stage)) + geom_point(aes(date, nodata), color = "red") + geom_hline(yintercept = 2.11, color = "blue")
+
+ggplot(loggerPBSF1) + geom_point(aes(date, sp.cond))
+
 
 

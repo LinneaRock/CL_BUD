@@ -4,8 +4,8 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
-
+#library(imputeTS)
+library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -18,15 +18,10 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
+#source("functions/impute_missing.R")
 
-# #imputed values during logger calibration (out of water for a week)
-# loggerYN1 <- loggerYN %>%#HOBO conductivity data
-#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:30:00"), as.POSIXct("2020-10-30 9:30:00"), by = "30 mins")) %>%
-#   arrange(date)
-# 
-# loggerYN <- impute_missing(loggerYN1)
-# 
+
+# #loggerYN1 <- loggerYN # 
 # #flag outliers using anomalize package
 # YN_outlier <- flagged_data(loggerYN)
 # #plot to inspect where to correct outliers
@@ -34,7 +29,7 @@ source("functions/impute_missing.R")
 # #after inspecting, filter and clean anomalies
 # YN_cleaned <- YN_outlier %>%
 #   filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
-#            Year_Month == "2020-6" & date > "2020-06-04 00:00:00" |
+#            Year_Month == "2020-6" |
 #            Year_Month == "2020-7" & observed > 1000) %>%
 #   clean_anomalies()
 # #insepect cleaned points
@@ -80,8 +75,8 @@ splot("QC_plots/", "YN_cl")
 evalq(labYN, YN_discharge)
 
 #Linear Regression between Conductivity and Chloride
-YN_linreg_plot <- linreg(labYN, YN_cond_data) +
-  captlm('Yahara River @ 113',"Yahara River at Highway 113", labYN, YN_cond_data)
+YN_linreg_plot <- linreg(labYN, YN_cond_data) + labs(title = "Yahara North")
+  #captlm('Yahara River @ 113',"Yahara River at Highway 113", labYN, YN_cond_data)
 splot("cl_cond_linear_regression/", "YN")
 
 eval(labYN, YN_cond_data)

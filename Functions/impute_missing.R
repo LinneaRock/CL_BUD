@@ -17,3 +17,9 @@ impute_missing <- function(data_with_seq) {
     mutate(sp.cond = ifelse(is.na(sp.cond), imputed, sp.cond))
   
 }
+
+#loggerYN1 <- loggerYN %>%#HOBO conductivity data
+# complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:30:00"), as.POSIXct("2020-10-30 9:30:00"), by = "30 mins")) %>%
+#arrange(date)
+
+#loggerYN <- impute_missing(loggerYN1)

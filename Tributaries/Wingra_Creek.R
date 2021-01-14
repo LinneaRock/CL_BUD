@@ -4,7 +4,8 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
+#library(imputeTS)
+library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -17,8 +18,8 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
-
+#source("functions/impute_missing.R")
+# 
 # #HOBO conductivity data
 # loggerWIC <- loggerWIC
 # 
@@ -33,16 +34,7 @@ source("functions/impute_missing.R")
 # #insepect cleaned points
 # plot_cleaned(WIC_cleaned)
 # #final dataset with runningmean, trend, and corrected specific conductance data
-# WIC_cond_data <- loggerWIC %>%
-#   left_join(WIC_cleaned, by = "date") %>%
-#   left_join(WIC_outlier %>% select(date, trend), by = "date") %>%
-#   mutate(sp.cond = ifelse(is.na(observed_cleaned), sp.cond, observed_cleaned)) %>%
-#   select(date, sp.cond, trend.y, Low.Range, Full.Range, Temp, observed_cleaned) %>%
-#   rename(trend = trend.y) %>%
-#   mutate(runningmean = rollmean(sp.cond, 13, fill = NA, na.rm = TRUE)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
-#   mutate(runningmean = ifelse(row_number() <= 6, mean(sp.cond[1:6]), runningmean)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of those empty rows
-#   mutate(runningmean = ifelse(row_number() >= (nrow(loggerWIC) - 5), mean(sp.cond[(nrow(loggerWIC) - 5):nrow(loggerWIC)]), runningmean)) 
-# 
+# WIC_cond_data <- final_cond_data(loggerWIC, WIC_cleaned, WIC_outlier)
 # write_rds(WIC_cond_data, "Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
 
 
@@ -83,8 +75,8 @@ splot("QC_plots/", "WIC_cl")
 evalq(labWIC, WIC_discharge)
 
 #Linear Regression between Conductivity and Chloride
-WIC_linreg_plot <- linreg(labWIC, WIC_cond_data) +
-  captlm('Wingra Creek',"Wingra Creek at Monona Inlet", labWIC, WIC_cond_data)
+WIC_linreg_plot <- linreg(labWIC, WIC_cond_data) + labs(title = "Wingra Creek")
+  #captlm('Wingra Creek',"Wingra Creek at Monona Inlet", labWIC, WIC_cond_data)
 splot("cl_cond_linear_regression/", "WIC")
 
 eval(labWIC, WIC_cond_data)

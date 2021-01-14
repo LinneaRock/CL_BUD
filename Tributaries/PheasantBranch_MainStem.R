@@ -4,8 +4,9 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
+#library(imputeTS)
 library(ggforce)
+library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -18,16 +19,10 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
+#source("functions/impute_missing.R")
 source("functions/ts_grid.R")
 
-# #HOBO conductivity data, add missing dates
-# loggerPBMS1 <- loggerPBMS %>% 
-#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 11:30:00"), as.POSIXct("2020-10-30 10:30:00"), by = "30 mins")) %>%
-#   arrange(date)
-# #impute missing data
-# loggerPBMS <- impute_missing(loggerPBMS1)
-# 
+
 # #flag outliers using anomalize package
 # PBMS_outlier <- flagged_data(loggerPBMS)
 # #plot to inspect where to correct outliers
@@ -36,7 +31,8 @@ source("functions/ts_grid.R")
 # PBMS_cleaned <- PBMS_outlier %>%
 #   filter(Year_Month == "2020-5" & observed > 1250 |
 #            Year_Month == "2020-6" & observed > 1000 |
-#            Year_Month == "2020-7" & observed > 1000) %>%
+#            Year_Month == "2020-7" & observed > 1000 |
+#            Year_Month == "2020-10") %>%
 #   clean_anomalies()
 # #insepect cleaned points
 # plot_cleaned(PBMS_cleaned)
@@ -96,8 +92,8 @@ splot("QC_plots/", "PBMS_cl")
 evalq(labPBMS, PBMS_discharge)
 
 #Linear Regression between Conductivity and Chloride
-PBMS_linreg_plot <- linreg(labPBMS, PBMS_cond_data) +
-  captlm('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", labPBMS, PBMS_cond_data)
+PBMS_linreg_plot <- linreg(labPBMS, PBMS_cond_data) + labs(title = "Pheasant Branch Main Stem")
+  #captlm('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", labPBMS, PBMS_cond_data)
 splot("cl_cond_linear_regression/", "PBMS")
 
 eval(labPBMS, PBMS_cond_data)

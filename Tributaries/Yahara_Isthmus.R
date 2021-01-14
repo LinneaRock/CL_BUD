@@ -4,7 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
+#library(imputeTS)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -17,21 +17,18 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
+#  source("functions/impute_missing.R")
 
-# #HOBO conductivity data, add missing dates
-# loggerYI1 <- loggerYI %>% 
-#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 10:00:00"), as.POSIXct("2020-10-30 9:00:00"), by = "30 mins")) %>%
-#   arrange(date)
-# #impute missing data
-# loggerYI <- impute_missing(loggerYI1)
-# 
+
+
 # #flag outliers using anomalize package
 # YI_outlier <- flagged_data(loggerYI)
 # #plot to inspect where to correct outliers
 # plot_flagged(YI_outlier)
 # #after inspecting, filter and clean anomalies
 # YI_cleaned <- YI_outlier %>%
+#   filter(Year_Month != "2020-1" |
+#            Year_Month == "2020-2" & observed > 200) %>%
 #   clean_anomalies()
 # #insepect cleaned points
 # plot_cleaned(YI_cleaned)
@@ -76,8 +73,8 @@ splot("QC_plots/", "YI_cl")
 evalq(labYI, YI_discharge)
 
 #Linear Regression between Conductivity and Chloride
-YI_linreg_plot <- linreg(labYI, YI_cond_data) +
-  captlm('Yahara River @ Main St',"Yahara River at Main St", labYI, YI_cond_data)
+YI_linreg_plot <- linreg(labYI, YI_cond_data) + lsbs(title = "Yahara Isthmus")
+  #captlm('Yahara River @ Main St',"Yahara River at Main St", labYI, YI_cond_data)
 splot("cl_cond_linear_regression/", "YI")
 
 eval(labYI, YI_cond_data)

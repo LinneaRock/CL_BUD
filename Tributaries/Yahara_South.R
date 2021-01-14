@@ -4,7 +4,8 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-library(imputeTS)
+#library(imputeTS)
+library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -17,14 +18,9 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-source("functions/impute_missing.R")
+#source("functions/impute_missing.R")
 
-# #HOBO conductivity data, add missing dates
-# loggerYS1 <- loggerYS %>% 
-#   complete(date = seq.POSIXt(as.POSIXct("2020-10-22 13:00:00"), as.POSIXct("2020-10-30 14:00:00"), by = "30 mins")) %>%
-#   arrange(date)
-# #impute missing data
-# loggerYS <- impute_missing(loggerYS1)
+
 # 
 # #flag outliers using anomalize package
 # YS_outlier <- flagged_data(loggerYS)
@@ -32,12 +28,13 @@ source("functions/impute_missing.R")
 # plot_flagged(YS_outlier)
 # #after inspecting, filter and clean anomalies
 # YS_cleaned <- YS_outlier %>%
+#   filter(Year_Month != "2020-1") %>%
 #   clean_anomalies()
 # #insepect cleaned points
 # plot_cleaned(YS_cleaned)
 # #final dataset with runningmean, trend, and corrected specific conductance data
 # YS_cond_data <- final_cond_data(loggerYS, YS_cleaned, YS_outlier)
-#write_rds(YS_cond_data, "Data/HOBO_Loggers/YS/YS_cond_data.rds")
+# write_rds(YS_cond_data, "Data/HOBO_Loggers/YS/YS_cond_data.rds")
 
 
 YS_cond_data <- read_rds("Data/HOBO_Loggers/YS/YS_cond_data.rds")
@@ -77,8 +74,8 @@ splot("QC_plots/", "YS_cl")
 evalq(labYS, YS_discharge)
   
 #Linear Regression between Conductivity and Chloride
-YS_linreg_plot <- linreg(labYS, YS_cond_data) +
-  captlm('Yahara River @ Broadway',"Yahara River at Broadway St", labYS, YS_cond_data)
+YS_linreg_plot <- linreg(labYS, YS_cond_data) + labs(title = "Yahara South")
+  #captlm('Yahara River @ Broadway',"Yahara River at Broadway St", labYS, YS_cond_data)
 splot("cl_cond_linear_regression/", "YS")
 
 eval(labYS, YS_cond_data)

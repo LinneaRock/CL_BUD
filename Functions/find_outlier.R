@@ -7,6 +7,7 @@ library(zoo)
 #use data after it has imputed values added already
 flagged_data <- function(loggerdata) { #step to flag the outlier data
   data <- loggerdata %>%
+    drop_na(sp.cond) %>%
     as_tibble() %>%
     time_decompose(sp.cond) %>%
     anomalize(remainder) %>%
