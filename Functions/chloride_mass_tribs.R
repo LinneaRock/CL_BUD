@@ -49,7 +49,21 @@ chloride_ts_mass <- function(chloride_data, logger_data, discharge_data) {
                              mon == "February" |
                              mon == "March" |
                              mon == "April", "October - April", season),
-           season = ifelse(is.na(season), "May - September", season))
+           season = ifelse(is.na(season), "May - September", season)) %>%
+    mutate(season_id = NA) %>%
+    mutate(season_id = ifelse(
+      year_mon == "2019-12" | year_mon == "2020-1" | year_mon == "2020-2" | year_mon == "2020-3" | year_mon == "2020-4",
+      "2019-2020 Salting",
+      season_id
+    )) %>%
+    mutate(season_id = ifelse(
+      year_mon == "2020-5" | year_mon == "2020-6" | year_mon == "2020-7" | year_mon == "2020-8" | year_mon == "2020-9",
+      "2020 Non-Salting",
+      season_id)) %>%
+    mutate(season_id = ifelse(
+      year_mon == "2020-10" | year_mon == "2020-11" | year_mon == "2020-12" | year_mon == "2021-1" | year_mon == "2021-2" | year_mon == "2021-3" | year_mon == "2021-4",
+      "2020-2021 Salting",
+      season_id))
   
   #function to obtain coefficient information of linear regression for chloride and conductivity
   info <- function(chloride_data, logger_data) {
@@ -161,21 +175,21 @@ monthly_load <- function(monthly_data, customTitle) {
          title = customTitle)
 }
 
-#function to calculate seasonal mass load
-#visualization function follows
-# chloride_seasonal_load <- function(ts_data) {
-#   seasonal <- ts_data %>%
-#     group_by(year, season) %>%
-#     summarise(seasonal_mass_Mg = sum(cl_load_g)/1000000) #seasonal load of chloride [Mg]
-# }
-# 
-# seasonal_load <- function(seasonal_load, customTitle) {
-#   ggplot(seasonal_data, aes(date, seasonal_mass_Mg)) + 
-#     geom_bar(stat = 'identity') + L_theme() + 
-#     labs(y = "Seasonal Chloride Mass"~(Mg), 
-#          x = "", 
-#          title = customTitle)
-# }
+# function to calculate seasonal mass load
+# visualization function follows
+chloride_seasonal_load <- function(ts_data) {
+  seasonal <- ts_data %>%
+    group_by(season_id) %>%
+    summarise(seasonal_mass_Mg = sum(na.omit(cl_load_g))/1000000) #seasonal load of chloride [Mg]
+}
+
+seasonal_load <- function(seasonal_data, customTitle) {
+  ggplot(seasonal_data, aes(season_id, seasonal_mass_Mg)) +
+    geom_bar(stat = 'identity') + L_theme() +
+    labs(y = "Seasonal Chloride Mass"~(Mg),
+         x = "",
+         title = customTitle)
+}
 
 #function to calculate annual mass load
 chloride_annual_load <- function(ts_data) {
@@ -246,3 +260,4 @@ chloride_annual_load <- function(ts_data) {
 # }
 
 
+  
