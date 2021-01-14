@@ -1,147 +1,5 @@
-# source("Functions/chloride_mass_tribs.R")
-# 
-# #function to get daily mass chloride loading
-# format_daily <- function(massdata) {
-#   new <- massdata %>%
-#     mutate(cl_mass = cl_rate * 1800) %>% #integral to determine ~chloride mass [g] during the timestep [Chloride Rate g s^-1 * 1800 s]
-#     separate(date, c("date", "time"), sep = " ") %>%
-#     mutate(date = as.Date(date)) %>%
-#     group_by(date) %>% #steps above to create a column for date grouping
-#     mutate(daily_mean_conc = mean(chloride_use)) %>% #daily average concentration [mg/L]
-#     mutate(cl_load = sum(cl_mass)) %>% #total daily chloride mass [g]
-#     mutate(cl_load = cl_load / 1000000) #daily chloride mass in metric tonnes [Mg]
-# }
-# 
-# 
-# #Mendota Loading####
-# 
-# ##YN
-# YN_Load <- chloride_mass_load_rate(labYN, YN_cond_data, YN_discharge) #table containing chloride loading values in [g s^-1] per time step 
-# plot_concentration(YN_Load, "Yahara North")
-# plot_load(YN_Load, "Yahara North")
-# splot("chloride_loading/", "YN_ts")
-# YN_load_daily <- format_daily(YN_Load)
-# plot_concentration_ave(YN_load_daily, "Yahara North")
-# plot_load_daily(YN_load_daily, "Yahara North") #daily mass of chloride from tributary
-# splot("chloride_loading/", "YN_daily")
-# plot_cumulative(YN_load_daily, "Yahara North")
-# splot("chloride_loading/", "YN_cumulative")
-# 
-# 
-# 
-# ##6MC
-# SMC_Load <- chloride_mass_load_rate(lab6MC, SMC_cond_data, SMC_discharge)
-# plot_load(SMC_Load, "Sixmile Creek")
-# splot("chloride_loading/", "6MC_ts")
-# SMC_load_daily <- format_daily(SMC_Load)
-# plot_load_daily(SMC_load_daily, "Sixmile Creek")
-# splot("chloride_loading/", "6MC_daily")
-# plot_cumulative(SMC_load_daily, "Sixmile Creek")
-# splot("chloride_loading/", "6MC_cumulative")
-# 
-# ggplot(YN_load_daily) +
-#   geom_point(aes(date, chloride_predict)) +
-#   geom_point(aes(date, chloride_mgL), color ="red")
-# 
-# ##DC
-# DC_Load <- chloride_mass_load_rate(labDC, DC_cond_data, DC_discharge)
-# plot_load(DC_Load, "Dorn Creek")
-# splot("chloride_loading/", "DC_ts")
-# DC_load_daily <- format_daily(DC_Load)
-# plot_load_daily(DC_load_daily, "Dorn Creek")
-# splot("chloride_loading/", "DC_daily")
-# plot_cumulative(DC_load_daily, "Dorn Creek")
-# splot("chloride_loading/", "DC_cumulative")
-# 
-# ##PBMS
-# PBMS_Load <- chloride_mass_load_rate(labPBMS, PBMS_cond_data, PBMS_discharge)
-# plot_load(PBMS_Load, "Pheasant Branch Main Stem")
-# splot("chloride_loading/", "PBMS_ts")
-# PBMS_load_daily <- format_daily(PBMS_Load)
-# plot_load_daily(PBMS_load_daily, "Pheasant Branch Main Stem")
-# splot("chloride_loading/", "PBMS_daily")
-# plot_cumulative(PBMS_load_daily, "Pheasant Branch Main Stem")
-# splot("chloride_loading/", "PBMS_cumulative")
-# 
-# ##PBSF
-# PBSF_Load <- chloride_mass_load_rate(labPBSF, PBSF_cond_data, PBSF_discharge)
-# plot_load(PBSF_Load, "Pheasant Branch South Fork")
-# splot("chloride_loading/", "PBSF_ts")
-# PBSF_load_daily <- format_daily(PBSF_Load)
-# plot_load_daily(PBSF_load_daily, "Pheasant Branch South Fork")
-# splot("chloride_loading/", "PBSF_ts")
-# plot_cumulative(PBSF_load_daily, "Pheasant Branch South Fork")
-# splot("chloride_loading/", "PBSF_cumulative")
-# 
-#    ###Total Mass Loading for Mendota
-# #not including PBSF because PBMS is better representative of the water entering Mendota
-# Total_ME_Mass <- rbind(PBMS_load_daily, DC_load_daily, SMC_load_daily, YN_load_daily) %>% #stack dataframes 
-#   select(date, cl_load) %>% 
-#   distinct() %>%
-#   group_by(date) %>% 
-#   summarise(tot.mass = sum(cl_load)) #total sum mass chloride [Mg] loading into ME from tribs
-# 
-# ggplot(Total_ME_Mass) +
-#   geom_bar(aes(date, tot.mass), stat = "identity")
-# 
-# #Monona Loading####
-# ##YI
-# YI_Load <-chloride_mass_load_rate(labYI, YI_cond_data, YI_discharge)
-# plot_load(YI_Load, "Yahara Isthmus")
-# splot("chloride_loading/", "YI_ts")
-# YI_load_daily <- format_daily(YI_Load)
-# plot_load_daily(YI_load_daily, "Yahara Isthmus")
-# splot("chloride_loading/", "YI_daily")
-# plot_cumulative(YI_load_daily, "Yahara Isthmus")
-# splot("chloride_loading/", "YI_cumulative")
-# 
-# #not sure how to do this for SW and YS yet
-# 
-# 
-# 
-# #Total Mass Loading all tribs####
-# Total_Mass <- rbind(YI_load_daily, PBSF_load_daily, PBMS_load_daily, DC_load_daily, SMC_load_daily, YN_load_daily) %>% #stack dataframes 
-#   select(date, cl_load) %>% 
-#   distinct() %>%
-#   group_by(date) %>% 
-#   summarise(tot.mass = sum(cl_load)) #total sum mass chloride [Mg] loading into ME from tribs
-# 
-# 
-# ggplot(Total_Mass) +
-#   geom_bar(aes(date, tot.mass), stat = "identity")
-#   
-# 
-# #call in Winter19 dataframe from road_salt_application.R
-# Winter19 <- Winter19  #be sure date column is named date, not DATE
-# 
-# Chloride_by_date <- merge(Winter19, Total_Mass, by = "date", all = TRUE) %>% #join datasets together to directly compare chloride mass
-#   select(date, total_salt, tot.mass) %>%
-#   distinct()
-# 
-# 
-# 
-# ggplot() +
-#   geom_line(Winter19, mapping = aes(date, total_salt), color = "#F24D29") +
-#   geom_line(Total_Mass, mapping = aes(date, tot.mass), color = "#1C366B") +
-#   L_theme() +
-#   labs(x ="",
-#        y= "Chloride Mass"~(Mg))
-# 
-# 
-# 
-# 
-# #plotting modeled chloride and real values
-# 
-# ggplot(PBMS_Load) +
-#   geom_point(aes(date, chloride_predict)) +
-#   geom_point(aes(date, chloride_mgL), color = "red")
 
-
-
-
-
-
-
+source("Functions/chloride_mass_tribs.R")
 
 
 
@@ -168,10 +26,14 @@ ggsave("Plots/chloride_loading/YN/cumulative_ts.png", height = 4, width = 6, uni
 daily_load(YN_daily_mass, "Yahara North")
 ggsave("Plots/chloride_loading/YN/daily_load.png", height = 4, width = 6, units = "in")
 
+daily_ave_conc(YN_daily_mass, "Yahara North")
+ggsave("Plots/chloride_loading/YN/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
 monthly_load(YN_monthly_mass, "Yahara North")
 ggsave("Plots/chloride_loading/YN/monthly_load.png", height = 4, width = 6, units = "in")
 
 #seasonal_load(YN_seasonal_mass, "Yahara North")
+
 
 
 
@@ -198,6 +60,9 @@ ggsave("Plots/chloride_loading/YI/cumulative_ts.png", height = 4, width = 6, uni
 
 daily_load(YI_daily_mass, "Yahara Isthmus")
 ggsave("Plots/chloride_loading/YI/daily_load.png", height = 4, width = 6, units = "in")
+
+daily_ave_conc(YI_daily_mass, "Yahara Isthmus")
+ggsave("Plots/chloride_loading/YI/daily_ave_conc.png", height = 4, width = 6, units = "in")
 
 monthly_load(YI_monthly_mass, "Yahara Isthmus")
 ggsave("Plots/chloride_loading/YI/monthly_load.png", height = 4, width = 6, units = "in")
@@ -232,6 +97,9 @@ ggsave("Plots/chloride_loading/YS/cumulative_ts.png", height = 4, width = 6, uni
 daily_load(YS_daily_mass, "Yahara South")
 ggsave("Plots/chloride_loading/YS/daily_load.png", height = 4, width = 6, units = "in")
 
+daily_ave_conc(YS_daily_mass, "Yahara South")
+ggsave("Plots/chloride_loading/YS/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
 monthly_load(YS_monthly_mass, "Yahara South")
 ggsave("Plots/chloride_loading/YS/monthly_load.png", height = 4, width = 6, units = "in")
 
@@ -264,6 +132,9 @@ ggsave("Plots/chloride_loading/SMC/cumulative_ts.png", height = 4, width = 6, un
 
 daily_load(SMC_daily_mass, "Sixmile Creek")
 ggsave("Plots/chloride_loading/SMC/daily_load.png", height = 4, width = 6, units = "in")
+
+daily_ave_conc(SMC_daily_mass, "Sixmile Creek")
+ggsave("Plots/chloride_loading/SMC/daily_ave_conc.png", height = 4, width = 6, units = "in")
 
 monthly_load(SMC_monthly_mass, "Sixmile Creek")
 ggsave("Plots/chloride_loading/SMC/monthly_load.png", height = 4, width = 6, units = "in")
@@ -298,10 +169,15 @@ ggsave("Plots/chloride_loading/DC/cumulative_ts.png", height = 4, width = 6, uni
 daily_load(DC_daily_mass, "Dorn Creek")
 ggsave("Plots/chloride_loading/DC/daily_load.png", height = 4, width = 6, units = "in")
 
+daily_ave_conc(DC_daily_mass, "Dorn Creek")
+ggsave("Plots/chloride_loading/DC/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
 monthly_load(DC_monthly_mass, "Dorn Creek")
 ggsave("Plots/chloride_loading/DC/monthly_load.png", height = 4, width = 6, units = "in")
 
 #seasonal_load(DC_seasonal_mass, "Dorn Creek")
+
+
 
 
 
@@ -329,10 +205,15 @@ ggsave("Plots/chloride_loading/PBMS/cumulative_ts.png", height = 4, width = 6, u
 daily_load(PBMS_daily_mass, "Pheasant Branch Main Stem")
 ggsave("Plots/chloride_loading/PBMS/daily_load.png", height = 4, width = 6, units = "in")
 
+daily_ave_conc(PBMS_daily_mass, "Pheasant Branch Main Stem")
+ggsave("Plots/chloride_loading/PBMS/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
 monthly_load(PBMS_monthly_mass, "Pheasant Branch Main Stem")
 ggsave("Plots/chloride_loading/PBMS/monthly_load.png", height = 4, width = 6, units = "in")
 
 #seasonal_load(PBMS_seasonal_mass, "Pheasant Branch Main Stem")
+
+
 
 
 
@@ -360,6 +241,9 @@ ggsave("Plots/chloride_loading/PBSF/cumulative_ts.png", height = 4, width = 6, u
 daily_load(PBSF_daily_mass, "Pheasant Branch South Fork")
 ggsave("Plots/chloride_loading/PBSF/daily_load.png", height = 4, width = 6, units = "in")
 
+daily_ave_conc(PBSF_daily_mass, "Pheasant Branch South Fork")
+ggsave("Plots/chloride_loading/PBSF/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
 monthly_load(PBSF_monthly_mass, "Pheasant Branch South Fork")
 ggsave("Plots/chloride_loading/PBSF/monthly_load.png", height = 4, width = 6, units = "in")
 
@@ -371,10 +255,74 @@ ggsave("Plots/chloride_loading/PBSF/monthly_load.png", height = 4, width = 6, un
 
 
 
+#SW chloride mass loading calculations
+SW_ts_mass <- chloride_ts_mass(labSW, SW_cond_data, SW_discharge)
+SW_daily_mass <- chloride_daily_mass(SW_ts_mass)
+SW_monthly_mass <- chloride_monthly_load(SW_ts_mass)
+#SW_seasonal_mass <- chloride_seasonal_load(SW_ts_mass)
+SW_annual_mass <- chloride_annual_load(SW_ts_mass)
+
+#SW chloride mass loading plots
+concentration_ts(SW_ts_mass, "Starkweather Creek")
+ggsave("Plots/chloride_loading/SW/concentration_ts.png", height = 4, width = 6, units = "in")
+
+rate_ts(SW_ts_mass, "Starkweather Creek")
+ggsave("Plots/chloride_loading/SW/rate_ts.png", height = 4, width = 6, units = "in")
+
+load_ts(SW_ts_mass, "Starkweather Creek")
+ggsave("Plots/chloride_loading/SW/load_ts.png", height = 4, width = 6, units = "in")
+
+cumulative_ts(SW_ts_mass, "Starkweather Creek")
+ggsave("Plots/chloride_loading/SW/cumulative_ts.png", height = 4, width = 6, units = "in")
+
+daily_load(SW_daily_mass, "Starkweather Creek")
+ggsave("Plots/chloride_loading/SW/daily_load.png", height = 4, width = 6, units = "in")
+
+daily_ave_conc(SW_daily_mass, "Starkweather Creek")
+ggsave("Plots/chloride_loading/SW/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
+monthly_load(SW_monthly_mass, "Starkweather Creek")
+ggsave("Plots/chloride_loading/SW/monthly_load.png", height = 4, width = 6, units = "in")
+
+#seasonal_load(SW_seasonal_mass, "Starkweather Creek")
 
 
 
 
+
+
+
+
+#WIC chloride mass loading calculations
+WIC_ts_mass <- chloride_ts_mass(labWIC, WIC_cond_data, WIC_discharge)
+WIC_daily_mass <- chloride_daily_mass(WIC_ts_mass)
+WIC_monthly_mass <- chloride_monthly_load(WIC_ts_mass)
+#WIC_seasonal_mass <- chloride_seasonal_load(WIC_ts_mass)
+WIC_annual_mass <- chloride_annual_load(WIC_ts_mass)
+
+#WIC chloride mass loading plots
+concentration_ts(WIC_ts_mass, "Wingra Creek")
+ggsave("Plots/chloride_loading/WIC/concentration_ts.png", height = 4, width = 6, units = "in")
+
+rate_ts(WIC_ts_mass, "Wingra Creek")
+ggsave("Plots/chloride_loading/WIC/rate_ts.png", height = 4, width = 6, units = "in")
+
+load_ts(WIC_ts_mass, "Wingra Creek")
+ggsave("Plots/chloride_loading/WIC/load_ts.png", height = 4, width = 6, units = "in")
+
+cumulative_ts(WIC_ts_mass, "Wingra Creek")
+ggsave("Plots/chloride_loading/WIC/cumulative_ts.png", height = 4, width = 6, units = "in")
+
+daily_load(WIC_daily_mass, "Wingra Creek")
+ggsave("Plots/chloride_loading/WIC/daily_load.png", height = 4, width = 6, units = "in")
+
+daily_ave_conc(WIC_daily_mass, "Wingra Creek")
+ggsave("Plots/chloride_loading/WIC/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
+monthly_load(WIC_monthly_mass, "Wingra Creek")
+ggsave("Plots/chloride_loading/WIC/monthly_load.png", height = 4, width = 6, units = "in")
+
+#seasonal_load(WIC_seasonal_mass, "Wingra Creek")
 
 
 
