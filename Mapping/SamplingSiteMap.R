@@ -32,7 +32,7 @@ wc.sf <- st_as_sf(wc, coords = c("lon", "lat"),
 
 #  Map #### 
 ggplot(gage.bb.sf) + 
-  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  annotation_map_tile(type = esri_land, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = gage.bb.sf, aes(shape = 'USGS River'), color = 'black', size = 1.6) + # USGS gages
   geom_sf(data = nogage.bb.sf, aes(shape = 'Rivers'), color = 'black', size = 1.6) + #rivers without gages
   geom_sf(data = lakebuoys.sf, aes(shape = 'Lakes'), color = 'black', size = 1.6) + #lake sites

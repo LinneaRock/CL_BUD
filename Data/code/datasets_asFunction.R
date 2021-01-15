@@ -156,12 +156,14 @@ format <- function(d) {
 
 d.YN <- readNWISuv("05427850", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
+YNsiteINFO <- readNWISsite("05427850")
 d.YI <- readNWISuv("05428500", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
 d.6MC <- readNWISuv("05427910", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
 d.DC <- readNWISuv("05427930", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
+SMC_DCSiteINFO <- readNWISsite(c("05427910", "05427930"))
 d.PBMS <- readNWISuv("05427948", "00060", "2019-12-01", "", tz = "GMT") %>%
   format()
 d.PBSF <- readNWISuv("054279465", "00060", "2019-12-01", "", tz = "GMT") %>%

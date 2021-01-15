@@ -52,16 +52,16 @@ chloride_ts_mass <- function(chloride_data, logger_data, discharge_data) {
            season = ifelse(is.na(season), "May - September", season)) %>%
     mutate(season_id = NA) %>%
     mutate(season_id = ifelse(
-      year_mon == "2019-12" | year_mon == "2020-1" | year_mon == "2020-2" | year_mon == "2020-3" | year_mon == "2020-4",
+      year_mon == "2019-12" | year_mon == "2020-1" | year_mon == "2020-2" | year_mon == "2020-3",
       "2019-2020 Salting",
       season_id
     )) %>%
     mutate(season_id = ifelse(
-      year_mon == "2020-5" | year_mon == "2020-6" | year_mon == "2020-7" | year_mon == "2020-8" | year_mon == "2020-9",
+      year_mon == "2020-4" | year_mon == "2020-5" | year_mon == "2020-6" | year_mon == "2020-7" | year_mon == "2020-8" | year_mon == "2020-9" | year_mon == "2020-10",
       "2020 Non-Salting",
       season_id)) %>%
     mutate(season_id = ifelse(
-      year_mon == "2020-10" | year_mon == "2020-11" | year_mon == "2020-12" | year_mon == "2021-1" | year_mon == "2021-2" | year_mon == "2021-3" | year_mon == "2021-4",
+      year_mon == "2020-11" | year_mon == "2020-12" | year_mon == "2021-1" | year_mon == "2021-2" | year_mon == "2021-3" | year_mon == "2021-4",
       "2020-2021 Salting",
       season_id))
   
