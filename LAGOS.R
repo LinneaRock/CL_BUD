@@ -155,3 +155,4 @@ simpleregtable <- gt_tbl %>%
   tab_header(
     title = "Chloride - Specific Conductivity Linear Regression Statistics",
   ); simpleregtable
+
