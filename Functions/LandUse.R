@@ -130,6 +130,52 @@ SimpleLandUse <- function(calculated_land_use) {
 
 
 
+LandUse2 <- function(lulcdata) {
+  
+  data <- lulcdata %>%
+    rename(WatershedArea = hu12_ha_in_usa,
+           OpenWater = hu12_nlcd2011_ha_11,
+           DevelopedOpenSpace = hu12_nlcd2011_ha_21,
+           DevelopedLowIntensity = hu12_nlcd2011_ha_22,
+           DevelopedMedIntensity = hu12_nlcd2011_ha_23,
+           DevelopedHighIntensity = hu12_nlcd2011_ha_24,
+           BarrenLand = hu12_nlcd2011_ha_31,
+           DeciduousForest = hu12_nlcd2011_ha_41,
+           EvergreenForest = hu12_nlcd2011_ha_42,
+           MixedForest = hu12_nlcd2011_ha_43,
+           ShrubScrub = hu12_nlcd2011_ha_52,
+           GrasslandHerb = hu12_nlcd2011_ha_71,
+           PastureHay = hu12_nlcd2011_ha_81,
+           CultivatedCrop = hu12_nlcd2011_ha_82,
+           WoodyWetlands = hu12_nlcd2011_ha_90,
+           EmergentWetlands = hu12_nlcd2011_ha_95,
+           TotalRoadLength = hu12_roaddensity_sum_lengthm,
+           TotalRoadDensity = hu12_roaddensity_density_mperha) %>%
+    select(Name, HUC12, WatershedArea, OpenWater,DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity,
+           BarrenLand, DeciduousForest, EvergreenForest, MixedForest, GrasslandHerb, PastureHay, CultivatedCrop,
+           WoodyWetlands, EmergentWetlands,TotalRoadLength, TotalRoadDensity)
+  
+  
+
+  
+  #build dataframe 
+  newrow <- rep(NA, 17) #percentages will be in the second row, this is an empty row to add to the dataframe
+  
+  df <- WatershedArea %>%
+    cbind(c(OpenWater, DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity, BarrenLand, DeciduousForest, EvergreenForest, MixedForest, ShrubScrub, GrasslandHerb, PastureHay, CultivatedCrop, WoodyWetlands, EmergentWetlands, TotalRoad)) %>%
+    InsertRow(newrow)
+  
+  #Percentages calcualted
+  for(i in 2:nrow(df)) {
+    for(j in 1:ncol(df)) {
+      df[i,j] = (df[i-1, j]/WatershedArea) * 100
+    }
+  }
+  
+  
+  return(df)
+  
+}
 
 
 
