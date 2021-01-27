@@ -124,7 +124,7 @@ Simple.YaharaS.MO <- SimpleLandUse(Yahara_Lake)
 
 
 Starkweather <- LandUse(MO.HUC12.lulc %>% filter(hu12_zoneid == "HU12_11999"))
-Simple.Starkweather.Watershed <- SimpleLandUse(Starkweather) %>%
+Simple.Starkweather.Watershed <- SimpleLandUse(Starkweather)
   
 
 
