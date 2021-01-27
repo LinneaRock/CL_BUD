@@ -95,3 +95,5 @@ wsSH <- read_sf("Data/shapefiles/SH/ws_SH.shp")
 # charsWC <- computeChars(workspaceID = wsWC$workspaceID, rcode = "WI")
 # writeShapefile(watershed = wsWC, layer = "ws_WC", dir = "Data/shapefiles/WC", what = "boundary")
 wsWC <- read_sf("Data/shapefiles/WC/ws_WC.shp")
+
+
