@@ -34,7 +34,7 @@ HUC12.sf.MO <- read_rds("Data/shapefiles/HUC12_MO.rds")
 #esri_land <-  paste0('https://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/${z}/${y}/${x}.jpeg')
 world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/${z}/${y}/${x}.jpeg')
 
-
+#simple map of just the HUC12 outlines in the watershed
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = HUC12.sf.ME, fill = NA, aes(color = "Mendota Watershed")) + 
@@ -52,29 +52,90 @@ ggplot(gage.bb.sf) +
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
  
-ggsave('Plots/Huc12Map_label.png', width = 6, height = 6, units = 'in') #change name depending on if geom_sf_text/label is used
-
-#Interlake watersheds shapefile (LAGOS delineated, not using)
-iws.sf <- st_read("C:/Users/linne/Downloads/IWS/IWS.shp")
-iws.sf.ME_MO <- iws.sf %>%
-  filter(NHD_ID == "143249470" |
-          NHD_ID == "143249640")
+ggsave('Plots/HUC12_Watershed/Huc12Map_label.png', width = 10, height = 10, units = 'in') 
 
 
-#map to compare HUC12s to IWS
+
+#This uses dataframes from the LAGOS.R script
+
+HUC12_perc <- HUC12_ws_chars_perc %>%
+  left_join(lake_info_withgeom, by = "HUC12")
+
+#map of developed land gradient 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = iws.sf.ME_MO, aes(fill = NHD_ID)) + 
-  geom_sf(data = HUC12.sf.MO, fill = NA, color = "#F24D29") + 
-  geom_sf(data = HUC12.sf.ME, fill = NA, color = "#1C366B") +
-  theme_bw() + 
-  theme(legend.position = "none") +
+  geom_sf(data = HUC12_perc$geometry, aes(fill = HUC12_perc$DevelopmentPerc)) + 
+  scale_fill_viridis_c(name = "Percentage of Developed Land (%)") +
+  theme_bw() + # Hilary's default theme
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
-  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
+
+ggsave('Plots/HUC12_Watershed/Huc12Map_Development.png', width = 6, height = 6, units = 'in') 
+
+
+
+
+#map of ag land gradient 
+ggplot(gage.bb.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = HUC12_perc$geometry, aes(fill = HUC12_perc$AgPerc)) + 
+  scale_fill_viridis_c(name = "Percentage of Cropland (%)") +
+  theme_bw() + # Hilary's default theme
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + # North Arrow
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
+
+ggsave('Plots/HUC12_Watershed/Huc12Map_Cropland.png', width = 6, height = 6, units = 'in') 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Interlake watersheds shapefile (LAGOS delineated, not using)
+# iws.sf <- st_read("C:/Users/linne/Downloads/IWS/IWS.shp")
+# iws.sf.ME_MO <- iws.sf %>%
+#   filter(NHD_ID == "143249470" |
+#           NHD_ID == "143249640")
+
+
+#map to compare HUC12s to IWS
+# ggplot(gage.bb.sf) + 
+#   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+#   geom_sf(data = iws.sf.ME_MO, aes(fill = NHD_ID)) + 
+#   geom_sf(data = HUC12.sf.MO, fill = NA, color = "#F24D29") + 
+#   geom_sf(data = HUC12.sf.ME, fill = NA, color = "#1C366B") +
+#   theme_bw() + 
+#   theme(legend.position = "none") +
+#   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+#   annotation_north_arrow(location = "bl", which_north = "true", 
+#                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+#                          height = unit(0.5,'in'), width = unit(0.5,'in'),
+#                          style = north_arrow_nautical) + # North Arrow
+#   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
 
 #Hydro Lines -- remove after using, it's a huge file to store in the global environment
 hydro <- st_read("C:/Users/linne/Downloads/24k_Hydro_Flowlines__Rivers_Streams_-shp/24k_Hydro_Flowlines__Rivers_Streams_.shp")

@@ -21,10 +21,10 @@ LandUseAll <- function(lulcdata) {
            WoodyWetlands = hu12_nlcd2011_ha_90,
            EmergentWetlands = hu12_nlcd2011_ha_95,
            TotalRoadLength = hu12_roaddensity_sum_lengthm,
-           TotalRoadDensity = hu12_roaddensity_density_mperha) %>%
-    select(HUC12, WatershedArea, OpenWater,DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity,
-           BarrenLand, DeciduousForest, EvergreenForest, MixedForest, GrasslandHerb, PastureHay, CultivatedCrop,
-           WoodyWetlands, EmergentWetlands,TotalRoadLength, TotalRoadDensity)
+           TotalRoadDensity = hu12_roaddensity_density_mperha) #%>%
+    # select(HUC12, WatershedArea, OpenWater,DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity,
+    #        BarrenLand, DeciduousForest, EvergreenForest, MixedForest, GrasslandHerb, PastureHay, CultivatedCrop,
+    #        WoodyWetlands, EmergentWetlands,TotalRoadLength, TotalRoadDensity)
   
 
 }
@@ -35,13 +35,14 @@ LandUseSum <- function(HUC12_chars) {
   
   data_sum <- HUC12_chars %>%
     rowwise() %>%
-    mutate(OpenWater = OpenWater,
-           Development = sum(c(DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity)),
-           Barren = BarrenLand,
-           Forest = sum(c(DeciduousForest, EvergreenForest, MixedForest)),
-           Herb = GrasslandHerb,
-           Ag = sum(c(PastureHay, CultivatedCrop)),
-           Wetland = sum(c(WoodyWetlands, EmergentWetlands))) %>%
+    mutate(WatershedArea = round(WatershedArea,2),
+           OpenWater = round(OpenWater,2),
+           Development = round(sum(c(DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity)),2),
+           Barren = round(BarrenLand,2),
+           Forest = round(sum(c(DeciduousForest, EvergreenForest, MixedForest)),2),
+           Herb = round(GrasslandHerb,2),
+           Ag = round(sum(c(PastureHay, CultivatedCrop)),2),
+           Wetland = round(sum(c(WoodyWetlands, EmergentWetlands)),2)) %>%
     select(HUC12, WatershedArea, OpenWater, Development,
            Barren, Forest, Herb, Ag,
            Wetland, TotalRoadLength)
@@ -55,13 +56,14 @@ landuse_percent <- function(HUC12_chars) {
   
   data_perc <- HUC12_chars %>%
     rowwise() %>%
-    mutate(OpenWaterPerc = (OpenWater/WatershedArea) * 100,
-           DevelopmentPerc = (sum(c(DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity))/WatershedArea) * 100,
-           BarrenPerc = (BarrenLand/WatershedArea) * 100,
-           ForestPerc = (sum(c(DeciduousForest, EvergreenForest, MixedForest))/WatershedArea) * 100,
-           HerbPerc = (GrasslandHerb/WatershedArea) * 100,
-           AgPerc = (sum(c(PastureHay, CultivatedCrop))/WatershedArea) * 100,
-           WetlandPerc = (sum(c(WoodyWetlands, EmergentWetlands))/WatershedArea) *100) %>%
+    mutate(OpenWaterPerc = round((OpenWater/WatershedArea) * 100,2),
+           DevelopmentPerc = round((sum(c(DevelopedOpenSpace, DevelopedLowIntensity, DevelopedMedIntensity, DevelopedHighIntensity))/WatershedArea) * 100,2),
+           BarrenPerc = round((BarrenLand/WatershedArea) * 100,2),
+           ForestPerc = round((sum(c(DeciduousForest, EvergreenForest, MixedForest))/WatershedArea) * 100,2),
+           HerbPerc = round((GrasslandHerb/WatershedArea) * 100,2),
+           AgPerc = round((sum(c(PastureHay, CultivatedCrop))/WatershedArea) * 100,2),
+           WetlandPerc = round((sum(c(WoodyWetlands, EmergentWetlands))/WatershedArea) *100,2),
+           TotalRoadDensity = round(TotalRoadDensity,2)) %>%
     select(HUC12, OpenWaterPerc, DevelopmentPerc,
            BarrenPerc, ForestPerc, HerbPerc, AgPerc,
            WetlandPerc, TotalRoadDensity)
