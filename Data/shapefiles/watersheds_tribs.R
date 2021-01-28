@@ -1,5 +1,6 @@
 library(sf)
-#library(streamstats)
+library(streamstats)
+library(tidyverse)
 
 
 # wsYN <- delineateWatershed(xlocation = -89.40194444, ylocation = 43.15083333, crs = 4326, 
