@@ -2,11 +2,11 @@ library(sf)
 library(streamstats)
 library(tidyverse)
 
-
-# wsYN <- delineateWatershed(xlocation = -89.40194444, ylocation = 43.15083333, crs = 4326, 
+# 
+#  wsYN <- delineateWatershed(xlocation = -89.40194444, ylocation = 43.15083333, crs = 4326,
 #                           includeparameters = "true", includeflowtypes = "true")
-# leafletWatershed(wsYN)
-# charsYN <- computeChars(workspaceID = wsYN$workspaceID, rcode = "WI")
+# # leafletWatershed(wsYN)
+#  charsYN <- computeChars(workspaceID = wsYN$workspaceID, rcode = "WI")
 # writeShapefile(watershed = wsYN, layer = "ws_YN", dir = "Data/shapefiles/YN", what = "boundary")
 wsYN <- read_sf("Data/shapefiles/YN/ws_YN.shp")
 # 
