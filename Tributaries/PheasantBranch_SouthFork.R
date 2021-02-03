@@ -22,34 +22,35 @@ source("functions/discharge_ts.R")
 #source("functions/impute_missing.R")
 
 
-# #getting conductivity data ready
+# # #getting conductivity data ready
 # loggerPBSF1 <- loggerPBSF %>%
 #   left_join(stage_PBSF, by = "date") %>%
 #   mutate(SC_orig = sp.cond) %>%
 #   mutate(sp.cond = ifelse(stage <= 2.11, NA, sp.cond)) %>%
 #   mutate(sp.cond = ifelse(is.na(stage), SC_orig, sp.cond)) %>%
 #   mutate(sp.cond = ifelse(sp.cond < 60, NA, sp.cond))
-
 # 
-# 
-# #flag outliers using anomalize package
-# PBSF_outlier <- flagged_data(loggerPBSF1)
-# #plot to inspect where to correct outliers
-# plot_flagged(PBSF_outlier)
-# #after inspecting, filter and clean anomalies
-# PBSF_cleaned <- PBSF_outlier %>%
-#   filter(Year_Month != "2020-11" &
-#            Year_Month != "2020-1" &
-#            Year_Month != "2020-2" &
-#            Year_Month != "2020-6"&
-#            Year_Month != "2020-8") %>%
-#   clean_anomalies()
-# #insepect cleaned points
-# plot_cleaned(PBSF_cleaned)
-# #final dataset with runningmean, trend, and corrected specific conductance data
-# PBSF_cond_data <- final_cond_data(loggerPBSF1, PBSF_cleaned, PBSF_outlier)
-# write_rds(PBSF_cond_data, "Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
-
+# #
+# #
+#  #flag outliers using anomalize package
+#  PBSF_outlier <- flagged_data(loggerPBSF1)
+#  #plot to inspect where to correct outliers
+#  plot_flagged(PBSF_outlier)
+#  #after inspecting, filter and clean anomalies
+#  PBSF_cleaned <- PBSF_outlier %>%
+#    filter(Year_Month != "2020-11" &
+#             Year_Month != "2020-1" &
+#             Year_Month != "2020-2" &
+#             Year_Month != "2020-6" &
+#             Year_Month != "2020-8" &
+#             Year_Month != "2020-12" &
+#             Year_Month != "2021-1") %>%
+#    clean_anomalies()
+#  #insepect cleaned points
+#  plot_cleaned(PBSF_cleaned)
+#  #final dataset with runningmean, trend, and corrected specific conductance data
+#  PBSF_cond_data <- final_cond_data(loggerPBSF1, PBSF_cleaned, PBSF_outlier)
+#  write_rds(PBSF_cond_data, "Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 
 PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
