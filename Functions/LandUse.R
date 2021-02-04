@@ -43,7 +43,7 @@ LandUseSum <- function(HUC12_chars) {
            Herb = round(GrasslandHerb,2),
            Ag = round(sum(c(PastureHay, CultivatedCrop)),2),
            Wetland = round(sum(c(WoodyWetlands, EmergentWetlands)),2)) %>%
-    select(HUC12, WatershedArea, OpenWater, Development,
+    select(HUC12, site, WatershedArea, OpenWater, Development,
            Barren, Forest, Herb, Ag,
            Wetland, TotalRoadLength)
   
@@ -64,7 +64,7 @@ landuse_percent <- function(HUC12_chars) {
            AgPerc = round((sum(c(PastureHay, CultivatedCrop))/WatershedArea) * 100,2),
            WetlandPerc = round((sum(c(WoodyWetlands, EmergentWetlands))/WatershedArea) *100,2),
            TotalRoadDensity = round(TotalRoadDensity,2)) %>%
-    select(HUC12, OpenWaterPerc, DevelopmentPerc,
+    select(HUC12, site, OpenWaterPerc, DevelopmentPerc,
            BarrenPerc, ForestPerc, HerbPerc, AgPerc,
            WetlandPerc, TotalRoadDensity)
 

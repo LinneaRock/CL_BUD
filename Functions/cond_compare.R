@@ -21,3 +21,6 @@ cond_compare <- function(X, Y) {
                        breaks = c("Low Range", "Full Range", "Field Snapshot"),
                        values = c("grey", "black", "red")) 
 }
+
+
+

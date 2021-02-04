@@ -19,6 +19,7 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
+source("Functions/ts_grid.R")
 #source("functions/impute_missing.R")
 
 

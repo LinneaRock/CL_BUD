@@ -73,7 +73,8 @@ HUC12_INFO <- lagos$hu12.lulc %>%
            hu12_zoneid == "HU12_12000" | 
            hu12_zoneid == "HU12_11999" ) %>%
   left_join(lake_info_withgeom, c("hu12_zoneid" = "ZoneID")) %>%
-  left_join(HUC12, c("HUC12" = "hu12")) 
+  left_join(HUC12, c("HUC12" = "hu12")) %>%
+  mutate(site = c("YN", "YN", "YN", "YN", "SMC, DC", "SMC, DC", "PBMS, PBSF", "YI, Storm Sewers", "SW" , "YS, WIC, Storm Sewers"))
 
 #HUC12 Watershed Table
 HUC12_ws_chars <- LandUseAll(HUC12_INFO) 
@@ -86,6 +87,7 @@ gt_tbl <- gt(HUC12_ws_chars_perc)
 ws_perc_table <- gt_tbl %>%
   cols_label(
     HUC12 = "HUC12 ID",
+    site = "Site ID",
     OpenWaterPerc = "Open Water Area (%)",
     DevelopmentPerc = "Developed Area (%)",
     BarrenPerc = "Barren Area (%)",

@@ -95,7 +95,20 @@ ggplot(gage.bb.sf) +
 ggsave('Plots/HUC12_Watershed/Huc12Map_Cropland.png', width = 6, height = 6, units = 'in') 
 
 
+#map of road denstiy 
+ggplot(gage.bb.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = HUC12_perc$geometry, aes(fill = HUC12_perc$TotalRoadDensity)) + 
+  scale_fill_viridis_c(name = "Road Density"~(m~ha^-1)) +
+  theme_bw() + # Hilary's default theme
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + # North Arrow
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
 
+ggsave('Plots/HUC12_Watershed/Huc12Map_roaddensity.png', width = 6, height = 6, units = 'in') 
 
 
 
