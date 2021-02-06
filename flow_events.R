@@ -12,14 +12,25 @@ ggplot(baseflow_DC) + geom_line(aes(x = obs, y = bt)) + geom_line(aes(x = obs, y
 hydrograph(input = DC_discharge, streamflow2 = baseflow_DC[,1])
 
 
+??EcoHydRology::BaseflowSeparation
+
+detach(package:EcoHydRology)
+
+event_DC <- cbind(DC_discharge, baseflow_DC) 
+
+event_DC2 <- event_DC %>%
+  mutate(diff = discharge - bt) %>%
+  mutate(diff = diff * 1000) %>% 
+  mutate(test = ifelse(diff > 200, 0.25, NA))
 
 
 
+ggplot(event_DC2 %>% filter(test == 0.25)) +
+  geom_point(aes(date, discharge)) +
+  geom_point(aes(date, bt),color = "red") #+
+  #geom_line(aes(date, test), color = "blue")
 
-
-
-
-
+mean(event_DC$discharge) * 1000
 
 flow_prcp <- DC_discharge %>%
   separate(date, c("date", "time"), sep = " ") %>%
