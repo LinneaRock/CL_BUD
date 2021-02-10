@@ -1,5 +1,5 @@
 library(tidyverse)
-
+library(lubridate)
 
 
 library(EcoHydRology)
@@ -97,48 +97,111 @@ ggplot(date_group) +
   facet_wrap("group", scales = "free")
 
 
-mean(DC_discharge$runningmeandis) #0.4644761
+mean(DC_discharge$runningmeandis) * 2 #0.4644761
 median(DC_discharge$runningmeandis) #0.3859804
 
 
-
-
-
-flow_prcp <- DC_discharge %>%
-  separate(date, c("date", "time"), sep = " ") %>%
-  group_by(date) %>%
-  mutate(meandis = mean(discharge)) %>%
-  select(date, meandis) %>%
-  unique() %>%
+check_max <- date_group %>%
+  group_by(group) %>%
+  mutate(peak = max(runningmeandis)) %>%
   ungroup() %>%
-  left_join(precip_temp_data, by = c("date" = "DATE"))
+  mutate(is.greater = ifelse(peak >= (2 * mean(DC_discharge$runningmeandis)), "keep", "don't")) %>%
+  filter(is.greater == "keep")
 
 
-ggplot(flow_prcp) + geom_point(aes(PRCP, meandis))
-
-
-
-
-
-
-
-
+ggplot(check_max %>% filter(group == c(1, 6, 8, 18, 23, 25, 26))) +
+  geom_point(aes(date, runningmeandis)) +
+  geom_point(aes(date, bt),color = "red") +
+  #geom_point(aes(date, test.x), color = "blue") +
+  facet_wrap("group", scales = "free")
 
 
 
 
+x <- c(1, 4:6, 8, 10, 12:14, 16:18, 23, 26, 27)
+y <- LETTERS[1:15]
+
+labels <- as.data.frame(x) %>%
+  mutate(y = y)
+
+#function to obtain coefficient information from regression
+info <- function() {
+  
+  info <- lm(runningmean ~ runningmeandis, date_group)
+
+ 
+  coef(info())[2]
+
+}
+
+summary(lm(runningmean~runningmeandis, date_group))$adj.r.squared
+
+date_group <- date_group %>%
+  left_join(labels, by = c("group" = "x"))
+  #mutate(slope = lapply(split(date_group, group), lm(runningmean ~ runningmeandis)))
+
+
+for(i in (1:length(date_group$group))) {
+  
+  test <- date_group %>%
+    mutate(slope = coef(lm(runningmean~runningmeandis))[2]) %>%
+    mutate(r.sq = summary(lm(runningmean~runningmeandis))$adj.r.squared)
+  
+}
+  
+
+
+ ggplot(date_group %>% filter(group == c(1, 4:6, 8, 10, 12:14, 16:18, 23, 26, 27))) +
+  geom_point(aes(runningmeandis, runningmean)) +
+  geom_smooth(aes(runningmeandis, runningmean), method = "lm", se = FALSE, color = "#1DACE8") +
+  labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       x = "\nDischarge"~(m^3~s^-1)) +
+  L_theme() +
+  facet_wrap("y", scales = "free")
+
+
+
+ggplot(date_group %>% filter(group == c(1, 4:6, 8, 10, 12:14, 16:18, 23, 26, 27))) +
+  geom_line(aes(date, runningmean, color = "#F24D29")) +
+  labs(x = "",
+       y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n") +
+  L_theme() + theme(legend.position = "none") +
+  facet_wrap("y", scales = "free") 
+
+
+
+ggplot(date_group %>% filter(group == c(1, 4:6, 8, 10, 12:14, 16:18, 23, 26, 27))) +
+  geom_line(aes(date, runningmeandis, color = "Flow (cms)")) +
+  geom_line(aes(date, bt, color = "Baseflow (cms)")) +
+  facet_wrap("y", scales = "free") +
+  labs(x = "", y = "\nDischarge"~(m^3~s^-1)) +
+  L_theme() +
+  scale_color_manual("",
+                     labels = c("Baseflow", "Flow"),
+                     values = c("#C4CFD0", "#1C366B")) 
 
 
 
 
 
+x <- c(1, 4:6, 8, 10, 12:14, 16:18, 23, 26, 27)
+y <- LETTERS[1:15]
+
+labels <- as.data.frame(x) %>%
+  mutate(y = y)
+
+date_group <- date_group %>%
+  left_join(labels, by = c("group" = "x"))
 
 
 
 
 
-
-
+df_subs <- lapply(unique(date_group$group), function(i){
+  date_group[date_group$group ==  i,] %>%
+    mutate(slope = coef(lm(runningmean~runningmeandis))[2]) %>%
+    mutate(r.sq = summary(lm(runningmean~runningmeandis))$adj.r.squared)
+}) 
 
 
 
