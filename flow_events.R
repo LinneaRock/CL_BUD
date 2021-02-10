@@ -100,7 +100,7 @@ ggplot(date_group) +
 mean(DC_discharge$runningmeandis) #0.4644761
 median(DC_discharge$runningmeandis) #0.3859804
 
-ggplot(DC_next) + geom_line(aes(date, ldis))
+
 
 
 
@@ -123,13 +123,6 @@ ggplot(flow_prcp) + geom_point(aes(PRCP, meandis))
 
 
 
-dates <- c("2018-05-16", "2018-07-20", "2018-06-25", "2018-06-26", "2018-07-21", "2018-07-22", "2018-05-17")
-
-dates1 <- sort(as.Date(dates))
-split(dates1, cumsum(c(TRUE, diff(dates1) != 1)))
-
-
-df1 <- data.frame(dates1, group = cumsum(c(TRUE, diff(dates1) != 1)))
 
 
 
