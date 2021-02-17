@@ -92,7 +92,7 @@ dates2 <- data.frame(dates1, group = cumsum(c(TRUE, diff(dates1) != 1)))
 
 #part2
 
-QC_plots <- function(x,y, event_data, fileName, creekName) {
+QC_plots <- function(x,y, event_data, fileName, creekName, discharge_data, cond_data) {
   
   labels <- as.data.frame(x) %>%
     mutate(y = y)
@@ -173,4 +173,17 @@ QC_plots <- function(x,y, event_data, fileName, creekName) {
   gtsave(data = table, paste("Plots/QC_plots/", fileName, "/stats.png", sep = ""), expand = 10, zoom = 10)
   
   
+  library(data.table)
+  qsc <- join_datasets_cond(discharge_data, cond_data)
+  
+  ggplot() +
+    geom_point(qsc, mapping = aes(runningmeandis, runningmean), color = "#C4CFD0") +
+    geom_smooth(qsc, mapping = aes(runningmeandis, runningmean), method = "lm", se = FALSE, color = "grey") +
+    labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+         x = "\nDischarge"~(m^3~s^-1)) +
+    L_theme() +
+    geom_jitter(width = 0.5, size = 1) +
+    geom_smooth(final %>% drop_na(y), mapping = aes(runningmeandis, runningmean, color = y), method = "lm", se = FALSE) +
+    scale_color_viridis_d()
+  ggsave(paste("Plots/QC_plots/", fileName, "/events_vs_alldata.png", sep = ""), height = 12, width = 12, units = "in")
 }
