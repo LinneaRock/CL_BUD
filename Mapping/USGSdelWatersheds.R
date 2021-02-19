@@ -1,6 +1,9 @@
 source("Data/shapefiles/watersheds_tribs.R")
 library(gt)
 library(webshot)
+library(tidyverse)
+library(sf)
+library(ggspatial)
 
 # params <- charsWIC[["parameters"]] %>%
 #   select(-value, - ID)
@@ -44,7 +47,9 @@ usgs_ws_all2 <- as.data.frame(usgs_ws_all) %>% dplyr::select(name,
                                                        PRECIP,
                                                        SNOFALL,
                                                        CSL10_85) %>% 
-  mutate_if(is.numeric, round, digits = 2)
+  left_join(wsroads, by = "name") %>%
+  mutate_if(is.numeric, round, digits = 2) 
+  
 
 # Make the tables
 gt_tbl <- gt(usgs_ws_all2)
@@ -61,7 +66,9 @@ ws_usgs <- gt_tbl %>%
     WETLAND = "Wetland Area (%)",
     PRECIP = "Average Annual Precipitation (cm)",
     SNOFALL = "Average Annual Snowfall (cm)",
-    CSL10_85 = html("Stream Slope (m km<sup>-1<sup>)")
+    CSL10_85 = html("Stream Slope (m km<sup>-1<sup>)"),
+    length_m = "Road Length (m)",
+    road_density_mha = html("Road Density (m ha<sup>-1<sup>)")
     #TotalRoadDensity = html("Road Density m ha<sup>-1<sup>")
   ) %>%
   tab_header(
@@ -110,6 +117,125 @@ ggplot(gage.bb.sf) +
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
 
 ggsave('Plots/USGS_Watershed/USGSMap_Cropland.png', width = 6, height = 6, units = 'in') 
+
+
+
+
+#######################################################################################
+#Road information in these catchments
+
+
+
+WI_roads <- st_read("C:/Users/linne/Downloads/WIroads/wisconsin-latest-free.shp/gis_osm_roads_free_1.shp")
+str(WI_roads) #classes sf and data.frame
+
+
+road_classes <- WI_roads %>%
+  as.data.frame()%>%
+  select(fclass) %>%
+  unique()
+
+
+roads_in_wsDC <- st_intersection(WI_roads, wsDC)
+roads_in_wsPBMS <- st_intersection(WI_roads, wsPBMS)
+roads_in_wsPBSF <- st_intersection(WI_roads, wsPBSF)
+roads_in_wsSH <- st_intersection(WI_roads, wsSH)
+roads_in_wsSMC <- st_intersection(WI_roads, wsSMC)
+roads_in_wsSW <- st_intersection(WI_roads, wsSW)
+roads_in_wsWC <- st_intersection(WI_roads, wsWC)
+roads_in_wsWIC <- st_intersection(WI_roads, wsWIC)
+roads_in_wsYI <- st_intersection(WI_roads, wsYI)
+roads_inwsYN <- st_intersection(WI_roads, wsYN)
+roads_inwsYS <- st_intersection(WI_roads, wsYS)
+
+roads_plot <- function(watershed, roads_in_watershed, name) {
+  ggplot() +
+    annotation_map_tile(type = world_gray, zoom = 12) +
+    geom_sf(watershed, mapping = aes(), color = "#E5C4A1", fill = "#E5C4A1") +
+    geom_sf(roads_in_watershed, mapping = aes()) 
+  
+  ggsave(paste('Plots/USGS_Watershed/', name,'.png', sep = ""), width = 6, height = 6, units = 'in') 
+  
+}
+
+roads_plot(wsDC, roads_in_wsDC, "DC")
+roads_plot(wsPBMS, roads_in_wsPBMS, "PBMS")
+roads_plot(wsPBSF, roads_in_wsPBSF, "PBSF")
+roads_plot(wsSH, roads_in_wsSH, "SH")
+roads_plot(wsSMC, roads_in_wsSMC, "SMC")
+roads_plot(wsSW, roads_in_wsSW, "SW")
+roads_plot(wsWC, roads_in_wsWC, "WC")
+roads_plot(wsWIC, roads_in_wsWIC, "WIC")
+roads_plot(wsYI, roads_in_wsYI, "YI")
+roads_plot(wsYN, roads_inwsYN, "YN")
+roads_plot(wsYS, roads_inwsYS, "YS")
+
+
+
+
+areaDC <- st_area(wsDC) / 10000 #[m^2 to ha]
+lengthroadsDC <- sum(st_length(roads_in_wsDC))
+road_densityDC <- lengthroadsDC/areaDC
+
+areaPBMS <- st_area(wsPBMS) / 10000 #[m^2 to ha]
+lengthroadsPBMS <- sum(st_length(roads_in_wsPBMS))
+road_densityPBMS <- lengthroadsPBMS/areaPBMS
+
+areaPBSF <- st_area(wsPBSF) / 10000 #[m^2 to ha]
+lengthroadsPBSF <- sum(st_length(roads_in_wsPBSF))
+road_densityPBSF <- lengthroadsPBSF/areaPBSF
+
+areaSH <- st_area(wsSH) / 10000 #[m^2 to ha]
+lengthroadsSH <- sum(st_length(roads_in_wsSH))
+road_densitySH <- lengthroadsSH/areaSH
+
+areaSW <- st_area(wsSW) / 10000 #[m^2 to ha]
+lengthroadsSW <- sum(st_length(roads_in_wsSW))
+road_densitySW <- lengthroadsSW/areaSW
+
+areaSMC <- st_area(wsSMC) / 10000 #[m^2 to ha]
+lengthroadsSMC <- sum(st_length(roads_in_wsSMC))
+road_densitySMC <- lengthroadsSMC/areaSMC
+
+areaWC <- st_area(wsWC) / 10000 #[m^2 to ha]
+lengthroadsWC <- sum(st_length(roads_in_wsWC))
+road_densityWC <- lengthroadsWC/areaWC
+
+areaWIC <- st_area(wsWIC) / 10000 #[m^2 to ha]
+lengthroadsWIC <- sum(st_length(roads_in_wsWIC))
+road_densityWIC <- lengthroadsWIC/areaWIC
+
+areaYI <- st_area(wsYI) / 10000 #[m^2 to ha]
+lengthroadsYI <- sum(st_length(roads_in_wsYI))
+road_densityYI <- lengthroadsYI/areaYI
+
+areaYN <- st_area(wsYN) / 10000 #[m^2 to ha]
+lengthroadsYN <- sum(st_length(roads_inwsYN))
+road_densityYN <- lengthroadsYN/areaYN
+
+areaYS <- st_area(wsYS) / 10000 #[m^2 to ha]
+lengthroadsYS <- sum(st_length(roads_inwsYS))
+road_densityYS <- lengthroadsYS/areaYS
+
+
+name <- c("DC", "PBMS", "PBSF", "SH", "SMC", "SW", "WC", "WIC", "YI", "YN", "YS")
+length <- c(lengthroadsDC, lengthroadsPBMS, lengthroadsPBSF, lengthroadsSH, lengthroadsSMC, lengthroadsSW, lengthroadsWC, lengthroadsWIC, lengthroadsYI, lengthroadsYN, lengthroadsYS)
+road_density <- c(road_densityDC, road_densityPBMS, road_densityPBSF, road_densitySH, road_densitySMC, road_densitySW, road_densityWC, road_densityWIC, road_densityYI, road_densityYN, road_densityYS)
+
+wsroads <- as.data.frame(name) %>%
+  mutate(length_m = as.numeric(length)) %>%
+  mutate(road_density_mha = as.numeric(road_density))
+#add to the table on line 52
+
+YS_road_types <- roads_inwsYS %>%
+  as.data.frame() %>%
+  select(fclass) %>%
+  unique()
+
+ggplot() +
+  annotation_map_tile(type = world_gray, zoom = 12) +
+  geom_sf(roads_inwsYS %>% filter(fclass == "bridleway"), mapping = aes(color = fclass)) +
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)
 
 
 
