@@ -328,10 +328,36 @@ ggsave("Plots/chloride_loading/WIC/seasonal_load.png", height = 4, width = 6, un
 
 
 
+salt_201920 <- function(data) {
+  
+  data1 <- data %>%
+    filter(season_id == "2019-2020 Salting" |
+             season_id == "2020 Non-Salting")
+  
+  total <- sum(data1$cl_load_g)
+  
+}
 
 
 
 
 
 
+total201920_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt_201920(DC_ts_mass) + salt_201920(YN_ts_mass) + salt_201920(YI_ts_mass)) / 1000000 #total chloride in Mg 
 
+
+
+library(pracma)
+H <- c(237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258)
+A <- c(24000, 43000, 120000, 263000, 472000, 767000, 1450000, 2230000, 3080000, 3900000, 4960000, 6000000, 6910000, 7220000, 7790000, 8370000, 8740000, 9420000, 10300000, 10700000, 12400000, 13700000)
+
+morph <- as.data.frame(H) %>%
+  mutate(A = A) %>%
+  mutate(HH = abs(H - max(H)))
+
+monona_volume <- trapz(x = rev(morph$HH), y = rev(morph$A))
+YI2020_discharge <- YI_discharge %>%
+  filter(year(date) == 2020) 
+YI2020_discharge <- sum(YI2020_discharge$runningmeandis)
+
+res_time <- monona_volume/(YI2020_discharge * 60 * 15) # 1.19

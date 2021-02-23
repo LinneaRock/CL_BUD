@@ -342,7 +342,10 @@ W_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% westkey$mslink, ] %>%
 
 
 
-
-
+#average lane numbers
+road_info2 <- road_info %>%
+  select(funct_class.x, lanes) %>%
+  group_by(funct_class.x) %>%
+  summarise(mean(lanes, na.rm = TRUE))
 
 

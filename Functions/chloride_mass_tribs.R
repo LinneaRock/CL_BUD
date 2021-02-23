@@ -79,12 +79,13 @@ chloride_ts_mass <- function(chloride_data, logger_data, discharge_data) {
   
   slope <- coef(info(chloride_data, logger_data))[2,1] #get slope value
   intercept <- coef(info(chloride_data, logger_data))[1,1] #intercept value 
-  
+  minobs <- min(chloride_data$chloride_mgL)
   
   
   ts_load <- combined %>%
     mutate(chloride_predict = (slope * runningmean) + intercept) %>% #estimate chloride [mg L^-1] for each specific conductivity measure
     mutate(chloride_use_mgL = ifelse(is.na(chloride_mgL), chloride_predict, chloride_mgL)) %>% #use the actual data when we have it and estimated values in all other instances
+    mutate(chloride_use_mgL = ifelse(chloride_use_mgL <= 0, minobs, chloride_use_mgL)) %>% #if concentration falls to or below zero, use the minimum observed value
     mutate(cl_rate_gs = chloride_use_mgL * runningmeandis) %>% #load rate in [g s^-1] - 1000L and 1000mg unit coversions cancel out
     mutate(cl_load_g = cl_rate_gs * 1800) %>% #grams chloride every 30 mins #integral to determine ~chloride mass [g] during the timestep [Chloride Rate g s^-1 * 1800 s]
     mutate(cumulative_cl_g = cumSkipNA(cl_load_g, sum)) #grams chloride cumulative loading

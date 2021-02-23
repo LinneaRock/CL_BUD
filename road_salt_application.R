@@ -107,3 +107,4 @@ E_salt_lanemi_season <- left_join(E19_season, E_roads, by = "ROUTE")%>%
 W_salt_lanemi_season <- left_join(W19_season, W_roads, by = "ROUTE")%>%
   select(ROUTE, total_ton, sum_lane_miles) %>%
   mutate(app_rate = (total_ton / sum_lane_miles)) #[Mg lane mile^-1]
+

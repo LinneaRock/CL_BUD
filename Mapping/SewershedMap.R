@@ -30,7 +30,7 @@ ggplot(gage.bb.sf) +
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
 
-
+ggsave("Plots/RoadSalt/routes.png", width = 12, height = 12, units = "in")
 
 
 

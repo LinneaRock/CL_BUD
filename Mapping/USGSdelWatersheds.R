@@ -229,15 +229,96 @@ wsroads <- as.data.frame(name) %>%
 
 YS_road_types <- roads_inwsYS %>%
   as.data.frame() %>%
-  select(fclass) %>%
-  unique()
+  group_by(fclass) %>%
+  tally() %>%
+  filter(fclass != "track" &
+           fclass != "track_grade1" &
+           fclass != "track_grade2" &
+           fclass != "track_grade3" &
+           fclass != "track_grade5" &
+           fclass != "living_street" &
+           fclass != "bridleway" &
+           fclass != "steps" &
+           fclass != "pedestrian" &
+           fclass != "path" &
+           fclass != "footway" &
+           fclass != "cycleway")
+
 
 ggplot() +
   annotation_map_tile(type = world_gray, zoom = 12) +
-  geom_sf(roads_inwsYS %>% filter(fclass == "bridleway"), mapping = aes(color = fclass)) +
-  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)
+  geom_sf(YS_roads, mapping = aes(color = fclass))
 
 
+YS_roads <- roads_inwsYS %>%
+  filter(fclass != "track" &
+           fclass != "track_grade1" &
+           fclass != "track_grade2" &
+           fclass != "track_grade3" &
+           fclass != "track_grade5" &
+           fclass != "living_street" &
+           fclass != "bridleway" &
+           fclass != "steps" &
+           fclass != "pedestrian" &
+           fclass != "path" &
+           fclass != "footway" &
+           fclass != "cycleway" &
+           fclass != "residential" & #possibly salted outside of Madison
+           fclass != "service")  #very probably salted by private companies
+
+
+all_roads <- YS_roads %>%
+  mutate(lanes = NA) %>%
+  mutate(lanes = ifelse(fclass == "motorway", 8, lanes),
+         lanes = ifelse(fclass == "motorway_link", 1, lanes),
+         lanes = ifelse(fclass == "primary", 3, lanes),
+         lanes = ifelse(fclass == "primary_link", 1, lanes),
+         lanes = ifelse(fclass == "secondary", 2, lanes),
+         lanes = ifelse(fclass == "secondary_link", 1, lanes),
+         lanes = ifelse(fclass == "tertiary", 2, lanes),
+         lanes = ifelse(fclass == "tertiary_link", 1, lanes),
+         lanes = ifelse(fclass == "trunk", 4, lanes),
+         lanes = ifelse(fclass == "trunk_link", 1, lanes),
+         lanes = ifelse(fclass == "unclassified", 2, lanes)
+         )
+
+
+# road_test <- all_roads %>%
+#   select(osm_id, fclass, name, ref, lanes, geometry) %>%
+#   st_set_crs(4326)
+# 
+# e_road_test <- E_Map_Geo %>%
+#   select(mslink, segment_name, funct_class, Shape) %>%
+#   rename(geometry = Shape) %>%
+#   st_transform(crs = 4326)
+# 
+# new_test <- road_test %>%
+#   st_join(e_road_test, by = "geometry")
+
+
+library(rmapshaper)
+madison_shape <- st_read("C:/Users/linne/Downloads/City_Limit/City_Limit.shp") %>% st_buffer(dist = 0)
+roads_outside_Madison <- ms_erase(all_roads, madison_shape) %>%
+  mutate(length = st_length(geometry)) %>%
+  select(osm_id, fclass, name, ref, lanes, length, geometry)
+
+#Dane county 2019-20 salt application rate was 16.44 tons per lane mile 
+
+roads_outside_Madison <- roads_outside_Madison %>%
+  mutate(lanemile = (length/1609) * lanes) %>%
+  mutate(salt_app = (lanemile * 16.44) * 0.907185) #convert to Mg (metric tonne) 
+
+winter1920_salt_outside_Madison <- sum(roads_outside_Madison$salt_app)
+winter1920_salt_inside_Madison <- sum(Winter19$total_ton)
+all_salt201920 <- winter1920_salt_inside_Madison + as.numeric(winter1920_salt_outside_Madison)
+#chloride is 60.663% of the NaCl compound
+chloride_201920 <- all_salt201920 * 0.60663
+
+
+ggplot() +
+  annotation_map_tile(type = world_gray, zoom = 12) +
+  geom_sf(madison_shape, mapping = aes(), fill = "light blue") +
+  geom_sf(new_test3, mapping = aes(color = lanes))
 
 
 
