@@ -21,13 +21,19 @@ pvalue <- function(cl, cond) {
  coef(info(cl, cond))[2,4]
 }
 
+SH.lm <- lm(chloride_mgL ~ runningmean, labSH1)
+SH.slope <- round(coef(SH.lm)[2], 2)
+SH.intercept <- round(coef(SH.lm)[1], 2)
+SH.rsq <- round(summary(SH.lm)$r.squared, 2)
+SH.p <- coef(summary(SH.lm))[2,4]
+
 # Make the table
 River_stats <- data.frame(
-  River = c("Yahara River North", "Sixmile Creek", "Dorn Creek", "Pheasant Branch - Main Stem", "Pheasant Branch - South Fork", "Yahara River Isthmus", "Wingra Creek", "Starkweather Creek", "Yahara River South"),
-  Slope = c(slope(labYN, YN_cond_data), slope(lab6MC, SMC_cond_data), slope(labDC, DC_cond_data), slope(labPBMS, PBMS_cond_data), slope(labPBSF, PBSF_cond_data), slope(labYI, YI_cond_data), slope(labWIC, WIC_cond_data), slope(labSW, SW_cond_data), slope(labYS, YS_cond_data)),
-  Intercept = c(intercept(labYN, YN_cond_data), intercept(lab6MC, SMC_cond_data), intercept(labDC, DC_cond_data), intercept(labPBMS, PBMS_cond_data), intercept(labPBSF, PBSF_cond_data), intercept(labYI, YI_cond_data), intercept(labWIC, WIC_cond_data), intercept(labSW, SW_cond_data), intercept(labYS, YS_cond_data)),
-  Adjusted_R2 = c(r.sqr.lm(labYN, YN_cond_data), r.sqr.lm(lab6MC, SMC_cond_data), r.sqr.lm(labDC, DC_cond_data), r.sqr.lm(labPBMS, PBMS_cond_data), r.sqr.lm(labPBSF, PBSF_cond_data), r.sqr.lm(labYI, YI_cond_data), r.sqr.lm(labWIC, WIC_cond_data), r.sqr.lm(labSW, SW_cond_data), r.sqr.lm(labYS, YS_cond_data)),
-  P_value = c(pvalue(labYN, YN_cond_data), pvalue(lab6MC, SMC_cond_data), pvalue(labDC, DC_cond_data), pvalue(labPBMS, PBMS_cond_data), pvalue(labPBSF, PBSF_cond_data), pvalue(labYI, YI_cond_data), pvalue(labWIC, WIC_cond_data), pvalue(labSW, SW_cond_data), pvalue(labYS, YS_cond_data))
+  River = c("Yahara River North", "Sixmile Creek", "Dorn Creek", "Pheasant Branch - Main Stem", "Pheasant Branch - South Fork", "Yahara River Isthmus", "Wingra Creek", "Starkweather Creek", "Yahara River South", "Spring Harbor Storm Sewer"),
+  Slope = c(slope(labYN, YN_cond_data), slope(lab6MC, SMC_cond_data), slope(labDC, DC_cond_data), slope(labPBMS, PBMS_cond_data), slope(labPBSF, PBSF_cond_data), slope(labYI, YI_cond_data), slope(labWIC, WIC_cond_data), slope(labSW, SW_cond_data), slope(labYS, YS_cond_data), SH.slope),
+  Intercept = c(intercept(labYN, YN_cond_data), intercept(lab6MC, SMC_cond_data), intercept(labDC, DC_cond_data), intercept(labPBMS, PBMS_cond_data), intercept(labPBSF, PBSF_cond_data), intercept(labYI, YI_cond_data), intercept(labWIC, WIC_cond_data), intercept(labSW, SW_cond_data), intercept(labYS, YS_cond_data), SH.intercept),
+  Adjusted_R2 = c(r.sqr.lm(labYN, YN_cond_data), r.sqr.lm(lab6MC, SMC_cond_data), r.sqr.lm(labDC, DC_cond_data), r.sqr.lm(labPBMS, PBMS_cond_data), r.sqr.lm(labPBSF, PBSF_cond_data), r.sqr.lm(labYI, YI_cond_data), r.sqr.lm(labWIC, WIC_cond_data), r.sqr.lm(labSW, SW_cond_data), r.sqr.lm(labYS, YS_cond_data), SH.rsq),
+  P_value = c(pvalue(labYN, YN_cond_data), pvalue(lab6MC, SMC_cond_data), pvalue(labDC, DC_cond_data), pvalue(labPBMS, PBMS_cond_data), pvalue(labPBSF, PBSF_cond_data), pvalue(labYI, YI_cond_data), pvalue(labWIC, WIC_cond_data), pvalue(labSW, SW_cond_data), pvalue(labYS, YS_cond_data), SH.p)
 )
 
 

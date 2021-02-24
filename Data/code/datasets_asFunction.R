@@ -142,7 +142,16 @@ fieldclPBSF <- readfieldcl("PBSF") %>%
 #Spring Harbor Data retreived outside of function because this is not a standardized file
 labSH <- read_xlsx("Data/Historical_External/SpringHarborChloride.xlsx") %>%
   mutate(date = as.POSIXct(datetime_collected, format = "%m-%d-%Y %h:%m:%s", tz = "GMT")) %>%
-  mutate(date = as.Date(as.character(date)))
+  mutate(date = as.Date(as.character(date))) %>%
+  mutate(mon = months.POSIXt(date)) %>%
+  mutate(season = NA) %>%
+  mutate(season = ifelse(
+    mon == "November" |
+      mon == "December" |
+      mon == "January" |
+      mon == "February" |
+      mon == "March", "November - March", season),
+    season = ifelse(is.na(season), "April - October", season))
 
 
 ##DISCHARGE DATA ####
@@ -185,7 +194,18 @@ d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2019-12-01", "", tz = "G
 
 
 cl_data_flow_sc <- readNWISuv("05427965", c("00060", "00095"), "2014-02-20", "2016-09-29", tz = "GMT")
-cl_data_daily <- readNWISdv("05427965", c("00940", "70290", "00060"), "2014-02-20", "2016-09-29")
+cl_data_flow_sc <- cl_data_flow_sc %>%
+  rename(discharge = X_00060_00000,
+         sp_cond = X_00095_00000) %>%
+  select(dateTime, discharge, sp_cond) %>%
+  mutate(discharge = discharge * 0.028316847) %>%
+  rename(runningmean = sp_cond,
+         date = dateTime,
+         runningmeandis = discharge)
+#cl_data_daily <- readNWISdv("05427965", c("00940", "70290", "00060"), "2014-02-20", "2016-09-29")
+
+
+
 
 #Data needed to calculate Water Depth - readLLDST is used to deal with dates in central daylight savings time. 
 #datasets need to be downloaded and saved by their dates because the model needs reference height points based on specific times. 

@@ -36,6 +36,8 @@ usgs_ws_all <- build_dataset(wsYN, "YN") %>%
   bind_rows(build_dataset(wsSH, "SH")) %>%
   bind_rows(build_dataset(wsWC, "WC"))
 
+write_rds(usgs_ws_all, "Data/usgs_ws_shapes.rds")
+
 usgs_ws_all2 <- as.data.frame(usgs_ws_all) %>% dplyr::select(name,
                                                        DRNAREA,
                                                        LC01WATER,
@@ -50,6 +52,9 @@ usgs_ws_all2 <- as.data.frame(usgs_ws_all) %>% dplyr::select(name,
   left_join(wsroads, by = "name") %>%
   mutate_if(is.numeric, round, digits = 2) 
   
+
+write_rds(usgs_ws_all2, "Data/usgs_ws_info_roads.rds")
+
 
 # Make the tables
 gt_tbl <- gt(usgs_ws_all2)

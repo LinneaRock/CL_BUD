@@ -328,22 +328,80 @@ ggsave("Plots/chloride_loading/WIC/seasonal_load.png", height = 4, width = 6, un
 
 
 
+####SH loading -- run the code in WC&SH.R first
+SH_daily_mass <- chloride_daily_mass(SH_ts_mass)
+SH_monthly_mass <- chloride_monthly_load(SH_ts_mass)
+SH_seasonal_mass <- chloride_seasonal_load(SH_ts_mass)
+SH_annual_mass <- chloride_annual_load(SH_ts_mass)
+
+#SH chloride mass loading plots
+concentration_ts(SH_ts_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/concentration_ts.png", height = 4, width = 6, units = "in")
+
+rate_ts(SH_ts_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/rate_ts.png", height = 4, width = 6, units = "in")
+
+load_ts(SH_ts_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/load_ts.png", height = 4, width = 6, units = "in")
+
+cumulative_ts(SH_ts_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/cumulative_ts.png", height = 4, width = 6, units = "in")
+
+daily_load(SH_daily_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/daily_load.png", height = 4, width = 6, units = "in")
+
+daily_ave_conc(SH_daily_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/daily_ave_conc.png", height = 4, width = 6, units = "in")
+
+monthly_load(SH_monthly_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/monthly_load.png", height = 4, width = 6, units = "in")
+
+seasonal_load(SH_seasonal_mass, "Spring Harbor Storm Sewer")
+ggsave("Plots/chloride_loading/SH/seasonal_load.png", height = 4, width = 6, units = "in")
+
+
+
+
+
 salt_201920 <- function(data) {
   
   data1 <- data %>%
     filter(season_id == "2019-2020 Salting" |
              season_id == "2020 Non-Salting")
   
-  total <- sum(data1$cl_load_g)
+  total <- sum(data1$cl_load_g, na.rm = TRUE)
   
 }
 
 
 
 
+total201920_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt_201920(DC_ts_mass) + salt_201920(YN_ts_mass) + salt_201920(YI_ts_mass) + salt_201920(SH_ts_mass)) / 1000000 #total chloride in Mg 
+
+names <- c("PBMS", "SMC", "DC", "YN", "YI", "SH", "PBSF")
+load <- c(salt_201920(PBMS_ts_mass) , salt_201920(SMC_ts_mass) , salt_201920(DC_ts_mass) , salt_201920(YN_ts_mass) , salt_201920(YI_ts_mass) , salt_201920(SH_ts_mass), salt_201920(PBSF_ts_mass))
+max <- c(max(PBMS_ts_mass$chloride_use_mgL) , max(SMC_ts_mass$chloride_use_mgL) , max(DC_ts_mass$chloride_use_mgL) , max(YN_ts_mass$chloride_use_mgL) , max(YI_ts_mass$chloride_use_mgL) , max(SH_ts_mass$chloride_use_mgL, na.rm = TRUE), max(PBSF_ts_mass$chloride_use_mgL, na.rm = TRUE))
 
 
-total201920_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt_201920(DC_ts_mass) + salt_201920(YN_ts_mass) + salt_201920(YI_ts_mass)) / 1000000 #total chloride in Mg 
+loading <- as.data.frame(names) %>%
+  mutate(load = load) %>%
+  left_join(usgs_ws_all2, by = c("names" = "name")) %>%
+  mutate(loadperarea = load/DRNAREA) %>%
+  mutate(loadperdev = load/DEVNLCD01) %>%
+  mutate(max = max)
+
+
+ggplot(loading) +
+  geom_point(aes(DEVNLCD01, max))
+
+ggplot(loading) +
+  geom_point(aes(DEVNLCD01, loadperdev))
+
+fit <- lm(DRNAREA ~ load, loading)
+summary(fit)
+
+
+
 
 
 
