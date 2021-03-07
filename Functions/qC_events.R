@@ -14,7 +14,7 @@ find_all_events <- function(discharge_data, baseflow_data, fileName, cond_data) 
   
   df <- cbind(discharge_data, baseflow_data) %>%
     mutate(difference = runningmeandis - bt) %>%
-    mutate(test = ifelse(difference > threshold, 0.25, NA)) #this just helps narrow down the dataset right away
+    mutate(test = ifelse(difference > threshold, 0.25, NA)) #this just helps narrow down the dataset right away. 0.25 is a dummy variable
   
  #saving a plot to check for problems 
   ggplot(df) +
