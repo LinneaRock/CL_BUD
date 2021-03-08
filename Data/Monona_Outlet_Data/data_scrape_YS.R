@@ -27,6 +27,7 @@ checkplot <- function(df, parameter) {
 df = fromJSON('http://infosyahara.org/plot/7days.mononaoutlet.json')
 str(df)
 
+
 #Read in old data
 velocity <- read.csv("Data/Monona_Outlet_Data/velocity_YS.csv") %>%
   select(date, velocity) %>%
