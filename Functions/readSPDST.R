@@ -16,10 +16,9 @@ readSPDST <- function(id, files) {
     drop_na() %>%
     select(Date, Low.Range, Full.Range, Temp) %>%
     mutate(#char = as.character(Date),
-      date = as.POSIXct(strptime(Date, format = "%m-%d-%Y %H:%M:%S", tz = 'GMT'))) %>% #GMT - 5:00
+      date = as.POSIXct(strptime(Date, format = "%m-%d-%Y %H:%M:%S", tz = "Etc/GMT-7"))) %>% #CST
     select(date, Low.Range, Full.Range, Temp) %>%
     mutate(sp.cond = SC(Full.Range, Temp)) %>%
-    mutate(date = date + hours(5)) %>% #converting to GMT from CDT
     mutate(ID = id)
   
   return(logger)

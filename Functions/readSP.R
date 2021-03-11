@@ -14,8 +14,7 @@ readSP <- function(id, files) {
     drop_na() %>%
     select(Date, Low.Range, Full.Range, Temp) %>%
     mutate(#char = as.character(Date),
-           date = as.POSIXct(strptime(Date, format = "%m-%d-%Y %H:%M:%S", tz = 'GMT'))) %>% #GMT - 6:00
-    mutate(date = date + hours(6)) %>% #converting this to actual GMT to standardize time
+           date = as.POSIXct(strptime(Date, format = "%m-%d-%Y %H:%M:%S", tz = "Etc/GMT-6"))) %>% #CST
     select(date, Low.Range, Full.Range, Temp) %>%
     mutate(sp.cond = SC(Full.Range, Temp)) %>%
     mutate(ID = id)

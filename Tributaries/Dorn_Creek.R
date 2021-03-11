@@ -22,35 +22,36 @@ source("Functions/L_theme.R")
 #source("functions/impute_missing.R")
 source("functions/ts_grid.R")
 
-# #calling and naming raw data
-#  loggerDC1 <- loggerDC %>% #HOBO conductivity data
-#    mutate(sp.cond = ifelse(date >= "2020-09-22 17:00:00" & date <= "2020-10-06 10:30:00", NA, sp.cond)) %>%
-#    na.omit()
-
-# # #flag outliers using anomalize package
-# DC_outlier <- flagged_data(loggerDC1)
-# #plot to inspect where to correct outliers
-# plot_flagged(DC_outlier)
-# #after inspecting, filter and clean anomalies
-# DC_cleaned <- DC_outlier %>%
-#   filter(Year_Month == "2020-1" |
-#            Year_Month == "2020-10" |
-#            Year_Month == "2020-2" |
-#            Year_Month == "2020-3" |
-#            Year_Month == "2020-4") %>%
-#   clean_anomalies()
-# #insepect cleaned points
-# plot_cleaned(DC_cleaned)
-# #final dataset with runningmean, trend, and corrected specific conductance data
-# DC_cond_data <- final_cond_data(loggerDC1, DC_cleaned, DC_outlier)
-# write_rds(DC_cond_data, "Data/HOBO_Loggers/DC/DC_cond_data.rds")
+# # #calling and naming raw data
+#   loggerDC1 <- loggerDC %>% #HOBO conductivity data
+#     #mutate(sp.cond = as.numeric(sp.cond)) %>%
+#     mutate(sp.cond = ifelse(date >= as.POSIXct("2020-09-22 16:00:00", tz = "Etc/GMT-6") & date <= as.POSIXct("2020-10-06 9:30:00", tz = "Etc/GMT-6"), NA, sp.cond)) %>%
+#     na.omit()
+# 
+# # # #flag outliers using anomalize package
+#  DC_outlier <- flagged_data(loggerDC1)
+# # #plot to inspect where to correct outliers
+#  plot_flagged(DC_outlier)
+# # #after inspecting, filter and clean anomalies
+#  DC_cleaned <- DC_outlier %>%
+#    filter(Year_Month == "2020-1" |
+#             Year_Month == "2020-10" |
+#             Year_Month == "2020-2" |
+#             Year_Month == "2020-3" |
+#             Year_Month == "2020-4") %>%
+#    clean_anomalies()
+# # #insepect cleaned points
+#  plot_cleaned(DC_cleaned)
+# # #final dataset with runningmean, trend, and corrected specific conductance data
+#  DC_cond_data <- final_cond_data(loggerDC1, DC_cleaned, DC_outlier)
+#  write_rds(DC_cond_data, "Data/HOBO_Loggers/DC/DC_cond_data.rds")
 
 
 DC_cond_data <- read_rds("Data/HOBO_Loggers/DC/DC_cond_data.rds")
 fieldcondDC <- fieldcondDC #conductivity measured in the field
 labDC <- labDC #IC data 
-# DC_discharge <- rolling_ave_discharge(DC_cond_data, d.DC)
-# write_rds(DC_discharge, "Data/discharge/DC_discharge.rds")
+ # DC_discharge <- rolling_ave_discharge(DC_cond_data, d.DC)
+ # write_rds(DC_discharge, "Data/discharge/DC_discharge.rds")
 DC_discharge <- read_rds("Data/discharge/DC_discharge.rds")
 
 
@@ -98,7 +99,7 @@ eval(labDC, DC_cond_data)
 sccl(DC_cond_data, labDC)
 
 #Comparing conductivity collected with handheld meter and HOBO collected
-cond_compare(fieldcondDC, SMC_cond_data)
+cond_compare(fieldcondDC, DC_cond_data)
 
 #Comparing chloride concentrations collected with YSI and lab analyzed 
 cl_compare(fieldclDC, labDC)
