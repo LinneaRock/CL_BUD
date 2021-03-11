@@ -23,28 +23,28 @@ source("functions/ts_grid.R")
 
 
 #flag outliers using anomalize package
-# SMC_outlier <- flagged_data(logger6MC)
-# #plot to inspect where to correct outliers
-# plot_flagged(SMC_outlier)
-# #after inspecting, filter and clean anomalies
-# SMC_cleaned <- SMC_outlier %>%
-#   filter(Year_Month == "2020-10" |
-#           Year_Month == "2020-3" |
-#            Year_Month == "2020-4" |
-#            Year_Month == "2020-8") %>%
-#   clean_anomalies()
-# #insepect cleaned points
-# plot_cleaned(SMC_cleaned)
-# #final dataset with runningmean, trend, and corrected specific conductance data
-# SMC_cond_data <- final_cond_data(logger6MC, SMC_cleaned, SMC_outlier)
-# write_rds(SMC_cond_data, "Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
+#  SMC_outlier <- flagged_data(logger6MC)
+# # #plot to inspect where to correct outliers
+#  plot_flagged(SMC_outlier)
+# # #after inspecting, filter and clean anomalies
+#  SMC_cleaned <- SMC_outlier %>%
+#    filter(Year_Month == "2020-10" |
+#            Year_Month == "2020-3" |
+#             Year_Month == "2020-4" |
+#             Year_Month == "2021-2" & date < "2021-02-15 00:00:00") %>%
+#    clean_anomalies()
+# # #insepect cleaned points
+#  plot_cleaned(SMC_cleaned)
+# # #final dataset with runningmean, trend, and corrected specific conductance data
+#  SMC_cond_data <- final_cond_data(logger6MC, SMC_cleaned, SMC_outlier)
+#  write_rds(SMC_cond_data, "Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
 
 
 SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
 fieldcond6MC <- fieldcond6MC #conductivity measured in the field
 lab6MC <- lab6MC #IC data 
-# SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
-# write_rds(SMC_discharge, "Data/discharge/SMC_discharge.rds")
+ # SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
+ # write_rds(SMC_discharge, "Data/discharge/SMC_discharge.rds")
 SMC_discharge <- read_rds("Data/discharge/SMC_discharge.rds")
 
 #Conductivity time series

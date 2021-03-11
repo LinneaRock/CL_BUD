@@ -21,11 +21,11 @@ pvalue <- function(cl, cond) {
  coef(info(cl, cond))[2,4]
 }
 
-SH.lm <- lm(chloride_mgL ~ runningmean, labSH1)
-SH.slope <- round(coef(SH.lm)[2], 2)
-SH.intercept <- round(coef(SH.lm)[1], 2)
-SH.rsq <- round(summary(SH.lm)$r.squared, 2)
-SH.p <- coef(summary(SH.lm))[2,4]
+SH.lm  = 0#<- lm(chloride_mgL ~ runningmean, labSH1)
+SH.slope = 0 # <- round(coef(SH.lm)[2], 2)
+SH.intercept = 0 #<- round(coef(SH.lm)[1], 2)
+SH.rsq = 0 # <- round(summary(SH.lm)$r.squared, 2)
+SH.p = 0 # <- coef(summary(SH.lm))[2,4]
 
 # Make the table
 River_stats <- data.frame(

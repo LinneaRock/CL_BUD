@@ -32,8 +32,8 @@ loggerMO_Hypo <- readSP("MO", c("Data/HOBO_Loggers/MONONA/BOTTOM_2019-20/2075834
 
 
 loggerYN <- readSP("YN", c("Data/HOBO_Loggers/YN/Dec19_Feb4/20758343_YN.csv", "Data/HOBO_Loggers/YN/Feb4_Mar16/20758343_YN.csv"))
-loggerYN <- rbind(loggerYN, readSPDST("YN",c("Data/HOBO_Loggers/YN/Mar16_Jun17/20758343_YN.csv", "Data/HOBO_Loggers/YN/Jun17_Aug26/20758343_YN.csv", "Data/HOBO_Loggers/YN/Aug26_Oct22/20758343_YN.csv", "Data/HOBO_Loggers/YN/Oct22_Dec15/20758343_YN.csv"))) #%>%
-
+loggerYN <- rbind(loggerYN, readSPDST("YN",c("Data/HOBO_Loggers/YN/Mar16_Jun17/20758343_YN.csv", "Data/HOBO_Loggers/YN/Jun17_Aug26/20758343_YN.csv", "Data/HOBO_Loggers/YN/Aug26_Oct22/20758343_YN.csv", "Data/HOBO_Loggers/YN/Oct22_Dec15/20758343_YN.csv"))) %>%
+  rbind(readSP("YN", c("Data/HOBO_Loggers/YN/Dec15_Mar9/20758343_YN.csv")))
      
   
 

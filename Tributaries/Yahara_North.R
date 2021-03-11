@@ -21,29 +21,30 @@ source("functions/discharge_ts.R")
 #source("functions/impute_missing.R")
 
 
-# #loggerYN1 <- loggerYN # 
-# #flag outliers using anomalize package
-# YN_outlier <- flagged_data(loggerYN)
-# #plot to inspect where to correct outliers
-# plot_flagged(YN_outlier)
-# #after inspecting, filter and clean anomalies
-# YN_cleaned <- YN_outlier %>%
-#   filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
-#            Year_Month == "2020-6" |
-#            Year_Month == "2020-7" & observed > 1000) %>%
-#   clean_anomalies()
-# #insepect cleaned points
-# plot_cleaned(YN_cleaned)
-# #final dataset with runningmean, trend, and corrected specific conductance data
-# YN_cond_data <- final_cond_data(loggerYN, YN_cleaned, YN_outlier)
-# write_rds(YN_cond_data, "Data/HOBO_Loggers/YN/YN_cond_data.rds")
+# # #loggerYN1 <- loggerYN # 
+# # #flag outliers using anomalize package
+#  YN_outlier <- flagged_data(loggerYN)
+# # #plot to inspect where to correct outliers
+#  plot_flagged(YN_outlier)
+# # #after inspecting, filter and clean anomalies
+#  YN_cleaned <- YN_outlier %>%
+#    filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
+#             Year_Month == "2020-6" |
+#             Year_Month == "2021-2" |
+#             Year_Month == "2020-7" & observed > 1000) %>%
+#    clean_anomalies()
+# # #insepect cleaned points
+#  plot_cleaned(YN_cleaned)
+# # #final dataset with runningmean, trend, and corrected specific conductance data
+#  YN_cond_data <- final_cond_data(loggerYN, YN_cleaned, YN_outlier)
+#  write_rds(YN_cond_data, "Data/HOBO_Loggers/YN/YN_cond_data.rds")
 
 
 YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
-# YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
-# write_rds(YN_discharge, "Data/discharge/YN_discharge.rds")
+ # YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
+ # write_rds(YN_discharge, "Data/discharge/YN_discharge.rds")
 YN_discharge <- read_rds("Data/discharge/YN_discharge.rds")
 
 #Conductivity time series

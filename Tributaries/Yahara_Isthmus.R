@@ -17,24 +17,27 @@ source("Functions/find_outlier.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-#  source("functions/impute_missing.R")
-
-
-
-# #flag outliers using anomalize package
-# YI_outlier <- flagged_data(loggerYI)
-# #plot to inspect where to correct outliers
-# plot_flagged(YI_outlier)
-# #after inspecting, filter and clean anomalies
-# YI_cleaned <- YI_outlier %>%
-#   filter(Year_Month != "2020-1" |
-#            Year_Month == "2020-2" & observed > 200) %>%
-#   clean_anomalies()
-# #insepect cleaned points
-# plot_cleaned(YI_cleaned)
-# #final dataset with runningmean, trend, and corrected specific conductance data
-# YI_cond_data <- final_cond_data(loggerYI, YI_cleaned, YI_outlier)
-# write_rds(YI_cond_data, "Data/HOBO_Loggers/YI/YI_cond_data.rds")
+# #  source("functions/impute_missing.R")
+# loggerYI1 <- loggerYI %>%
+#   filter(sp.cond > 200) #deletes a couple measurements that were collected while the logger was outside of the water
+# 
+# 
+# # #flag outliers using anomalize package
+#  YI_outlier <- flagged_data(loggerYI1)
+# # #plot to inspect where to correct outliers
+#  plot_flagged(YI_outlier)
+# # #after inspecting, filter and clean anomalies
+#  YI_cleaned <- YI_outlier %>%
+#    filter(Year_Month != "2020-1" &
+#             Year_Month != "2020-2" &
+#             Year_Month != "2021-3" &
+#             Year_Month != "2021-2") %>%
+#    clean_anomalies()
+# # #insepect cleaned points
+#  plot_cleaned(YI_cleaned)
+# # #final dataset with runningmean, trend, and corrected specific conductance data
+#  YI_cond_data <- final_cond_data(loggerYI1, YI_cleaned, YI_outlier)
+#  write_rds(YI_cond_data, "Data/HOBO_Loggers/YI/YI_cond_data.rds")
 
 
 YI_cond_data <- read_rds("Data/HOBO_Loggers/YI/YI_cond_data.rds")
@@ -73,7 +76,7 @@ splot("QC_plots/", "YI_cl")
 evalq(labYI, YI_discharge)
 
 #Linear Regression between Conductivity and Chloride
-YI_linreg_plot <- linreg(labYI, YI_cond_data) + lsbs(title = "Yahara Isthmus")
+YI_linreg_plot <- linreg(labYI, YI_cond_data) + labs(title = "Yahara Isthmus")
   #captlm('Yahara River @ Main St',"Yahara River at Main St", labYI, YI_cond_data)
 splot("cl_cond_linear_regression/", "YI")
 

@@ -19,25 +19,24 @@ source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 #source("functions/impute_missing.R")
-
-
+loggerSW1 <- loggerSW %>%
+  mutate(sp.cond = ifelse(date > as.POSIXct('2021-01-28 09:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-01-31 20:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
+mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-07 12:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-24 21:30:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
+mutate(sp.cond = ifelse(sp.cond < 0, NA, sp.cond))
 
 # #flag outliers using anomalize package
-# SW_outlier <- flagged_data(loggerSW)
+ SW_outlier <- flagged_data(loggerSW1)
 # #plot to inspect where to correct outliers
-# plot_flagged(SW_outlier)
+ plot_flagged(SW_outlier)
 # #after inspecting, filter and clean anomalies
-# SW_cleaned <- SW_outlier %>%
-#   filter(Year_Month != "2019-12" &
-#            Year_Month != "2020-1" &
-#            Year_Month != "2020-2" &
-#            Year_Month != "2020-12") %>%
-#   clean_anomalies()
+ SW_cleaned <- SW_outlier %>%
+   filter(Year_Month == "2020-6" & observed >3000) %>%
+   clean_anomalies()
 # #insepect cleaned points
-# plot_cleaned(SW_cleaned)
+ plot_cleaned(SW_cleaned)
 # #final dataset with runningmean, trend, and corrected specific conductance data
-# SW_cond_data <- final_cond_data(loggerSW, SW_cleaned, SW_outlier)
-# write_rds(SW_cond_data, "Data/HOBO_Loggers/SW/SW_cond_data.rds")
+ SW_cond_data <- final_cond_data(loggerSW1, SW_cleaned, SW_outlier)
+ write_rds(SW_cond_data, "Data/HOBO_Loggers/SW/SW_cond_data.rds")
 
 
 SW_cond_data <- read_rds("Data/HOBO_Loggers/SW/SW_cond_data.rds")

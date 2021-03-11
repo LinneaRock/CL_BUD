@@ -21,21 +21,22 @@ source("functions/discharge_ts.R")
 #source("functions/impute_missing.R")
 # 
 # #HOBO conductivity data
-# loggerWIC <- loggerWIC
+ loggerWIC1 <- loggerWIC %>%
+   mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-06 10:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-26 19:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) #logger was encased in ice during this part of the month
 # 
 # #flag outliers using anomalize package
-# WIC_outlier <- flagged_data(loggerWIC)
-# #plot to inspect where to correct outliers
-# plot_flagged(WIC_outlier)
-# #after inspecting, filter and clean anomalies
-# WIC_cleaned <- WIC_outlier %>%
-#   filter(Year_Month != "2020-12") %>%
+#  WIC_outlier <- flagged_data(loggerWIC1)
+# # #plot to inspect where to correct outliers
+#  plot_flagged(WIC_outlier)
+# # #after inspecting, filter and clean anomalies
+#  WIC_cleaned <- WIC_outlier %>%
+#    filter(Year_Month == "2020-11") %>%
 #   clean_anomalies()
-# #insepect cleaned points
-# plot_cleaned(WIC_cleaned)
-# #final dataset with runningmean, trend, and corrected specific conductance data
-# WIC_cond_data <- final_cond_data(loggerWIC, WIC_cleaned, WIC_outlier)
-# write_rds(WIC_cond_data, "Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
+# # #insepect cleaned points
+#  plot_cleaned(WIC_cleaned)
+# # #final dataset with runningmean, trend, and corrected specific conductance data
+#  WIC_cond_data <- final_cond_data(loggerWIC1, WIC_cleaned, WIC_outlier)
+#  write_rds(WIC_cond_data, "Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
 
 
 WIC_cond_data <- read_rds("Data/HOBO_Loggers/WIC/WIC_cond_data.rds")

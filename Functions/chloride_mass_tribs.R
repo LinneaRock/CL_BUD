@@ -18,7 +18,7 @@ chloride_ts_mass <- function(chloride_data, logger_data, discharge_data) {
     d <- deparse(substitute(FUNC))
     funs <- c("max", "min", "prod", "sum")
     stopifnot(is.vector(x), is.numeric(x), d %in% funs)
-    FUNC <- match.fun(paste0("cum", d))
+     FUNC <- match.fun(paste0("cum", d))
     x[!is.na(x)] <- FUNC(x[!is.na(x)])
     x
   }
@@ -88,8 +88,8 @@ chloride_ts_mass <- function(chloride_data, logger_data, discharge_data) {
     mutate(chloride_use_mgL = ifelse(is.na(chloride_mgL), chloride_predict, chloride_mgL)) %>% #use the actual data when we have it and estimated values in all other instances
     mutate(chloride_use_mgL = ifelse(chloride_use_mgL <= 0, minobs, chloride_use_mgL)) %>% #if concentration falls to or below zero, use the minimum observed value
     mutate(cl_rate_gs = chloride_use_mgL * runningmeandis) %>% #load rate in [g s^-1] - 1000L and 1000mg unit coversions cancel out
-    mutate(cl_load_g = cl_rate_gs * (timestep * 60)) %>% #grams chloride every timestep #integral to determine ~chloride mass [g] during the timestep [Chloride Rate g s^-1 * s]
-    mutate(cumulative_cl_g = cumSkipNA(cl_load_g, sum)) #grams chloride cumulative loading
+    mutate(cl_load_g = cl_rate_gs * (timestep * 60))# %>% #grams chloride every timestep #integral to determine ~chloride mass [g] during the timestep [Chloride Rate g s^-1 * s]
+    #mutate(cumulative_cl_g = cumSkipNA(cl_load_g, sum)) #grams chloride cumulative loading
   
   return(ts_load)
   
