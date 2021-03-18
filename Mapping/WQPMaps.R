@@ -1,88 +1,118 @@
 library(tidyverse)
-library(urbnmapr)
 library(lubridate)
+library(dataRetrieval)
 library(sf)
-source("Functions/statemap.R")
+library(viridisLite)
+library(urbnmapr)
+library(ggspatial)
 
-#read in and manipulate dataset to be useable
-wicl <- read.csv("Data/Historical_External/WQP.csv") %>%
-  mutate(char = as.character(Date),
-         Date = as.Date(char)) %>%
-  mutate(county_fips = CountyCode + 55000) %>%
-  mutate(Result.2 = gsub("\\*","", as.character(Result))) %>%
-  mutate(result2 = as.numeric(Result.2)) %>%
-  mutate(unit = "mg/L") %>%
-  mutate(result3 = ifelse((as.character(ResultUnit)) == "ueq/L", result2 * .001 * 35.5, result2)) %>% #converting all units to mg/L
-  mutate(result4 = ifelse((as.character(ResultUnit)) == "ug/l", result2 * .001, result2)) %>% #converting all units to mg/L
-  filter(result4 >= 0) %>% #omit results less than or equal to 0
-  na.omit()
+#read in site information
+sites <- whatWQPsites(statecode = "US:55",
+             siteType = c("Lake%2C%20Reservoir%2C%20Impoundment", "Stream"),
+             characteristicName = 'Chloride')
 
-#filtering for surface water only
-SW <- wicl %>%
-  filter(LocationType == "Lake" | LocationType == "Pond-Stormwater" | LocationType == "Lake, Reservoir, Impoundment" | LocationType == "Other-Surface Water" | LocationType == "Reservoir" | LocationType == "River/Stream" | LocationType == "River/Stream Perennial" | LocationType == "Riverine Impoundment" | LocationType == "Stream" | LocationType == "Stream: Canal" | LocationType == "Stream: Ditch")
+#filtering sites
+sites2 <- sites %>%
+  select(MonitoringLocationIdentifier, MonitoringLocationTypeName, LatitudeMeasure, LongitudeMeasure, HUCEightDigitCode, DrainageAreaMeasure.MeasureValue, DrainageAreaMeasure.MeasureUnitCode)
 
-#using urbnmapr to get state/county shape
-counties <- st_read("C:/Users/linne/Downloads/County_Boundaries_24K-shp/County_Boundaries_24K.shp")
+#read in data
+data <- readWQPdata(statecode = "US:55",
+                    siteType = c("Lake%2C%20Reservoir%2C%20Impoundment", "Stream"),
+                    characteristicName = 'Chloride')
+
+#filtering data
+data1 <- data %>%
+  select(OrganizationIdentifier, ActivityMediaName, ActivityMediaSubdivisionName, ActivityStartDate, MonitoringLocationIdentifier, ResultMeasureValue, ResultStatusIdentifier, ResultMeasure.MeasureUnitCode, ActivityDepthHeightMeasure.MeasureValue, ActivityDepthHeightMeasure.MeasureUnitCode) %>%
+  filter(ActivityMediaName == "Water") %>%
+  select(-ActivityMediaName) %>%
+  rename(Units = ResultMeasure.MeasureUnitCode) %>%
+  rename(Result = ResultMeasureValue) %>%
+  mutate(Chloride = as.numeric(Result)) %>%
+  filter(Chloride > 0)
+
+
+
+# Make sure units are the same from HD's github
+replaceUnits <- function(unit,scalingfactor){
+  indx = which(data1$Units== unit)
+  data1$Chloride[indx] = data1$Chloride[indx] * scalingfactor
+  data1$Units[indx] = 'mg/l'
+  return(data1)
+}
+data1 = replaceUnits('ug/l',scalingfactor = 1/1000)
+data1 = replaceUnits('ug/l      ',scalingfactor = 1/1000)
+data1 = replaceUnits('umol      ',scalingfactor = 35.45/1000)
+data1 = replaceUnits('umol/L',scalingfactor = 35.45/1000)
+data1 = replaceUnits('ueq/L',scalingfactor = 35.45/1000)
+data1 = replaceUnits('ueq/L     ',scalingfactor = 35.45/1000)
+data1 = replaceUnits('mg/L',scalingfactor = 1)
+data1 = replaceUnits('mg/l      ',scalingfactor = 1)
+data1 = replaceUnits('mg/l      ',scalingfactor = 1)
+data1 = replaceUnits('mg/kg',scalingfactor = 1)
+data1 = replaceUnits('mg/kg     ',scalingfactor = 1)
+data1 = replaceUnits('ppm',scalingfactor = 1)
+data1 = replaceUnits('ppm       ',scalingfactor = 1)
+data1 = replaceUnits('mg/g',scalingfactor = 1000)
+data1 = replaceUnits('mg/g      ',scalingfactor = 1000)
+
+# Delete rows with no units from HD's github
+data2 <- data1 %>% dplyr::filter(Units == 'mg/l') %>%
+  dplyr::filter(!is.na(Chloride)) %>%
+  left_join(sites2, by = 'MonitoringLocationIdentifier') %>%
+  mutate(MonitoringLocationTypeName = ifelse(MonitoringLocationTypeName =='River/Stream', 'Stream',MonitoringLocationTypeName)) %>%
+  mutate(MonitoringLocationTypeName = ifelse(MonitoringLocationTypeName =='River/Stream Perennial', 'Stream',MonitoringLocationTypeName)) %>%
+  mutate(MonitoringLocationTypeName = ifelse(MonitoringLocationTypeName =='River/Stream Intermittent', 'Stream',MonitoringLocationTypeName)) %>%
+  # mutate(MonitoringLocationTypeName = ifelse(MonitoringLocationTypeName =='Well: Collector or Ranney type well', 'Well',MonitoringLocationTypeName)) %>%
+  mutate(MonitoringLocationTypeName = ifelse(MonitoringLocationTypeName =='Lake, Reservoir, Impoundment', 'Lake',MonitoringLocationTypeName)) 
+
+data3 <- data2 %>%
+  filter(ResultStatusIdentifier == 'Accepted' | ResultStatusIdentifier =='Final') %>%
+  filter(MonitoringLocationTypeName == "Stream" | MonitoringLocationTypeName == "Lake") 
+
+wi_cl <- data3 %>%
+  filter(LatitudeMeasure > 0) %>% #get rid of some data without geo
+  mutate(LongitudeMeasure = ifelse(LongitudeMeasure > 0, -1 * LongitudeMeasure, LongitudeMeasure)) %>% #any longs that are not negative need to be
+  filter(LongitudeMeasure < -86.99518) %>% #there a few points out in Lake Michigan that I do not want included
+  mutate(group = case_when(Chloride <= 10 ~ '< 10',
+                           Chloride > 10 & Chloride <= 100 ~ '10-100',
+                           Chloride > 100 & Chloride <= 250 ~ '100-250',
+                           Chloride > 250 & Chloride <= 395 ~ '250-395',
+                           Chloride > 395 & Chloride <= 757 ~ '395-757',
+                           Chloride > 757 ~ '> 757')) %>% 
+  mutate(group = factor(group, levels =  c('< 10', '10-100', '100-250', '250-395', '395-757', '> 757')))
+
+wi_cl_2000s <- wi_cl %>%
+  mutate(year = year(ActivityStartDate)) %>% 
+  filter(year >= 2000)
+
+
+wi_cl_sf <- wi_cl_2000s %>%
+  st_as_sf(coords = c("LongitudeMeasure", "LatitudeMeasure"), crs = 4326)
+
+counties <- get_urbn_map("counties", sf = TRUE) %>%
   filter(state_abbv == "WI") %>%
   mutate(county_fips = as.numeric(county_fips))
-  
-counties <-  get_urbn_map("counties", sf = TRUE) %>%
-  filter(state_abbv == "WI") %>%
-  mutate(county_fips = as.numeric(county_fips))
-  
-  
-  
-breaks <- SW %>% #creating categories for legend
-  mutate(br = ifelse(result4 <= 1, 1, NA),
-         br = ifelse(result4 > 1 & result4 <= 10, 2, br),
-         br = ifelse(result4 > 10 & result4 <= 100, 3, br),
-         br = ifelse(result4 > 100 & result4 <= 1000, 4, br),
-         br = ifelse(result4 > 1000, 5, br),
-         br = as.character(br)) %>%
-  mutate(year = year(Date))
-
-#historical river/lake data from 1960-1990
-breaks6090 <- breaks %>%
-  filter(year < 1990)
-
-#historical river/lake data from 1990-2010
-breaks902010 <- breaks %>%
-  filter(year >= 1990 & year < 2010)
-
-#historical river/lake data from 2010-2020
-breaks1020 <- breaks %>%
-  filter(year >= 2010)
-
-breaks_as_sf <- st_as_sf(breaks, coords = c("Long", "Lat"), remove = FALSE, 
-                         crs = 4326, agr = "constant")
 
 
-#Map of all historical river/lake data
-statemap2(breaks_as_sf, "1960-2020")
 
-#Map of all historical river/lake data from 1960-1990
-statemap(breaks6090, "1960-1990")
-
-#Map of all historical river/lake data from 1990-2010
-statemap(breaks902010, "1990-2010")
-
-#Map of all historical river/lake data from 2010-2020
-statemap(breaks1020, "2010-2020")
+ggplot() +
+  geom_sf(counties, mapping = aes(), fill = "#f7f7f7", color = "#969696") +
+  geom_sf(wi_cl_sf, mapping = aes(color = group)) +
+  coord_sf(datum = NA) +
+  scale_color_viridis_d(name = "Chloride Concentration"~(mg~L^-1)) +
+  labs(caption = "Figure X. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Under 10 mg/L indicates these 
+are likely unaffected by anthropogenic chloride. 250 mg/L is the taste threshold, 395 mg/L is the state's chronic toxicity 
+threshold, and 757 mg/L is the state's acute toxicity threshold. Data from waterqualitydata.us.") +
+  theme(legend.title = element_text(size =10),
+        panel.background = element_blank(), #element_rect(fill = "white", colour = "white"),
+        plot.caption = element_text(size = 10, hjust = 0)) +
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) 
+        
+ggsave("Plots/statemap.png", height = 15, width = 20, units = "cm")
 
 
 
 
-#plot of historical data
-ggplot(SW, aes(Date, result4)) +
-  geom_point(color = "#1C366B") +
-  # geom_smooth(method = "lm", color = "#F24D29") +
-  theme(axis.text = element_text(size =11),
-        axis.title = element_text(size = 11),
-        panel.background = element_rect(fill = "white", colour = "white",
-                                        size = 2, linetype = "solid"),
-        panel.grid.major = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88"), 
-        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                        colour = "gray88")) +
-  labs(x = "", y = "Chloride Concentration"~(mg~L^-1)~"\n",
-       caption = "Figure by Linnea Rock using data from waterqualitydata.us") 
