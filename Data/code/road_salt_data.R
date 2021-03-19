@@ -241,7 +241,10 @@ E_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% eastkey$mslink, ] %>%
                                 segment_name == "BRANDENBURG WAY" |
                                 segment_name == "FREESE LN",
                               16, RouteNumber)) %>% #manually adding segments for E route 16
-  mutate(RouteNumber = as.character(RouteNumber))
+  mutate(RouteNumber = as.character(RouteNumber)) 
+
+E_Map_Geo2 <- E_Map_Geo %>%
+  mutate(Salt_Route_no = paste("E Salt Route ", RouteNumber, sep = ""))
 
 
 #West roads dataset for mapping only

@@ -36,7 +36,7 @@ ggplot(gage.bb.sf) +
   geom_sf(data = gage.bb.sf, aes(shape = 'USGS River'), color = 'black', size = 1.6) + # USGS gages
   geom_sf(data = nogage.bb.sf, aes(shape = 'Rivers'), color = 'black', size = 1.6) + #rivers without gages
   geom_sf(data = lakebuoys.sf, aes(shape = 'Lakes'), color = 'black', size = 1.6) + #lake sites
-  geom_sf(data = sh.sf, aes(shape = 'USGS Storm Sewer'), size = 1.6) + #spring harbor 
+  #geom_sf(data = sh.sf, aes(shape = 'USGS Storm Sewer'), size = 1.6) + #spring harbor 
   #geom_sf(data = wc.sf, aes(shape = 'Storm Sewer'), size = 1.6) + #Willow creek
   scale_shape_manual('Legend', values=c('USGS River' = 17, 'Rivers' = 19, 'Lakes' = 15, 'USGS Storm Sewer' = 24, 'Storm Sewer' = 21)) + 
   theme_bw() + # Hilary's default theme
@@ -48,9 +48,9 @@ ggplot(gage.bb.sf) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  labs(caption = "Figure X. Map of monitoring locations. Legend describes the location types as lake, river, or storm sewer and 
-with or without USGS gaging. These are sites that have continuous conductivity measurements and are crucial to 
-evaluating the impact of road salt application.") +
+  labs(caption = "Figure X. Map of monitoring locations. Legend describes the location types as lake or river and 
+with or without USGS gaging. These are sites that were monitored using data loggers and grab sampling 
+from 2019-2021.") +
   theme(plot.caption = element_text(size = 10, hjust = 0)) 
  
 

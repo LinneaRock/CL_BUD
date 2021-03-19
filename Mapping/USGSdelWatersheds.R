@@ -174,8 +174,17 @@ roads_plot(wsWC, roads_in_wsWC, "WC")
 roads_plot(wsWIC, roads_in_wsWIC, "WIC")
 roads_plot(wsYI, roads_in_wsYI, "YI")
 roads_plot(wsYN, roads_inwsYN, "YN")
-roads_plot(wsYS, roads_inwsYS, "YS") + labs(caption = "Figure X. Roads in the UYRW (OpenStreetMap contributors. (2015) Planet dump [Data file from $date of database dump$]. Retrieved from https://planet.openstreetmap.org)")
+roads_plot(wsYS, roads_inwsYS, "YS") + labs(caption = "Figure X. Roads in the UYRW (OpenStreetMap contributors. (2015) Planet dump [Data file from 2021-02-08]. 
+Retrieved from https://planet.openstreetmap.org).") +
+  theme(plot.caption = element_text(size = 10, hjust = 0),
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
 
+ggsave("Plots/USGS_Watershed/watershed_roads.png", width = 20, height = 20, units = "cm")
 
 
 

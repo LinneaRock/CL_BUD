@@ -16,21 +16,7 @@ WingraSubbasins <- st_read("C:/Users/linne/OneDrive/Documents/SALT/SALT/UWSaltLa
 
 
 
-ggplot(gage.bb.sf) + 
-  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = W_Map_Geo, aes(color = SaltRt_Name)) +
-  geom_sf(data = E_Map_Geo, aes(color = RouteNumber)) +
-  scale_color_viridis_d() +
-  theme_bw() + 
-  #theme(legend.position = "none") +
-  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
-  annotation_north_arrow(location = "bl", which_north = "true", 
-                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
-                         height = unit(0.5,'in'), width = unit(0.5,'in'),
-                         style = north_arrow_nautical) + # North Arrow
-  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) # limit axes
 
-ggsave("Plots/RoadSalt/routes.png", width = 12, height = 12, units = "in")
 
 
 
