@@ -137,7 +137,7 @@ str(WI_roads) #classes sf and data.frame
 
 road_classes <- WI_roads %>%
   as.data.frame()%>%
-  select(fclass) %>%
+  dplyr::select(fclass) %>%
   unique()
 
 
@@ -157,9 +157,10 @@ roads_plot <- function(watershed, roads_in_watershed, name) {
   ggplot() +
     annotation_map_tile(type = world_gray, zoom = 12) +
     geom_sf(watershed, mapping = aes(), color = "#E5C4A1", fill = "#E5C4A1") +
-    geom_sf(roads_in_watershed, mapping = aes()) 
+    geom_sf(roads_in_watershed, mapping = aes()) +
+    theme_bw() 
   
-  ggsave(paste('Plots/USGS_Watershed/', name,'.png', sep = ""), width = 6, height = 6, units = 'in') 
+  #ggsave(paste('Plots/USGS_Watershed/', name,'.png', sep = ""), width = 6, height = 6, units = 'in') 
   
 }
 
@@ -173,7 +174,7 @@ roads_plot(wsWC, roads_in_wsWC, "WC")
 roads_plot(wsWIC, roads_in_wsWIC, "WIC")
 roads_plot(wsYI, roads_in_wsYI, "YI")
 roads_plot(wsYN, roads_inwsYN, "YN")
-roads_plot(wsYS, roads_inwsYS, "YS")
+roads_plot(wsYS, roads_inwsYS, "YS") + labs(caption = "Figure X. Roads in the UYRW (OpenStreetMap contributors. (2015) Planet dump [Data file from $date of database dump$]. Retrieved from https://planet.openstreetmap.org)")
 
 
 
