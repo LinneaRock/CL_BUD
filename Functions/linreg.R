@@ -11,7 +11,7 @@ linreg <- function(cl, other) {
   
   ggplot(qsc, aes(runningmean, chloride_mgL)) +
     geom_point(aes(color = season)) + 
-    scale_color_viridis_d() +
+    scale_color_viridis_d(option = "inferno") +
     geom_smooth(method = "lm", se = FALSE, color = "black") +
     #stat_cor() + 
     #stat_regline_equation() + 
