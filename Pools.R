@@ -27,14 +27,14 @@ pool_locations <- pools %>%
 #create a simple dataframe with the geocoded info 
 geocoded <- pool_locations %>%
   filter(!is.na(latitude)) %>%
-  select(Site, latitude, longitude) %>%
+  dplyr::select(Site, latitude, longitude) %>%
   distinct()
 
 #Figure out which addresses did not geocode and manually enter lat, long information... ugh
 #create a simple dataframe to match the geocoded dataframe
 location_na <- pool_locations %>%
   filter(is.na(latitude)) %>%
-  select(Site, latitude, longitude) %>%
+  dplyr::select(Site, latitude, longitude) %>%
   distinct() %>%
   mutate(latitude = ifelse(Site == "5607 Summer Shine Dr", 43.121650, latitude),
          longitude = ifelse(Site == "5607 Summer Shine Dr",  -89.283655, longitude),
@@ -61,17 +61,50 @@ location_na <- pool_locations %>%
          latitude = ifelse(Site == "9328 Silverstone Ln", 43.030638, latitude),
          longitude = ifelse(Site == "9328 Silverstone Ln", -89.547916, longitude),
          latitude = ifelse(Site == "9603 Paragon St", 43.064658, latitude),
-         longitude = ifelse(Site == "9603 Paragon St", -89.553901, longitude))
+         longitude = ifelse(Site == "9603 Paragon St", -89.553901, longitude),
+         longitude = ifelse(Site == "1 N Yellowstone Dr w",	-89.49341, longitude),
+         latitude = ifelse(Site == "1 N Yellowstone Dr w", 	43.06480, latitude),
+         latitude = ifelse(Site == "1 W Dayton St", 43.075765677757296, latitude),
+         longitude = ifelse(Site == "1 W Dayton St", -89.38656213724711, longitude),
+         latitude = ifelse(Site == "107 Village Green Ln", 43.1421205834845,  latitude),
+         longitude = ifelse(Site == "107 Village Green Ln", -89.30498336527383, longitude),
+         latitude = ifelse(Site == "1608 N Thompson Dr", 43.119502710075494, latitude),
+         longitude = ifelse(Site == "1608 N Thompson Dr", -89.29963349360084, longitude),
+         latitude = ifelse(Site == "401 N Thompson Dr", 43.10336, latitude),
+         longitude = ifelse(Site == "401 N Thompson Dr", -89.29745, longitude),
+         latitude = ifelse(Site == "432 W Gorham St", 43.07372245043685,  latitude),
+         longitude = ifelse(Site == "432 W Gorham St", -89.39386886471608, longitude),
+         latitude = ifelse(Site == "440 W Johnson St", 43.07274535802946, latitude),
+         longitude = ifelse(Site == "440 W Johnson St", -89.39314684262662, longitude),
+         latitude = ifelse(Site == "4820 Hayes Rd", 43.137359096471236, latitude),
+         longitude = ifelse(Site == "4820 Hayes Rd", -89.30133540749966, longitude),
+         latitude = ifelse(Site == "4862 Hayes Rd", 43.13616734507564, latitude),
+         longitude = ifelse(Site == "4862 Hayes Rd", -89.30047779048851, longitude),
+         latitude = ifelse(Site == "702 S High Point Rd", 43.05126107866632, latitude),
+         longitude = ifelse(Site == "702 S High Point Rd", -89.52238137833336, longitude),
+         latitude = ifelse(Site == "706 John Nolen Dr", 43.04768239082503, latitude),
+         longitude = ifelse(Site == "706 John Nolen Dr", -89.37333630944349, longitude),
+         latitude = ifelse(Site == "7418 Old Sauk Rd", 43.07619752071532, latitude),
+         longitude = ifelse(Site == "7418 Old Sauk Rd", -89.5121695508828, longitude),
+         latitude = ifelse(Site == "8501 Old Sauk Rd", 43.07446667455885, latitude),
+         longitude = ifelse(Site == "8501 Old Sauk Rd", -89.53069055194355, longitude),
+         latitude = ifelse(Site == "9 E Wilson St", 43.07294002747637, latitude),
+         longitude = ifelse(Site == "9 E Wilson St", -89.38053276415015, longitude),
+         latitude = ifelse(Site == "901 N High Point Rd w", 43.07881, latitude),
+         longitude = ifelse(Site == "901 N High Point Rd w", -89.51876, longitude)
+         )
 
 #create a list of sites 
 sites <- rbind(geocoded, location_na) 
 
 #bind the lat, long info to the data 
 All_pools <- left_join(pools, sites, by = "Site")
+write.csv(All_pools, "Data/Historical_External/pools.csv")
 
 #create shapefile object out of sites
 sites_sf <- st_as_sf(sites, coords = c("longitude", "latitude"),
                      crs = 4326, agr = "constant")
+
 
 str(sites_sf)         
 
@@ -81,7 +114,7 @@ All_pools <- left_join(All_pools, sites_sf, by = "Site")
 
 #making dataframe to see all receiving waters and pools
 receive <- All_pools %>%
-  select(Receiving, Site, location) %>%
+  dplyr::select(Receiving, Site, location) %>%
   distinct()
 
 
@@ -99,14 +132,16 @@ ggplot(world) +
   geom_sf() +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(All_pools$geometry, mapping = aes(color = All_pools$Receiving)) +
-  #theme_bw() +
+  theme_bw() + 
+  scale_color_viridis_d(option = "inferno", name = "Recieving Waters") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE) +
-  scale_color_discrete("Recieving Waters")
+  labs(caption = "Figure X. Swimming pool locations. Legend and colors indicate which water the swimming pools discharge into.
+(Data from PHMDC).") + L_theme()
 
 splot("swimming_pools/", "pool_locations")
 
@@ -121,10 +156,11 @@ ggplot(All_pools) +
   facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
        y = "Chloride concentration of pool effluent"~(mg~L^-1),
-       caption = "Aggregated chloride concentration data from yearly samples of swimming pools in the Upper Yahara River watershed.")+
+       caption = "Figure X. Aggregated chloride concentration data from yearly samples of swimming pools in the UYRW.")+
   L_theme()
  
-ggsave("Plots/swimming_pools/cl_data.png", height = 8, width = 12)
+splot("swimming_pools/", "cl_data")
+
 
 
 #Finding annual contribution (mass) of fall draining of outdoor pools
@@ -142,21 +178,21 @@ Outdoor_Pools_ave_Vol <- All_pools %>%
 
 #aggregating all pools by the recieving waterbodies to calculate annual mass
 annual_drainage_table <- Outdoor_Pools_ave_Vol %>%
-  select(year, Receiving, full_drain, half_drain) %>%
+  dplyr::select(year, Receiving, full_drain, half_drain) %>%
   group_by(year, Receiving) %>%
   mutate(total_full = sum(full_drain)) %>% 
   mutate(total_half = sum(half_drain)) %>%
   ungroup() %>%
-  select(year, Receiving, total_full, total_half) %>%
+  dplyr::select(year, Receiving, total_full, total_half) %>%
   distinct()
 
 #aggregating all pools by year to calculate annual mass
 watershed_annual_drain <- annual_drainage_table %>%
-  select(!Receiving) %>%
+  dplyr::select(!Receiving) %>%
   group_by(year) %>%
   mutate(Fullvol = sum(total_full),
          Halfvol = sum(total_half)) %>%
-  select(year, Fullvol, Halfvol) %>%
+  dplyr::select(year, Fullvol, Halfvol) %>%
   distinct()
 
 #aggregated masses for each recieving water
@@ -166,13 +202,13 @@ ggplot(annual_drainage_table) +
   facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
-After each summer, the pools are drained of at least half of their volume. This figure represents the range of chloride mass by draining half volume or full volume of the pools.")+
+       caption = "Figure X. Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of 
+the pools and annual chloride concentration samples. After each summer, the pools are drained of at least half 
+of their volume. This figure represents the range of chloride mass by draining half volume or full volume of the pools.")+
   L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
-
-ggsave("Plots/swimming_pools/drain_mass.png", height = 8, width = 12)
+splot("swimming_pools/", "drain_mass")
 
 
 #Figure of draining mass Cl for entire watershed
@@ -181,11 +217,10 @@ ggplot(watershed_annual_drain) +
   geom_bar(aes(year, Halfvol, fill = "Half pool volume drained"), stat = "identity") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or 
-average volumes of the pools and annual chloride concentration samples. After each 
-summer, the pools are drained of at least half of their volume. This figure represents 
-the range of chloride mass to the study area by draining half volume or full volume 
-of the pools.")+
+       caption = "Figure X. Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or 
+average volumes of the pools and annual chloride concentration samples. After each summer, 
+the pools are drained of at least half of their volume. This figure represents the range of
+chloride mass to the study area by draining half volume or full volume of the pools.")+
   L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
@@ -210,23 +245,23 @@ flushing <- All_pools %>%
 
 #aggregating all pools by the recieving waterbodies to calculate annual mass
 annual_backflush_table <- flushing %>%
-  select(year, Receiving, annual_weekly_5min, annual_weekly_10min, annual_biweekly_5min, annual_biweekly_10min) %>%
+  dplyr::select(year, Receiving, annual_weekly_5min, annual_weekly_10min, annual_biweekly_5min, annual_biweekly_10min) %>%
   group_by(year, Receiving) %>%
   mutate(total_weekly_5min = sum(annual_weekly_5min)) %>% 
   mutate(total_weekly_10min = sum(annual_weekly_10min)) %>%
   mutate(total_biweekly_5min = sum(annual_biweekly_5min)) %>%
   mutate(total_biweekly_10min = sum(annual_biweekly_10min)) %>%
   ungroup() %>%
-  select(year, Receiving, total_weekly_10min, total_biweekly_10min, total_biweekly_5min, total_weekly_5min) %>%
+  dplyr::select(year, Receiving, total_weekly_10min, total_biweekly_10min, total_biweekly_5min, total_weekly_5min) %>%
   distinct()
 
 #aggregating all pools by year to calculate annual mass
 watershed_backflush <- annual_backflush_table %>%
-  select(year, total_weekly_10min, total_biweekly_5min) %>%
+  dplyr::select(year, total_weekly_10min, total_biweekly_5min) %>%
   group_by(year) %>%
   mutate(high = sum(total_weekly_10min),
          low = sum(total_biweekly_5min)) %>%
-  select(year, high, low) %>%
+  dplyr::select(year, high, low) %>%
   distinct()
 
 #aggregated masses for each recieving water
@@ -239,14 +274,16 @@ or Weekly backflushes for 5 min"), stat = "identity") +
   facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of the pools and annual chloride concentration samples.
-This figure represents the range of chloride mass during regular weekly or biweekly backflushing. Indoor pools are assumed maintained year round (52 weeks), outdoor pools 
-assumed maintained Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
+       caption = "Figure X. Aggregated chloride mass in Kg from swimming pools. Calculated using the actual or average volumes of 
+the pools and annual chloride concentration samples. This figure represents the range of chloride mass during
+regular weekly or biweekly backflushing. Indoor pools are assumed maintained year round (52 weeks), outdoor pools 
+assumed maintained Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative since 
+backflushing occurs at higher frequency during periods of heavy use.")+
   L_theme() +
   scale_fill_manual(values = c("#E5C4A1", "#1C366B", "#F24D29"))
 
+splot("swimming_pools/", "backflush_mass")
 
-ggsave("Plots/swimming_pools/backflush_mass.png", height = 8, width = 12)
 
 #Figure of backflushing mass Cl for entire watershed
 ggplot(watershed_backflush) +
@@ -254,7 +291,7 @@ ggplot(watershed_backflush) +
   geom_bar(aes(year, low, fill = "Low backflush estimate"), stat = "identity") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Aggregated chloride mass in Kg from swimming pools.This figure represents the 
+       caption = "Figure X. Aggregated chloride mass in Kg from swimming pools.This figure represents the 
 range of chloride mass during regular weekly or biweekly backflushing. Indoor pools 
 are assumed maintained year round (52 weeks), outdoor pools assumed maintained 
 Memorial Day to Labor Day (average 14 weeks). This figure is likely conservative 
@@ -279,12 +316,13 @@ ggplot(Chloride_Mass_Load_SP) +
   facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
        y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Aggregated chloride mass in Kg from swimming pools. This figure represents the range of annual chloride mass contributions from swimming pools.
+       caption = "Figure X. Aggregated chloride mass in Kg from swimming pools. This figure represents the range of annual chloride mass contributions from swimming pools.
   This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
   L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
-ggsave("Plots/swimming_pools/mass_range.png", height = 8, width = 12)
+splot("swimming_pools/", "mass_range")
+
 
 
 
