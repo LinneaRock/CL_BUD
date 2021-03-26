@@ -72,7 +72,10 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Sewersheds within the UYRW. Note data outside of Dane County were not available (data from City of Madison).") + L_theme() +
+  labs(caption = "Figure X. Outfall basins within the UYRW. Legend and colors indicate which water the outfall basins flow into. Note: data 
+outside of Dane County were not available (data from City of Madison).") + L_theme() +
+  scale_fill_viridis_d(option = "inferno", name = "Subwatershed") + #colors may not be distinguishable enough
+  #scale_fill_manual(values = zis1, name = "Subwatershed") + #colors are not distinguishable enough :( ##color palettes created in WQPMaps.R
   theme(plot.caption = element_text(size = 10, hjust = 0),
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),

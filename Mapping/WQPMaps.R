@@ -5,6 +5,7 @@ library(sf)
 library(viridisLite)
 library(urbnmapr)
 library(ggspatial)
+library(raster)
 
 #read in site information
 sites <- whatWQPsites(statecode = "US:55",
@@ -89,6 +90,8 @@ wi_cl_2000s <- wi_cl %>%
 wi_cl_sf <- wi_cl_2000s %>%
   st_as_sf(coords = c("LongitudeMeasure", "LatitudeMeasure"), crs = 4326)
 
+st_crs(wi_cl_sf)
+
 counties <- get_urbn_map("counties", sf = TRUE) %>%
   filter(state_abbv == "WI") %>%
   mutate(county_fips = as.numeric(county_fips))
@@ -98,8 +101,8 @@ counties <- get_urbn_map("counties", sf = TRUE) %>%
 ggplot() +
   geom_sf(counties, mapping = aes(), fill = "#f7f7f7", color = "#969696") +
   geom_sf(wi_cl_sf, mapping = aes(color = group)) +
-  coord_sf(datum = NA) +
-  scale_color_viridis_d(name = "Chloride Concentration"~(mg~L^-1)) +
+  coord_sf(crs = st_crs(4326)) +
+  scale_color_viridis_d(option = "inferno", name = "Chloride Concentration"~(mg~L^-1)) +
   labs(caption = "Figure X. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Under 10 mg/L indicates these 
 are likely unaffected by anthropogenic chloride. 250 mg/L is the taste threshold, 395 mg/L is the state's chronic toxicity 
 threshold, and 757 mg/L is the state's acute toxicity threshold. Data from waterqualitydata.us.") +
@@ -109,10 +112,18 @@ threshold, and 757 mg/L is the state's acute toxicity threshold. Data from water
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
-                         style = north_arrow_nautical) 
+                         style = north_arrow_nautical) +
+  theme(plot.caption = element_text(size = 10, hjust = 0),
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
         
 ggsave("Plots/statemap.png", height = 15, width = 20, units = "cm")
 
-
-
+# library(wesanderson)
+# zis <- wes_palette(6, name = "Zissou1", type = "continuous")
+# zis1 <- wes_palette(10, name = "Zissou1", type = "continuous")
 

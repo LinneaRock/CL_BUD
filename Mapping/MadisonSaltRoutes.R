@@ -6,7 +6,7 @@ ggplot(gage.bb.sf) +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = W_Map_Geo, aes(color = SaltRt_Name)) +
   geom_sf(data = E_Map_Geo2, aes(color = Salt_Route_no)) +
-  scale_color_viridis_d(name = "Salt Route") +
+  scale_color_viridis_d(option = "inferno", name = "Salt Route") +
   theme_bw() + 
   #theme(legend.position = "none") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
