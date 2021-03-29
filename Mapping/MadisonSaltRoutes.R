@@ -1,11 +1,18 @@
 library(tidyverse)
 library(sf)
 library(ggspatial)
+source("Functions/L_theme.R")
 
-ggplot(gage.bb.sf) + 
+E_Map_Geo <- read_rds("Data/code/E_Map_Geo2.rds")
+W_Map_Geo <- read_rds("Data/code/W_Map_Geo.rds")
+
+world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/${z}/${y}/${x}.jpeg')
+
+#ggplot(gage.bb.sf) + 
+ggplot() +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = W_Map_Geo, aes(color = SaltRt_Name)) +
-  geom_sf(data = E_Map_Geo2, aes(color = Salt_Route_no)) +
+  geom_sf(data = E_Map_Geo, aes(color = Salt_Route_no)) +
   scale_color_viridis_d(option = "inferno", name = "Salt Route") +
   theme_bw() + 
   #theme(legend.position = "none") +

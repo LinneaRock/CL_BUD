@@ -341,7 +341,8 @@ W_Map_Geo <- SaltRoutes[SaltRoutes$mslink %in% westkey$mslink, ] %>%
                               , "W Salt Route 16", SaltRt_Name))  #manually adding segments for w route 16 from route 30??
   detach(package:plyr)
 
-
+saveRDS(E_Map_Geo2, "Data/code/E_Map_Geo2.rds")
+saveRDS(W_Map_Geo, "Data/code/W_Map_Geo.rds")
 
 
 
