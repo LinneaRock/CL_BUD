@@ -38,23 +38,29 @@ n.year.p <- ggplot(n.year, aes(Confirmed.Year, n_conf_imp)) +
   labs(x = "", 
        y = "Number of Waterbodies") +
   ggtitle(label = "a") +
-  L_theme()
+  L_theme()+
+  scale_x_continuous(breaks =c(2012, 2014, 2016, 2018, 2020), labels = c(2012, 2014, 2016, 2018, 2020))
 
 n.cumu.p <- ggplot(n.cumu, aes(Confirmed.Year, cumulative)) +
   geom_bar(stat = "identity", color = "#1C366B",  fill = "#1C3668") +
   labs(x = "", 
        y = "Number of Waterbodies") + 
   ggtitle(label = "b") +
-  L_theme()
+  L_theme() +
+  scale_x_continuous(breaks =c(2012, 2014, 2016, 2018, 2020), labels = c(2012, 2014, 2016, 2018, 2020))
        
        
        
        
 (n.year.p | n.cumu.p) + 
-  plot_annotation(caption = "Figure X. a) The number of waterbodies added to Wisconsin's impaired waters lists for chloride. The DNR publishes a new report every even year. 
-  b) The total amount of waterbodies impaired for chloride over time. there were 47 waterbodies actively impaired due to chloride concentrations exceeding 
-  toxicity thresholds in 2020. No waters have been removed from the list as of 2021. Data from 2020 Wisconsin Impaired Waters List – Wisconsin Department 
-  of Natural Resources (DNR, 2020).",
-                  theme = theme(text = element_text(size = 10, hjust = 0))) 
+  plot_annotation(tag_levels = 'a',tag_suffix = ')',
+                  caption = "Figure X. a) The number of waterbodies added to Wisconsin's impaired waters lists for chloride. The DNR publishes a new 
+report every even year. b) The total amount of waterbodies impaired for chloride over time. there were 47 waterbodies 
+actively impaired due to chloride concentrations exceeding toxicity thresholds in 2020. No waters have been removed 
+from the list as of 2021. Data from 2020 Wisconsin Impaired Waters List – Wisconsin Department of Natural Resources 
+(DNR, 2020).",
+                  theme = theme(plot.tag = element_text(size = 10), 
+                                plot.caption = element_text(size = 10, hjust = 0))) 
+
 
 splot("Historical_Data_Viz/", "impwtrs")

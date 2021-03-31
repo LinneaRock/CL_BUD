@@ -14,7 +14,7 @@ sites <- whatWQPsites(statecode = "US:55",
 
 #filtering sites
 sites2 <- sites %>%
-  select(MonitoringLocationIdentifier, MonitoringLocationTypeName, LatitudeMeasure, LongitudeMeasure, HUCEightDigitCode, DrainageAreaMeasure.MeasureValue, DrainageAreaMeasure.MeasureUnitCode)
+  dplyr::select(MonitoringLocationIdentifier, MonitoringLocationTypeName, LatitudeMeasure, LongitudeMeasure, HUCEightDigitCode, DrainageAreaMeasure.MeasureValue, DrainageAreaMeasure.MeasureUnitCode)
 
 #read in data
 data <- readWQPdata(statecode = "US:55",
@@ -23,9 +23,9 @@ data <- readWQPdata(statecode = "US:55",
 
 #filtering data
 data1 <- data %>%
-  select(OrganizationIdentifier, ActivityMediaName, ActivityMediaSubdivisionName, ActivityStartDate, MonitoringLocationIdentifier, ResultMeasureValue, ResultStatusIdentifier, ResultMeasure.MeasureUnitCode, ActivityDepthHeightMeasure.MeasureValue, ActivityDepthHeightMeasure.MeasureUnitCode) %>%
+  dplyr::select(OrganizationIdentifier, ActivityMediaName, ActivityMediaSubdivisionName, ActivityStartDate, MonitoringLocationIdentifier, ResultMeasureValue, ResultStatusIdentifier, ResultMeasure.MeasureUnitCode, ActivityDepthHeightMeasure.MeasureValue, ActivityDepthHeightMeasure.MeasureUnitCode) %>%
   filter(ActivityMediaName == "Water") %>%
-  select(-ActivityMediaName) %>%
+  dplyr::select(-ActivityMediaName) %>%
   rename(Units = ResultMeasure.MeasureUnitCode) %>%
   rename(Result = ResultMeasureValue) %>%
   mutate(Chloride = as.numeric(Result)) %>%
@@ -98,14 +98,14 @@ counties <- get_urbn_map("counties", sf = TRUE) %>%
 
 
 
-ggplot() +
+ggplot(gage.bb.sf) + # I don't know why but R aborts if I run this without this simple sf feature in here. This feature is created in SamplingSiteMap.R
   geom_sf(counties, mapping = aes(), fill = "#f7f7f7", color = "#969696") +
   geom_sf(wi_cl_sf, mapping = aes(color = group)) +
   coord_sf(crs = st_crs(4326)) +
   scale_color_viridis_d(option = "inferno", name = "Chloride Concentration"~(mg~L^-1)) +
-  labs(caption = "Figure X. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Under 10 mg/L indicates these 
-are likely unaffected by anthropogenic chloride. 250 mg/L is the taste threshold, 395 mg/L is the state's chronic toxicity 
-threshold, and 757 mg/L is the state's acute toxicity threshold. Data from waterqualitydata.us.") +
+  labs(caption = "Figure X. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Less than 10 mg/L indicates 
+these are likely unaffected by anthropogenic chloride. 250 mg/L is the taste threshold, 395 mg/L is Wisconsin's 
+chronic toxicity threshold, and 757 mg/L is Wisconsin's acute toxicity threshold. Data from waterqualitydata.us.") +
   theme(legend.title = element_text(size =10),
         panel.background = element_blank(), #element_rect(fill = "white", colour = "white"),
         plot.caption = element_text(size = 10, hjust = 0)) +
