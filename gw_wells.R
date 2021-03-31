@@ -2,10 +2,7 @@ library(tidyverse)
 library(readxl)
 source("Functions/L_theme.R")
 
-give.n <- function(x){
-  return(c(y = median(x)*1.05, label = length(x))) 
-  # experiment with the multiplier to find the perfect position
-}
+
 
 
 upper <- read_xlsx("Data/Historical_External/wells_phmdc.xlsx", sheet = "upper") %>%
@@ -43,7 +40,7 @@ lower_5 <- lower %>%
 # (Wenta, 2020; Wenta & Sorsa, 2011).",
 #                   theme = theme(text = element_text(size = 10, hjust = 0))) 
 
-splot("Historical_Data_Viz/", "wells")
+#splot("Historical_Data_Viz/", "wells")
 
 
 
@@ -52,6 +49,11 @@ all_wells <- upper_5 %>%
   full_join(lower_5) 
 
 all_wells$Aquifer <- factor(all_wells$Aquifer, levels = c("Upper & Lower", "Lower Only"))
+
+give.n <- function(x){
+  return(c(y = median(x)*0.75, label = length(x))) 
+  # experiment with the multiplier to find the perfect position
+}
 
 ggplot(all_wells, aes(Year, values, group = Year, fill = Aquifer)) +
   geom_boxplot() +

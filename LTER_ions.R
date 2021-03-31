@@ -50,17 +50,20 @@ ca <- ion_other(ME_MO_ion, "ca", "Calcium")
 mg <- ion_other(ME_MO_ion, "mg", "Magnesium")
 na <- ion_other(ME_MO_ion, "na", "Sodium")
 k <- ion_other(ME_MO_ion, "k", "Potassium")
-fe <- ion_other(ME_MO_ion, "fe", "Iron")
-mn <- ion_other(ME_MO_ion, "mn", "Manganese")
+#fe <- ion_other(ME_MO_ion, "fe", "Iron")
+#mn <- ion_other(ME_MO_ion, "mn", "Manganese")
 so4 <- ion_other(ME_MO_ion, "so4", "Sulfate")
 
 ionplot <- (cl | na) /
   (ca | mg) /
-  (so4 | k) /
-  (fe | mn) +
-  plot_annotation(caption = "Figure X. Major ion concentrations in Lakes Mendota and Monona from 1995 . All units are mg/L. Besides chloride and sodium, 
-no other ions show long term increasing trends in these lakes (Data source: N.Lead PI et al. (2019).",
-                  theme = theme(text = element_text(size = 10, hjust = 0)))
+  (so4 | k) +
+  plot_annotation(#tag_levels = 'a',tag_suffix = ')',
+                  caption = "Figure X. Major ion concentrations in Lakes Mendota and Monona from 1995 . All units are mg/L. Besides chloride and 
+sodium, no other ions show long term increasing trends in these lakes (Data source: N.Lead PI et al. (2019).",
+                  theme = theme(plot.tag = element_text(size = 10), 
+                                plot.caption = element_text(size = 10, hjust = 0)))
+
+
 
 ionplot
 
