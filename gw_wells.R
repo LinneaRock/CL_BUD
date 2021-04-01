@@ -1,7 +1,6 @@
 library(tidyverse)
 library(readxl)
 source("Functions/L_theme.R")
-source("Functions/splot.R")
 
 
 
@@ -52,13 +51,13 @@ all_wells <- upper_5 %>%
 all_wells$Aquifer <- factor(all_wells$Aquifer, levels = c("Upper & Lower", "Lower Only"))
 
 give.n <- function(x){
-  return(c(y = median(x)*1.1, label = length(x))) 
+  return(c(y = median(x)*0.75, label = length(x))) 
   # experiment with the multiplier to find the perfect position
 }
 
 ggplot(all_wells, aes(Year, values, group = Year, fill = Aquifer)) +
-  geom_boxplot(fatten = 0.5) +
-  stat_summary(fun.data = give.n, geom = "text", fun = median, fontface = "bold") +
+  geom_boxplot() +
+  stat_summary(fun.data = give.n, geom = "text", fun = median) +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1)) + 
   facet_wrap(.~Aquifer) +
   L_theme() +
