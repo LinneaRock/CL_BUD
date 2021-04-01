@@ -24,12 +24,12 @@ source("Functions/ts_grid.R")
 
 
 # # # #getting conductivity data ready
-#  loggerPBSF1 <- loggerPBSF %>%
-#    left_join(stage_PBSF, by = "date") %>%
-#    mutate(SC_orig = sp.cond) %>%
-#    mutate(sp.cond = ifelse(stage <= 2.11, NA, sp.cond)) %>%
-#    mutate(sp.cond = ifelse(is.na(stage), SC_orig, sp.cond)) %>%
-#    mutate(sp.cond = ifelse(sp.cond < 60, NA, sp.cond))
+  loggerPBSF1 <- loggerPBSF %>%
+    left_join(stage_PBSF, by = "date") %>%
+    mutate(SC_orig = sp.cond) %>%
+    mutate(sp.cond = ifelse(stage <= 2.11, NA, sp.cond)) %>%
+    mutate(sp.cond = ifelse(is.na(stage), SC_orig, sp.cond)) %>%
+    mutate(sp.cond = ifelse(sp.cond < 60, NA, sp.cond))
 # # 
 # # #
 # # #
