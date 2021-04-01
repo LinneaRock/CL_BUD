@@ -59,8 +59,8 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Outfall basins within the UYRW. Legend and colors indicate which water the outfall basins discharges into. Note: data 
-outside of Dane County were not available (data from City of Madison).") + L_theme() +
+  labs(caption = "Figure X. Outfall basins within the Upper Yahara River Watershed. Legend and colors indicate which waterbody the 
+outfall basins discharges into. Note: data outside of Dane County were not available (data from City of Madison).") + L_theme() +
   scale_fill_viridis_d(option = "inferno", name = "Subwatershed") + #colors may not be distinguishable enough
   #scale_fill_manual(values = zis1, name = "Subwatershed") + #colors are not distinguishable enough :( ##color palettes created in WQPMaps.R
   theme(plot.caption = element_text(size = 10, hjust = 0),
@@ -75,7 +75,7 @@ ggsave("Plots/sewershed/ws_sewersheds.png", width = 20, height = 15, units = "cm
 
 
 #map of spring harbor sewershed
-ggplot() +
+SH_map <- ggplot() +
   annotation_map_tile(type = world_gray, zoom = 12) +
   geom_sf(ws_outfallbasins, mapping = aes(), color = "#1C366B", fill = NA) +
   geom_sf(wsSH, mapping = aes(), fill = "#F24D29") +
@@ -84,8 +84,8 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Map showing the full sewershed for the Spring Harbor (SH) storm sewer monitored continuously by 
-USGS. SH sewershed is overlain on all relevant outfall basins in the UYRW.") + L_theme() +
+#   labs(caption = "Figure X. Map showing the full sewershed for the Spring Harbor (SH) storm sewer monitored continuously by 
+# USGS. SH sewershed is overlain on all relevant outfall basins in the UYRW.") + L_theme() +
   theme(plot.caption = element_text(size = 10, hjust = 0),
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),
@@ -99,7 +99,7 @@ ggsave("Plots/sewershed/SH_within_sewersheds.png", width = 20, height = 15, unit
 
 
 #map of Willow Creek sewershed
-ggplot() +
+WC_map <- ggplot() +
   annotation_map_tile(type = world_gray, zoom = 12) +
   geom_sf(ws_outfallbasins, mapping = aes(), color = "#1C366B", fill = NA) +
   geom_sf(wsWC, mapping = aes(), fill = "#F24D29") +
@@ -108,8 +108,8 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Map showing the full sewershed for Willow Creek (WC) overlain on all relevant 
-outfall basins in the UYRW.") + L_theme() +
+#   labs(caption = "Figure X. Map showing the full sewershed for Willow Creek (WC) overlain on all relevant 
+# outfall basins in the UYRW.") + L_theme() +
   theme(plot.caption = element_text(size = 10, hjust = 0),
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),
@@ -177,7 +177,7 @@ summary(idde_fit) #R2 = 99.4, p < 2.2e-16, intercept = -2.530e+02, slope = 3.350
 
 
 #map of monitored storm sewer pipe outfall basins
-ggplot() +
+pipes_map <- ggplot() +
   annotation_map_tile(type = world_gray, zoom = 12) +
   geom_sf(ws_outfallbasins, mapping = aes(), color = "#1C366B", fill = NA) +
   geom_sf(basins_idde1, mapping = aes(), color = "#F24D29", fill = "#F24D29") +
@@ -187,8 +187,8 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Map showing the basins of storm sewer pipes with data from 2011-2013 overlain on all relevant 
-outfall basins in the UYRW.") + L_theme() +
+#   labs(caption = "Figure X. Map showing the basins of storm sewer pipes with data from 2011-2013 overlain on all relevant 
+# outfall basins in the UYRW.") + L_theme() +
   theme(plot.caption = element_text(size = 10, hjust = 0),
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),
@@ -198,6 +198,15 @@ outfall basins in the UYRW.") + L_theme() +
         axis.ticks.y=element_blank())
 
 ggsave("Plots/sewershed/idde_basins.png", width = 20, height = 15, units = "cm")
+
+
+
+(SH_map | WC_map | pipes_map) +
+  plot_annotation(tag_levels = 'a',tag_suffix = ')',
+                  caption = 'Sewersheds of a) Spring Harbor , b) Willow Creek, and c) storm sewer pipes with data.',
+                  theme = theme(plot.tag = element_text(size = 10), 
+                                plot.caption = element_text(size = 10, hjust = 0)))
+ggsave("Plots/sewershed/sewersheds_patched.png", width = 20, height = 15, units = "cm")
 
 #######################################################################################################
 #point source water discharges 1988-2019

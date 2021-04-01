@@ -1,0 +1,1150 @@
+Site,Date,chloride,Cond,Volume,Receiving,address,location,NaCl,estimated_cl,year,latitude,longitude
+1 HIgh Point Oaks Ln,2010-06-28T00:00:00Z,108.57860000000002,761,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2010,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2013-07-29T00:00:00Z,134.3274,849,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2013,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2011-07-08T00:00:00Z,144.86100000000002,885,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2011,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2016-08-16T00:00:00Z,149.54260000000002,901,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2016,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2014-08-07T00:00:00Z,158.32060000000004,931,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2014,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2015-08-25T00:00:00Z,181.436,1010,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2015,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2009-07-21T00:00:00Z,184.36200000000005,1020,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2009,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2018-08-30T00:00:00Z,242.88200000000003,1220,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2018,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2017-08-08T00:00:00Z,248.734,1240,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2017,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2019-07-11T00:00:00Z,272.14200000000005,1320,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,y,2019,43.051147,-89.51766
+1 N Yellowstone Dr m,2007-06-26T00:00:00Z,503.5,1804,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2007,43.064796,-89.49341
+1 N Yellowstone Dr m,2008-07-28T00:00:00Z,275.5,1497,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2008,43.064796,-89.49341
+1 N Yellowstone Dr d,2009-07-02T00:00:00Z,387,1980,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,NA,2009,43.064796,-89.49341
+1 N Yellowstone Dr m,2009-07-02T00:00:00Z,395,1970,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2009,43.064796,-89.49341
+1 W Dayton St,2018-01-24T00:00:00Z,136.08300000000003,855,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,y,2018,43.075765677757296,-89.38656213724711
+1 W Dayton St,2013-01-17T00:00:00Z,164.17260000000002,951,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,y,2013,43.075765677757296,-89.38656213724711
+1 W Dayton St,2016-03-02T00:00:00Z,277.994,1340,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,y,2016,43.075765677757296,-89.38656213724711
+1602 W Beltline Hwy,2016-02-24T00:00:00Z,354.07000000000005,1600,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,y,2016,43.03578,-89.409167
+1602 W Beltline Hwy,2017-01-04T00:00:00Z,377.47800000000007,1680,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,y,2017,43.03578,-89.409167
+1602 W Beltline Hwy,2018-01-24T00:00:00Z,395.034,1740,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,y,2018,43.03578,-89.409167
+1726 Eagen Rd,2015-01-13T00:00:00Z,397.96000000000004,1750,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,y,2015,43.12484,-89.30882
+1726 Eagen Rd,2017-01-03T00:00:00Z,433.072,1870,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,y,2017,43.12484,-89.30882
+107 Village Green Ln,2010-06-10T00:00:00Z,170.02460000000005,971,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,y,2010,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2014-07-09T00:00:00Z,237.03,1200,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,y,2014,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2011-06-16T00:00:00Z,257.51200000000006,1270,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,y,2011,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2013-07-23T00:00:00Z,266.2900000000001,1300,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,y,2013,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2018-08-02T00:00:00Z,327.736,1510,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,y,2018,43.1421205834845,-89.30498336527383
+1 W Dayton St,2019-02-28T00:00:00Z,258,1410,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,NA,2019,43.075765677757296,-89.38656213724711
+1726 Eagen Rd,2019-01-16T00:00:00Z,506.222,2120,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,y,2019,43.12484,-89.30882
+1754 Thierer Rd,2011-01-06T00:00:00Z,190.21400000000003,1040,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,y,2011,43.12301,-89.31347
+1754 Thierer Rd,2014-01-21T00:00:00Z,263.36400000000003,1290,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,y,2014,43.12301,-89.31347
+1754 Thierer Rd,2013-01-23T00:00:00Z,283.846,1360,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,y,2013,43.12301,-89.31347
+1754 Thierer Rd,2018-01-18T00:00:00Z,336.514,1540,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,y,2018,43.12301,-89.31347
+1754 Thierer Rd,2019-01-16T00:00:00Z,491.592,2070,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,y,2019,43.12301,-89.31347
+2130 University Ave,2013-01-16T00:00:00Z,204.84400000000002,1090,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,y,2013,43.072582,-89.422806
+2130 University Ave,2010-02-18T00:00:00Z,245.80800000000002,1230,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,y,2010,43.072582,-89.422806
+1440 Monroe St,2011-01-06T00:00:00Z,210.696,1110,NA,Monona Bay,"1440 Monroe St Madison, WI",outdoor,NA,y,2011,43.06803,-89.41244
+22 S Carroll St,2013-01-17T00:00:00Z,219.47400000000002,1140,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,y,2013,NA,NA
+22 S Carroll St,2015-01-15T00:00:00Z,231.17800000000003,1180,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,y,2015,NA,NA
+2302 University Ave,2004-08-25T00:00:00Z,641.7,2260,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2004,43.072296,-89.425766
+2502 Crossroads Dr,2011-01-10T00:00:00Z,155.3946,921,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,y,2011,43.133453,-89.2907
+1 W Dayton St,2014-02-06T00:00:00Z,341,1690,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,NA,2014,43.075765677757296,-89.38656213724711
+1 W Dayton St,2012-02-27T00:00:00Z,388,1760,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,NA,2012,43.075765677757296,-89.38656213724711
+1 W Dayton St,2015-01-15T00:00:00Z,436,2080,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,NA,2015,43.075765677757296,-89.38656213724711
+1 W Dayton St,2017-01-12T00:00:00Z,496,1930,NA,Mendota,"1 W Dayton St Madison, WI",indoor,NA,NA,2017,43.075765677757296,-89.38656213724711
+1080 N Pleasant View Rd,2009-07-01T00:00:00Z,196.066,1060,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,y,2009,43.110325,-89.351265
+1080 N Pleasant View Rd,2007-07-06T00:00:00Z,125.3,902,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2007,43.110325,-89.351265
+1080 N Pleasant View Rd,2008-07-08T00:00:00Z,170.1,875,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2008,43.110325,-89.351265
+1080 N Pleasant View Rd,2004-06-02T00:00:00Z,200.1,934,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2004,43.110325,-89.351265
+1080 N Pleasant View Rd,2010-06-24T00:00:00Z,390,1520,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2010,43.110325,-89.351265
+2502 Crossroads Dr,2013-01-09T00:00:00Z,167.3912,962,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,y,2013,43.133453,-89.2907
+2502 Crossroads Dr,2010-02-08T00:00:00Z,225.32600000000005,1160,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,y,2010,43.133453,-89.2907
+2502 Crossroads Dr,2016-02-23T00:00:00Z,245.80800000000002,1230,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,y,2016,43.133453,-89.2907
+2502 Crossroads Dr,2018-01-18T00:00:00Z,421.36800000000005,1830,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,y,2018,43.133453,-89.2907
+2502 Crossroads Dr,2014-01-21T00:00:00Z,462.332,1970,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,y,2014,43.133453,-89.2907
+2502 Crossroads Dr,2019-01-22T00:00:00Z,588.15,2400,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,y,2019,43.133453,-89.2907
+3301 City View Dr,2010-06-10T00:00:00Z,210.696,1110,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,y,2010,NA,NA
+22 S Carroll St,2018-01-24T00:00:00Z,301.40200000000004,1420,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,y,2018,NA,NA
+3550 Anderson St,2011-06-27T00:00:00Z,219.47400000000002,1140,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,y,2011,43.12023,-89.32756
+3550 Anderson St,2014-02-04T00:00:00Z,324.81000000000006,1500,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,y,2014,43.12023,-89.32756
+3550 Anderson St,2019-01-16T00:00:00Z,471.11,2000,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,y,2019,43.12023,-89.32756
+3841 E Washington Ave,2019-01-16T00:00:00Z,1126.534,4240,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,y,2019,43.11661,-89.32502
+22 S Carroll St,2017-01-12T00:00:00Z,867,3070,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,NA,2017,NA,NA
+4402 E Washington Ave,2018-01-18T00:00:00Z,142.22760000000002,876,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,y,2018,43.12664,-89.31022
+4801 Annamark Dr,2013-02-11T00:00:00Z,118.23440000000002,794,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,y,2013,43.131306,-89.299614
+13 Cherokee Cir,2010-06-11T00:00:00Z,111.50460000000001,771,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,y,2010,43.146015,-89.3637
+13 Cherokee Cir,2011-06-16T00:00:00Z,184.36200000000005,1020,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,y,2011,43.146015,-89.3637
+13 Cherokee Cir,2013-07-11T00:00:00Z,201.91800000000003,1080,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,y,2013,43.146015,-89.3637
+13 Cherokee Cir,2018-08-02T00:00:00Z,711.042,2820,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,y,2018,43.146015,-89.3637
+1436 Wheeler Rd,2010-06-11T00:00:00Z,213.62200000000004,1120,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,y,2010,43.148304,-89.36969
+1436 Wheeler Rd,2013-07-11T00:00:00Z,251.66000000000005,1250,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,y,2013,43.148304,-89.36969
+22 S Carroll St,2019-03-07T00:00:00Z,941,3940,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,NA,2019,NA,NA
+1515 Golf View Rd,2010-06-11T00:00:00Z,187.28800000000004,1030,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,y,2010,NA,NA
+1515 Golf View Rd,2013-07-11T00:00:00Z,222.4,1150,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,y,2013,NA,NA
+1515 Golf View Rd,2011-06-16T00:00:00Z,239.95600000000005,1210,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,y,2011,NA,NA
+4801 Annamark Dr,2018-01-18T00:00:00Z,389.182,1720,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,y,2018,43.131306,-89.299614
+4801 Annamark Dr,2010-02-08T00:00:00Z,430.1460000000001,1860,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,y,2010,43.131306,-89.299614
+1608 N Thompson Dr,2008-07-17T00:00:00Z,690.7,2424,NA,Starkweather Creek,"1608 N Thompson Dr Madison, WI",indoor,NA,NA,2008,43.119502710075494,-89.29963349360084
+401 N Thompson Dr,2010-06-10T00:00:00Z,171.48760000000001,976,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2010,43.10336,-89.29745
+401 N Thompson Dr,2011-06-16T00:00:00Z,172.95060000000004,981,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2011,43.10336,-89.29745
+401 N Thompson Dr,2009-07-22T00:00:00Z,187.28800000000004,1030,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2009,43.10336,-89.29745
+401 N Thompson Dr,2014-07-23T00:00:00Z,216.54800000000003,1130,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2014,43.10336,-89.29745
+401 N Thompson Dr,2010-07-06T00:00:00Z,228.25200000000004,1170,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2010,43.10336,-89.29745
+401 N Thompson Dr,2018-08-02T00:00:00Z,228.25200000000004,1170,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2018,43.10336,-89.29745
+5109 W Terrace Dr,2013-01-09T00:00:00Z,324.81000000000006,1500,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,y,2013,43.142906,-89.29551
+5109 W Terrace Dr,2019-03-18T00:00:00Z,643.744,2590,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,y,2019,43.142906,-89.29551
+5109 W Terrace Dr,2015-01-12T00:00:00Z,383,3070,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2015,43.142906,-89.29551
+5109 W Terrace Dr,2010-02-10T00:00:00Z,453,3180,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2010,43.142906,-89.29551
+22 S Carroll St,2014-02-04T00:00:00Z,994,3860,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,NA,2014,NA,NA
+22 S Carroll St,2012-02-27T00:00:00Z,1030,3920,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,NA,2012,NA,NA
+1614 Fordem Ave,2004-07-06T00:00:00Z,117,756,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,NA,2004,43.093784,-89.36364
+1766 Fordem Ave,2006-07-25T00:00:00Z,55.02,919,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,NA,2006,43.095047,-89.363495
+1766 Fordem Ave,2009-06-24T00:00:00Z,338,2770,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,NA,2009,43.095047,-89.363495
+1766 Fordem Ave,2009-07-22T00:00:00Z,184.36200000000005,1020,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,y,2009,43.095047,-89.363495
+1720 Fordem Ave,2010-07-13T00:00:00Z,47.3,782,NA,Yahara River,"1720 Fordem Ave Madison, WI",outdoor,NA,NA,2010,43.094734,-89.363525
+1766 Fordem Ave,2011-06-27T00:00:00Z,170.90240000000003,974,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,y,2011,43.095047,-89.363495
+1766 Fordem Ave,2012-06-14T00:00:00Z,142,1010,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,NA,2012,43.095047,-89.363495
+1614 Fordem Ave,2007-07-23T00:00:00Z,301.7,1288,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,NA,2007,43.093784,-89.36364
+1624 Fordem Ave,2019-07-30T00:00:00Z,178.51000000000002,1000,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,y,2019,43.09335,-89.36364
+1624 Fordem Ave,2018-08-02T00:00:00Z,169.732,970,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,y,2018,43.09335,-89.36364
+5109 W Terrace Dr,2011-01-12T00:00:00Z,591,3670,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2011,43.142906,-89.29551
+5109 W Terrace Dr,2017-01-03T00:00:00Z,663,3720,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2017,43.142906,-89.29551
+5515 Medical Cir,2018-02-01T00:00:00Z,175.58400000000003,990,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,y,2018,43.048542,-89.47424
+5515 Medical Cir,2019-02-05T00:00:00Z,219.47400000000002,1140,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,y,2019,43.048542,-89.47424
+702 S High Point Rd,2009-06-22T00:00:00Z,174.99880000000005,988,NA,Spring Harbor,"702 S High Point Rd Madison, WI",indoor,NA,y,2009,43.05126107866632,-89.52238137833336
+702 S High Point Rd,2010-02-11T00:00:00Z,201.91800000000003,1080,NA,Spring Harbor,"702 S High Point Rd Madison, WI",indoor,NA,y,2010,43.05126107866632,-89.52238137833336
+22 S Carroll St,2011-01-05T00:00:00Z,1180,4340,NA,Monona,"22 S Carroll St Madison, WI",indoor,NA,NA,2011,NA,NA
+333 W Washington Ave,2018-01-24T00:00:00Z,617.4100000000001,2500,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,y,2018,43.076946,-89.38084
+1080 N Pleasant View Rd,2016-08-10T00:00:00Z,896,3040,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2016,43.110325,-89.351265
+333 W Washington Ave,2011-01-10T00:00:00Z,679,3720,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2011,43.076946,-89.38084
+1766 Fordem Ave,2013-07-11T00:00:00Z,138.42380000000003,863,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,y,2013,43.095047,-89.363495
+1818 Fordem Ave,2007-07-23T00:00:00Z,98.3,867,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,NA,2007,43.096344,-89.36353
+1624 Fordem Ave,2016-08-03T00:00:00Z,135.4978,853,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,y,2016,43.09335,-89.36364
+1766 Fordem Ave,2015-08-12T00:00:00Z,163.58740000000003,949,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,y,2015,43.095047,-89.363495
+1624 Fordem Ave,2015-08-12T00:00:00Z,131.9866,841,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,y,2015,43.09335,-89.36364
+1614 Fordem Ave,2009-07-22T00:00:00Z,366,1700,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,NA,2009,43.093784,-89.36364
+1624 Fordem Ave,2013-07-11T00:00:00Z,98.33760000000001,726,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,y,2013,43.09335,-89.36364
+1614 Fordem Ave,2010-06-11T00:00:00Z,155.3946,921,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,y,2010,43.093784,-89.36364
+1624 Fordem Ave,2012-06-14T00:00:00Z,134,971,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,NA,2012,43.09335,-89.36364
+1766 Fordem Ave,2016-08-03T00:00:00Z,154.51680000000002,918,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,y,2016,43.095047,-89.363495
+1624 Fordem Ave,2011-06-27T00:00:00Z,151.59080000000003,908,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,y,2011,43.09335,-89.36364
+1818 Fordem Ave,2008-07-07T00:00:00Z,118.6,804,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,NA,2008,43.096344,-89.36353
+1624 Fordem Ave,2010-06-11T00:00:00Z,124.37900000000002,815,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,y,2010,43.09335,-89.36364
+1614 Fordem Ave,2011-06-27T00:00:00Z,147.20180000000002,893,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,y,2011,43.093784,-89.36364
+1624 Fordem Ave,2008-07-07T00:00:00Z,148.9,839,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,NA,2008,43.09335,-89.36364
+1080 N Pleasant View Rd,2015-08-27T00:00:00Z,902,3330,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2015,43.110325,-89.351265
+1080 N Pleasant View Rd,2014-08-07T00:00:00Z,954,3470,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2014,43.110325,-89.351265
+2502 Independence Ln,2009-07-22T00:00:00Z,167.0986,961,NA,Starkweather Creek,"2502 Independence Ln Madison, WI",outdoor,NA,y,2009,43.131386,-89.30802
+2502 Independence Ln,2010-06-10T00:00:00Z,198.99200000000005,1070,NA,Starkweather Creek,"2502 Independence Ln Madison, WI",outdoor,NA,y,2010,43.131386,-89.30802
+2502 Independence Ln,2011-06-27T00:00:00Z,207.77,1100,NA,Starkweather Creek,"2502 Independence Ln Madison, WI",outdoor,NA,y,2011,43.131386,-89.30802
+2502 Independence Ln,2012-08-01T00:00:00Z,272.14200000000005,1320,NA,Starkweather Creek,"2502 Independence Ln Madison, WI",outdoor,NA,y,2012,43.131386,-89.30802
+1 N Yellowstone Dr w,2009-07-02T00:00:00Z,385,1960,NA,Spring Harbor,"1 N Yellowstone Dr w Madison, WI",outdoor,NA,NA,2009,43.0648,-89.49341
+1 N Yellowstone Dr d,2010-07-12T00:00:00Z,455,2180,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,NA,2010,43.064796,-89.49341
+1 N Yellowstone Dr m,2010-07-12T00:00:00Z,451,2190,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2010,43.064796,-89.49341
+1 N Yellowstone Dr w,2010-07-12T00:00:00Z,458,2180,NA,Spring Harbor,"1 N Yellowstone Dr w Madison, WI",outdoor,NA,NA,2010,43.0648,-89.49341
+1080 N Pleasant View Rd,2018-08-28T00:00:00Z,994,3480,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2018,43.110325,-89.351265
+1080 N Pleasant View Rd,2011-07-05T00:00:00Z,1030,3610,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2011,43.110325,-89.351265
+1080 N Pleasant View Rd,2017-08-02T00:00:00Z,1270,4510,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2017,43.110325,-89.351265
+2601 Old Camden Sq,2014-07-09T00:00:00Z,133.44960000000003,846,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,y,2014,NA,NA
+2601 Old Camden Sq,2013-07-24T00:00:00Z,155.68720000000005,922,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,y,2013,NA,NA
+2601 Old Camden Sq,2010-07-06T00:00:00Z,234.104,1190,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,y,2010,NA,NA
+302 Parkwood Ln,2010-06-10T00:00:00Z,167.3912,962,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2010,43.103592,-89.31075
+302 Parkwood Ln,2011-06-22T00:00:00Z,169.4394,969,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2011,43.103592,-89.31075
+302 Parkwood Ln,2013-07-11T00:00:00Z,207.77,1100,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2013,43.103592,-89.31075
+302 Parkwood Ln,2009-07-22T00:00:00Z,213.62200000000004,1120,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2009,43.103592,-89.31075
+302 Parkwood Ln,2015-08-11T00:00:00Z,213.62200000000004,1120,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2015,43.103592,-89.31075
+302 Parkwood Ln,2014-07-30T00:00:00Z,231.17800000000003,1180,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2014,43.103592,-89.31075
+302 Parkwood Ln,2017-07-11T00:00:00Z,231.17800000000003,1180,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2017,43.103592,-89.31075
+302 Parkwood Ln,2018-08-02T00:00:00Z,251.66000000000005,1250,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2018,43.103592,-89.31075
+302 Parkwood Ln,2016-08-02T00:00:00Z,301.40200000000004,1420,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,y,2016,43.103592,-89.31075
+3269 Forest Run Ct,2013-07-23T00:00:00Z,131.69400000000002,840,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,y,2013,43.137608,-89.30429
+3269 Forest Run Ct,2014-07-09T00:00:00Z,142.22760000000002,876,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,y,2014,43.137608,-89.30429
+3269 Forest Run Ct,2010-06-10T00:00:00Z,150.713,905,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,y,2010,43.137608,-89.30429
+3269 Forest Run Ct,2011-06-16T00:00:00Z,167.68380000000005,963,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,y,2011,43.137608,-89.30429
+3269 Forest Run Ct,2015-08-11T00:00:00Z,272.14200000000005,1320,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,y,2015,43.137608,-89.30429
+3269 Forest Run Ct,2018-08-02T00:00:00Z,345.29200000000003,1570,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,y,2018,43.137608,-89.30429
+4 S Lincoln Ridge Dr,2013-07-29T00:00:00Z,79.02600000000001,660,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2013,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2015-08-25T00:00:00Z,119.99000000000001,800,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2015,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2014-08-07T00:00:00Z,145.1536,886,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2014,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2009-07-21T00:00:00Z,147.20180000000002,893,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2009,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2010-06-28T00:00:00Z,168.56160000000003,966,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2010,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2016-08-16T00:00:00Z,184.36200000000005,1020,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2016,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2011-07-08T00:00:00Z,237.03,1200,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2011,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2017-08-08T00:00:00Z,471.11,2000,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,y,2017,43.051422,-89.51524
+401 N Thompson Dr,2016-08-02T00:00:00Z,239.95600000000005,1210,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2016,43.10336,-89.29745
+401 N Thompson Dr,2013-07-11T00:00:00Z,245.80800000000002,1230,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2013,43.10336,-89.29745
+401 N Thompson Dr,2017-07-11T00:00:00Z,260.438,1280,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2017,43.10336,-89.29745
+401 N Thompson Dr,2015-08-11T00:00:00Z,321.884,1490,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,y,2015,43.10336,-89.29745
+401 N Thompson Dr,2012-06-06T00:00:00Z,134,946,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,NA,2012,43.10336,-89.29745
+401 N Thompson Dr,2007-08-08T00:00:00Z,300.3,1255,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,NA,2007,43.10336,-89.29745
+401 N Thompson Dr,2011-08-08T00:00:00Z,338,1550,NA,Starkweather Creek,"401 N Thompson Dr Madison, WI",outdoor,NA,NA,2011,43.10336,-89.29745
+401 N Thompson Dr2,2009-07-22T00:00:00Z,160.0762,937,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,y,2009,43.103363,-89.297451
+401 N Thompson Dr2,2013-07-11T00:00:00Z,231.17800000000003,1180,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,y,2013,43.103363,-89.297451
+401 N Thompson Dr2,2018-08-02T00:00:00Z,245.80800000000002,1230,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,y,2018,43.103363,-89.297451
+401 N Thompson Dr2,2014-07-30T00:00:00Z,260.438,1280,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,y,2014,43.103363,-89.297451
+401 N Thompson Dr2,2017-07-11T00:00:00Z,260.438,1280,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,y,2017,43.103363,-89.297451
+401 N Thompson Dr2,2016-08-02T00:00:00Z,286.77200000000005,1370,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,y,2016,43.103363,-89.297451
+401 N Thompson Dr2,2012-06-06T00:00:00Z,214,1100,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,NA,2012,43.103363,-89.297451
+401 N Thompson Dr2,2015-08-11T00:00:00Z,362,1540,NA,Starkweather Creek,"401 N Thompson Dr2 Madison, WI",outdoor,NA,NA,2015,43.103363,-89.297451
+4602 Eastpark Blvd,2019-01-24T00:00:00Z,773,2820,NA,Starkweather Creek,"4602 Eastpark Blvd Madison, WI",indoor,NA,NA,2019,43.15502,-89.299994
+333 W Washington Ave,2019-02-28T00:00:00Z,921,4920,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2019,43.076946,-89.38084
+333 W Washington Ave,2012-06-05T00:00:00Z,923,3330,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2012,43.076946,-89.38084
+333 W Washington Ave,2013-01-16T00:00:00Z,1470,5330,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2013,43.076946,-89.38084
+333 W Washington Ave,2014-02-04T00:00:00Z,1550,5550,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2014,43.076946,-89.38084
+333 W Washington Ave,2017-01-12T00:00:00Z,1690,5770,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2017,43.076946,-89.38084
+333 W Washington Ave,2016-03-03T00:00:00Z,1740,6420,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2016,43.076946,-89.38084
+333 W Washington Ave,2015-01-15T00:00:00Z,2320,8150,NA,Monona Bay,"333 W Washington Ave Madison, WI",indoor,NA,NA,2015,43.076946,-89.38084
+4145 Country Club Rd,2010-07-13T00:00:00Z,178.51000000000002,1000,NA,Wingra,"4145 Country Club Rd Madison, WI",outdoor,NA,y,2010,43.041473,-89.440414
+4145 Country Club Rd,2009-07-21T00:00:00Z,213.62200000000004,1120,NA,Wingra,"4145 Country Club Rd Madison, WI",outdoor,NA,y,2009,43.041473,-89.440414
+4145 Country Club Rd,2015-08-25T00:00:00Z,359.922,1620,NA,Wingra,"4145 Country Club Rd Madison, WI",outdoor,NA,y,2015,43.041473,-89.440414
+405 Moorland Rd,2017-07-13T00:00:00Z,66.1516,616,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,y,2017,43.035637,-89.37957
+405 Moorland Rd,2014-07-30T00:00:00Z,97.45980000000003,723,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,y,2014,43.035637,-89.37957
+405 Moorland Rd,2013-07-29T00:00:00Z,98.92280000000002,728,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,y,2013,43.035637,-89.37957
+405 Moorland Rd,2016-08-04T00:00:00Z,104.77480000000003,748,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,y,2016,43.035637,-89.37957
+405 Moorland Rd,2011-08-04T00:00:00Z,114.72320000000002,782,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,y,2011,43.035637,-89.37957
+1080 N Pleasant View Rd,2012-06-20T00:00:00Z,2520,8770,NA,Mendota,"1080 N Pleasant View Rd Madison, WI",outdoor,NA,NA,2012,43.110325,-89.351265
+110 S Westfield Rd,2012-06-28T00:00:00Z,237,1170,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2012,NA,NA
+110 S Westfield Rd,2010-06-25T00:00:00Z,285,1300,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2010,NA,NA
+110 S Westfield Rd,2004-06-10T00:00:00Z,317.5,1414,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2004,NA,NA
+110 S Westfield Rd,2007-07-06T00:00:00Z,383.5,1604,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2007,NA,NA
+110 S Westfield Rd,2005-08-15T00:00:00Z,395.4,1712,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2005,NA,NA
+110 S Westfield Rd,2009-07-24T00:00:00Z,409,1810,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2009,NA,NA
+110 S Westfield Rd,2014-08-13T00:00:00Z,414,1910,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2014,NA,NA
+4665 Hayes Rd,2010-06-10T00:00:00Z,156.27240000000003,924,NA,Starkweather Creek,"4665 Hayes Rd Madison, WI",outdoor,NA,y,2010,43.142418,-89.30286
+4665 Hayes Rd,2019-07-09T00:00:00Z,225.32600000000005,1160,NA,Starkweather Creek,"4665 Hayes Rd Madison, WI",outdoor,NA,y,2019,43.142418,-89.30286
+110 S Westfield Rd,2019-08-05T00:00:00Z,479,2220,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2019,NA,NA
+110 S Westfield Rd,2013-08-07T00:00:00Z,491,2250,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2013,NA,NA
+110 S Westfield Rd,2017-08-22T00:00:00Z,507,2130,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2017,NA,NA
+110 S Westfield Rd,2011-07-08T00:00:00Z,517,2290,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2011,NA,NA
+110 S Westfield Rd,2015-08-27T00:00:00Z,540,2220,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2015,NA,NA
+110 S Westfield Rd,2016-08-10T00:00:00Z,559,2280,NA,Mendota,"110 S Westfield Rd Madison, WI",outdoor,NA,NA,2016,NA,NA
+1109 Fourier Dr,2004-07-01T00:00:00Z,766.9,2680,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2004,43.08136,-89.524216
+4665 Hayes Rd,2003-08-14T00:00:00Z,79.6,862,NA,Starkweather Creek,"4665 Hayes Rd Madison, WI",outdoor,NA,NA,2003,43.142418,-89.30286
+4801 Sheboygan Ave,2010-07-09T00:00:00Z,76.39260000000002,651,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2010,43.072807,-89.459236
+4801 Sheboygan Ave,2009-07-09T00:00:00Z,80.489,665,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2009,43.072807,-89.459236
+4801 Sheboygan Ave,2018-08-22T00:00:00Z,109.16380000000001,763,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2018,43.072807,-89.459236
+4801 Sheboygan Ave,2013-09-04T00:00:00Z,110.91940000000002,769,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2013,43.072807,-89.459236
+4801 Sheboygan Ave,2011-07-12T00:00:00Z,121.74560000000002,806,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2011,43.072807,-89.459236
+4801 Sheboygan Ave,2016-08-26T00:00:00Z,126.71980000000002,823,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2016,43.072807,-89.459236
+4801 Sheboygan Ave,2015-09-01T00:00:00Z,151.29820000000004,907,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2015,43.072807,-89.459236
+4801 Sheboygan Ave,2014-08-27T00:00:00Z,158.32060000000004,931,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2014,43.072807,-89.459236
+4801 Sheboygan Ave,2017-08-22T00:00:00Z,161.24660000000003,941,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,y,2017,43.072807,-89.459236
+5002 Sheboygan Ave,2010-07-09T00:00:00Z,100.09320000000002,732,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2010,43.07289,-89.46446
+5002 Sheboygan Ave,2009-07-09T00:00:00Z,101.84880000000001,738,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2009,43.07289,-89.46446
+5002 Sheboygan Ave,2017-08-16T00:00:00Z,128.4754,829,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2017,43.07289,-89.46446
+5002 Sheboygan Ave,2011-07-12T00:00:00Z,139.59420000000003,867,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2011,43.07289,-89.46446
+5002 Sheboygan Ave,2015-09-01T00:00:00Z,151.88340000000002,909,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2015,43.07289,-89.46446
+5002 Sheboygan Ave,2013-08-13T00:00:00Z,174.7062,987,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2013,43.07289,-89.46446
+5002 Sheboygan Ave,2014-08-27T00:00:00Z,187.28800000000004,1030,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2014,43.07289,-89.46446
+5002 Sheboygan Ave,2016-08-26T00:00:00Z,196.066,1060,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,y,2016,43.07289,-89.46446
+5015 Sheboygan Ave,2018-08-22T00:00:00Z,35.136000000000024,510,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2018,43.072773,-89.46529
+5015 Sheboygan Ave,2017-08-16T00:00:00Z,58.836600000000004,591,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2017,43.072773,-89.46529
+5015 Sheboygan Ave,2015-09-01T00:00:00Z,76.68520000000001,652,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2015,43.072773,-89.46529
+5015 Sheboygan Ave,2016-08-26T00:00:00Z,87.804,690,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2016,43.072773,-89.46529
+5015 Sheboygan Ave,2013-08-13T00:00:00Z,104.18960000000001,746,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2013,43.072773,-89.46529
+5015 Sheboygan Ave,2014-08-27T00:00:00Z,106.23780000000002,753,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2014,43.072773,-89.46529
+5015 Sheboygan Ave,2010-07-09T00:00:00Z,119.99000000000001,800,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2010,43.072773,-89.46529
+5015 Sheboygan Ave,2011-07-27T00:00:00Z,125.84200000000001,820,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2011,43.072773,-89.46529
+5015 Sheboygan Ave,2009-07-09T00:00:00Z,140.76460000000003,871,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,y,2009,43.072773,-89.46529
+1109 Fourier Dr,2010-02-11T00:00:00Z,806,2790,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2010,43.08136,-89.524216
+1109A Fourier Dr,2010-02-11T00:00:00Z,954,3170,NA,Mendota,"1109A Fourier Dr Madison, WI",indoor,NA,NA,2010,43.081367,-89.524216
+1109 Fourier Dr,2011-01-04T00:00:00Z,1010,3780,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2011,43.08136,-89.524216
+5202 Brookside Dr,2010-06-10T00:00:00Z,286.77200000000005,1370,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,y,2010,43.15355,-89.28322
+5440 Congress Ave,2013-07-24T00:00:00Z,304.3280000000001,1430,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,y,2013,43.139782,-89.28375
+5533 Odana Rd,2007-06-26T00:00:00Z,107.7,702,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,NA,2007,43.049995,-89.474945
+5533 Odana Rd,2008-07-28T00:00:00Z,235,1075,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,NA,2008,43.049995,-89.474945
+5533 Odana Rd,2009-07-21T00:00:00Z,122.62340000000003,809,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2009,43.049995,-89.474945
+5533 Odana Rd,2010-07-12T00:00:00Z,132.27920000000003,842,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2010,43.049995,-89.474945
+5533 Odana Rd wade,2010-07-12T00:00:00Z,139.88680000000002,868,9842.0706384,Wingra,"5533 Odana Rd wade Madison, WI",outdoor,NA,y,2010,43.049995,-89.474945
+5533 Odana Rd,2011-08-04T00:00:00Z,131.69400000000002,840,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2011,43.049995,-89.474945
+5533 Odana Rd wade,2011-08-11T00:00:00Z,154.22420000000002,917,9842.0706384,Wingra,"5533 Odana Rd wade Madison, WI",outdoor,NA,y,2011,43.049995,-89.474945
+5533 Odana Rd,2012-07-12T00:00:00Z,253,1060,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,NA,2012,43.049995,-89.474945
+5533 Odana Rd,2013-08-08T00:00:00Z,137.8386,861,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2013,43.049995,-89.474945
+5533 Odana Rd wade,2013-08-08T00:00:00Z,254.58600000000004,1260,9842.0706384,Wingra,"5533 Odana Rd wade Madison, WI",outdoor,NA,y,2013,43.049995,-89.474945
+5533 Odana Rd,2014-08-20T00:00:00Z,201.91800000000003,1080,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2014,43.049995,-89.474945
+5533 Odana Rd wade,2014-08-20T00:00:00Z,198.99200000000005,1070,9842.0706384,Wingra,"5533 Odana Rd wade Madison, WI",outdoor,NA,y,2014,43.049995,-89.474945
+5533 Odana Rd,2016-08-26T00:00:00Z,257.51200000000006,1270,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2016,43.049995,-89.474945
+5607 Summer Shine Dr,NA,400.88599999999997,1760,NA,Starkweather Creek,"5607 Summer Shine Dr Madison, WI",outdoor,NA,y,NA,43.122276,-89.2842
+1624 Fordem Ave,2007-07-23T00:00:00Z,152.8,925,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,NA,2007,43.09335,-89.36364
+1614 Fordem Ave,2012-06-14T00:00:00Z,160,1070,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,NA,2012,43.093784,-89.36364
+1624 Fordem Ave,2004-07-06T00:00:00Z,124,750,NA,Yahara River,"1624 Fordem Ave Madison, WI",outdoor,NA,NA,2004,43.09335,-89.36364
+1614 Fordem Ave,2013-07-11T00:00:00Z,135.20520000000002,852,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,y,2013,43.093784,-89.36364
+1614 Fordem Ave,2019-07-29T00:00:00Z,194,1840,NA,Yahara River,"1614 Fordem Ave Madison, WI",outdoor,NA,NA,2019,43.093784,-89.36364
+1766 Fordem Ave,2017-07-11T00:00:00Z,141.05720000000002,872,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,y,2017,43.095047,-89.363495
+1818 Fordem Ave,2010-07-06T00:00:00Z,149.25000000000003,900,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2010,43.096344,-89.36353
+1766 Fordem Ave,2018-08-02T00:00:00Z,143.98320000000004,882,NA,Yahara River,"1766 Fordem Ave Madison, WI",outdoor,NA,y,2018,43.095047,-89.363495
+1109A Fourier Dr,2011-01-04T00:00:00Z,1020,3780,NA,Mendota,"1109A Fourier Dr Madison, WI",indoor,NA,NA,2011,43.081367,-89.524216
+1109 Fourier Dr,2012-02-22T00:00:00Z,925,3270,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2012,43.08136,-89.524216
+1109 Fourier Dr,2013-01-11T00:00:00Z,999,3520,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2013,43.08136,-89.524216
+1109 Fourier Dr,2014-02-05T00:00:00Z,1050,3810,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2014,43.08136,-89.524216
+1109 Fourier Dr,2015-01-14T00:00:00Z,1570,5530,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2015,43.08136,-89.524216
+1109 Fourier Dr,2016-03-01T00:00:00Z,1700,5750,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2016,43.08136,-89.524216
+1109 Fourier Dr,2017-01-05T00:00:00Z,843,2960,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2017,43.08136,-89.524216
+1109 Fourier Dr,2018-02-01T00:00:00Z,1620,5220,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2018,43.08136,-89.524216
+7425 Timber Lake Tr,2010-06-28T00:00:00Z,146.32400000000004,890,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2010,43.052155,-89.51101
+7425 Timber Lake Tr,2011-07-08T00:00:00Z,148.0796,896,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2011,43.052155,-89.51101
+7425 Timber Lake Tr,2009-07-21T00:00:00Z,157.1502,927,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2009,43.052155,-89.51101
+7425 Timber Lake Tr,2015-08-25T00:00:00Z,172.65800000000004,980,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2015,43.052155,-89.51101
+7425 Timber Lake Tr,2019-07-11T00:00:00Z,187.28800000000004,1030,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2019,43.052155,-89.51101
+7425 Timber Lake Tr,2013-07-29T00:00:00Z,204.84400000000002,1090,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2013,43.052155,-89.51101
+7425 Timber Lake Tr,2016-08-15T00:00:00Z,251.66000000000005,1250,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2016,43.052155,-89.51101
+7425 Timber Lake Tr,2018-08-30T00:00:00Z,111.7972,772,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2018,43.052155,-89.51101
+7425 Timber Lake Tr,2017-08-08T00:00:00Z,395.034,1740,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,y,2017,43.052155,-89.51101
+1109 Fourier Dr,2019-02-06T00:00:00Z,380,1800,NA,Mendota,"1109 Fourier Dr Madison, WI",indoor,NA,NA,2019,43.08136,-89.524216
+1124 N High Point Rd,2018-08-28T00:00:00Z,151.29820000000004,907,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2018,NA,NA
+1124 N High Point Rd,2015-08-27T00:00:00Z,181.436,1010,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2015,NA,NA
+1124 N High Point Rd,2011-07-08T00:00:00Z,193.14000000000001,1050,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2011,NA,NA
+1124 N High Point Rd,2009-07-01T00:00:00Z,198.99200000000005,1070,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2009,NA,NA
+802 Harbor House Dr,2009-07-23T00:00:00Z,126.42720000000003,822,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2009,43.049706,-89.50802
+802 Harbor House Dr,2018-08-30T00:00:00Z,133.157,845,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2018,43.049706,-89.50802
+802 Harbor House Dr,2013-07-29T00:00:00Z,177.047,995,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2013,43.049706,-89.50802
+802 Harbor House Dr,2010-07-09T00:00:00Z,177.92480000000003,998,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2010,43.049706,-89.50802
+802 Harbor House Dr,2011-07-21T00:00:00Z,242.88200000000003,1220,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2011,43.049706,-89.50802
+802 Harbor House Dr,2015-08-25T00:00:00Z,289.698,1380,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2015,43.049706,-89.50802
+802 Harbor House Dr,2016-08-16T00:00:00Z,289.698,1290,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2016,43.049706,-89.50802
+802 Harbor House Dr,2017-08-08T00:00:00Z,386.2560000000001,1710,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,y,2017,43.049706,-89.50802
+803 N Thompson Dr,2017-07-13T00:00:00Z,129.93840000000003,834,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2017,NA,NA
+803 N Thompson Dr,2011-06-16T00:00:00Z,146.03140000000005,889,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2011,NA,NA
+803 N Thompson Dr,2010-06-10T00:00:00Z,157.4428,928,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2010,NA,NA
+803 N Thompson Dr,2009-07-22T00:00:00Z,157.7354,929,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2009,NA,NA
+803 N Thompson Dr,2013-07-11T00:00:00Z,160.0762,937,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2013,NA,NA
+803 N Thompson Dr,2014-07-23T00:00:00Z,163.29480000000004,948,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2014,NA,NA
+803 N Thompson Dr,2018-08-02T00:00:00Z,196.066,1060,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2018,NA,NA
+803 N Thompson Dr,2016-08-02T00:00:00Z,225.32600000000005,1160,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2016,NA,NA
+803 N Thompson Dr,2015-08-11T00:00:00Z,254.58600000000004,1260,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,y,2015,NA,NA
+1124 N High Point Rd,2014-08-20T00:00:00Z,216.54800000000003,1130,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2014,NA,NA
+1124 N High Point Rd,2017-08-22T00:00:00Z,225.32600000000005,1160,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2017,NA,NA
+1124 N High Point Rd,2016-08-10T00:00:00Z,228.25200000000004,1170,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2016,NA,NA
+1124 N High Point Rd,2010-06-25T00:00:00Z,237.03,1200,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2010,NA,NA
+1124 N High Point Rd,2013-08-07T00:00:00Z,245.80800000000002,1230,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,y,2013,NA,NA
+1124 N High Point Rd,2007-06-26T00:00:00Z,211.7,1013,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,NA,2007,NA,NA
+1124 N High Point Rd,2012-06-27T00:00:00Z,260,1230,NA,Mendota,"1124 N High Point Rd Madison, WI",outdoor,NA,NA,2012,NA,NA
+1253 John Q Hammons Dr,2010-03-03T00:00:00Z,511,1910,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2010,43.08542,-89.52406
+1253 John Q Hammons Dr,2005-08-15T00:00:00Z,1244,4950,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2005,43.08542,-89.52406
+1253 John Q Hammons Dr,2011-01-04T00:00:00Z,1430,5240,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2011,43.08542,-89.52406
+1253 John Q Hammons Dr,2004-06-02T00:00:00Z,1444,5080,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2004,43.08542,-89.52406
+1253 John Q Hammons Dr,2004-08-30T00:00:00Z,1562,5460,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2004,43.08542,-89.52406
+1253 John Q Hammons Dr,2004-08-30T00:00:00Z,1568,5450,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2004,43.08542,-89.52406
+1253 John Q Hammons Dr,2007-06-04T00:00:00Z,1581,6230,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2007,43.08542,-89.52406
+1253 John Q Hammons Dr,2014-02-05T00:00:00Z,1680,6460,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2014,43.08542,-89.52406
+1253 John Q Hammons Dr,2012-02-22T00:00:00Z,1740,6600,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2012,43.08542,-89.52406
+98 Grand Canyon Dr,2009-07-02T00:00:00Z,170.60980000000004,973,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,y,2009,43.062344,-89.49664
+98 Grand Canyon Dr,2014-08-13T00:00:00Z,201.91800000000003,1080,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,y,2014,43.062344,-89.49664
+98 Grand Canyon Dr,2011-07-08T00:00:00Z,213.62200000000004,1120,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,y,2011,43.062344,-89.49664
+98 Grand Canyon Dr,2013-08-07T00:00:00Z,348.2180000000001,1580,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,y,2013,43.062344,-89.49664
+1 HIgh Point Oaks Ln,2012-06-21T00:00:00Z,118,899,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,NA,2012,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2008-07-22T00:00:00Z,119.6,782,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,NA,2008,43.051147,-89.51766
+1 HIgh Point Oaks Ln,2007-08-28T00:00:00Z,261,1122,NA,Spring Harbor,"1 HIgh Point Oaks Ln Madison, WI",outdoor,NA,NA,2007,43.051147,-89.51766
+1 N Yellowstone Dr d,2011-07-27T00:00:00Z,573,2630,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,NA,2011,43.064796,-89.49341
+1 N Yellowstone Dr m,2011-07-27T00:00:00Z,569,2600,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2011,43.064796,-89.49341
+1 N Yellowstone Dr d,2012-07-12T00:00:00Z,375,1890,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,NA,2012,43.064796,-89.49341
+1 N Yellowstone Dr m,2012-07-12T00:00:00Z,364,1840,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2012,43.064796,-89.49341
+1 N Yellowstone Dr d,2013-08-08T00:00:00Z,327.736,1510,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,y,2013,43.064796,-89.49341
+1 N Yellowstone Dr m,2013-08-08T00:00:00Z,327.736,1510,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,y,2013,43.064796,-89.49341
+1 N Yellowstone Dr d,2014-08-13T00:00:00Z,453,2130,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,NA,2014,43.064796,-89.49341
+1 N Yellowstone Dr m,2014-08-13T00:00:00Z,450,2150,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2014,43.064796,-89.49341
+1 N Yellowstone Dr m,2015-08-27T00:00:00Z,120.28260000000003,801,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,y,2015,43.064796,-89.49341
+1 N Yellowstone Dr d,2016-08-26T00:00:00Z,392.10800000000006,1730,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,y,2016,43.064796,-89.49341
+1 N Yellowstone Dr m,2016-08-26T00:00:00Z,337,1730,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2016,43.064796,-89.49341
+1 N Yellowstone Dr d,2017-08-16T00:00:00Z,352,1720,NA,Spring Harbor,"1 N Yellowstone Dr d Madison, WI",outdoor,NA,NA,2017,43.064796,-89.49341
+1 N Yellowstone Dr m,2017-08-16T00:00:00Z,368,1740,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2017,43.064796,-89.49341
+1 N Yellowstone Dr m,2019-07-18T00:00:00Z,376,1930,NA,Spring Harbor,"1 N Yellowstone Dr m Madison, WI",outdoor,NA,NA,2019,43.064796,-89.49341
+251 S Yellowstone Dr,2010-06-28T00:00:00Z,210.696,1110,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,y,2010,43.062965,-89.493484
+251 S Yellowstone Dr,2011-07-08T00:00:00Z,239.95600000000005,1210,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,y,2011,43.062965,-89.493484
+251 S Yellowstone Dr,2013-08-07T00:00:00Z,242.88200000000003,1220,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,y,2013,43.062965,-89.493484
+251 S Yellowstone Dr,2014-08-13T00:00:00Z,277.994,1340,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,y,2014,43.062965,-89.493484
+107 Village Green Ln,2003-08-14T00:00:00Z,206,1168,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2003,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2012-06-12T00:00:00Z,255,1140,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2012,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2007-07-23T00:00:00Z,327.7,1402,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2007,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2005-08-17T00:00:00Z,331.6,1405,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2005,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2017-07-13T00:00:00Z,341,1450,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2017,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2019-07-09T00:00:00Z,401,1780,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2019,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2015-08-11T00:00:00Z,402,1760,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2015,43.1421205834845,-89.30498336527383
+107 Village Green Ln,2016-08-04T00:00:00Z,433,1750,NA,Starkweather Creek,"107 Village Green Ln Madison, WI",outdoor,NA,NA,2016,43.1421205834845,-89.30498336527383
+1253 John Q Hammons Dr,2013-01-24T00:00:00Z,1740,7030,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2013,43.08542,-89.52406
+1253 John Q Hammons Dr,2016-03-01T00:00:00Z,1930,7270,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2016,43.08542,-89.52406
+1253 John Q Hammons Dr,2019-02-06T00:00:00Z,1930,8020,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2019,43.08542,-89.52406
+1253 John Q Hammons Dr,2015-01-14T00:00:00Z,2050,7850,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2015,43.08542,-89.52406
+1253 John Q Hammons Dr,2017-01-05T00:00:00Z,2520,8680,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2017,43.08542,-89.52406
+1253 John Q Hammons Dr,2018-02-01T00:00:00Z,2990,9880,NA,Mendota,"1253 John Q Hammons Dr Madison, WI",indoor,NA,NA,2018,43.08542,-89.52406
+2 N Eau Claire Ave,2008-07-24T00:00:00Z,351.2,1483,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2008,43.069073,-89.46329
+2 N Eau Claire Ave,2009-07-09T00:00:00Z,406,2340,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2009,43.069073,-89.46329
+2 N Eau Claire Ave,2019-07-18T00:00:00Z,478,2260,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2019,43.069073,-89.46329
+2 N Eau Claire Ave,2010-07-12T00:00:00Z,529,2250,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2010,43.069073,-89.46329
+2 N Eau Claire Ave,2012-07-20T00:00:00Z,540,2330,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2012,43.069073,-89.46329
+2 N Eau Claire Ave,2007-07-26T00:00:00Z,558,2120,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2007,43.069073,-89.46329
+2 N Eau Claire Ave,2011-07-27T00:00:00Z,565,2450,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2011,43.069073,-89.46329
+2 N Eau Claire Ave,2014-08-27T00:00:00Z,765,3230,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2014,43.069073,-89.46329
+2 N Eau Claire Ave,2016-08-26T00:00:00Z,791,2980,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2016,43.069073,-89.46329
+2 N Eau Claire Ave,2018-08-22T00:00:00Z,800,3030,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2018,43.069073,-89.46329
+2 N Eau Claire Ave,2017-08-16T00:00:00Z,910,3420,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2017,43.069073,-89.46329
+2 N Eau Claire Ave,2015-09-01T00:00:00Z,974,3920,NA,Mendota,"2 N Eau Claire Ave Madison, WI",outdoor,NA,NA,2015,43.069073,-89.46329
+201 S Gammon Rd,2005-01-13T00:00:00Z,424.9,1762,NA,Mendota,"201 S Gammon Rd Madison, WI",indoor,NA,NA,2005,43.06429,-89.502655
+201 S Gammon Rd,2007-01-19T00:00:00Z,586.6,2366,NA,Mendota,"201 S Gammon Rd Madison, WI",indoor,NA,NA,2007,43.06429,-89.502655
+201 S Gammon Rd,2019-02-06T00:00:00Z,871,3060,NA,Mendota,"201 S Gammon Rd Madison, WI",indoor,NA,NA,2019,43.06429,-89.502655
+238 Randolph Dr,2011-08-04T00:00:00Z,136.9608,858,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,y,2011,43.061836,-89.51264
+238 Randolph Dr,2010-06-25T00:00:00Z,254.58600000000004,1260,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,y,2010,43.061836,-89.51264
+238 Randolph Dr,2004-07-01T00:00:00Z,233.1,1055,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2004,43.061836,-89.51264
+238 Randolph Dr,2007-07-06T00:00:00Z,241.6,1236,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2007,43.061836,-89.51264
+238 Randolph Dr,2012-06-28T00:00:00Z,450,1740,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2012,43.061836,-89.51264
+13 Cherokee Cir,2008-07-07T00:00:00Z,193.5,886,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2008,43.146015,-89.3637
+13 Cherokee Cir,2007-08-08T00:00:00Z,226.1,1063,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2007,43.146015,-89.3637
+13 Cherokee Cir,2012-06-12T00:00:00Z,233,1070,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2012,43.146015,-89.3637
+13 Cherokee Cir,2004-06-30T00:00:00Z,236.6,1021,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2004,43.146015,-89.3637
+13 Cherokee Cir,2017-07-11T00:00:00Z,569,2070,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2017,43.146015,-89.3637
+13 Cherokee Cir,2014-07-10T00:00:00Z,631,2610,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2014,43.146015,-89.3637
+13 Cherokee Cir,2015-08-12T00:00:00Z,803,2970,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2015,43.146015,-89.3637
+13 Cherokee Cir,2016-08-02T00:00:00Z,1050,3490,NA,Cherokee Marsh,"13 Cherokee Cir Madison, WI",outdoor,NA,NA,2016,43.146015,-89.3637
+1436 Wheeler Rd,2004-06-01T00:00:00Z,198.4,926,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2004,43.148304,-89.36969
+1436 Wheeler Rd,2011-06-16T00:00:00Z,273,1110,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2011,43.148304,-89.36969
+1436 Wheeler Rd,2009-07-16T00:00:00Z,281,1260,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2009,43.148304,-89.36969
+1436 Wheeler Rd,2008-07-07T00:00:00Z,287.6,1230,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2008,43.148304,-89.36969
+1436 Wheeler Rd,2012-06-12T00:00:00Z,289,1230,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2012,43.148304,-89.36969
+1436 Wheeler Rd,2007-08-08T00:00:00Z,313.5,1360,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2007,43.148304,-89.36969
+1436 Wheeler Rd,2005-08-17T00:00:00Z,338.6,1390,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2005,43.148304,-89.36969
+1436 Wheeler Rd,2014-07-10T00:00:00Z,533,2120,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2014,43.148304,-89.36969
+1436 Wheeler Rd,2017-07-11T00:00:00Z,621,2310,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2017,43.148304,-89.36969
+1436 Wheeler Rd,2018-08-02T00:00:00Z,799,3050,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2018,43.148304,-89.36969
+1436 Wheeler Rd,2015-08-12T00:00:00Z,850,3010,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2015,43.148304,-89.36969
+1436 Wheeler Rd,2016-08-03T00:00:00Z,1550,2560,NA,Cherokee Marsh,"1436 Wheeler Rd Madison, WI",outdoor,NA,NA,2016,43.148304,-89.36969
+1515 Golf View Rd,2012-06-12T00:00:00Z,288,1280,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2012,NA,NA
+1515 Golf View Rd,2009-07-16T00:00:00Z,299,1320,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2009,NA,NA
+1515 Golf View Rd,2008-07-07T00:00:00Z,319.7,1332,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2008,NA,NA
+1515 Golf View Rd,2017-07-11T00:00:00Z,603,2200,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2017,NA,NA
+1515 Golf View Rd,2014-07-10T00:00:00Z,676,2490,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2014,NA,NA
+1515 Golf View Rd,2016-08-03T00:00:00Z,810,2980,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2016,NA,NA
+1515 Golf View Rd,2018-08-02T00:00:00Z,958,3550,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2018,NA,NA
+1515 Golf View Rd,2015-08-12T00:00:00Z,985,3560,NA,Cherokee Marsh,"1515 Golf View Rd Madison, WI",outdoor,NA,NA,2015,NA,NA
+1818 Fordem Ave,2011-06-27T00:00:00Z,153.93160000000003,916,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2011,43.096344,-89.36353
+1818 Fordem Ave,2012-06-14T00:00:00Z,131,943,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,NA,2012,43.096344,-89.36353
+1818 Fordem Ave,2013-07-11T00:00:00Z,108.28600000000003,760,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2013,43.096344,-89.36353
+1818 Fordem Ave,2015-09-01T00:00:00Z,127.59760000000003,826,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2015,43.096344,-89.36353
+1818 Fordem Ave,2016-08-03T00:00:00Z,146.32400000000004,890,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2016,43.096344,-89.36353
+1818 Fordem Ave,2017-07-11T00:00:00Z,216.54800000000003,1130,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2017,43.096344,-89.36353
+1818 Fordem Ave,2018-08-02T00:00:00Z,169.1468,968,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2018,43.096344,-89.36353
+1818 Fordem Ave,2019-07-30T00:00:00Z,158.61320000000003,932,NA,Yahara River,"1818 Fordem Ave Madison, WI",outdoor,NA,y,2019,43.096344,-89.36353
+2222 E Washington Ave,2005-02-08T00:00:00Z,394.4,2330,NA,Yahara River,"2222 E Washington Ave Madison, WI",indoor,NA,NA,2005,43.096504,-89.35378
+2222 E Washington Ave,2007-01-04T00:00:00Z,537.1,2217,NA,Yahara River,"2222 E Washington Ave Madison, WI",indoor,NA,NA,2007,43.096504,-89.35378
+2222 E Washington Ave,2019-01-17T00:00:00Z,640,2450,NA,Yahara River,"2222 E Washington Ave Madison, WI",indoor,NA,NA,2019,43.096504,-89.35378
+6405 Bridge Rd,2011-06-22T00:00:00Z,58.25140000000002,589,242266.354176,Yahara River,"6405 Bridge Rd Madison, WI",outdoor,NA,y,2011,43.049355,-89.33801
+238 Randolph Dr,2018-08-28T00:00:00Z,495,1750,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2018,43.061836,-89.51264
+238 Randolph Dr,2017-08-22T00:00:00Z,555,2070,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2017,43.061836,-89.51264
+238 Randolph Dr,2009-07-24T00:00:00Z,568,2240,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2009,43.061836,-89.51264
+238 Randolph Dr,2019-08-05T00:00:00Z,568,2280,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2019,43.061836,-89.51264
+238 Randolph Dr,2016-08-10T00:00:00Z,599,2140,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2016,43.061836,-89.51264
+238 Randolph Dr,2014-08-20T00:00:00Z,745,2790,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2014,43.061836,-89.51264
+238 Randolph Dr,2015-08-27T00:00:00Z,763,2700,NA,Mendota,"238 Randolph Dr Madison, WI",outdoor,NA,NA,2015,43.061836,-89.51264
+260 Junction Rd,2010-06-25T00:00:00Z,216.54800000000003,1130,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,y,2010,43.06454,-89.52655
+260 Junction Rd,2009-07-01T00:00:00Z,222.4,1150,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,y,2009,43.06454,-89.52655
+260 Junction Rd,2011-07-05T00:00:00Z,231.17800000000003,1180,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,y,2011,43.06454,-89.52655
+260 Junction Rd,2012-06-20T00:00:00Z,315,1360,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2012,43.06454,-89.52655
+260 Junction Rd,2003-07-14T00:00:00Z,316.3,1445,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2003,43.06454,-89.52655
+260 Junction Rd,2013-07-31T00:00:00Z,445,1710,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2013,43.06454,-89.52655
+260 Junction Rd,2016-08-10T00:00:00Z,469,1780,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2016,43.06454,-89.52655
+260 Junction Rd,2015-08-27T00:00:00Z,516,1910,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2015,43.06454,-89.52655
+260 Junction Rd,2014-08-20T00:00:00Z,651,2400,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2014,43.06454,-89.52655
+260 Junction Rd,2017-08-08T00:00:00Z,666,2480,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2017,43.06454,-89.52655
+260 Junction Rd,2018-08-28T00:00:00Z,803,2780,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2018,43.06454,-89.52655
+6405 Bridge Rd,2010-07-12T00:00:00Z,60.007000000000005,595,242266.354176,Yahara River,"6405 Bridge Rd Madison, WI",outdoor,NA,y,2010,43.049355,-89.33801
+6405 Bridge Rd,2015-09-01T00:00:00Z,219.47400000000002,1140,242266.354176,Yahara River,"6405 Bridge Rd Madison, WI",outdoor,NA,y,2015,43.049355,-89.33801
+6405 Bridge Rd,2012-06-07T00:00:00Z,57.2,595,242266.354176,Yahara River,"6405 Bridge Rd Madison, WI",outdoor,NA,NA,2012,43.049355,-89.33801
+6405 Bridge Rd,2009-07-08T00:00:00Z,64,604,242266.354176,Yahara River,"6405 Bridge Rd Madison, WI",outdoor,NA,NA,2009,43.049355,-89.33801
+1936 Tennyson Ln,2019-01-17T00:00:00Z,528,2210,NA,Starkweather Creek,"1936 Tennyson Ln Madison, WI",outdoor,NA,NA,2019,43.13477,-89.35862
+260 Junction Rd,2019-08-01T00:00:00Z,862,3400,NA,Mendota,"260 Junction Rd Madison, WI",outdoor,NA,NA,2019,43.06454,-89.52655
+301 Harbour Town Dr,2010-06-25T00:00:00Z,1670,5080,NA,Mendota,"301 Harbour Town Dr Madison, WI",indoor,NA,NA,2010,43.067448,-89.526184
+301 Harbour Town Dr,2019-02-28T00:00:00Z,1830,6160,NA,Mendota,"301 Harbour Town Dr Madison, WI",indoor,NA,NA,2019,43.067448,-89.526184
+301 Harbour Town Dr,2007-06-08T00:00:00Z,2104,6760,NA,Mendota,"301 Harbour Town Dr Madison, WI",indoor,NA,NA,2007,43.067448,-89.526184
+301 Harbour Town Dr,2011-01-05T00:00:00Z,2250,7370,NA,Mendota,"301 Harbour Town Dr Madison, WI",indoor,NA,NA,2011,43.067448,-89.526184
+301 Harbour Town Dr,2015-01-14T00:00:00Z,3670,11700,NA,Mendota,"301 Harbour Town Dr Madison, WI",indoor,NA,NA,2015,43.067448,-89.526184
+310 Samuel Dr,2019-08-01T00:00:00Z,481,2070,NA,Mendota,"310 Samuel Dr Madison, WI",outdoor,NA,NA,2019,43.068253,-89.53547
+310 Samuel Dr,2017-08-08T00:00:00Z,779,2790,NA,Mendota,"310 Samuel Dr Madison, WI",outdoor,NA,NA,2017,43.068253,-89.53547
+310 Samuel Dr,2018-08-28T00:00:00Z,1070,3600,NA,Mendota,"310 Samuel Dr Madison, WI",outdoor,NA,NA,2018,43.068253,-89.53547
+45 Junction Ct,2018-08-28T00:00:00Z,60.29960000000003,596,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2018,43.074524,-89.52404
+45 Junction Ct,2010-06-28T00:00:00Z,89.26700000000002,695,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2010,43.074524,-89.52404
+45 Junction Ct,2017-08-08T00:00:00Z,158.32060000000004,931,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2017,43.074524,-89.52404
+45 Junction Ct,2019-08-05T00:00:00Z,181.436,1010,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2019,43.074524,-89.52404
+45 Junction Ct,2015-08-27T00:00:00Z,187.28800000000004,1030,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2015,43.074524,-89.52404
+45 Junction Ct,2014-08-20T00:00:00Z,234.104,1190,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2014,43.074524,-89.52404
+201 Swanton Rd,2007-08-08T00:00:00Z,398,1507,NA,Starkweather Creek,"201 Swanton Rd Madison, WI",outdoor,NA,NA,2007,43.102676,-89.30154
+45 Junction Ct,2016-08-10T00:00:00Z,254.58600000000004,1260,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2016,43.074524,-89.52404
+45 Junction Ct,2013-07-31T00:00:00Z,269.216,1310,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,y,2013,43.074524,-89.52404
+45 Junction Ct,2012-06-20T00:00:00Z,230,1040,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,NA,2012,43.074524,-89.52404
+45 Junction Ct,2011-07-05T00:00:00Z,452,2090,NA,Mendota,"45 Junction Ct Madison, WI",outdoor,NA,NA,2011,43.074524,-89.52404
+4715 Sheboygan Ave,2018-08-22T00:00:00Z,99.21540000000002,729,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,y,2018,43.07289,-89.45826
+4715 Sheboygan Ave,2019-07-16T00:00:00Z,181.436,1010,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,y,2019,43.07289,-89.45826
+4715 Sheboygan Ave,2016-08-26T00:00:00Z,213.62200000000004,1120,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,y,2016,43.07289,-89.45826
+4715 Sheboygan Ave,2010-07-09T00:00:00Z,228.25200000000004,1170,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,y,2010,43.07289,-89.45826
+4715 Sheboygan Ave,2017-08-16T00:00:00Z,231.17800000000003,1180,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,y,2017,43.07289,-89.45826
+4715 Sheboygan Ave,2014-08-27T00:00:00Z,237.03,1200,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,y,2014,43.07289,-89.45826
+4715 Sheboygan Ave,2013-08-13T00:00:00Z,257.51200000000006,1270,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,y,2013,43.07289,-89.45826
+4715 Sheboygan Ave,2009-07-09T00:00:00Z,341,1390,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,NA,2009,43.07289,-89.45826
+1602 W Beltline Hwy,2019-03-07T00:00:00Z,188,1800,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2019,43.03578,-89.409167
+1602 W Beltline Hwy,2004-06-30T00:00:00Z,366.9,1568,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2004,43.03578,-89.409167
+1602 W Beltline Hwy,2012-02-15T00:00:00Z,447,2610,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2012,43.03578,-89.409167
+1602 W Beltline Hwy,2015-01-22T00:00:00Z,477,2590,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2015,43.03578,-89.409167
+1602 W Beltline Hwy,2013-01-09T00:00:00Z,515,2670,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2013,43.03578,-89.409167
+1602 W Beltline Hwy,2011-01-05T00:00:00Z,588,3140,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2011,43.03578,-89.409167
+1602 W Beltline Hwy,2010-08-19T00:00:00Z,653,2970,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2010,43.03578,-89.409167
+1602 W Beltline Hwy,2014-02-05T00:00:00Z,662,3470,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2014,43.03578,-89.409167
+1602 W Beltline Hwy,2006-11-28T00:00:00Z,761,2790,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2006,43.03578,-89.409167
+1602 W Beltline Hwy,2007-05-31T00:00:00Z,762.6,2721,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2007,43.03578,-89.409167
+1602 W Beltline Hwy,2010-07-06T00:00:00Z,772,3170,NA,Arboretum,"1602 W Beltline Hwy Madison, WI",indoor,NA,NA,2010,43.03578,-89.409167
+4765 Hayes Rd,2019-08-15T00:00:00Z,137.8386,861,NA,Starkweather Creek,"4765 Hayes Rd Madison, WI",outdoor,NA,y,2019,43.139454,-89.29951
+1726 Eagen Rd,2006-11-29T00:00:00Z,142.4,1016,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2006,43.12484,-89.30882
+1726 Eagen Rd,2018-01-24T00:00:00Z,327,1950,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2018,43.12484,-89.30882
+1726 Eagen Rd,2013-01-28T00:00:00Z,335,2110,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2013,43.12484,-89.30882
+1726 Eagen Rd,2014-02-04T00:00:00Z,363,2300,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2014,43.12484,-89.30882
+1726 Eagen Rd,2012-03-01T00:00:00Z,369,2230,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2012,43.12484,-89.30882
+1726 Eagen Rd,2011-01-12T00:00:00Z,386,2180,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2011,43.12484,-89.30882
+1726 Eagen Rd,2010-02-10T00:00:00Z,408,2210,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2010,43.12484,-89.30882
+1726 Eagen Rd,2007-05-31T00:00:00Z,790.7,2876,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2007,43.12484,-89.30882
+1726 Eagen Rd,2008-06-23T00:00:00Z,825,2919,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2008,43.12484,-89.30882
+1726 Eagen Rd,2016-02-24T00:00:00Z,921,2400,NA,Starkweather Creek,"1726 Eagen Rd Madison, WI",indoor,NA,NA,2016,43.12484,-89.30882
+1754 Thierer Rd,2004-07-27T00:00:00Z,41.58,1469,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2004,43.12301,-89.31347
+4715 Sheboygan Ave,2008-07-22T00:00:00Z,351.6,1375,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,NA,2008,43.07289,-89.45826
+4715 Sheboygan Ave,2007-07-26T00:00:00Z,373.4,1458,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,NA,2007,43.07289,-89.45826
+4715 Sheboygan Ave,2012-07-05T00:00:00Z,387,1520,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,NA,2012,43.07289,-89.45826
+4715 Sheboygan Ave,2015-09-01T00:00:00Z,420,1580,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,NA,2015,43.07289,-89.45826
+4715 Sheboygan Ave,2011-07-12T00:00:00Z,442,1580,NA,Mendota,"4715 Sheboygan Ave Madison, WI",outdoor,NA,NA,2011,43.07289,-89.45826
+479 Commerce Dr,2011-01-04T00:00:00Z,814,5080,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2011,43.0597,-89.52425
+479 Commerce Dr,2018-02-01T00:00:00Z,993,4590,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2018,43.0597,-89.52425
+479 Commerce Dr,2010-02-11T00:00:00Z,1430,5440,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2010,43.0597,-89.52425
+479 Commerce Dr,2017-01-05T00:00:00Z,1690,6330,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2017,43.0597,-89.52425
+479 Commerce Dr,2019-02-05T00:00:00Z,1710,6510,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2019,43.0597,-89.52425
+1754 Thierer Rd,2012-02-15T00:00:00Z,221,1280,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2012,43.12301,-89.31347
+1754 Thierer Rd,2015-01-12T00:00:00Z,289,2160,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2015,43.12301,-89.31347
+1754 Thierer Rd,2008-06-23T00:00:00Z,371.6,1596,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2008,43.12301,-89.31347
+1754 Thierer Rd,2016-02-23T00:00:00Z,373,3330,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2016,43.12301,-89.31347
+1754 Thierer Rd,2006-11-09T00:00:00Z,377.7,1768,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2006,43.12301,-89.31347
+1754 Thierer Rd,2017-01-03T00:00:00Z,445,3010,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2017,43.12301,-89.31347
+1754 Thierer Rd,2010-02-08T00:00:00Z,453,1790,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2010,43.12301,-89.31347
+1754 Thierer Rd,2007-05-31T00:00:00Z,464.1,2064,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2007,43.12301,-89.31347
+1754 Thierer Rd,2005-02-14T00:00:00Z,584.1,2480,NA,Starkweather Creek,"1754 Thierer Rd Madison, WI",indoor,NA,NA,2005,43.12301,-89.31347
+479 Commerce Dr,2013-01-11T00:00:00Z,1790,7130,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2013,43.0597,-89.52425
+479 Commerce Dr,2015-01-14T00:00:00Z,1930,7690,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2015,43.0597,-89.52425
+479 Commerce Dr,2014-02-05T00:00:00Z,2000,7700,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2014,43.0597,-89.52425
+2130 University Ave,2007-06-04T00:00:00Z,333.7,1374,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2007,43.072582,-89.422806
+2130 University Ave,2011-01-05T00:00:00Z,433,1740,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2011,43.072582,-89.422806
+2130 University Ave,2018-01-25T00:00:00Z,846,2980,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2018,43.072582,-89.422806
+2130 University Ave,2014-02-06T00:00:00Z,859,3250,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2014,43.072582,-89.422806
+2130 University Ave,2016-03-02T00:00:00Z,1030,3700,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2016,43.072582,-89.422806
+2130 University Ave,2004-07-06T00:00:00Z,1039,3420,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2004,43.072582,-89.422806
+2130 University Ave,2015-01-15T00:00:00Z,1050,3630,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2015,43.072582,-89.422806
+2130 University Ave,2019-02-19T00:00:00Z,1310,4900,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2019,43.072582,-89.422806
+2130 University Ave,2017-01-05T00:00:00Z,1500,5170,NA,University Bay Creek,"2130 University Ave Madison, WI",indoor,NA,NA,2017,43.072582,-89.422806
+2502 Independence Ln,2007-07-23T00:00:00Z,211,1202,NA,Starkweather Creek,"2502 Independence Ln Madison, WI",outdoor,NA,NA,2007,43.131386,-89.30802
+2502 Independence Ln,2016-08-04T00:00:00Z,853,3050,NA,Starkweather Creek,"2502 Independence Ln Madison, WI",outdoor,NA,NA,2016,43.131386,-89.30802
+2502 Independence Ln,2015-08-11T00:00:00Z,976,3630,NA,Starkweather Creek,"2502 Independence Ln Madison, WI",outdoor,NA,NA,2015,43.131386,-89.30802
+251 S Yellowstone Dr,2004-06-02T00:00:00Z,33.09,570,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2004,43.062965,-89.493484
+251 S Yellowstone Dr,2007-06-26T00:00:00Z,114.1,838,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2007,43.062965,-89.493484
+251 S Yellowstone Dr,2005-08-15T00:00:00Z,150.4,916,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2005,43.062965,-89.493484
+251 S Yellowstone Dr,2008-07-28T00:00:00Z,247,1074,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2008,43.062965,-89.493484
+251 S Yellowstone Dr,2009-07-23T00:00:00Z,287,1270,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2009,43.062965,-89.493484
+251 S Yellowstone Dr,2012-07-20T00:00:00Z,351,1470,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2012,43.062965,-89.493484
+251 S Yellowstone Dr,2016-08-15T00:00:00Z,1670,5320,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2016,43.062965,-89.493484
+251 S Yellowstone Dr,2017-08-16T00:00:00Z,1970,6280,NA,Spring Harbor,"251 S Yellowstone Dr Madison, WI",outdoor,NA,NA,2017,43.062965,-89.493484
+479 Commerce Dr,2016-03-01T00:00:00Z,2020,7490,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2016,43.0597,-89.52425
+479 Commerce Dr,2012-02-22T00:00:00Z,2230,9610,NA,Mendota,"479 Commerce Dr Madison, WI",indoor,NA,NA,2012,43.0597,-89.52425
+483 Commerce Dr,2017-01-05T00:00:00Z,1130,6900,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2017,43.059673,-89.524155
+483 Commerce Dr,2010-02-11T00:00:00Z,1510,6970,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2010,43.059673,-89.524155
+483 Commerce Dr,2014-02-05T00:00:00Z,1530,6990,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2014,43.059673,-89.524155
+483 Commerce Dr,2019-03-07T00:00:00Z,1660,6350,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2019,43.059673,-89.524155
+483 Commerce Dr,2015-01-14T00:00:00Z,1890,7190,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2015,43.059673,-89.524155
+483 Commerce Dr,2018-02-01T00:00:00Z,1930,7470,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2018,43.059673,-89.524155
+483 Commerce Dr,2018-02-01T00:00:00Z,1930,7470,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2018,43.059673,-89.524155
+2601 Old Camden Sq,2012-06-12T00:00:00Z,219,1030,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,NA,2012,NA,NA
+2601 Old Camden Sq,2011-06-22T00:00:00Z,227,1100,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,NA,2011,NA,NA
+2601 Old Camden Sq,2015-08-11T00:00:00Z,358,1630,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,NA,2015,NA,NA
+2601 Old Camden Sq,2004-08-25T00:00:00Z,375.1,1390,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,NA,2004,NA,NA
+2601 Old Camden Sq,2007-07-24T00:00:00Z,400.4,1883,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,NA,2007,NA,NA
+2601 Old Camden Sq,2016-08-02T00:00:00Z,445,1650,NA,Starkweather Creek,"2601 Old Camden Sq Madison, WI",outdoor,NA,NA,2016,NA,NA
+405 Moorland Rd,2015-09-01T00:00:00Z,126.71980000000002,823,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,y,2015,43.035637,-89.37957
+405 Moorland Rd,2019-07-30T00:00:00Z,160.36880000000005,938,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,y,2019,43.035637,-89.37957
+405 Moorland Rd,2012-06-12T00:00:00Z,100,701,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,NA,2012,43.035637,-89.37957
+405 Moorland Rd,2007-07-24T00:00:00Z,548.8,2593,NA,Monona,"405 Moorland Rd Madison, WI",outdoor,NA,NA,2007,43.035637,-89.37957
+424 W Dayton St,2013-08-08T00:00:00Z,91.90040000000002,704,NA,Monona Bay,"424 W Dayton St Madison, WI",outdoor,NA,y,2013,43.072475,-89.39141
+2219 Monroe St,2012-06-14T00:00:00Z,439,1670,NA,Wingra,"2219 Monroe St Madison, WI",indoor,NA,NA,2012,43.062077,-89.421455
+2219 Monroe St,2007-06-08T00:00:00Z,665.4,2461,NA,Wingra,"2219 Monroe St Madison, WI",indoor,NA,NA,2007,43.062077,-89.421455
+2219 Monroe St,2019-02-19T00:00:00Z,726,2550,NA,Wingra,"2219 Monroe St Madison, WI",indoor,NA,NA,2019,43.062077,-89.421455
+6405 Bridge Rd,2007-07-24T00:00:00Z,122.2,699,242266.354176,Yahara River,"6405 Bridge Rd Madison, WI",outdoor,NA,NA,2007,43.049355,-89.33801
+2809 Curry Pkwy,2018-08-23T00:00:00Z,418,1740,NA,Arboretum,"2809 Curry Pkwy Madison, WI",outdoor,NA,NA,2018,43.03466,-89.42613
+2809 Curry Pkwy,2004-06-14T00:00:00Z,430.7,1570,NA,Arboretum,"2809 Curry Pkwy Madison, WI",outdoor,NA,NA,2004,43.03466,-89.42613
+2809 Curry Pkwy,2017-08-30T00:00:00Z,1020,3530,NA,Arboretum,"2809 Curry Pkwy Madison, WI",outdoor,NA,NA,2017,43.03466,-89.42613
+6405 Bridge Rd,2014-07-23T00:00:00Z,361,1790,242266.354176,Yahara River,"6405 Bridge Rd Madison, WI",outdoor,NA,NA,2014,43.049355,-89.33801
+6431 Bridge Rd,2013-07-29T00:00:00Z,124.08640000000003,814,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,y,2013,43.048603,-89.33886
+2302 University Ave,2007-01-19T00:00:00Z,957.1,3410,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2007,43.072296,-89.425766
+2424 University Ave,2007-01-19T00:00:00Z,566.2,2199,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2007,43.07216,-89.42756
+2424 University Ave,2008-07-22T00:00:00Z,635.3,2327,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2008,43.07216,-89.42756
+2302 University Ave,2010-02-18T00:00:00Z,856,3050,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2010,43.072296,-89.425766
+2424 University Ave,2010-02-18T00:00:00Z,887,3090,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2010,43.07216,-89.42756
+302 Parkwood Ln,2012-06-12T00:00:00Z,193,1110,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,NA,2012,43.103592,-89.31075
+302 Parkwood Ln,2004-07-06T00:00:00Z,199.3,961,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,NA,2004,43.103592,-89.31075
+302 Parkwood Ln,2007-07-24T00:00:00Z,294.4,1310,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,NA,2007,43.103592,-89.31075
+302 Parkwood Ln,2005-08-17T00:00:00Z,371.8,1535,NA,Starkweather Creek,"302 Parkwood Ln Madison, WI",outdoor,NA,NA,2005,43.103592,-89.31075
+483 Commerce Dr,2011-01-04T00:00:00Z,2010,8260,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2011,43.059673,-89.524155
+483 Commerce Dr,2013-01-09T00:00:00Z,2270,8380,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2013,43.059673,-89.524155
+483 Commerce Dr,2012-02-22T00:00:00Z,2830,12500,NA,Mendota,"483 Commerce Dr Madison, WI",indoor,y,NA,2012,43.059673,-89.524155
+2302 University Ave,2011-01-05T00:00:00Z,595,2500,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2011,43.072296,-89.425766
+2302 University Ave,2013-01-16T00:00:00Z,554,2160,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2013,43.072296,-89.425766
+2424 University Ave,2013-01-16T00:00:00Z,612,2390,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2013,43.07216,-89.42756
+2424 University Ave,2014-02-06T00:00:00Z,237.03,1200,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,y,2014,43.07216,-89.42756
+3269 Forest Run Ct,2012-06-06T00:00:00Z,211,1010,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,NA,2012,43.137608,-89.30429
+3269 Forest Run Ct,2003-08-14T00:00:00Z,215,1133,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,NA,2003,43.137608,-89.30429
+3269 Forest Run Ct,2007-07-23T00:00:00Z,297.5,1278,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,NA,2007,43.137608,-89.30429
+3269 Forest Run Ct,2017-07-13T00:00:00Z,421,1680,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,NA,2017,43.137608,-89.30429
+3269 Forest Run Ct,2016-08-04T00:00:00Z,518,2020,NA,Starkweather Creek,"3269 Forest Run Ct Madison, WI",outdoor,NA,NA,2016,43.137608,-89.30429
+2302 University Ave,2014-02-06T00:00:00Z,1250,4630,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2014,43.072296,-89.425766
+2302 University Ave,2015-01-15T00:00:00Z,2000,7410,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2015,43.072296,-89.425766
+2424 University Ave,2015-01-15T00:00:00Z,944,3460,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2015,43.07216,-89.42756
+2302 University Ave,2016-03-02T00:00:00Z,825,3310,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2016,43.072296,-89.425766
+2424 University Ave,2016-03-02T00:00:00Z,646,2690,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2016,43.07216,-89.42756
+2424 University Ave,2017-01-04T00:00:00Z,562,2380,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2017,43.07216,-89.42756
+2302 University Ave,2017-01-05T00:00:00Z,562,2000,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2017,43.072296,-89.425766
+2302 University Ave,2019-02-19T00:00:00Z,387,1830,NA,University Bay Creek,"2302 University Ave Madison, WI",indoor,NA,NA,2019,43.072296,-89.425766
+2424 University Ave,2019-02-19T00:00:00Z,1050,4080,NA,University Bay Creek,"2424 University Ave Madison, WI",indoor,NA,NA,2019,43.07216,-89.42756
+2502 Crossroads Dr,2012-02-06T00:00:00Z,165,1560,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,NA,2012,43.133453,-89.2907
+2502 Crossroads Dr,2017-01-03T00:00:00Z,246,2330,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,NA,2017,43.133453,-89.2907
+2502 Crossroads Dr,2007-07-24T00:00:00Z,280.8,1379,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,NA,2007,43.133453,-89.2907
+2502 Crossroads Dr,2015-01-12T00:00:00Z,338,2560,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,NA,2015,43.133453,-89.2907
+2502 Crossroads Dr,2005-02-14T00:00:00Z,465.5,1765,NA,Starkweather Creek,"2502 Crossroads Dr Madison, WI",indoor,NA,NA,2005,43.133453,-89.2907
+2702 Crossroads Dr,2010-02-08T00:00:00Z,1230,5190,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2010,43.134365,-89.29027
+2702 Crossroads Dr,2016-02-23T00:00:00Z,1430,5960,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2016,43.134365,-89.29027
+2702 Crossroads Dr,2014-01-21T00:00:00Z,1560,5260,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2014,43.134365,-89.29027
+2702 Crossroads Dr,2015-01-12T00:00:00Z,1670,5450,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2015,43.134365,-89.29027
+2702 Crossroads Dr,2012-02-06T00:00:00Z,1790,6030,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2012,43.134365,-89.29027
+2702 Crossroads Dr,2011-01-10T00:00:00Z,1850,6240,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2011,43.134365,-89.29027
+2702 Crossroads Dr,2013-01-28T00:00:00Z,2000,6580,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2013,43.134365,-89.29027
+2702 Crossroads Dr,2019-01-23T00:00:00Z,2140,7910,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2019,43.134365,-89.29027
+2702 Crossroads Dr,2017-01-03T00:00:00Z,2250,7390,NA,Starkweather Creek,"2702 Crossroads Dr Madison, WI",indoor,NA,NA,2017,43.134365,-89.29027
+30 Ash St,2007-01-19T00:00:00Z,782.3,2827,NA,University Bay Creek,"30 Ash St Madison, WI",indoor,NA,NA,2007,43.069023,-89.425575
+30 Ash St,2019-02-19T00:00:00Z,889,3640,NA,University Bay Creek,"30 Ash St Madison, WI",indoor,NA,NA,2019,43.069023,-89.425575
+508 Plaza Dr,2015-08-25T00:00:00Z,280.9200000000001,1350,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,y,2015,43.054943,-89.52556
+508 Plaza Dr,2013-07-31T00:00:00Z,324.81000000000006,1500,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,y,2013,43.054943,-89.52556
+508 Plaza Dr,2019-07-11T00:00:00Z,441.85,1900,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,y,2019,43.054943,-89.52556
+508 Plaza Dr,2008-07-08T00:00:00Z,212.6,966,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2008,43.054943,-89.52556
+508 Plaza Dr,2003-07-15T00:00:00Z,266.1,1142,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2003,43.054943,-89.52556
+3177 E Washington Ave,2005-01-12T00:00:00Z,1370,4740,NA,Starkweather Creek,"3177 E Washington Ave Madison, WI",indoor,NA,NA,2005,43.108462,-89.335858
+3177 E Washington Ave,2006-11-09T00:00:00Z,1509,5000,NA,Starkweather Creek,"3177 E Washington Ave Madison, WI",indoor,NA,NA,2006,43.108462,-89.335858
+3177 E Washington Ave,2007-05-31T00:00:00Z,1772,5820,NA,Starkweather Creek,"3177 E Washington Ave Madison, WI",indoor,NA,NA,2007,43.108462,-89.335858
+3177 E Washington Ave,2008-06-23T00:00:00Z,2389,7570,NA,Starkweather Creek,"3177 E Washington Ave Madison, WI",indoor,NA,NA,2008,43.108462,-89.335858
+3301 City View Dr,2011-01-10T00:00:00Z,746,2780,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2011,NA,NA
+3301 City View Dr,2005-02-14T00:00:00Z,1142,3770,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2005,NA,NA
+3301 City View Dr,2012-02-06T00:00:00Z,1150,3970,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2012,NA,NA
+3301 City View Dr,2018-01-18T00:00:00Z,1400,4820,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2018,NA,NA
+3301 City View Dr,2015-01-12T00:00:00Z,1540,5250,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2015,NA,NA
+3301 City View Dr,2013-01-23T00:00:00Z,1680,5710,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2013,NA,NA
+4 S Lincoln Ridge Dr,2012-06-21T00:00:00Z,88.9,805,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,NA,2012,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2007-07-05T00:00:00Z,123.8,805,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,NA,2007,43.051422,-89.51524
+4 S Lincoln Ridge Dr,2008-07-22T00:00:00Z,188.9,927,NA,Spring Harbor,"4 S Lincoln Ridge Dr Madison, WI",outdoor,NA,NA,2008,43.051422,-89.51524
+40 Golf View Rd,2004-06-01T00:00:00Z,271.2,1180,NA,Cherokee Marsh,"40 Golf View Rd Madison, WI",indoor,NA,NA,2004,43.147934,-89.36731
+40 Golf Course Rd,2005-08-17T00:00:00Z,284.3,1230,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2005,43.149788,-89.370384
+40 Golf Course Rd,2007-08-08T00:00:00Z,863.8,3220,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2007,43.149788,-89.370384
+40 Golf Course Rd,2008-07-07T00:00:00Z,497.9,1920,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2008,43.149788,-89.370384
+40 Golf Course Rd,2009-07-16T00:00:00Z,518,2040,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2009,43.149788,-89.370384
+40 Golf Course Rd,2010-06-11T00:00:00Z,335,1450,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2010,43.149788,-89.370384
+40 Golf Course Rd,2011-06-16T00:00:00Z,426,1610,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2011,43.149788,-89.370384
+40 Golf Course Rd,2012-06-12T00:00:00Z,410,1700,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2012,43.149788,-89.370384
+40 Golf Course Rd,2013-07-11T00:00:00Z,567,2200,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2013,43.149788,-89.370384
+40 Golf Course Rd,2014-07-10T00:00:00Z,606,2270,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2014,43.149788,-89.370384
+40 Golf Course Rd,2015-08-12T00:00:00Z,672,2480,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2015,43.149788,-89.370384
+40 Golf Course Rd,2016-08-03T00:00:00Z,1260,2200,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2016,43.149788,-89.370384
+40 Golf Course Rd,2017-07-11T00:00:00Z,658,2420,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2017,43.149788,-89.370384
+40 Golf Course Rd,2018-08-02T00:00:00Z,923,3220,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2018,43.149788,-89.370384
+3301 City View Dr,2014-01-21T00:00:00Z,2030,6710,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2014,NA,NA
+4765 Hayes Rd,2005-08-17T00:00:00Z,310.1,1427,NA,Starkweather Creek,"4765 Hayes Rd Madison, WI",outdoor,NA,NA,2005,43.139454,-89.29951
+4765 Hayes Rd,2004-06-21T00:00:00Z,318.5,1417,NA,Starkweather Creek,"4765 Hayes Rd Madison, WI",outdoor,NA,NA,2004,43.139454,-89.29951
+4765 Hayes Rd,2007-07-23T00:00:00Z,522.7,2030,NA,Starkweather Creek,"4765 Hayes Rd Madison, WI",outdoor,NA,NA,2007,43.139454,-89.29951
+4820 Hayes Rd,2011-01-12T00:00:00Z,269.216,1310,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,y,2011,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2013-01-28T00:00:00Z,383.33000000000004,1700,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,y,2013,43.137359096471236,-89.30133540749966
+424 W Dayton St,2010-07-21T00:00:00Z,101.84880000000001,738,NA,Monona Bay,"424 W Dayton St Madison, WI",outdoor,NA,y,2010,43.072475,-89.39141
+424 W Dayton St,2012-08-01T00:00:00Z,127.305,825,NA,Monona Bay,"424 W Dayton St Madison, WI",outdoor,NA,y,2012,43.072475,-89.39141
+4145 Country Club Rd,2019-07-31T00:00:00Z,387,2180,NA,Wingra,"4145 Country Club Rd Madison, WI",outdoor,NA,NA,2019,43.041473,-89.440414
+4145 Country Club Rd,2012-08-07T00:00:00Z,486,2170,NA,Wingra,"4145 Country Club Rd Madison, WI",outdoor,NA,NA,2012,43.041473,-89.440414
+4145 Country Club Rd,2011-07-27T00:00:00Z,535,2290,NA,Wingra,"4145 Country Club Rd Madison, WI",outdoor,NA,NA,2011,43.041473,-89.440414
+424 W Dayton St,2011-08-02T00:00:00Z,237.03,1200,NA,Monona Bay,"424 W Dayton St Madison, WI",outdoor,NA,y,2011,43.072475,-89.39141
+3301 City View Dr,2016-02-23T00:00:00Z,2180,8200,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2016,NA,NA
+3301 City View Dr,2017-01-03T00:00:00Z,2750,8860,NA,Starkweather Creek,"3301 City View Dr Madison, WI",indoor,NA,NA,2017,NA,NA
+432 W Gorham St,2019-08-13T00:00:00Z,351.144,1590,NA,Monona Bay,"432 W Gorham St Madison, WI",outdoor,NA,y,2019,43.07372245043685,-89.39386886471608
+433 W Johnson St,2019-08-15T00:00:00Z,345,1690,NA,Monona Bay,"433 W Johnson St Madison, WI",outdoor,NA,NA,2019,43.07282,-89.39271
+437 N Frances St,2019-02-28T00:00:00Z,160.36880000000005,938,NA,Monona Bay,"437 N Frances St Madison, WI",indoor,NA,y,2019,43.073845,-89.3958
+437 N Frances St,2019-08-13T00:00:00Z,306,2660,NA,Monona Bay,"437 N Frances St Madison, WI",indoor,NA,NA,2019,43.073845,-89.3958
+440 W Johnson St,2004-06-02T00:00:00Z,298.2,1419,NA,Monona Bay,"440 W Johnson St Madison, WI",indoor,NA,NA,2004,43.07274535802946,-89.39314684262662
+440 W Johnson St,2019-02-21T00:00:00Z,2840,9260,NA,Monona Bay,"440 W Johnson St Madison, WI",indoor,NA,NA,2019,43.07274535802946,-89.39314684262662
+5 E Wilson St,2003-07-14T00:00:00Z,1366,4780,NA,Monona,"5 E Wilson St Madison, WI",indoor,NA,NA,2003,NA,NA
+501 N Henry St,2004-07-06T00:00:00Z,609.5,2420,NA,Monona,"501 N Henry St Madison, WI",indoor,NA,NA,2004,43.076138,-89.39171
+3550 Anderson St,2006-11-29T00:00:00Z,291.1,1208,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,NA,2006,43.12023,-89.32756
+3550 Anderson St,2012-02-16T00:00:00Z,293,1230,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,NA,2012,43.12023,-89.32756
+3550 Anderson St,2005-01-12T00:00:00Z,306.3,1235,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,NA,2005,43.12023,-89.32756
+3550 Anderson St,2007-05-31T00:00:00Z,313.1,1305,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,NA,2007,43.12023,-89.32756
+3550 Anderson St,2018-01-24T00:00:00Z,480,1780,NA,Starkweather Creek,"3550 Anderson St Madison, WI",indoor,NA,NA,2018,43.12023,-89.32756
+3841 E Washington Ave,2005-02-14T00:00:00Z,261.7,1244,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2005,43.11661,-89.32502
+3841 E Washington Ave,2007-05-31T00:00:00Z,270.2,1327,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2007,43.11661,-89.32502
+3841 E Washington Ave,2006-11-29T00:00:00Z,394.5,1763,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2006,43.11661,-89.32502
+508 Plaza Dr,2014-08-07T00:00:00Z,318,1290,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2014,43.054943,-89.52556
+508 Plaza Dr,2009-06-22T00:00:00Z,342,1400,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2009,43.054943,-89.52556
+3841 E Washington Ave,2008-06-23T00:00:00Z,497.9,2130,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2008,43.11661,-89.32502
+4820 Hayes Rd,2014-02-04T00:00:00Z,485.74,2050,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,y,2014,43.137359096471236,-89.30133540749966
+508 Plaza Dr,2010-06-28T00:00:00Z,353,1300,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2010,43.054943,-89.52556
+508 Plaza Dr,2012-06-20T00:00:00Z,368,1390,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2012,43.054943,-89.52556
+508 Plaza Dr,2007-07-05T00:00:00Z,370.3,1494,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2007,43.054943,-89.52556
+508 Plaza Dr,2018-08-30T00:00:00Z,499,2180,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2018,43.054943,-89.52556
+508 Plaza Dr,2011-07-08T00:00:00Z,520,1640,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2011,43.054943,-89.52556
+508 Plaza Dr,2016-08-15T00:00:00Z,693,3160,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2016,43.054943,-89.52556
+4820 Hayes Rd,2015-01-13T00:00:00Z,414,2440,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2015,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2004-06-01T00:00:00Z,421.1,1749,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2004,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2012-02-06T00:00:00Z,459,1960,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2012,43.137359096471236,-89.30133540749966
+3841 E Washington Ave,2012-02-06T00:00:00Z,675,2660,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2012,43.11661,-89.32502
+3841 E Washington Ave,2011-01-06T00:00:00Z,735,2880,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2011,43.11661,-89.32502
+3841 E Washington Ave,2010-02-10T00:00:00Z,774,2830,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2010,43.11661,-89.32502
+3841 E Washington Ave,2017-01-03T00:00:00Z,1130,4210,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2017,43.11661,-89.32502
+3841 E Washington Ave,2018-01-18T00:00:00Z,1370,4740,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2018,43.11661,-89.32502
+3841 E Washington Ave,2016-02-23T00:00:00Z,1450,5430,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2016,43.11661,-89.32502
+3841 E Washington Ave,2014-01-21T00:00:00Z,1550,5460,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2014,43.11661,-89.32502
+3841 E Washington Ave,2015-01-12T00:00:00Z,1700,5750,NA,Starkweather Creek,"3841 E Washington Ave Madison, WI",indoor,NA,NA,2015,43.11661,-89.32502
+40 Golf Course Rd,2019-07-09T00:00:00Z,652,2640,NA,Cherokee Marsh,"40 Golf Course Rd Madison, WI",outdoor,NA,NA,2019,43.149788,-89.370384
+525 W Johnson St,2016-03-02T00:00:00Z,260.438,1280,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,y,2016,43.080227,-89.38219
+525 W Johnson St,2014-02-06T00:00:00Z,336.514,1540,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,y,2014,43.080227,-89.38219
+525 W Johnson St,2010-03-05T00:00:00Z,301,1390,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2010,43.080227,-89.38219
+4402 E Washington Ave,2014-07-21T00:00:00Z,40.9,771,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2014,43.12664,-89.31022
+4402 E Washington Ave,2011-01-06T00:00:00Z,418,1870,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2011,43.12664,-89.31022
+4402 E Washington Ave,2005-01-12T00:00:00Z,421.6,1810,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2005,43.12664,-89.31022
+4402 E Washington Ave,2010-02-08T00:00:00Z,778,2970,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2010,43.12664,-89.31022
+4402 E Washington Ave,2007-05-31T00:00:00Z,834.4,3050,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2007,43.12664,-89.31022
+4402 E Washington Ave,2013-01-09T00:00:00Z,956,3390,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2013,43.12664,-89.31022
+4402 E Washington Ave,2008-06-23T00:00:00Z,1029,3560,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2008,43.12664,-89.31022
+4402 E Washington Ave,2006-11-09T00:00:00Z,1228,4090,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2006,43.12664,-89.31022
+4402 E Washington Ave,2014-01-21T00:00:00Z,1430,4910,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2014,43.12664,-89.31022
+4402 E Washington Ave,2012-02-15T00:00:00Z,1450,5340,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2012,43.12664,-89.31022
+4402 E Washington Ave,2015-01-13T00:00:00Z,1780,5900,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2015,43.12664,-89.31022
+4402 E Washington Ave,2016-02-23T00:00:00Z,2250,7990,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2016,43.12664,-89.31022
+4801 Sheboygan Ave,2008-07-22T00:00:00Z,90.43,683,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,NA,2008,43.072807,-89.459236
+4801 Sheboygan Ave,2007-07-26T00:00:00Z,106.8,757,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,NA,2007,43.072807,-89.459236
+4801 Sheboygan Ave,2012-07-20T00:00:00Z,115,754,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,NA,2012,43.072807,-89.459236
+4801 Sheboygan Ave,2003-08-13T00:00:00Z,162.8,873,204412.236336,University Bay Creek,"4801 Sheboygan Ave Madison, WI",outdoor,NA,NA,2003,43.072807,-89.459236
+4817 Sheboygan Ave,2008-07-22T00:00:00Z,483.4,1843,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2008,43.07287,-89.460495
+4817 Sheboygan Ave,2010-07-09T00:00:00Z,526,1860,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2010,43.07287,-89.460495
+4817 Sheboygan Ave,2012-07-05T00:00:00Z,534,1980,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2012,43.07287,-89.460495
+4817 Sheboygan Ave,2016-08-26T00:00:00Z,578,2140,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2016,43.07287,-89.460495
+4817 Sheboygan Ave,2011-07-12T00:00:00Z,591,2290,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2011,43.07287,-89.460495
+4817 Sheboygan Ave,2009-07-09T00:00:00Z,614,2370,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2009,43.07287,-89.460495
+4817 Sheboygan Ave,2003-08-13T00:00:00Z,672.3,2500,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2003,43.07287,-89.460495
+4817 Sheboygan Ave,2007-07-26T00:00:00Z,722.4,2647,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2007,43.07287,-89.460495
+4817 Sheboygan Ave,2017-08-16T00:00:00Z,750,2670,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2017,43.07287,-89.460495
+4817 Sheboygan Ave,2018-08-22T00:00:00Z,796,2900,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2018,43.07287,-89.460495
+4817 Sheboygan Ave,2013-08-13T00:00:00Z,865,3170,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2013,43.07287,-89.460495
+4817 Sheboygan Ave,2014-08-27T00:00:00Z,922,3320,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2014,43.07287,-89.460495
+4817 Sheboygan Ave,2015-09-01T00:00:00Z,1000,3380,113562.35351999999,University Bay Creek,"4817 Sheboygan Ave Madison, WI",outdoor,NA,NA,2015,43.07287,-89.460495
+4402 E Washington Ave,2017-01-03T00:00:00Z,2280,7260,NA,Starkweather Creek,"4402 E Washington Ave Madison, WI",indoor,NA,NA,2017,43.12664,-89.31022
+4820 Hayes Rd,2010-02-08T00:00:00Z,467,1780,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2010,43.137359096471236,-89.30133540749966
+508 Plaza Dr,2017-08-08T00:00:00Z,729,3010,NA,Mendota,"508 Plaza Dr Madison, WI",outdoor,NA,NA,2017,43.054943,-89.52556
+610 Langdon St,2011-01-05T00:00:00Z,53,458,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,y,2011,43.07578,-89.39568
+610 Langdon St,2012-02-29T00:00:00Z,93.5,611,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,NA,2012,43.07578,-89.39568
+610 Langdon St,2013-03-14T00:00:00Z,176,956,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,y,2013,43.07578,-89.39568
+610 Langdon St,2004-06-01T00:00:00Z,317.3,1455,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,NA,2004,43.07578,-89.39568
+610 Langdon St,2018-01-25T00:00:00Z,666,2140,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,NA,2018,43.07578,-89.39568
+610 Langdon St,2007-06-08T00:00:00Z,854.2,2947,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,NA,2007,43.07578,-89.39568
+610 Langdon St,2015-01-15T00:00:00Z,1940,6530,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,NA,2015,43.07578,-89.39568
+610 Langdon St,2016-03-03T00:00:00Z,3030,9930,NA,Mendota,"610 Langdon St Madison, WI",indoor,NA,NA,2016,43.07578,-89.39568
+639 Pleasant View Rd,2012-06-20T00:00:00Z,1310,4940,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2012,43.07363,-89.536106
+4801 Annamark Dr,2008-06-23T00:00:00Z,166.3,979,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2008,43.131306,-89.299614
+4829 Sheboygan Ave,2011-07-12T00:00:00Z,827,3210,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2011,43.072884,-89.46072
+4829 Sheboygan Ave,2012-07-05T00:00:00Z,837,3120,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2012,43.072884,-89.46072
+4829 Sheboygan Ave,2009-07-09T00:00:00Z,846,3160,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2009,43.072884,-89.46072
+4829 Sheboygan Ave,2016-08-26T00:00:00Z,949,3310,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2016,43.072884,-89.46072
+4829 Sheboygan Ave,2015-09-01T00:00:00Z,971,3660,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2015,43.072884,-89.46072
+4829 Sheboygan Ave,2007-08-08T00:00:00Z,1024,3810,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2007,43.072884,-89.46072
+4829 Sheboygan Ave,2013-08-13T00:00:00Z,1040,4000,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2013,43.072884,-89.46072
+4829 Sheboygan Ave,2010-07-09T00:00:00Z,1050,3770,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2010,43.072884,-89.46072
+4829 Sheboygan Ave,2014-08-27T00:00:00Z,1170,4290,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2014,43.072884,-89.46072
+4829 Sheboygan Ave,2017-08-16T00:00:00Z,1180,4070,257408.00131199998,University Bay Creek,"4829 Sheboygan Ave Madison, WI",outdoor,NA,NA,2017,43.072884,-89.46072
+4801 Annamark Dr,2006-11-29T00:00:00Z,264.5,1657,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2006,43.131306,-89.299614
+4801 Annamark Dr,2005-02-14T00:00:00Z,319.3,1584,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2005,43.131306,-89.299614
+4801 Annamark Dr,2017-01-03T00:00:00Z,398,2680,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2017,43.131306,-89.299614
+4801 Annamark Dr,2007-05-31T00:00:00Z,409.1,1917,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2007,43.131306,-89.299614
+4801 Annamark Dr,2016-02-23T00:00:00Z,512,3260,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2016,43.131306,-89.299614
+4801 Annamark Dr,2019-01-17T00:00:00Z,603,6060,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2019,43.131306,-89.299614
+4801 Annamark Dr,2015-01-13T00:00:00Z,748,3800,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2015,43.131306,-89.299614
+4801 Annamark Dr,2011-01-06T00:00:00Z,896,4750,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2011,43.131306,-89.299614
+4801 Annamark Dr,2014-01-21T00:00:00Z,1110,5200,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2014,43.131306,-89.299614
+4801 Annamark Dr,2012-02-06T00:00:00Z,1750,7700,NA,Starkweather Creek,"4801 Annamark Dr Madison, WI",indoor,NA,NA,2012,43.131306,-89.299614
+4849 Sheboygan Ave,2007-08-28T00:00:00Z,263.1,1079,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2007,43.07291,-89.46108
+4849 Sheboygan Ave,2018-08-22T00:00:00Z,498,1730,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2018,43.07291,-89.46108
+4849 Sheboygan Ave,2012-07-05T00:00:00Z,523,1940,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2012,43.07291,-89.46108
+4849 Sheboygan Ave,2009-07-09T00:00:00Z,559,2070,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2009,43.07291,-89.46108
+4849 Sheboygan Ave,2010-07-09T00:00:00Z,566,1910,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2010,43.07291,-89.46108
+4849 Sheboygan Ave,2017-08-16T00:00:00Z,631,2260,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2017,43.07291,-89.46108
+4849 Sheboygan Ave,2008-07-24T00:00:00Z,657.1,2280,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2008,43.07291,-89.46108
+4849 Sheboygan Ave,2013-08-13T00:00:00Z,666,2400,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2013,43.07291,-89.46108
+4849 Sheboygan Ave,2011-07-12T00:00:00Z,730,2560,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2011,43.07291,-89.46108
+4849 Sheboygan Ave,2014-08-27T00:00:00Z,787,2870,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2014,43.07291,-89.46108
+4849 Sheboygan Ave,2015-09-01T00:00:00Z,789,2680,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2015,43.07291,-89.46108
+4849 Sheboygan Ave,2016-08-26T00:00:00Z,801,2630,378541.1784,University Bay Creek,"4849 Sheboygan Ave Madison, WI",outdoor,NA,NA,2016,43.07291,-89.46108
+4820 Hayes Rd,2016-02-23T00:00:00Z,483,3100,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2016,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2017-01-03T00:00:00Z,558,3190,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2017,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2018-01-18T00:00:00Z,652,3440,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2018,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2019-01-17T00:00:00Z,684,NA,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2019,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2005-02-14T00:00:00Z,1208,4120,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2005,43.137359096471236,-89.30133540749966
+4820 Hayes Rd,2005-08-15T00:00:00Z,1320,4310,NA,Starkweather Creek,"4820 Hayes Rd Madison, WI",indoor,NA,NA,2005,43.137359096471236,-89.30133540749966
+4862 Hayes Rd,2014-02-04T00:00:00Z,155.102,920,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,y,2014,43.13616734507564,-89.30047779048851
+4862 Hayes Rd,2010-02-08T00:00:00Z,162.417,945,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,y,2010,43.13616734507564,-89.30047779048851
+4862 Hayes Rd,2011-01-12T00:00:00Z,190.21400000000003,1040,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,y,2011,43.13616734507564,-89.30047779048851
+4862 Hayes Rd,2007-05-31T00:00:00Z,110,878,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,NA,2007,43.13616734507564,-89.30047779048851
+639 Pleasant View Rd,2017-08-02T00:00:00Z,1610,5720,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2017,43.07363,-89.536106
+5002 Sheboygan Ave,2004-07-06T00:00:00Z,45.7,669,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,NA,2004,43.07289,-89.46446
+5002 Sheboygan Ave,2019-07-18T00:00:00Z,60.1,970,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,NA,2019,43.07289,-89.46446
+5002 Sheboygan Ave,2012-07-05T00:00:00Z,86,949,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,NA,2012,43.07289,-89.46446
+5002 Sheboygan Ave,2008-07-24T00:00:00Z,90.1,831,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,NA,2008,43.07289,-89.46446
+5002 Sheboygan Ave,2007-07-26T00:00:00Z,104.6,1011,208576.1892984,Spring Harbor,"5002 Sheboygan Ave Madison, WI",outdoor,NA,NA,2007,43.07289,-89.46446
+639 Pleasant View Rd,2009-07-21T00:00:00Z,1890,6890,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2009,43.07363,-89.536106
+5015 Sheboygan Ave,2012-07-12T00:00:00Z,141,860,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,NA,2012,43.072773,-89.46529
+5015 Sheboygan Ave,2003-08-13T00:00:00Z,145.7,812,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,NA,2003,43.072773,-89.46529
+5015 Sheboygan Ave,2008-07-24T00:00:00Z,198.3,902,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,NA,2008,43.072773,-89.46529
+5015 Sheboygan Ave,2007-07-26T00:00:00Z,205,1007,283905.8838,University Bay Creek,"5015 Sheboygan Ave Madison, WI",outdoor,NA,NA,2007,43.072773,-89.46529
+5020 Pendleton Dr,2015-08-11T00:00:00Z,673,2510,NA,Starkweather Creek,"5020 Pendleton Dr Madison, WI",outdoor,NA,NA,2015,43.154203,-89.284118
+5020 Pendleton Dr,2019-07-09T00:00:00Z,675,2620,NA,Starkweather Creek,"5020 Pendleton Dr Madison, WI",outdoor,NA,NA,2019,43.154203,-89.284118
+639 Pleasant View Rd,2016-08-10T00:00:00Z,2020,7310,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2016,43.07363,-89.536106
+639 Pleasant View Rd,2011-07-05T00:00:00Z,2100,7010,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2011,43.07363,-89.536106
+639 Pleasant View Rd,2015-08-27T00:00:00Z,2120,8060,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2015,43.07363,-89.536106
+639 Pleasant View Rd,2010-06-24T00:00:00Z,2390,8060,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2010,43.07363,-89.536106
+639 Pleasant View Rd,2013-09-04T00:00:00Z,2400,8590,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2013,43.07363,-89.536106
+639 Pleasant View Rd,2014-08-07T00:00:00Z,2820,9750,132489.41244,Mendota,"639 Pleasant View Rd Madison, WI",outdoor,y,NA,2014,43.07363,-89.536106
+732 Bear Claw Way,2018-08-28T00:00:00Z,55.3254,579,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,y,2018,43.076523,-89.5497
+732 Bear Claw Way,2010-06-28T00:00:00Z,104.77480000000003,748,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,y,2010,43.076523,-89.5497
+4862 Hayes Rd,2008-06-23T00:00:00Z,164.9,1033,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,NA,2008,43.13616734507564,-89.30047779048851
+4862 Hayes Rd,2006-11-09T00:00:00Z,227.3,1424,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,NA,2006,43.13616734507564,-89.30047779048851
+732 Bear Claw Way,2009-07-01T00:00:00Z,124.37900000000002,815,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,y,2009,43.076523,-89.5497
+732 Bear Claw Way,2013-07-31T00:00:00Z,165.34300000000005,955,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,y,2013,43.076523,-89.5497
+732 Bear Claw Way,2016-08-10T00:00:00Z,201.91800000000003,1080,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,y,2016,43.076523,-89.5497
+732 Bear Claw Way,2011-07-05T00:00:00Z,225.32600000000005,1160,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,y,2011,43.076523,-89.5497
+732 Bear Claw Way,2017-08-02T00:00:00Z,257.51200000000006,1270,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,y,2017,43.076523,-89.5497
+732 Bear Claw Way,2012-06-20T00:00:00Z,160,847,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,NA,2012,43.076523,-89.5497
+732 Bear Claw Way,2008-07-08T00:00:00Z,255.9,1134,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,NA,2008,43.076523,-89.5497
+732 Bear Claw Way,2007-07-06T00:00:00Z,264,1244,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,NA,2007,43.076523,-89.5497
+732 Bear Claw Way,2019-08-05T00:00:00Z,274,2040,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,NA,2019,43.076523,-89.5497
+732 Bear Claw Way,2015-08-27T00:00:00Z,476,1790,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,NA,2015,43.076523,-89.5497
+732 Bear Claw Way,2014-08-07T00:00:00Z,503,1920,NA,Mendota,"732 Bear Claw Way Madison, WI",outdoor,NA,NA,2014,43.076523,-89.5497
+4862 Hayes Rd,2015-01-13T00:00:00Z,2160,7140,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,NA,2015,43.13616734507564,-89.30047779048851
+4862 Hayes Rd,2016-02-23T00:00:00Z,2430,8570,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,NA,2016,43.13616734507564,-89.30047779048851
+4862 Hayes Rd,2018-01-18T00:00:00Z,2430,7280,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,NA,2018,43.13616734507564,-89.30047779048851
+4862 Hayes Rd,NA,3730,11700,NA,Starkweather Creek,"4862 Hayes Rd Madison, WI",indoor,NA,NA,NA,43.13616734507564,-89.30047779048851
+5045 Eastpark Blvd,2015-01-12T00:00:00Z,459.40600000000006,1960,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,y,2015,43.14566,-89.29699
+525 W Johnson St,2012-02-23T00:00:00Z,302,1430,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2012,43.080227,-89.38219
+525 W Johnson St,2013-01-16T00:00:00Z,303,1450,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2013,43.080227,-89.38219
+5045 Eastpark Blvd,2010-02-10T00:00:00Z,497,3750,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2010,43.14566,-89.29699
+5045 Eastpark Blvd,2018-01-18T00:00:00Z,520,2860,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2018,43.14566,-89.29699
+5045 Eastpark Blvd,2016-02-23T00:00:00Z,595,3470,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2016,43.14566,-89.29699
+5110 Autumn Leaf Ln,2011-06-22T00:00:00Z,413,1570,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2011,43.122013,-89.29212
+5110 Autumn Leaf Ln,2017-07-13T00:00:00Z,415,1590,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2017,43.122013,-89.29212
+5110 Autumn Leaf Ln,2014-07-09T00:00:00Z,435,1640,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2014,43.122013,-89.29212
+5110 Autumn Leaf Ln,2010-07-12T00:00:00Z,459,1610,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2010,43.122013,-89.29212
+5110 Autumn Leaf Ln,2007-08-08T00:00:00Z,502.9,1965,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2007,43.122013,-89.29212
+5110 Autumn Leaf Ln,2019-07-09T00:00:00Z,522,1880,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2019,43.122013,-89.29212
+5110 Autumn Leaf Ln,2012-06-06T00:00:00Z,546,2140,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2012,43.122013,-89.29212
+5110 Autumn Leaf Ln,2016-08-02T00:00:00Z,722,2510,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2016,43.122013,-89.29212
+5110 Autumn Leaf Ln,2015-08-11T00:00:00Z,745,2760,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2015,43.122013,-89.29212
+5110 Autumn Leaf Ln,2013-07-23T00:00:00Z,1690,5770,105991.529952,Starkweather Creek,"5110 Autumn Leaf Ln Madison, WI",outdoor,NA,NA,2013,43.122013,-89.29212
+5045 Eastpark Blvd,2017-01-03T00:00:00Z,744,3570,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2017,43.14566,-89.29699
+5045 Eastpark Blvd,2019-01-23T00:00:00Z,943,NA,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2019,43.14566,-89.29699
+5045 Eastpark Blvd,2012-02-06T00:00:00Z,1010,4570,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2012,43.14566,-89.29699
+5045 Eastpark Blvd,2013-02-11T00:00:00Z,1080,5960,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2013,43.14566,-89.29699
+5045 Eastpark Blvd,2014-01-21T00:00:00Z,1080,5730,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2014,43.14566,-89.29699
+5045 Eastpark Blvd,2011-01-12T00:00:00Z,1190,6440,NA,Starkweather Creek,"5045 Eastpark Blvd Madison, WI",indoor,NA,NA,2011,43.14566,-89.29699
+5109 W Terrace Dr,2014-01-21T00:00:00Z,728,4390,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2014,43.142906,-89.29551
+5109 W Terrace Dr,2016-02-23T00:00:00Z,762,4900,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2016,43.142906,-89.29551
+5109 W Terrace Dr,2008-07-24T00:00:00Z,877.3,3020,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2008,43.142906,-89.29551
+5109 W Terrace Dr,2018-01-18T00:00:00Z,1040,5320,NA,Starkweather Creek,"5109 W Terrace Dr Madison, WI",indoor,NA,NA,2018,43.142906,-89.29551
+5150 High Crossing Blvd,2019-01-23T00:00:00Z,1400,6610,NA,Starkweather Creek,"5150 High Crossing Blvd Madison, WI",indoor,NA,NA,2019,43.13523,-89.29202
+5217 E Terrace Dr,2010-02-08T00:00:00Z,125.25680000000003,818,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,y,2010,43.143612,-89.29165
+5217 E Terrace Dr,2016-02-23T00:00:00Z,201.91800000000003,1080,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,y,2016,43.143612,-89.29165
+5217 E Terrace Dr,2014-01-21T00:00:00Z,364,1590,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2014,43.143612,-89.29165
+5217 E Terrace Dr,2007-01-04T00:00:00Z,421.6,1808,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2007,43.143612,-89.29165
+517 Grand Canyon Dr,2005-01-13T00:00:00Z,568.8,2190,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2005,43.054764,-89.49661
+5202 Brookside Dr,2011-06-22T00:00:00Z,323,1520,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2011,43.15355,-89.28322
+5202 Brookside Dr,2018-08-02T00:00:00Z,385,2100,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2018,43.15355,-89.28322
+5202 Brookside Dr,2017-07-13T00:00:00Z,444,2130,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2017,43.15355,-89.28322
+5202 Brookside Dr,2012-06-06T00:00:00Z,554,2440,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2012,43.15355,-89.28322
+5202 Brookside Dr,2009-07-22T00:00:00Z,634,2480,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2009,43.15355,-89.28322
+5202 Brookside Dr,2016-08-03T00:00:00Z,634,2590,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2016,43.15355,-89.28322
+5202 Brookside Dr,2013-07-23T00:00:00Z,844,3030,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2013,43.15355,-89.28322
+5202 Brookside Dr,2014-07-09T00:00:00Z,867,3300,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2014,43.15355,-89.28322
+5202 Brookside Dr,2003-08-14T00:00:00Z,1340,4640,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2003,43.15355,-89.28322
+5202 Brookside Dr,2015-08-11T00:00:00Z,1460,5230,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2015,43.15355,-89.28322
+5202 Brookside Dr,2007-07-24T00:00:00Z,1511,5270,132489.41244,Starkweather Creek,"5202 Brookside Dr Madison, WI",outdoor,NA,NA,2007,43.15355,-89.28322
+517 Grand Canyon Dr,2006-11-28T00:00:00Z,926.2,3160,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2006,43.054764,-89.49661
+517 Grand Canyon Dr,2007-06-04T00:00:00Z,1088,3690,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2007,43.054764,-89.49661
+516 Grand Canyon Dr,2008-07-28T00:00:00Z,750.5,2837,NA,Spring Harbor,"516 Grand Canyon Dr Madison, WI",indoor,NA,NA,2008,43.05511,-89.496635
+517 Grand Canyon Dr,2008-07-28T00:00:00Z,676.4,2488,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2008,43.054764,-89.49661
+517 Grand Canyon Dr,2010-02-11T00:00:00Z,884,3100,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2010,43.054764,-89.49661
+517 Grand Canyon Dr,2011-01-04T00:00:00Z,556,2120,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2011,43.054764,-89.49661
+517 Grand Canyon Dr,2012-02-23T00:00:00Z,939,3250,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2012,43.054764,-89.49661
+517 Grand Canyon Dr,2013-01-11T00:00:00Z,1300,4560,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2013,43.054764,-89.49661
+517 Grand Canyon Dr,2015-01-14T00:00:00Z,476,2000,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2015,43.054764,-89.49661
+517 Grand Canyon Dr,2016-03-01T00:00:00Z,573,2320,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2016,43.054764,-89.49661
+517 Grand Canyon Dr,2017-01-05T00:00:00Z,635,2260,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2017,43.054764,-89.49661
+517 Grand Canyon Dr,2018-02-01T00:00:00Z,750,2590,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2018,43.054764,-89.49661
+516 Grand Canyon Dr,2019-02-05T00:00:00Z,409,2370,NA,Spring Harbor,"516 Grand Canyon Dr Madison, WI",indoor,NA,NA,2019,43.05511,-89.496635
+517 Grand Canyon Dr,2019-02-05T00:00:00Z,880,3280,NA,Spring Harbor,"517 Grand Canyon Dr Madison, WI",indoor,NA,NA,2019,43.054764,-89.49661
+5217 E Terrace Dr,2012-02-06T00:00:00Z,530,2100,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2012,43.143612,-89.29165
+5217 E Terrace Dr,2011-01-12T00:00:00Z,571,2140,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2011,43.143612,-89.29165
+5217 E Terrace Dr,2008-06-23T00:00:00Z,664.2,2384,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2008,43.143612,-89.29165
+5217 E Terrace Dr,2017-01-03T00:00:00Z,687,2540,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2017,43.143612,-89.29165
+5217 E Terrace Dr,2013-01-09T00:00:00Z,837,2910,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2013,43.143612,-89.29165
+5217 E Terrace Dr,2004-06-30T00:00:00Z,870.6,4020,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2004,43.143612,-89.29165
+5217 E Terrace Dr,2015-01-12T00:00:00Z,953,3390,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2015,43.143612,-89.29165
+5217 E Terrace Dr,2019-01-23T00:00:00Z,971,NA,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2019,43.143612,-89.29165
+5217 E Terrace Dr,2018-01-18T00:00:00Z,1310,4330,NA,Starkweather Creek,"5217 E Terrace Dr Madison, WI",indoor,NA,NA,2018,43.143612,-89.29165
+5317 High Crossing Blvd,2018-01-18T00:00:00Z,225.32600000000005,1160,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,y,2018,43.138985,-89.28901
+5317 High Crossing Blvd,2017-01-03T00:00:00Z,310.18000000000006,1450,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,y,2017,43.138985,-89.28901
+525 W Johnson St,2019-02-21T00:00:00Z,356,1560,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2019,43.080227,-89.38219
+525 W Johnson St,2005-01-12T00:00:00Z,381.7,1811,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2005,43.080227,-89.38219
+525 W Johnson St,2017-01-12T00:00:00Z,394,1680,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2017,43.080227,-89.38219
+525 W Johnson St,2007-06-04T00:00:00Z,422.7,1922,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2007,43.080227,-89.38219
+525 W Johnson St,2018-01-25T00:00:00Z,423,1570,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2018,43.080227,-89.38219
+525 W Johnson St,2015-01-22T00:00:00Z,527,2610,NA,Monona Bay,"525 W Johnson St Madison, WI",indoor,NA,NA,2015,43.080227,-89.38219
+706 John Nolen Dr,2004-12-14T00:00:00Z,71.06,692,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2004,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2009-07-08T00:00:00Z,222,1600,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2009,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2005-01-12T00:00:00Z,250.4,1018,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2005,43.04768239082503,-89.37333630944349
+5317 High Crossing Blvd,2010-02-08T00:00:00Z,535,2160,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2010,43.138985,-89.28901
+5317 High Crossing Blvd,2007-01-04T00:00:00Z,587.4,2316,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2007,43.138985,-89.28901
+5317 High Crossing Blvd,2019-01-23T00:00:00Z,658,2440,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2019,43.138985,-89.28901
+5325 Brody St,2012-06-28T00:00:00Z,675,2460,189270.5892,Spring Harbor,"5325 Brody St Madison, WI",outdoor,NA,NA,2012,43.077766,-89.47436
+5325 Brody St,2010-08-05T00:00:00Z,729,2560,189270.5892,Spring Harbor,"5325 Brody St Madison, WI",outdoor,NA,NA,2010,43.077766,-89.47436
+5325 Brody St,2007-08-28T00:00:00Z,824.5,2903,189270.5892,Spring Harbor,"5325 Brody St Madison, WI",outdoor,NA,NA,2007,43.077766,-89.47436
+5325 Brody St,2011-08-24T00:00:00Z,940,3420,189270.5892,Spring Harbor,"5325 Brody St Madison, WI",outdoor,NA,NA,2011,43.077766,-89.47436
+5440 Congress Ave,2011-06-22T00:00:00Z,532,2090,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2011,43.139782,-89.28375
+5440 Congress Ave,2010-07-06T00:00:00Z,556,2170,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2010,43.139782,-89.28375
+5440 Congress Ave,2007-07-24T00:00:00Z,559.7,2042,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2007,43.139782,-89.28375
+5440 Congress Ave,2014-07-09T00:00:00Z,663,2470,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2014,43.139782,-89.28375
+5440 Congress Ave,2016-08-02T00:00:00Z,676,2440,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2016,43.139782,-89.28375
+5440 Congress Ave,2012-06-06T00:00:00Z,747,2660,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2012,43.139782,-89.28375
+5440 Congress Ave,2015-08-11T00:00:00Z,878,3220,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2015,43.139782,-89.28375
+5440 Congress Ave,2018-07-31T00:00:00Z,991,1280,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2018,43.139782,-89.28375
+5440 Congress Ave,2017-07-13T00:00:00Z,995,3280,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2017,43.139782,-89.28375
+5440 Congress Ave,2019-07-08T00:00:00Z,1090,4320,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2019,43.139782,-89.28375
+5440 Congress Ave,2003-07-14T00:00:00Z,1366,4780,98420.70638399999,Starkweather Creek,"5440 Congress Ave Madison, WI",outdoor,NA,NA,2003,43.139782,-89.28375
+5317 High Crossing Blvd,2014-01-21T00:00:00Z,714,2880,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2014,43.138985,-89.28901
+5317 High Crossing Blvd,2016-02-23T00:00:00Z,746,3110,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2016,43.138985,-89.28901
+5317 High Crossing Blvd,2011-01-10T00:00:00Z,779,3000,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2011,43.138985,-89.28901
+5317 High Crossing Blvd,2015-01-12T00:00:00Z,815,3070,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2015,43.138985,-89.28901
+5317 High Crossing Blvd,2012-02-29T00:00:00Z,948,1580,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2012,43.138985,-89.28901
+5317 High Crossing Blvd,2003-08-14T00:00:00Z,1090,3920,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2003,43.138985,-89.28901
+5317 High Crossing Blvd,2008-06-23T00:00:00Z,1418,4940,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2008,43.138985,-89.28901
+5317 High Crossing Blvd,2005-02-14T00:00:00Z,2074,6830,NA,Starkweather Creek,"5317 High Crossing Blvd Madison, WI",indoor,NA,NA,2005,43.138985,-89.28901
+5515 Medical Cir,2010-02-18T00:00:00Z,347,1920,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2010,43.048542,-89.47424
+5515 Medical Cir,2011-01-06T00:00:00Z,406,1670,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2011,43.048542,-89.47424
+5515 Medical Cir,2014-02-06T00:00:00Z,417,1640,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2014,43.048542,-89.47424
+5515 Medical Cir,2006-11-28T00:00:00Z,478,1807,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2006,43.048542,-89.47424
+5515 Medical Cir,2013-01-16T00:00:00Z,483,1740,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2013,43.048542,-89.47424
+5515 Medical Cir,2012-02-23T00:00:00Z,527,1880,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2012,43.048542,-89.47424
+5533 Odana Rd,2017-08-22T00:00:00Z,175.87660000000002,991,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2017,43.049995,-89.474945
+5533 Odana Rd wade,2017-08-22T00:00:00Z,196.066,1060,9842.0706384,Wingra,"5533 Odana Rd wade Madison, WI",outdoor,NA,y,2017,43.049995,-89.474945
+5533 Odana Rd,2018-08-22T00:00:00Z,260.438,1280,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,y,2018,43.049995,-89.474945
+5533 Odana Rd,2019-08-01T00:00:00Z,301,1840,700301.18004,Wingra,"5533 Odana Rd Madison, WI",outdoor,NA,NA,2019,43.049995,-89.474945
+5515 Medical Cir,2007-06-08T00:00:00Z,749.1,2749,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2007,43.048542,-89.47424
+5711 Slate Dr,2019-07-09T00:00:00Z,626,2440,NA,Starkweather Creek,"5711 Slate Dr Madison, WI",outdoor,NA,NA,2019,43.153464,-89.280674
+5711 Slate Dr,2017-08-30T00:00:00Z,774,2600,NA,Starkweather Creek,"5711 Slate Dr Madison, WI",outdoor,NA,NA,2017,43.153464,-89.280674
+5711 Slate Dr,2018-08-02T00:00:00Z,1010,3590,NA,Starkweather Creek,"5711 Slate Dr Madison, WI",outdoor,NA,NA,2018,43.153464,-89.280674
+5515 Medical Cir,2005-01-12T00:00:00Z,862.1,2920,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2005,43.048542,-89.47424
+5515 Medical Cir,2017-01-05T00:00:00Z,1060,3600,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2017,43.048542,-89.47424
+5515 Medical Cir,2008-07-28T00:00:00Z,1102,3840,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2008,43.048542,-89.47424
+5515 Medical Cir,2015-01-22T00:00:00Z,1230,4040,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2015,43.048542,-89.47424
+5515 Medical Cir,2016-03-02T00:00:00Z,1360,4560,567811.7676,Wingra,"5515 Medical Cir Madison, WI",indoor,NA,NA,2016,43.048542,-89.47424
+5555 Odana Rd,2019-02-05T00:00:00Z,2500,8830,NA,Wingra,"5555 Odana Rd Madison, WI",indoor,NA,NA,2019,43.049995,-89.475685
+610 John Nolan Dr,2015-01-13T00:00:00Z,604,2340,NA,Wingra Creek,"610 John Nolan Dr Madison, WI",indoor,y,NA,2015,NA,NA
+610 John Nolan Dr,2017-01-04T00:00:00Z,1830,7960,NA,Wingra Creek,"610 John Nolan Dr Madison, WI",indoor,y,NA,2017,NA,NA
+610 John Nolan Dr,2016-02-24T00:00:00Z,1900,8140,NA,Wingra Creek,"610 John Nolan Dr Madison, WI",indoor,y,NA,2016,NA,NA
+610 John Nolan Dr,2019-01-24T00:00:00Z,1920,10700,NA,Wingra Creek,"610 John Nolan Dr Madison, WI",indoor,y,NA,2019,NA,NA
+610 John Nolan Dr,2018-01-25T00:00:00Z,2250,9320,NA,Wingra Creek,"610 John Nolan Dr Madison, WI",indoor,y,NA,2018,NA,NA
+7418 Old Sauk Rd,2019-08-05T00:00:00Z,362.84800000000007,1630,NA,Mendota,"7418 Old Sauk Rd Madison, WI",outdoor,NA,y,2019,43.07619752071532,-89.5121695508828
+7418 Old Sauk Rd,2003-08-13T00:00:00Z,324,1330,NA,Mendota,"7418 Old Sauk Rd Madison, WI",outdoor,NA,NA,2003,43.07619752071532,-89.5121695508828
+6320 Mineral Point Rd,2009-07-23T00:00:00Z,160,918,151416.47136,Spring Harbor,"6320 Mineral Point Rd Madison, WI",outdoor,NA,y,2009,43.060818,-89.48956
+6320 Mineral Point Rd,2010-08-05T00:00:00Z,166,819,151416.47136,Spring Harbor,"6320 Mineral Point Rd Madison, WI",outdoor,NA,y,2010,43.060818,-89.48956
+6320 Mineral Point Rd,2011-07-08T00:00:00Z,177,887,151416.47136,Spring Harbor,"6320 Mineral Point Rd Madison, WI",outdoor,NA,y,2011,43.060818,-89.48956
+6320 Mineral Point Rd,2007-07-26T00:00:00Z,199.8,1015,151416.47136,Spring Harbor,"6320 Mineral Point Rd Madison, WI",outdoor,NA,NA,2007,43.060818,-89.48956
+7418 Old Sauk Rd,2007-07-06T00:00:00Z,371.8,1514,NA,Mendota,"7418 Old Sauk Rd Madison, WI",outdoor,NA,NA,2007,43.07619752071532,-89.5121695508828
+7418 Old Sauk Rd,2011-08-11T00:00:00Z,422,1700,NA,Mendota,"7418 Old Sauk Rd Madison, WI",outdoor,NA,NA,2011,43.07619752071532,-89.5121695508828
+7418 Old Sauk Rd,2012-08-07T00:00:00Z,438,1590,NA,Mendota,"7418 Old Sauk Rd Madison, WI",outdoor,NA,NA,2012,43.07619752071532,-89.5121695508828
+7418 Old Sauk Rd,2010-08-05T00:00:00Z,522,2190,NA,Mendota,"7418 Old Sauk Rd Madison, WI",outdoor,NA,NA,2010,43.07619752071532,-89.5121695508828
+7542 Widgeon Way,2010-08-05T00:00:00Z,93.656,710,158987.294928,Mendota,"7542 Widgeon Way Madison, WI",outdoor,NA,y,2010,43.07391,-89.5139
+7542 Widgeon Way,2011-08-11T00:00:00Z,139.59420000000003,867,158987.294928,Mendota,"7542 Widgeon Way Madison, WI",outdoor,NA,y,2011,43.07391,-89.5139
+7542 Widgeon Way,2013-08-08T00:00:00Z,155.68720000000005,922,158987.294928,Mendota,"7542 Widgeon Way Madison, WI",outdoor,NA,y,2013,43.07391,-89.5139
+7542 Widgeon Way,2007-07-06T00:00:00Z,152,904,158987.294928,Mendota,"7542 Widgeon Way Madison, WI",outdoor,NA,NA,2007,43.07391,-89.5139
+7542 Widgeon Way,2012-08-07T00:00:00Z,234,965,158987.294928,Mendota,"7542 Widgeon Way Madison, WI",outdoor,NA,NA,2012,43.07391,-89.5139
+6431 Bridge Rd,2010-07-13T00:00:00Z,175.87660000000002,991,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,y,2010,43.048603,-89.33886
+6431 Bridge Rd,2011-06-27T00:00:00Z,184.36200000000005,1020,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,y,2011,43.048603,-89.33886
+6431 Bridge Rd,2016-08-04T00:00:00Z,201.91800000000003,1080,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,y,2016,43.048603,-89.33886
+6431 Bridge Rd,2014-07-23T00:00:00Z,207.77,1100,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,y,2014,43.048603,-89.33886
+6431 Bridge Rd,2019-07-30T00:00:00Z,81.6,739,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,NA,2019,43.048603,-89.33886
+6431 Bridge Rd,2009-07-08T00:00:00Z,203,1040,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,NA,2009,43.048603,-89.33886
+6431 Bridge Rd,2007-07-24T00:00:00Z,229.8,1073,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,NA,2007,43.048603,-89.33886
+6431 Bridge Rd,2015-09-01T00:00:00Z,450,1620,249837.177744,Yahara River,"6431 Bridge Rd Madison, WI",outdoor,NA,NA,2015,43.048603,-89.33886
+67 Golf Course Rd,2004-06-01T00:00:00Z,185,848,NA,Cherokee Marsh,"67 Golf Course Rd Madison, WI",outdoor,NA,NA,2004,43.15008,-89.369255
+7917 Tree Ln,2010-08-05T00:00:00Z,100.971,735,253622.58952799998,Mendota,"7917 Tree Ln Madison, WI",outdoor,NA,y,2010,43.06246,-89.52
+7917 Tree Ln,2011-07-08T00:00:00Z,275.068,1330,253622.58952799998,Mendota,"7917 Tree Ln Madison, WI",outdoor,NA,y,2011,43.06246,-89.52
+7917 Tree Ln,2007-07-06T00:00:00Z,150.5,843,253622.58952799998,Mendota,"7917 Tree Ln Madison, WI",outdoor,NA,NA,2007,43.06246,-89.52
+7917 Tree Ln,2012-08-07T00:00:00Z,265,1080,253622.58952799998,Mendota,"7917 Tree Ln Madison, WI",outdoor,NA,NA,2012,43.06246,-89.52
+7917 Tree Ln,2013-07-31T00:00:00Z,632,2420,253622.58952799998,Mendota,"7917 Tree Ln Madison, WI",outdoor,NA,NA,2013,43.06246,-89.52
+8080 Watts Rd,2019-03-07T00:00:00Z,380.404,1690,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,y,2019,43.054394,-89.52071
+702 S High Point Rd,2007-06-04T00:00:00Z,166.3,972,NA,Spring Harbor,"702 S High Point Rd Madison, WI",indoor,NA,NA,2007,43.05126107866632,-89.52238137833336
+702 S High Point Rd,2008-07-08T00:00:00Z,192.6,1092,NA,Spring Harbor,"702 S High Point Rd Madison, WI",indoor,NA,NA,2008,43.05126107866632,-89.52238137833336
+702 S High Point Rd,2005-01-13T00:00:00Z,336.2,1482,NA,Spring Harbor,"702 S High Point Rd Madison, WI",indoor,NA,NA,2005,43.05126107866632,-89.52238137833336
+706 John Nolen Dr,2005-08-15T00:00:00Z,534.3,2050,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2005,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2007-05-31T00:00:00Z,564.4,2171,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2007,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2006-11-28T00:00:00Z,687.8,2530,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2006,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2010-03-05T00:00:00Z,719,3560,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2010,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2014-02-04T00:00:00Z,756,3920,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2014,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2013-01-11T00:00:00Z,805,4290,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2013,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2004-06-21T00:00:00Z,1020,3660,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2004,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2012-02-16T00:00:00Z,1080,5130,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2012,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2004-08-30T00:00:00Z,1129,3670,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2004,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2019-01-24T00:00:00Z,2260,7310,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2019,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2015-01-13T00:00:00Z,2770,9360,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2015,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2017-01-04T00:00:00Z,3330,10300,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2017,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2016-02-24T00:00:00Z,3450,11500,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2016,43.04768239082503,-89.37333630944349
+706 John Nolen Dr,2018-01-25T00:00:00Z,5600,15100,NA,Monona,"706 John Nolen Dr Madison, WI",indoor,NA,NA,2018,43.04768239082503,-89.37333630944349
+722 John Nolen Dr,2019-01-24T00:00:00Z,260.438,1280,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,y,2019,NA,NA
+722 John Nolen Dr,2010-02-11T00:00:00Z,482.8140000000001,2040,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,y,2010,NA,NA
+722 John Nolen Dr,2012-02-16T00:00:00Z,344,1990,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2012,NA,NA
+711 Cottage Grove Rd,2018-01-24T00:00:00Z,604,2980,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2018,43.083927,-89.31475
+711 Cottage Grove Rd,2011-01-06T00:00:00Z,657,3160,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2011,43.083927,-89.31475
+711 Cottage Grove Rd,2015-01-13T00:00:00Z,679,3140,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2015,43.083927,-89.31475
+711 Cottage Grove Rd,2014-02-06T00:00:00Z,777,3580,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2014,43.083927,-89.31475
+711 Cottage Grove Rd,2013-01-17T00:00:00Z,790,3550,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2013,43.083927,-89.31475
+711 Cottage Grove Rd,2007-01-04T00:00:00Z,813.2,2990,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2007,43.083927,-89.31475
+711 Cottage Grove Rd,2012-02-29T00:00:00Z,907,4080,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2012,43.083927,-89.31475
+711 Cottage Grove Rd,2010-02-10T00:00:00Z,950,3630,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2010,43.083927,-89.31475
+711 Cottage Grove Rd,2019-01-22T00:00:00Z,1160,5480,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2019,43.083927,-89.31475
+711 Cottage Grove Rd,2005-02-14T00:00:00Z,1195,3970,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2005,43.083927,-89.31475
+711 Cottage Grove Rd,2017-01-04T00:00:00Z,1270,5550,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2017,43.083927,-89.31475
+711 Cottage Grove Rd,2016-02-24T00:00:00Z,1320,5940,167504.471442,Starkweather Creek,"711 Cottage Grove Rd Madison, WI",indoor,NA,NA,2016,43.083927,-89.31475
+718 Jupiter Dr,2019-01-22T00:00:00Z,1020,NA,NA,Starkweather Creek,"718 Jupiter Dr Madison, WI",indoor,NA,NA,2019,43.08698,-89.28245
+718 Jupiter Dr,2016-03-03T00:00:00Z,1060,3750,NA,Starkweather Creek,"718 Jupiter Dr Madison, WI",indoor,NA,NA,2016,43.08698,-89.28245
+718 Jupiter Dr,2017-01-04T00:00:00Z,1760,5720,NA,Starkweather Creek,"718 Jupiter Dr Madison, WI",indoor,NA,NA,2017,43.08698,-89.28245
+718 Jupiter Dr,2018-01-24T00:00:00Z,1830,5660,NA,Starkweather Creek,"718 Jupiter Dr Madison, WI",indoor,NA,NA,2018,43.08698,-89.28245
+722 John Nolen Dr,2013-01-11T00:00:00Z,344,2040,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2013,NA,NA
+722 John Nolen Dr,2009-07-08T00:00:00Z,498,1990,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2009,NA,NA
+722 John Nolen Dr,2007-05-31T00:00:00Z,542.1,2028,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2007,NA,NA
+722 John Nolen Dr,2004-06-30T00:00:00Z,638.6,2360,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2004,NA,NA
+722 John Nolen Dr,2014-02-04T00:00:00Z,917,4160,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2014,NA,NA
+722 John Nolen Dr,2016-02-24T00:00:00Z,925,4540,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2016,NA,NA
+722 John Nolen Dr,2015-01-13T00:00:00Z,989,4520,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2015,NA,NA
+722 John Nolen Dr,2006-11-28T00:00:00Z,998.9,3400,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2006,NA,NA
+722 John Nolen Dr,2005-08-15T00:00:00Z,1039,3650,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2005,NA,NA
+722 John Nolen Dr,2018-01-25T00:00:00Z,1070,4640,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2018,NA,NA
+722 John Nolen Dr,2017-01-04T00:00:00Z,1250,5720,NA,Monona,"722 John Nolen Dr Madison, WI",indoor,NA,NA,2017,NA,NA
+725 W Washington Ave,2014-07-30T00:00:00Z,538,2040,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2014,43.10917,-89.335724
+725 W Washington Ave,2011-08-02T00:00:00Z,715,2650,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2011,43.10917,-89.335724
+725 W Washington Ave,2016-08-04T00:00:00Z,802,2880,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2016,43.10917,-89.335724
+725 W Washington Ave,2009-07-24T00:00:00Z,813,2970,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2009,43.10917,-89.335724
+725 W Washington Ave,2012-06-14T00:00:00Z,814,3000,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2012,43.10917,-89.335724
+725 W Washington Ave,2013-08-08T00:00:00Z,835,3080,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2013,43.10917,-89.335724
+725 W Washington Ave,2017-07-13T00:00:00Z,885,3090,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2017,43.10917,-89.335724
+725 W Washington Ave,2010-07-21T00:00:00Z,902,3120,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2010,43.10917,-89.335724
+725 W Washington Ave,2018-08-23T00:00:00Z,1020,3370,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2018,43.10917,-89.335724
+8080 Watts Rd,2015-01-14T00:00:00Z,664,3320,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2015,43.054394,-89.52071
+8080 Watts Rd,2011-01-04T00:00:00Z,847,4040,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2011,43.054394,-89.52071
+8080 Watts Rd,2017-01-05T00:00:00Z,875,3800,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2017,43.054394,-89.52071
+8080 Watts Rd,2014-02-05T00:00:00Z,911,4200,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2014,43.054394,-89.52071
+8080 Watts Rd,2010-02-11T00:00:00Z,926,4360,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2010,43.054394,-89.52071
+8080 Watts Rd,2016-03-01T00:00:00Z,973,4610,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2016,43.054394,-89.52071
+8080 Watts Rd,2018-02-01T00:00:00Z,1000,4240,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2018,43.054394,-89.52071
+8080 Watts Rd,2007-01-19T00:00:00Z,1058,3640,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2007,43.054394,-89.52071
+8080 Watts Rd,2012-02-22T00:00:00Z,1060,4860,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2012,43.054394,-89.52071
+8080 Watts Rd,2013-01-11T00:00:00Z,1090,4930,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2013,43.054394,-89.52071
+8080 Watts Rd,2008-07-08T00:00:00Z,1648,5720,NA,Mendota,"8080 Watts Rd Madison, WI",indoor,NA,NA,2008,43.054394,-89.52071
+7425 Timber Lake Tr,2004-07-01T00:00:00Z,176.2,840,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,NA,2004,43.052155,-89.51101
+7425 Timber Lake Tr,2007-07-05T00:00:00Z,182.2,907,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,NA,2007,43.052155,-89.51101
+7425 Timber Lake Tr,2008-07-22T00:00:00Z,207.8,852,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,NA,2008,43.052155,-89.51101
+7425 Timber Lake Tr,2012-06-21T00:00:00Z,215,1090,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,NA,2012,43.052155,-89.51101
+7425 Timber Lake Tr,2014-08-07T00:00:00Z,366,1560,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,NA,2014,43.052155,-89.51101
+7425 Timber Lake Tr,2005-08-17T00:00:00Z,368.9,1423,NA,Spring Harbor,"7425 Timber Lake Tr Madison, WI",outdoor,NA,NA,2005,43.052155,-89.51101
+8102 Excelsior Dr,2007-06-04T00:00:00Z,281.7,1236,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2007,43.07853,-89.52437
+8102 Excelsior Dr,2010-02-11T00:00:00Z,513,2070,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2010,43.07853,-89.52437
+8102 Excelsior Dr,2016-03-01T00:00:00Z,835,3210,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2016,43.07853,-89.52437
+8102 Excelsior Dr,2004-06-02T00:00:00Z,912.2,3480,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2004,43.07853,-89.52437
+8102 Excelsior Dr,2012-02-22T00:00:00Z,946,3730,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2012,43.07853,-89.52437
+802 Harbor House Dr,2012-06-28T00:00:00Z,217,1100,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,NA,2012,43.049706,-89.50802
+802 Harbor House Dr,2003-07-14T00:00:00Z,316.3,1445,98420.70638399999,Spring Harbor,"802 Harbor House Dr Madison, WI",outdoor,NA,NA,2003,43.049706,-89.50802
+803 N Thompson Dr,2007-08-08T00:00:00Z,468.4,2261,113562.35351999999,Starkweather Creek,"803 N Thompson Dr Madison, WI",outdoor,NA,NA,2007,NA,NA
+725 W Washington Ave,2015-08-25T00:00:00Z,1030,3610,242266.354176,Monona Bay,"725 W Washington Ave Madison, WI",outdoor,NA,NA,2015,43.10917,-89.335724
+9 E Wilson St,2016-03-02T00:00:00Z,318.9580000000001,1480,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,y,2016,43.07294002747637,-89.38053276415015
+8102 Excelsior Dr,2011-01-04T00:00:00Z,1030,3890,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2011,43.07853,-89.52437
+8102 Excelsior Dr,2005-08-15T00:00:00Z,1071,4190,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2005,43.07853,-89.52437
+8102 Excelsior Dr,2008-07-24T00:00:00Z,1102,4100,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2008,43.07853,-89.52437
+8102 Excelsior Dr,2004-08-30T00:00:00Z,1121,4220,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2004,43.07853,-89.52437
+8102 Excelsior Dr,2015-01-22T00:00:00Z,1150,4140,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2015,43.07853,-89.52437
+8102 Excelsior Dr,2013-01-11T00:00:00Z,1360,4940,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2013,43.07853,-89.52437
+8102 Excelsior Dr,2019-02-06T00:00:00Z,1370,5280,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2019,43.07853,-89.52437
+8102 Excelsior Dr,2014-02-05T00:00:00Z,1440,5190,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2014,43.07853,-89.52437
+8102 Excelsior Dr,2017-01-05T00:00:00Z,2750,9170,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2017,43.07853,-89.52437
+8102 Excelsior Dr,2018-02-01T00:00:00Z,3330,10700,NA,Mendota,"8102 Excelsior Dr Madison, WI",indoor,NA,NA,2018,43.07853,-89.52437
+8310 Globe Dr,2019-08-05T00:00:00Z,1030,4160,NA,Mendota,"8310 Globe Dr Madison, WI",outdoor,NA,NA,2019,43.07144,-89.526634
+8406 Isaac Dr,2010-06-28T00:00:00Z,153.34640000000005,914,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,y,2010,43.062424,-89.52919
+8406 Isaac Dr,2014-08-20T00:00:00Z,263.36400000000003,1290,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,y,2014,43.062424,-89.52919
+8406 Isaac Dr,2013-07-31T00:00:00Z,269.216,1310,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,y,2013,43.062424,-89.52919
+8406 Isaac Dr,2007-07-06T00:00:00Z,171,997,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2007,43.062424,-89.52919
+8406 Isaac Dr,2003-07-15T00:00:00Z,316.1,1324,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2003,43.062424,-89.52919
+8406 Isaac Dr,2009-07-21T00:00:00Z,359,1490,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2009,43.062424,-89.52919
+8406 Isaac Dr,2008-07-08T00:00:00Z,389.5,1463,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2008,43.062424,-89.52919
+8406 Isaac Dr,2015-08-27T00:00:00Z,445,1640,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2015,43.062424,-89.52919
+8406 Isaac Dr,2011-07-05T00:00:00Z,478,1770,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2011,43.062424,-89.52919
+8406 Isaac Dr,2012-06-20T00:00:00Z,613,2260,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2012,43.062424,-89.52919
+8406 Isaac Dr,2016-08-10T00:00:00Z,1040,4060,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2016,43.062424,-89.52919
+8406 Isaac Dr,2017-08-08T00:00:00Z,1060,4520,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2017,43.062424,-89.52919
+8406 Isaac Dr,2018-08-28T00:00:00Z,1310,4750,90849.882816,Mendota,"8406 Isaac Dr Madison, WI",outdoor,NA,NA,2018,43.062424,-89.52919
+8501 Old Sauk Rd,2010-03-03T00:00:00Z,665,2370,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2010,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2009-07-01T00:00:00Z,842,3120,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2009,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2017-01-05T00:00:00Z,1000,3340,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2017,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2003-07-15T00:00:00Z,1038,3710,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2003,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2007-06-08T00:00:00Z,1065,3680,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2007,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2019-02-21T00:00:00Z,1340,5110,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2019,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2016-03-01T00:00:00Z,1390,4840,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2016,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2008-07-08T00:00:00Z,1445,4400,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2008,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2018-02-01T00:00:00Z,1560,5110,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2018,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2014-02-05T00:00:00Z,2220,7620,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2014,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2011-01-05T00:00:00Z,2700,9200,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2011,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2015-01-14T00:00:00Z,3040,9990,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2015,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2012-02-23T00:00:00Z,4280,13000,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2012,43.07446667455885,-89.53069055194355
+8501 Old Sauk Rd,2013-01-29T00:00:00Z,5350,16700,NA,Mendota,"8501 Old Sauk Rd Madison, WI",indoor,NA,NA,2013,43.07446667455885,-89.53069055194355
+901 N Highpoint Rd,2008-07-24T00:00:00Z,517.3,1800,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,NA,2008,43.078808,-89.51876
+901 N Highpoint Rd,2009-07-01T00:00:00Z,266.2900000000001,1300,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,y,2009,43.078808,-89.51876
+901 N Highpoint Rd,2010-06-25T00:00:00Z,248.734,1240,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,y,2010,43.078808,-89.51876
+901 N Highpoint Rd,2011-07-21T00:00:00Z,330.66200000000003,1520,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,y,2011,43.078808,-89.51876
+901 N Highpoint Rd,2012-08-01T00:00:00Z,573.52,2350,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,y,2012,43.078808,-89.51876
+901 N Highpoint Rd,2013-08-07T00:00:00Z,499,2440,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,NA,2013,43.078808,-89.51876
+901 N Highpoint Rd,2014-08-20T00:00:00Z,575,2540,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,NA,2014,43.078808,-89.51876
+901 N Highpoint Rd,2015-08-27T00:00:00Z,465,2210,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,NA,2015,43.078808,-89.51876
+901 N Highpoint Rd,2016-08-10T00:00:00Z,517,2230,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,NA,2016,43.078808,-89.51876
+901 N High Point Rd w,2017-08-22T00:00:00Z,871,3700,NA,Mendota,"901 N High Point Rd w Madison, WI",outdoor,NA,NA,2017,43.07881,-89.51876
+901 N Highpoint Rd,2017-08-22T00:00:00Z,496,2380,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,NA,2017,43.078808,-89.51876
+901 N Highpoint Rd,2019-08-05T00:00:00Z,477,2360,NA,Mendota,"901 N Highpoint Rd Madison, WI",outdoor,NA,NA,2019,43.078808,-89.51876
+901 N High Point Rd w,NA,728,3070,NA,Mendota,"901 N High Point Rd w Madison, WI",outdoor,NA,NA,NA,43.07881,-89.51876
+9 E Wilson St,2015-01-22T00:00:00Z,314,1350,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2015,43.07294002747637,-89.38053276415015
+9 E Wilson St,2004-06-21T00:00:00Z,316.6,1595,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2004,43.07294002747637,-89.38053276415015
+9 E Wilson St,2019-02-28T00:00:00Z,378,1760,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2019,43.07294002747637,-89.38053276415015
+9 E Wilson St,2010-03-05T00:00:00Z,496,2280,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2010,43.07294002747637,-89.38053276415015
+9 E Wilson St,2014-02-06T00:00:00Z,499,2030,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2014,43.07294002747637,-89.38053276415015
+9 E Wilson St,2012-02-27T00:00:00Z,502,1960,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2012,43.07294002747637,-89.38053276415015
+9 E Wilson St,2007-06-08T00:00:00Z,646.2,2934,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2007,43.07294002747637,-89.38053276415015
+9 E Wilson St,2017-01-12T00:00:00Z,648,2380,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2017,43.07294002747637,-89.38053276415015
+9 E Wilson St,2011-01-05T00:00:00Z,734,3260,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2011,43.07294002747637,-89.38053276415015
+9 E Wilson St,2008-07-28T00:00:00Z,750.5,2837,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2008,43.07294002747637,-89.38053276415015
+9 E Wilson St,2013-01-16T00:00:00Z,968,3460,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2013,43.07294002747637,-89.38053276415015
+9 E Wilson St,2003-07-14T00:00:00Z,1366,4780,NA,Monona,"9 E Wilson St Madison, WI",indoor,NA,NA,2003,43.07294002747637,-89.38053276415015
+9201 Waterside St,2018-08-28T00:00:00Z,93.656,710,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2018,43.076126,-89.54465
+9201 Waterside St,2013-07-31T00:00:00Z,98.6302,727,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2013,43.076126,-89.54465
+9201 Waterside St,2014-08-13T00:00:00Z,99.21540000000002,729,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2014,43.076126,-89.54465
+9201 Waterside St,2016-08-10T00:00:00Z,113.26020000000003,777,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2016,43.076126,-89.54465
+9201 Waterside St,2011-07-08T00:00:00Z,113.84540000000001,779,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2011,43.076126,-89.54465
+9201 Waterside St,2017-08-02T00:00:00Z,120.86780000000002,803,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2017,43.076126,-89.54465
+9201 Waterside St,2009-07-01T00:00:00Z,148.0796,896,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2009,43.076126,-89.54465
+9201 Waterside St,2015-08-27T00:00:00Z,196.066,1060,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2015,43.076126,-89.54465
+9201 Waterside St,2010-07-09T00:00:00Z,254.58600000000004,1260,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,y,2010,43.076126,-89.54465
+9201 Waterside St,2004-06-02T00:00:00Z,118.8,596,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,NA,2004,43.076126,-89.54465
+9201 Waterside St,2012-06-20T00:00:00Z,343,1450,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,NA,2012,43.076126,-89.54465
+9201 Waterside St,2008-07-08T00:00:00Z,440,1646,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,NA,2008,43.076126,-89.54465
+9201 Waterside St,2007-07-06T00:00:00Z,485,1825,94635.2946,Mendota,"9201 Waterside St Madison, WI",outdoor,NA,NA,2007,43.076126,-89.54465
+9328 Silverstone Ln,2012-08-07T00:00:00Z,229,986,NA,Mendota,"9328 Silverstone Ln Madison, WI",outdoor,NA,NA,2012,43.030638,-89.547916
+9328 Silverstone Ln,2014-08-06T00:00:00Z,454,2360,NA,Mendota,"9328 Silverstone Ln Madison, WI",outdoor,NA,NA,2014,43.030638,-89.547916
+9328 Silverstone Ln,2016-08-16T00:00:00Z,482,2390,NA,Mendota,"9328 Silverstone Ln Madison, WI",outdoor,NA,NA,2016,43.030638,-89.547916
+9328 Silverstone Ln,2017-08-02T00:00:00Z,556,2680,NA,Mendota,"9328 Silverstone Ln Madison, WI",outdoor,NA,NA,2017,43.030638,-89.547916
+9328 Silverstone Ln,2013-08-07T00:00:00Z,584,2780,NA,Mendota,"9328 Silverstone Ln Madison, WI",outdoor,NA,NA,2013,43.030638,-89.547916
+9328 Silverstone Ln,2018-08-30T00:00:00Z,844,3550,NA,Mendota,"9328 Silverstone Ln Madison, WI",outdoor,NA,NA,2018,43.030638,-89.547916
+9328 Silverstone Ln,2015-08-25T00:00:00Z,986,4660,NA,Mendota,"9328 Silverstone Ln Madison, WI",outdoor,NA,NA,2015,43.030638,-89.547916
+9603 Paragon St,2018-08-28T00:00:00Z,1570,5320,NA,Mendota,"9603 Paragon St Madison, WI",outdoor,NA,NA,2018,43.064658,-89.553901
+98 Grand Canyon Dr,2007-06-26T00:00:00Z,162.7,889,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,NA,2007,43.062344,-89.49664
+98 Grand Canyon Dr,2010-07-21T00:00:00Z,331,1350,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,NA,2010,43.062344,-89.49664
+98 Grand Canyon Dr,2015-08-25T00:00:00Z,389,1570,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,NA,2015,43.062344,-89.49664
+98 Grand Canyon Dr,2017-08-16T00:00:00Z,716,2790,283905.8838,Spring Harbor,"98 Grand Canyon Dr Madison, WI",outdoor,NA,NA,2017,43.062344,-89.49664
