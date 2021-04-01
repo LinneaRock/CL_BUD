@@ -103,16 +103,16 @@ source("Functions/L_theme.R")
 
 All_pools <- read_csv("Data/Historical_External/pools.csv")
 
-
-#create shapefile object out of sites
-sites_sf <- st_as_sf(sites, coords = c("longitude", "latitude"),
-                     crs = 4326, agr = "constant")
-
-
-str(sites_sf)         
-
-#add shapefiles to All_pools
-All_pools <- left_join(All_pools, sites_sf, by = "Site") 
+# 
+# #create shapefile object out of sites
+# sites_sf <- st_as_sf(sites, coords = c("longitude", "latitude"),
+#                      crs = 4326, agr = "constant")
+# 
+# 
+# str(sites_sf)         
+# 
+# #add shapefiles to All_pools
+# All_pools <- left_join(All_pools, sites_sf, by = "Site") 
 
 
 #making dataframe to see all receiving waters and pools
@@ -144,7 +144,7 @@ ggplot(world) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE) +
-  labs(caption = "Figure X. Swimming pool locations. Legend and colors indicate which water the swimming pools discharge into.
+  labs(caption = "Figure X. Swimming pool locations. Legend and colors indicate which waterbody the swimming pools discharge into.
 (Data from PHMDC).") + L_theme()
 
 splot("swimming_pools/", "pool_locations")
