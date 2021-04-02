@@ -23,22 +23,22 @@ source("functions/discharge_ts.R")
 source("functions/ts_grid.R")
 
 
-# # #flag outliers using anomalize package
-#  PBMS_outlier <- flagged_data(loggerPBMS)
-# # #plot to inspect where to correct outliers
-#  plot_flagged(PBMS_outlier)
+ # #flag outliers using anomalize package
+  PBMS_outlier <- flagged_data(loggerPBMS)
+ # #plot to inspect where to correct outliers
+  plot_flagged(PBMS_outlier)
 # # #after inspecting, filter and clean anomalies
-#  PBMS_cleaned <- PBMS_outlier %>%
+  PBMS_cleaned <- PBMS_outlier %>%
 #    filter(Year_Month == "2020-5" & observed > 1250 |
 #             Year_Month == "2020-6" & observed > 1000 |
 #             Year_Month == "2020-7" & observed > 1000 |
 #             Year_Month == "2020-10") %>%
-#    clean_anomalies()
+    clean_anomalies()
 # # #insepect cleaned points
-#  plot_cleaned(PBMS_cleaned)
+  plot_cleaned(PBMS_cleaned)
 # # #final dataset with runningmean, trend, and corrected specific conductance data
-#  PBMS_cond_data <- final_cond_data(loggerPBMS, PBMS_cleaned, PBMS_outlier)
-#  write_rds(PBMS_cond_data, "Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
+  PBMS_cond_data <- final_cond_data(loggerPBMS, PBMS_cleaned, PBMS_outlier)
+  write_rds(PBMS_cond_data, "Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
 
 
 PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")

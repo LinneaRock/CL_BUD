@@ -19,7 +19,13 @@ source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 #source("functions/impute_missing.R")
+ggplot(loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))) + geom_point(aes(date, sp.cond))
 
+
+YN_cond_prob <- loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))
+loggerYN1 <- loggerYN %>%
+  mutate(sp.cond = ifelse(date > as.POSIXct("2021-02-19 13:50:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-25 22:00:00", tz = "ETC/GMT-6"), NA, sp.cond))
+  
 
 # # #loggerYN1 <- loggerYN # 
 # # #flag outliers using anomalize package

@@ -19,10 +19,13 @@ source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 #source("functions/impute_missing.R")
-# loggerYS1 <- loggerYS %>%
-#   mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-15 08:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-20 20:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) #logger was encased in ice during this part of the month
+ loggerYS1 <- loggerYS %>%
+   mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-15 08:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-20 20:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
+   mutate(sp.cond = ifelse(sp.cond > 800 | sp.cond <300, NA, sp.cond)) #very obvious extreme outliers in this dataset that will skew the running mean if not removed
 
-# 
+
+
+ 
 # #flag outliers using anomalize package
 #  YS_outlier <- flagged_data(loggerYS1)
 # # #plot to inspect where to correct outliers

@@ -23,10 +23,10 @@ source("Functions/L_theme.R")
 source("functions/ts_grid.R")
 
 # # #calling and naming raw data
-#   loggerDC1 <- loggerDC %>% #HOBO conductivity data
-#     #mutate(sp.cond = as.numeric(sp.cond)) %>%
-#     mutate(sp.cond = ifelse(date >= as.POSIXct("2020-09-22 16:00:00", tz = "Etc/GMT-6") & date <= as.POSIXct("2020-10-06 9:30:00", tz = "Etc/GMT-6"), NA, sp.cond)) %>%
-#     na.omit()
+   loggerDC1 <- loggerDC %>% #HOBO conductivity data
+     mutate(sp.cond = as.numeric(sp.cond)) %>%
+     mutate(sp.cond = ifelse(date >= as.POSIXct("2020-09-22 16:00:00", tz = "Etc/GMT-6") & date <= as.POSIXct("2020-10-06 9:30:00", tz = "Etc/GMT-6"), NA, sp.cond)) %>%
+     na.omit()
 # 
 # # # #flag outliers using anomalize package
 #  DC_outlier <- flagged_data(loggerDC1)
