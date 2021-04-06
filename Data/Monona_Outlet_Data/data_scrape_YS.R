@@ -30,26 +30,22 @@ str(df)
 #Read in old data
 velocity <- read.csv("Data/Monona_Outlet_Data/velocity_YS.csv") %>%
   select(date, velocity) %>%
-  mutate(date = ymd_hms(date)) #%>% 
-  #mutate(date = date - hours(6))
+  mutate(date = ymd_hms(date)) 
 velocity$date = force_tz(velocity$date, tzone = "Etc/GMT-7")
 
 stage <- read.csv("Data/Monona_Outlet_Data/stage_YS.csv") %>%
   select(date, stage) %>%
-  mutate(date = ymd_hms(date))#%>% 
-  #mutate(date = date - hours(6))
+  mutate(date = ymd_hms(date))
 stage$date = force_tz(stage$date, tzone = "Etc/GMT-7")
 
 discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv") %>%
   select(date, discharge) %>%
-  mutate(date = ymd_hms(date))#%>% 
-  #mutate(date = date - hours(6))
+  mutate(date = ymd_hms(date))
 discharge$date = force_tz(discharge$date, tzone = "Etc/GMT-7")
 
 temp <- read.csv("Data/Monona_Outlet_Data/temp_YS.csv") %>%
   select(date, temp) %>%
-  mutate(date = ymd_hms(date))#%>% 
-  #mutate(date = date - hours(6))
+  mutate(date = ymd_hms(date))
 temp$date = force_tz(temp$date, tzone = "Etc/GMT-7")
 
 
