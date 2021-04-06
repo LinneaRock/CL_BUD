@@ -13,13 +13,13 @@ format_scraped <- function(dataname, parameter) {
   do.call(rbind.data.frame, dataname) %>%
     rename(date = 1, parameter = 2) %>%
     mutate(parameter = as.numeric(parameter)) %>%
-    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = "Etc/GMT-7"))) 
+    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = "US/Central"))) 
 }
 
 
 
 checkplot <- function(df, parameter) {
-  ggplot(df) + geom_path(aes(x = date, y = parameter))
+  ggplot(df) + geom_path(aes(x = date$date, y = parameter))
 }
 
 #Read in latest data from the website
@@ -56,10 +56,18 @@ t.day <- max(temp$date)
 WIC_temp.df <- format_scraped(df$temp, temp) %>%
   rename(temp = parameter) %>%
   mutate(temp = temp_coversion(temp)) %>%
-  filter(date > t.day)
-#WIC_temp.df$date = force_tz(WIC_temp.df, tzone = "Etc/GMT-7") 
+  mutate(date = ymd_hms(date)) %>%
+  mutate(date = date - hours(1))
+WIC_temp.df$date = force_tz(WIC_temp.df, tzone = "Etc/GMT-7")
+
+WIC_temp.df <- WIC_temp.df %>%  
+   filter(date$date > t.day)
 checkplot(WIC_temp.df, WIC_temp.df$temp)
 
+WIC_temp.df <- WIC_temp.df$date %>%
+  select(date, temp)
+
+###something bad is up with the temp code above....
 
 WIC_discharge.df <- format_scraped(df$discharge, discharge) %>%
   rename(discharge = parameter) %>%
