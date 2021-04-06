@@ -4,36 +4,91 @@ library(webshot)
 source("Functions/linreg.R")
 
 #functions for each of the variables in the table
-slope <- function(cl, cond) {
-  round(coef(info(cl, cond))[2,1], 2)
+slope <- function(choride_data, field_cond, logger) {
+  round(coef(info(choride_data, field_cond, logger))[2,1], 2)
 }
 
-intercept <- function(cl, cond) {
-  round(coef(info(cl, cond))[1,1], 2)
+intercept <- function(choride_data, field_cond, logger) {
+  round(coef(info(choride_data, field_cond, logger))[1,1], 2)
 }
 
-r.sqr.lm <- function(cl, cond) {
+r.sqr.lm <- function(choride_data, field_cond, logger) {
   #round((info(cl, cond)$adj.r.squared), 2)
-  round((info(cl, cond)$r.squared), 2)
+  round((info(choride_data, field_cond, logger)$r.squared), 2)
 }
 
-pvalue <- function(cl, cond) {
- coef(info(cl, cond))[2,4]
+pvalue <- function(choride_data, field_cond, logger) {
+ coef(info(choride_data, field_cond, logger))[2,4]
 }
 
-SH.lm  = 0#<- lm(chloride_mgL ~ runningmean, labSH1)
-SH.slope = 0 # <- round(coef(SH.lm)[2], 2)
-SH.intercept = 0 #<- round(coef(SH.lm)[1], 2)
-SH.rsq = 0 # <- round(summary(SH.lm)$r.squared, 2)
-SH.p = 0 # <- coef(summary(SH.lm))[2,4]
+SH.lm  =  lm(chloride_mgL ~ runningmean, labSH1)
+SH.slope = round(coef(SH.lm)[2], 2)
+SH.intercept = round(coef(SH.lm)[1], 2)
+SH.rsq = round(summary(SH.lm)$r.squared, 2)
+SH.p =  coef(summary(SH.lm))[2,4]
 
 # Make the table
 River_stats <- data.frame(
-  River = c("Yahara River North", "Sixmile Creek", "Dorn Creek", "Pheasant Branch - Main Stem", "Pheasant Branch - South Fork", "Yahara River Isthmus", "Wingra Creek", "Starkweather Creek", "Yahara River South", "Spring Harbor Storm Sewer"),
-  Slope = c(slope(labYN, YN_cond_data), slope(lab6MC, SMC_cond_data), slope(labDC, DC_cond_data), slope(labPBMS, PBMS_cond_data), slope(labPBSF, PBSF_cond_data), slope(labYI, YI_cond_data), slope(labWIC, WIC_cond_data), slope(labSW, SW_cond_data), slope(labYS, YS_cond_data), SH.slope),
-  Intercept = c(intercept(labYN, YN_cond_data), intercept(lab6MC, SMC_cond_data), intercept(labDC, DC_cond_data), intercept(labPBMS, PBMS_cond_data), intercept(labPBSF, PBSF_cond_data), intercept(labYI, YI_cond_data), intercept(labWIC, WIC_cond_data), intercept(labSW, SW_cond_data), intercept(labYS, YS_cond_data), SH.intercept),
-  Adjusted_R2 = c(r.sqr.lm(labYN, YN_cond_data), r.sqr.lm(lab6MC, SMC_cond_data), r.sqr.lm(labDC, DC_cond_data), r.sqr.lm(labPBMS, PBMS_cond_data), r.sqr.lm(labPBSF, PBSF_cond_data), r.sqr.lm(labYI, YI_cond_data), r.sqr.lm(labWIC, WIC_cond_data), r.sqr.lm(labSW, SW_cond_data), r.sqr.lm(labYS, YS_cond_data), SH.rsq),
-  P_value = c(pvalue(labYN, YN_cond_data), pvalue(lab6MC, SMC_cond_data), pvalue(labDC, DC_cond_data), pvalue(labPBMS, PBMS_cond_data), pvalue(labPBSF, PBSF_cond_data), pvalue(labYI, YI_cond_data), pvalue(labWIC, WIC_cond_data), pvalue(labSW, SW_cond_data), pvalue(labYS, YS_cond_data), SH.p)
+  River = c(
+    "Yahara River North",
+    "Sixmile Creek",
+    "Dorn Creek",
+    "Pheasant Branch - Main Stem",
+    "Pheasant Branch - South Fork",
+    "Yahara River Isthmus",
+    "Wingra Creek",
+    "Starkweather Creek",
+    "Yahara River South",
+    "Spring Harbor Storm Sewer"
+  ),
+  Slope = c(
+    slope(labYN, fieldcondYN, YN_cond_data),
+    slope(lab6MC, fieldcond6MC, SMC_cond_data),
+    slope(labDC, fieldcondDC, DC_cond_data),
+    slope(labPBMS, fieldcondPBMS, PBMS_cond_data),
+    slope(labPBSF, fieldcondPBSF, PBSF_cond_data),
+    slope(labYI, fieldcondYI, YI_cond_data),
+    slope(labWIC, fieldcondWIC, WIC_cond_data),
+    slope(labSW, fieldcondSW, SW_cond_data),
+    slope(labYS, fieldcondYS, YS_cond_data),
+    SH.slope
+  ),
+  Intercept = c(
+    intercept(labYN, fieldcondYN, YN_cond_data),
+    intercept(lab6MC, fieldcond6MC, SMC_cond_data),
+    intercept(labDC, fieldcondDC, DC_cond_data),
+    intercept(labPBMS, fieldcondPBMS, PBMS_cond_data),
+    intercept(labPBSF, fieldcondPBSF, PBSF_cond_data),
+    intercept(labYI, fieldcondYI, YI_cond_data),
+    intercept(labWIC, fieldcondWIC, WIC_cond_data),
+    intercept(labSW, fieldcondSW, SW_cond_data),
+    intercept(labYS, fieldcondYS, YS_cond_data),
+    SH.intercept
+  ),
+  Adjusted_R2 = c(
+    r.sqr.lm(labYN, fieldcondYN, YN_cond_data),
+    r.sqr.lm(lab6MC, fieldcond6MC, SMC_cond_data),
+    r.sqr.lm(labDC, fieldcondDC, DC_cond_data),
+    r.sqr.lm(labPBMS, fieldcondPBMS, PBMS_cond_data),
+    r.sqr.lm(labPBSF, fieldcondPBSF, PBSF_cond_data),
+    r.sqr.lm(labYI, fieldcondYI, YI_cond_data),
+    r.sqr.lm(labWIC, fieldcondWIC, WIC_cond_data),
+    r.sqr.lm(labSW, fieldcondSW, SW_cond_data),
+    r.sqr.lm(labYS, fieldcondYS, YS_cond_data),
+    SH.rsq
+  ),
+  P_value = c(">0.01", ">0.01", ">0.01",">0.01",">0.01",">0.01",">0.01",">0.01",0.2,">0.01"
+    # pvalue(labYN, fieldcondYN, YN_cond_data),
+    # pvalue(lab6MC, fieldcond6MC, SMC_cond_data),
+    # pvalue(labDC, fieldcondDC, DC_cond_data),
+    # pvalue(labPBMS, fieldcondPBMS, PBMS_cond_data),
+    # pvalue(labPBSF, fieldcondPBSF, PBSF_cond_data),
+    # pvalue(labYI, fieldcondYI, YI_cond_data),
+    # pvalue(labWIC, fieldcondWIC, WIC_cond_data),
+    # pvalue(labSW, fieldcondSW, SW_cond_data),
+    # pvalue(labYS, fieldcondYS, YS_cond_data),
+    # SH.p
+  )
 )
 
 
@@ -57,6 +112,17 @@ gtsave(data = simpleregtable, "Plots/cl_cond_linear_regression/stats_tbl.png", e
 
 
 
+
+
+info(labYN, fieldcondYN, YN_cond_data)
+info(lab6MC, fieldcond6MC, SMC_cond_data)
+info(labDC, fieldcondDC, DC_cond_data)
+info(labPBMS, fieldcondPBMS, PBMS_cond_data)
+info(labPBSF, fieldcondPBSF, PBSF_cond_data)
+info(labYI, fieldcondYI, YI_cond_data)
+info(labWIC, fieldcondWIC, WIC_cond_data)
+info(labSW, fieldcondSW, SW_cond_data)
+info(labYS, fieldcondYS, YS_cond_data)
 
 
 

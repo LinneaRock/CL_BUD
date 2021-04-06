@@ -40,14 +40,6 @@ ggplot(labSH, aes(date, chloride_mgL)) +
 splot("chloride_time_series/", "SH_alt")
 
 # #linear regression for chloride study of Spring Harbor in 2014-2016
-# #the chloride data is daily,with no collection time, so I am going to try using the average daily sp. conductivity
-# SH.cond <- d.sc.SH %>%
-#   na.omit() %>%
-#   mutate(day = as.Date(date, format = "%Y-%M-%D")) %>%
-#   group_by(day) %>%
-#   summarise(sp.cond = mean(sp.cond)) %>%
-#   rename(date = day,
-#          runningmean = sp.cond) 
 
 #combine chloride and conductance datasets and get regression scatterplot and info
 labSH1 <- labSH %>%
@@ -55,7 +47,8 @@ labSH1 <- labSH %>%
 
 ggplot(labSH1, aes(runningmean, chloride_mgL)) +
   geom_point(aes(color = season)) + 
-  scale_color_viridis_d() +
+  scale_color_manual(labels = c("April-October", "November-March"),
+                     values = c("#1C366B", "#F24D29"))  +
   geom_smooth(method = "lm", se = FALSE, color = "black") +
   #stat_cor() + 
   #stat_regline_equation() + 

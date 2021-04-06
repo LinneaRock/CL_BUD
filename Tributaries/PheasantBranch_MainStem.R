@@ -4,9 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
 library(ggforce)
-library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -15,33 +13,14 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-#source("functions/impute_missing.R")
-source("functions/ts_grid.R")
+source("Functions/ts_grid.R")
 
 
- # #flag outliers using anomalize package
-  PBMS_outlier <- flagged_data(loggerPBMS)
- # #plot to inspect where to correct outliers
-  plot_flagged(PBMS_outlier)
-# # #after inspecting, filter and clean anomalies
-  PBMS_cleaned <- PBMS_outlier %>%
-#    filter(Year_Month == "2020-5" & observed > 1250 |
-#             Year_Month == "2020-6" & observed > 1000 |
-#             Year_Month == "2020-7" & observed > 1000 |
-#             Year_Month == "2020-10") %>%
-    clean_anomalies()
-# # #insepect cleaned points
-  plot_cleaned(PBMS_cleaned)
-# # #final dataset with runningmean, trend, and corrected specific conductance data
-  PBMS_cond_data <- final_cond_data(loggerPBMS, PBMS_cleaned, PBMS_outlier)
-  write_rds(PBMS_cond_data, "Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
-
-
-PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
+PBMS_cond_data <- outlier_detect_remove(loggerPBMS, "PBMS")
 fieldcondPBMS <- fieldcondPBMS #conductivity measured in the field
 labPBMS <- labPBMS #IC data 
  # PBMS_discharge <- rolling_ave_discharge(PBMS_cond_data, d.PBMS)
@@ -92,7 +71,7 @@ splot("QC_plots/", "PBMS_cl")
 evalq(labPBMS, PBMS_discharge)
 
 #Linear Regression between Conductivity and Chloride
-PBMS_linreg_plot <- linreg(labPBMS, PBMS_cond_data) + labs(title = "Pheasant Branch Main Stem")
+PBMS_linreg_plot <- linreg(labPBMS, fieldcondPBMS, PBMS_cond_data) + labs(title = "Pheasant Branch Main Stem")
   #captlm('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", labPBMS, PBMS_cond_data)
 splot("cl_cond_linear_regression/", "PBMS")
 
@@ -110,7 +89,7 @@ cl_compare(fieldclPBMS, labPBMS)
 
 
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, PBMS_discharge, PBMS_cond_data, labPBMS)
-ggsave("Plots/TS_Grids/PBMS.png", height = 12, width = 16)
+ts_grid(precip_data, PBMS_discharge, PBMS_cond_data, labPBMS)
+ggsave("Plots/TS_Grids/PBMS.png", height = 20, width = 15, units = "cm")
 
 

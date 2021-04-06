@@ -4,8 +4,6 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
-library(anomalize)
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -14,32 +12,21 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-#source("functions/impute_missing.R")
+source("Functions/ts_grid.R")
+
+
 loggerSW1 <- loggerSW %>%
   mutate(sp.cond = ifelse(date > as.POSIXct('2021-01-28 09:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-01-31 20:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
-mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-07 12:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-24 21:30:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
-mutate(sp.cond = ifelse(sp.cond < 0, NA, sp.cond))
-
-# #flag outliers using anomalize package
- SW_outlier <- flagged_data(loggerSW1)
-# #plot to inspect where to correct outliers
- plot_flagged(SW_outlier)
-# #after inspecting, filter and clean anomalies
- SW_cleaned <- SW_outlier %>%
-   filter(Year_Month == "2020-6" & observed >3000) %>%
-   clean_anomalies()
-# #insepect cleaned points
- plot_cleaned(SW_cleaned)
-# #final dataset with runningmean, trend, and corrected specific conductance data
- SW_cond_data <- final_cond_data(loggerSW1, SW_cleaned, SW_outlier)
- write_rds(SW_cond_data, "Data/HOBO_Loggers/SW/SW_cond_data.rds")
+  mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-07 12:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-24 21:30:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
+  mutate(sp.cond = ifelse(sp.cond < 0, NA, sp.cond))
 
 
-SW_cond_data <- read_rds("Data/HOBO_Loggers/SW/SW_cond_data.rds")
+
+SW_cond_data <- outlier_detect_remove(loggerSW1, "SW")
 fieldcondSW <- fieldcondSW #conductivity measured in the field
 labSW <- labSW #IC data 
 
@@ -62,7 +49,7 @@ splot("chloride_time_series/", "SW")
 
 
 #Linear Regression between Conductivity and Chloride
-SW_linreg_plot <- linreg(labSW, SW_cond_data) + labs(title = "Starkweather Creek")
+SW_linreg_plot <- linreg(labSW,fieldcond6MC, SW_cond_data) + labs(title = "Starkweather Creek")
   #captlm('Starkweather Creek',"Starkweather Creek at Olbrich Garden", labSW, SW_cond_data)
 splot("cl_cond_linear_regression/", "SW")
 
@@ -78,6 +65,11 @@ cond_compare(fieldcondSW, SW_cond_data)
 cl_compare(fieldclSW, labSW)
 
 
+
+date = as.POSIXct(1:10, origin = "1970-01-01")
+discharge = 1:10
+discharge_placeholder <- as.data.frame(date) %>% mutate(runningmeandis = discharge)
+
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, SW_discharge, SW_cond_data, labSW)
-ggsave("Plots/TS_Grids/SW.png", height = 12, width = 16)
+ts_grid(precip_data, discharge_placeholder, SW_cond_data, labSW)
+ggsave("Plots/TS_Grids/SW.png", height = 20, width = 15, units = "cm")

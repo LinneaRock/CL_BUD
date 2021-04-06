@@ -4,9 +4,8 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
-library(anomalize)
 library(ggforce)
+
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -15,47 +14,24 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
-#source("functions/impute_missing.R")
 
 
 # # # #getting conductivity data ready
+#When stage is low, the logger is outside of the water
   loggerPBSF1 <- loggerPBSF %>%
     left_join(stage_PBSF, by = "date") %>%
     mutate(SC_orig = sp.cond) %>%
     mutate(sp.cond = ifelse(stage <= 2.11, NA, sp.cond)) %>%
     mutate(sp.cond = ifelse(is.na(stage), SC_orig, sp.cond)) %>%
     mutate(sp.cond = ifelse(sp.cond < 60, NA, sp.cond))
-# # 
-# # #
-# # #
-# #  #flag outliers using anomalize package
-#  PBSF_outlier <- flagged_data(loggerPBSF1)
-# #  #plot to inspect where to correct outliers
-#   plot_flagged(PBSF_outlier)
-# #  #after inspecting, filter and clean anomalies
-#  PBSF_cleaned <- PBSF_outlier %>%
-#     filter(Year_Month == "2020-11" |
-#              Year_Month == "2020-4" |
-#              Year_Month == "2020-12" |
-#              Year_Month == "2021-1" |
-#              Year_Month == "2020-8" |
-#              Year_Month == "2020-5" |
-#              Year_Month == "2020-6" & observed > 1750) %>%
-#    #filter(Year_Month == "2020-6" & observed > 1750) %>%
-#    clean_anomalies()
-# 
-# #  #insepect cleaned points
-#   plot_cleaned(PBSF_cleaned)
-# #  #final dataset with runningmean, trend, and corrected specific conductance data
-#  PBSF_cond_data <- final_cond_data(loggerPBSF1, PBSF_cleaned, PBSF_outlier)
-#   write_rds(PBSF_cond_data, "Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
 
-PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSF/PBSF_cond_data.rds")
+
+PBSF_cond_data <- outlier_detect_remove(loggerPBSF1, "PBSF")
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
 labPBSF <- labPBSF #IC data 
  # PBSF_discharge <- rolling_ave_discharge(PBSF_cond_data, d.PBSF)
@@ -107,7 +83,7 @@ splot("QC_plots/", "PBSF_cl")
 evalq(labPBSF, PBSF_discharge)
 
 #Linear Regression between Conductivity and Chloride
-PBSF_linreg_plot <- linreg(labPBSF, PBSF_cond_data) + labs(title = "Pheasant Branch South Fork")
+PBSF_linreg_plot <- linreg(labPBSF, fieldcondPBSF, PBSF_cond_data) + labs(title = "Pheasant Branch South Fork")
   #captlm('Pheasant Branch South Fork',"Pheasant Branch South Fork", labPBSF, PBSF_cond_data)
 splot("cl_cond_linear_regression/", "PBSF")
 
@@ -125,11 +101,12 @@ cl_compare(fieldclPBSF, labPBSF)
 
 
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, PBSF_discharge, PBSF_cond_data, labPBSF)
-ggsave("Plots/TS_Grids/PBSF.png", height = 12, width = 16)
+ts_grid(precip_data, PBSF_discharge, PBSF_cond_data, labPBSF)
+ggsave("Plots/TS_Grids/PBSF.png", height = 20, width = 15, units = "cm")
 
 
 ##################
+#looking at stage data
 stage_PBSF <- stage_PBSF %>%
   select(date, stage)
 

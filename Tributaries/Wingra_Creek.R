@@ -4,8 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
-library(anomalize)
+
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -14,32 +13,18 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-#source("functions/impute_missing.R")
-# 
+source("Functions/ts_grid.R")
+ 
 # #HOBO conductivity data
  loggerWIC1 <- loggerWIC %>%
    mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-06 10:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-26 19:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) #logger was encased in ice during this part of the month
-# 
-# #flag outliers using anomalize package
-#  WIC_outlier <- flagged_data(loggerWIC1)
-# # #plot to inspect where to correct outliers
-#  plot_flagged(WIC_outlier)
-# # #after inspecting, filter and clean anomalies
-#  WIC_cleaned <- WIC_outlier %>%
-#    filter(Year_Month == "2020-11") %>%
-#   clean_anomalies()
-# # #insepect cleaned points
-#  plot_cleaned(WIC_cleaned)
-# # #final dataset with runningmean, trend, and corrected specific conductance data
-#  WIC_cond_data <- final_cond_data(loggerWIC1, WIC_cleaned, WIC_outlier)
-#  write_rds(WIC_cond_data, "Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
 
 
-WIC_cond_data <- read_rds("Data/HOBO_Loggers/WIC/WIC_cond_data.rds")
+WIC_cond_data <- outlier_detect_remove(loggerWIC1, "WIC")
 fieldcondWIC <- fieldcondWIC #conductivity measured in the field
 labWIC <- labWIC #IC data 
 WIC_discharge <- read.csv("Data/WingraCreek_Data/discharge_WIC.csv") %>%
@@ -76,7 +61,7 @@ splot("QC_plots/", "WIC_cl")
 evalq(labWIC, WIC_discharge)
 
 #Linear Regression between Conductivity and Chloride
-WIC_linreg_plot <- linreg(labWIC, WIC_cond_data) + labs(title = "Wingra Creek")
+WIC_linreg_plot <- linreg(labWIC, fieldcondWIC, WIC_cond_data) + labs(title = "Wingra Creek")
   #captlm('Wingra Creek',"Wingra Creek at Monona Inlet", labWIC, WIC_cond_data)
 splot("cl_cond_linear_regression/", "WIC")
 
@@ -93,6 +78,8 @@ cl_compare(fieldclWIC, labWIC)
 
 
 
+
+
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, WIC_discharge, WIC_cond_data, labWIC)
-ggsave("Plots/TS_Grids/WIC.png", height = 12, width = 16)
+ts_grid(precip_data, WIC_discharge, WIC_cond_data, labWIC)
+ggsave("Plots/TS_Grids/WIC.png", height = 20, width = 15, units = "cm")

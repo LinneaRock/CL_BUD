@@ -4,7 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
+
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -13,34 +13,17 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-# #  source("functions/impute_missing.R")
-# loggerYI1 <- loggerYI %>%
-#   filter(sp.cond > 200) #deletes a couple measurements that were collected while the logger was outside of the water
-# 
-# 
-# # #flag outliers using anomalize package
-#  YI_outlier <- flagged_data(loggerYI1)
-# # #plot to inspect where to correct outliers
-#  plot_flagged(YI_outlier)
-# # #after inspecting, filter and clean anomalies
-#  YI_cleaned <- YI_outlier %>%
-#    filter(Year_Month != "2020-1" &
-#             Year_Month != "2020-2" &
-#             Year_Month != "2021-3" &
-#             Year_Month != "2021-2") %>%
-#    clean_anomalies()
-# # #insepect cleaned points
-#  plot_cleaned(YI_cleaned)
-# # #final dataset with runningmean, trend, and corrected specific conductance data
-#  YI_cond_data <- final_cond_data(loggerYI1, YI_cleaned, YI_outlier)
-#  write_rds(YI_cond_data, "Data/HOBO_Loggers/YI/YI_cond_data.rds")
+source("Functions/ts_grid.R")
+
+loggerYI1 <- loggerYI %>%
+  filter(sp.cond > 200) #deletes a couple measurements that were collected while the logger was outside of the water
 
 
-YI_cond_data <- read_rds("Data/HOBO_Loggers/YI/YI_cond_data.rds")
+YI_cond_data <- outlier_detect_remove(loggerYI1, "YI")
 fieldcondYI <- fieldcondYI #conductivity measured in the field
 labYI <- labYI #IC data 
 # YI_discharge <- rolling_ave_discharge(YI_cond_data, d.YI)
@@ -76,7 +59,7 @@ splot("QC_plots/", "YI_cl")
 evalq(labYI, YI_discharge)
 
 #Linear Regression between Conductivity and Chloride
-YI_linreg_plot <- linreg(labYI, YI_cond_data) + labs(title = "Yahara Isthmus")
+YI_linreg_plot <- linreg(labYI, fieldcondYI, YI_cond_data) + labs(title = "Yahara Isthmus")
   #captlm('Yahara River @ Main St',"Yahara River at Main St", labYI, YI_cond_data)
 splot("cl_cond_linear_regression/", "YI")
 
@@ -94,7 +77,7 @@ cl_compare(fieldclYI, labYI)
 
 
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, YI_discharge, YI_cond_data, labYI)
-ggsave("Plots/TS_Grids/YI.png", height = 12, width = 16)
+ts_grid(precip_data, YI_discharge, YI_cond_data, labYI)
+ggsave("Plots/TS_Grids/YI.png", height = 20, width = 15, units = "cm")
 
 

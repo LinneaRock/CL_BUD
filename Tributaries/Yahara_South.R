@@ -4,8 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
-library(anomalize)
+
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -14,34 +13,18 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-#source("functions/impute_missing.R")
+source("Functions/ts_grid.R")
+
  loggerYS1 <- loggerYS %>%
    mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-15 08:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-20 20:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
-   mutate(sp.cond = ifelse(sp.cond > 800 | sp.cond <300, NA, sp.cond)) #very obvious extreme outliers in this dataset that will skew the running mean if not removed
+   mutate(sp.cond = ifelse(sp.cond > 800 | sp.cond <500, NA, sp.cond)) #very obvious extreme outliers in this dataset that will skew the running mean if not removed
 
 
-
- 
-# #flag outliers using anomalize package
-#  YS_outlier <- flagged_data(loggerYS1)
-# # #plot to inspect where to correct outliers
-#  plot_flagged(YS_outlier)
-# # #after inspecting, filter and clean anomalies
-#  YS_cleaned <- YS_outlier %>%
-#    filter(Year_Month != "2020-1") %>%
-#    clean_anomalies()
-# # #insepect cleaned points
-#  plot_cleaned(YS_cleaned)
-# # #final dataset with runningmean, trend, and corrected specific conductance data
-#  YS_cond_data <- final_cond_data(loggerYS1, YS_cleaned, YS_outlier)
-#  write_rds(YS_cond_data, "Data/HOBO_Loggers/YS/YS_cond_data.rds")
-
-
-YS_cond_data <- read_rds("Data/HOBO_Loggers/YS/YS_cond_data.rds")
+YS_cond_data <- outlier_detect_remove(loggerYS1, "YS")
 fieldcondYS <- fieldcondYS #conductivity measured in the field
 labYS <- labYS #IC data 
 YS_discharge <- read.csv("Data/Monona_Outlet_Data/d_YS.csv") %>%
@@ -78,7 +61,7 @@ splot("QC_plots/", "YS_cl")
 evalq(labYS, YS_discharge)
   
 #Linear Regression between Conductivity and Chloride
-YS_linreg_plot <- linreg(labYS, YS_cond_data) + labs(title = "Yahara South")
+YS_linreg_plot <- linreg(labYS, fieldcondYS, YS_cond_data) + labs(title = "Yahara South")
   #captlm('Yahara River @ Broadway',"Yahara River at Broadway St", labYS, YS_cond_data)
 splot("cl_cond_linear_regression/", "YS")
 
@@ -96,5 +79,6 @@ cl_compare(fieldclYS, labYS)
 
 
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, YS_discharge, YS_cond_data, labYS)
-ggsave("Plots/TS_Grids/YS.png", height = 12, width = 16)
+ts_grid(precip_data, YS_discharge, YS_cond_data, labYS)
+ggsave("Plots/TS_Grids/YS.png", height = 20, width = 15, units = "cm")
+

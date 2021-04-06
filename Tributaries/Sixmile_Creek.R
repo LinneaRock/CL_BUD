@@ -4,7 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
+
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -13,34 +13,16 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-#source("functions/impute_missing.R")
-source("functions/ts_grid.R")
+source("Functions/ts_grid.R")
 
 
 
-#flag outliers using anomalize package
-#  SMC_outlier <- flagged_data(logger6MC)
-# # #plot to inspect where to correct outliers
-#  plot_flagged(SMC_outlier)
-# # #after inspecting, filter and clean anomalies
-#  SMC_cleaned <- SMC_outlier %>%
-#    filter(Year_Month == "2020-10" |
-#            Year_Month == "2020-3" |
-#             Year_Month == "2020-4" |
-#             Year_Month == "2021-2" & date < "2021-02-15 00:00:00") %>%
-#    clean_anomalies()
-# # #insepect cleaned points
-#  plot_cleaned(SMC_cleaned)
-# # #final dataset with runningmean, trend, and corrected specific conductance data
-#  SMC_cond_data <- final_cond_data(logger6MC, SMC_cleaned, SMC_outlier)
-#  write_rds(SMC_cond_data, "Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
 
-
-SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
+SMC_cond_data <- outlier_detect_remove(logger6MC, "SMC")
 fieldcond6MC <- fieldcond6MC #conductivity measured in the field
 lab6MC <- lab6MC #IC data 
  # SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
@@ -76,7 +58,7 @@ splot("QC_plots/", "6MC_cl")
 evalq(lab6MC, SMC_discharge)
 
 #Linear Regression between Conductivity and Chloride
-SMC_linreg_plot <- linreg(lab6MC, SMC_cond_data) + labs(title = "Sixmile Creek")
+SMC_linreg_plot <- linreg(lab6MC, fieldcond6MC, SMC_cond_data) + labs(title = "Sixmile Creek")
   #captlm('Sixmile Creek',"Sixmile Creek at Highway M", lab6MC, SMC_cond_data)
 splot("cl_cond_linear_regression/", "6MC")
 
@@ -93,6 +75,6 @@ cl_compare(fieldcl6MC, lab6MC)
 
 
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, SMC_discharge, SMC_cond_data, lab6MC)
-ggsave("Plots/TS_Grids/6MC.png", height = 12, width = 16)
+ts_grid(precip_data, SMC_discharge, SMC_cond_data, lab6MC)
+ggsave("Plots/TS_Grids/6MC.png", height = 20, width = 15, units = "cm")
 

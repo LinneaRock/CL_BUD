@@ -4,14 +4,15 @@
 
 source("Functions/join_datasets_chloride.R")
 
-linreg <- function(cl, other) {
+linreg <- function(chloride_data, field_cond, logger) {
  
-  qsc <- join_datasets_chloride(cl, other)
+  qsc <- join_for_linreg(chloride_data, field_cond, logger)
   
   
-  ggplot(qsc, aes(runningmean, chloride_mgL)) +
+  ggplot(qsc, aes(sp.cond.x, chloride_mgL)) +
     geom_point(aes(color = season)) + 
-    scale_color_viridis_d(option = "inferno") +
+    scale_color_manual(labels = c("April-October", "November-March"),
+                       values = c("#1C366B", "#F24D29"))  +
     geom_smooth(method = "lm", se = FALSE, color = "black") +
     #stat_cor() + 
     #stat_regline_equation() + 
@@ -25,11 +26,11 @@ linreg <- function(cl, other) {
 
 
 #function to evaluate residuals
-eval <- function(cl, other, filename) {
- 
-  qsc <- join_datasets_chloride(cl, other)
+eval <- function(choride_data, field_cond, logger) {
   
-  info <- lm(chloride_mgL ~ runningmean, qsc)
+  qsc <- join_for_linreg(choride_data, field_cond, logger)
+  
+  info <- lm(chloride_mgL ~ sp.cond.x, qsc)
   
   #print plots
   layout(matrix(1:4,2,2))
@@ -39,11 +40,11 @@ eval <- function(cl, other, filename) {
 
 
 #function to obtain coefficient information 
-info <- function(cl, other) {
+info <- function(choride_data, field_cond, logger) {
   
-  qsc <- join_datasets_chloride(cl, other)
+  qsc <- join_for_linreg(choride_data, field_cond, logger)
   
-  info <- lm(chloride_mgL ~ runningmean, qsc)
+  info <- lm(chloride_mgL ~ sp.cond.x, qsc)
   
   #print coefficient information
   return(summary(info))
@@ -51,10 +52,11 @@ info <- function(cl, other) {
 }
 
 #funtion to calculate p-value from f statistic 
-pvalue <- function(cl,other) {
-  qsc <- join_datasets_chloride(cl, other)
+pvalue <- function(choride_data, field_cond, logger) {
   
-  info <- lm(chloride_mgL ~ runningmean, qsc)
+  qsc <- join_for_linreg(choride_data, field_cond, logger)
+  
+  info <- lm(chloride_mgL ~ sp.cond.x, qsc)
   
   pvalue <- 1-pf(as.numeric(info$fstatistic[1]), as.numeric(info$fstatistic[2]), as.numeric(info$fstatistic[3]))
   

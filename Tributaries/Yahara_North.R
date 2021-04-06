@@ -4,8 +4,7 @@ library(data.table)
 library(ggpubr)
 library(patchwork)
 library(zoo)
-#library(imputeTS)
-library(anomalize)
+
 
 source("Functions/linreg.R")
 source("Functions/splot.R")
@@ -14,39 +13,21 @@ source("Functions/clseries.R")
 source("Functions/sccl.R")
 source("Functions/cl_compare.R")
 source("Functions/cond_compare.R")
-source("Functions/find_outlier.R")
+source("Functions/outlier_detect_remove.R")
 source("Functions/qsc.R")
 source("Functions/qcl.R")
 source("functions/discharge_ts.R")
-#source("functions/impute_missing.R")
-ggplot(loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))) + geom_point(aes(date, sp.cond))
+source("Functions/ts_grid.R")
 
+#ggplot(loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))) + geom_point(aes(date, sp.cond))
 
-YN_cond_prob <- loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))
+#YN_cond_problem <- loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))
+
 loggerYN1 <- loggerYN %>%
   mutate(sp.cond = ifelse(date > as.POSIXct("2021-02-19 13:50:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-25 22:00:00", tz = "ETC/GMT-6"), NA, sp.cond))
   
 
-# # #loggerYN1 <- loggerYN # 
-# # #flag outliers using anomalize package
-#  YN_outlier <- flagged_data(loggerYN)
-# # #plot to inspect where to correct outliers
-#  plot_flagged(YN_outlier)
-# # #after inspecting, filter and clean anomalies
-#  YN_cleaned <- YN_outlier %>%
-#    filter(Year_Month == "2020-5" & date < "2020-05-28 00:00:00" |
-#             Year_Month == "2020-6" |
-#             Year_Month == "2021-2" |
-#             Year_Month == "2020-7" & observed > 1000) %>%
-#    clean_anomalies()
-# # #insepect cleaned points
-#  plot_cleaned(YN_cleaned)
-# # #final dataset with runningmean, trend, and corrected specific conductance data
-#  YN_cond_data <- final_cond_data(loggerYN, YN_cleaned, YN_outlier)
-#  write_rds(YN_cond_data, "Data/HOBO_Loggers/YN/YN_cond_data.rds")
-
-
-YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
+YN_cond_data <- outlier_detect_remove(loggerYN1, "YN")
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
  # YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
@@ -82,11 +63,11 @@ splot("QC_plots/", "YN_cl")
 evalq(labYN, YN_discharge)
 
 #Linear Regression between Conductivity and Chloride
-YN_linreg_plot <- linreg(labYN, YN_cond_data) + labs(title = "Yahara North")
+YN_linreg_plot <- linreg(labYN, fieldcondYN, YN_cond_data) + labs(title = "Yahara North")
   #captlm('Yahara River @ 113',"Yahara River at Highway 113", labYN, YN_cond_data)
 splot("cl_cond_linear_regression/", "YN")
 
-eval(labYN, YN_cond_data)
+eval(labYN, fieldcondYN, YN_cond_data)
 
 #conductivity time series with chloride points overlain
 sccl(YN_cond_data, labYN)
@@ -99,8 +80,8 @@ cl_compare(fieldclYN, labYN)
 
 
 #plotting a grid of timeseries data
-ts_grid(precip_temp_data, YN_discharge, YN_cond_data, labYN)
-ggsave("Plots/TS_Grids/YN.png", height = 12, width = 16)
+ts_grid(precip_data, YN_discharge, YN_cond_data, labYN)
+ggsave("Plots/TS_Grids/YN.png", height = 20, width = 15, units = "cm")
 
 
 
