@@ -13,9 +13,7 @@ format_scraped <- function(dataname, parameter) {
   do.call(rbind.data.frame, dataname) %>%
     rename(date = 1, parameter = 2) %>%
     mutate(parameter = as.numeric(parameter)) %>%
-    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = 'US/Central'))) %>%
-    mutate(date = date + hours(6))  #converting to GMT from CST
-    # mutate(date = date + hours(5))  #converting to GMT from CDT; use only during daylight savings time.. eye roll
+    mutate(date = as.POSIXct(date/1000, origin = as.POSIXct('1970-01-01', tz = "Etc/GMT-7"))) 
 }
 
 
@@ -31,15 +29,21 @@ str(df)
 #Read in old data
 stage <- read.csv("Data/WingraCreek_Data/stage_WIC.csv") %>%
   select(date, stage) %>%
-  mutate(date = ymd_hms(date))
+  mutate(date = ymd_hms(date))%>% 
+  mutate(date = date - hours(6))
+stage$date = force_tz(stage$date, tzone = "Etc/GMT-7")
 
 discharge <- read.csv("Data/WingraCreek_Data/discharge_WIC.csv") %>%
   select(date, discharge) %>%
-  mutate(date = ymd_hms(date))
+  mutate(date = ymd_hms(date))%>% 
+  mutate(date = date - hours(6))
+discharge$date = force_tz(discharge$date, tzone = "Etc/GMT-7")
 
 temp <- read.csv("Data/WingraCreek_Data/temp_WIC.csv") %>%
   select(date, temp) %>%
-  mutate(date = ymd_hms(date))
+  mutate(date = ymd_hms(date))%>% 
+  mutate(date = date - hours(6))
+temp$date = force_tz(temp$date, tzone = "Etc/GMT-7")
 
 
 #find last dates in old datasets
@@ -53,6 +57,7 @@ WIC_temp.df <- format_scraped(df$temp, temp) %>%
   rename(temp = parameter) %>%
   mutate(temp = temp_coversion(temp)) %>%
   filter(date > t.day)
+#WIC_temp.df$date = force_tz(WIC_temp.df, tzone = "Etc/GMT-7") 
 checkplot(WIC_temp.df, WIC_temp.df$temp)
 
 
