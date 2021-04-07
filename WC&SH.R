@@ -1,5 +1,6 @@
 library(tidyverse)
 library(ggpubr)
+library(lubridate)
 source("Functions/cond.R")
 source("Functions/splot.R")
 source("Functions/clseries.R")
@@ -111,6 +112,16 @@ SH_ts_mass <- d.sc.SH %>%
     year_mon == "2020-11" | year_mon == "2020-12" | year_mon == "2021-1" | year_mon == "2021-2" | year_mon == "2021-3" | year_mon == "2021-4",
     "2020-2021 Salting",
     season_id))
+
+
+
+
+
+
+
+
+
+
 
 # 
 # #same thing as above for q - chloride concentration regression.

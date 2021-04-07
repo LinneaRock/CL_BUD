@@ -88,9 +88,11 @@ chloride_ts_mass <- function(chloride_data, logger_data, discharge_data) {
     mutate(chloride_use_mgL = ifelse(is.na(chloride_mgL), chloride_predict, chloride_mgL)) %>% #use the actual data when we have it and estimated values in all other instances
     mutate(chloride_use_mgL = ifelse(chloride_use_mgL <= 0, minobs, chloride_use_mgL)) %>% #if concentration falls to or below zero, use the minimum observed value
     mutate(cl_rate_gs = chloride_use_mgL * runningmeandis) %>% #load rate in [g s^-1] - 1000L and 1000mg unit coversions cancel out
-    mutate(cl_load_g = cl_rate_gs * (timestep * 60))# %>% #grams chloride every timestep #integral to determine ~chloride mass [g] during the timestep [Chloride Rate g s^-1 * s]
-    #mutate(cumulative_cl_g = cumSkipNA(cl_load_g, sum)) #grams chloride cumulative loading
-  
+    mutate(cl_load_g = cl_rate_gs * (timestep * 60)) %>% #grams chloride every timestep #integral to determine ~chloride mass [g] during the timestep [Chloride Rate g s^-1 * s]
+    mutate(cl_load_g = ifelse(timestep > 5000, NA, cl_load_g)) %>% #loggers were removed for a week and I don't want to calculate load during that missing data period
+    mutate(cumulative_cl_g = cumSkipNA(cl_load_g, sum)) %>% #grams chloride cumulative loading
+    filter(timestep > 0)
+    
   return(ts_load)
   
 }
@@ -171,7 +173,7 @@ chloride_monthly_load <- function(ts_data) {
 
 monthly_load <- function(monthly_data, customTitle) {
   ggplot(monthly_data, aes(year_mon, monthly_mass_Mg)) + 
-    geom_bar(stat = "identity") + L_theme() + 
+    geom_bar(stat = "identity", fill = '#1C366B') + L_theme() + 
     labs(y = "Monthly Chloride Mass "~(Mg), 
          x = "", 
          title = customTitle)
@@ -187,7 +189,7 @@ chloride_seasonal_load <- function(ts_data) {
 
 seasonal_load <- function(seasonal_data, customTitle) {
   ggplot(seasonal_data, aes(season_id, seasonal_mass_Mg)) +
-    geom_bar(stat = 'identity') + L_theme() +
+    geom_bar(stat = 'identity', fill = '#1C366B') + L_theme() +
     labs(y = "Seasonal Chloride Mass"~(Mg),
          x = "",
          title = customTitle)
