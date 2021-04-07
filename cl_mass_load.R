@@ -380,11 +380,13 @@ total201920_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt
 
 names <- c("PBMS", "SMC", "DC", "YN", "YI", "SH", "PBSF")
 load <- c(salt_201920(PBMS_ts_mass) , salt_201920(SMC_ts_mass) , salt_201920(DC_ts_mass) , salt_201920(YN_ts_mass) , salt_201920(YI_ts_mass) , salt_201920(SH_ts_mass), salt_201920(PBSF_ts_mass))
-max <- c(max(PBMS_ts_mass$chloride_use_mgL) , max(SMC_ts_mass$chloride_use_mgL) , max(DC_ts_mass$chloride_use_mgL) , max(YN_ts_mass$chloride_use_mgL) , max(YI_ts_mass$chloride_use_mgL) , max(SH_ts_mass$chloride_use_mgL, na.rm = TRUE), max(PBSF_ts_mass$chloride_use_mgL, na.rm = TRUE))
+max <- c(max(PBMS_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(SMC_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(DC_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(YN_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(YI_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(SH_ts_mass$chloride_use_mgL, na.rm = TRUE), max(PBSF_ts_mass$chloride_use_mgL, na.rm = TRUE))
 
 
 loading <- as.data.frame(names) %>%
   mutate(load = load) %>%
+  mutate(max = max) %>%
+  mutate(load = load / 1000000) #total chloride in Mg )
   left_join(usgs_ws_all2, by = c("names" = "name")) %>%
   mutate(loadperarea = load/DRNAREA) %>%
   mutate(loadperdev = load/DEVNLCD01) %>%
@@ -401,9 +403,9 @@ fit <- lm(DRNAREA ~ load, loading)
 summary(fit)
 
 
-
-
-
+Mendota_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt_201920(DC_ts_mass) + salt_201920(YN_ts_mass) + salt_201920(SH_ts_mass)) / 1000000 #total chloride in Mg 
+Mendota_loss <-  (salt_201920(YI_ts_mass)) / 1000000 #total chloride in Mg 
+Mendota_net <- Mendota_load - Mendota_loss
 
 library(pracma)
 H <- c(237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258)
