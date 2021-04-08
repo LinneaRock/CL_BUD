@@ -69,7 +69,7 @@ evalq(labDC, DC_discharge)
 
 
 #Linear Regression between Conductivity and Chloride
-DC_linreg_plot <- linreg(labDC, fieldcondDC, DC_cond_data) + labs(title = "Dorn Creek")
+DC_linreg_plot <- linreg(labDC, fieldcondDC, DC_cond_data) + labs(title = "DC")
   #captlm('Dorn Creek',"Dorn Creek at Highway M", labDC, DC_cond_data)
 splot("cl_cond_linear_regression/", "DC")
 

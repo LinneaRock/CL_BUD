@@ -58,7 +58,7 @@ splot("QC_plots/", "6MC_cl")
 evalq(lab6MC, SMC_discharge)
 
 #Linear Regression between Conductivity and Chloride
-SMC_linreg_plot <- linreg(lab6MC, fieldcond6MC, SMC_cond_data) + labs(title = "Sixmile Creek")
+SMC_linreg_plot <- linreg(lab6MC, fieldcond6MC, SMC_cond_data) + labs(title = "SMC")
   #captlm('Sixmile Creek',"Sixmile Creek at Highway M", lab6MC, SMC_cond_data)
 splot("cl_cond_linear_regression/", "6MC")
 

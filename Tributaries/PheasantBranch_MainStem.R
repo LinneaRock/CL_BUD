@@ -71,7 +71,7 @@ splot("QC_plots/", "PBMS_cl")
 evalq(labPBMS, PBMS_discharge)
 
 #Linear Regression between Conductivity and Chloride
-PBMS_linreg_plot <- linreg(labPBMS, fieldcondPBMS, PBMS_cond_data) + labs(title = "Pheasant Branch Main Stem")
+PBMS_linreg_plot <- linreg(labPBMS, fieldcondPBMS, PBMS_cond_data) + labs(title = "PBMS")
   #captlm('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", labPBMS, PBMS_cond_data)
 splot("cl_cond_linear_regression/", "PBMS")
 
