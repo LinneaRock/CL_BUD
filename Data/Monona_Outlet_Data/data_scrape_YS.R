@@ -105,13 +105,13 @@ YS_temp <- rbind(temp, YS_temp.df) %>%
 checkplot(YS_temp, YS_temp$temp)
 
 #final failsafe while saving, if there is a mistake, try again and the old dataset still exists in the folder
-write.csv(YS_temp, "Data/Monona_Outlet_Data/temp_YS.csv")
+write.csv(YS_temp, "Data/Monona_Outlet_Data/temp_YS_1.csv")
 
-write.csv(YS_discharge, "Data/Monona_Outlet_Data/d_YS.csv")
+write.csv(YS_discharge, "Data/Monona_Outlet_Data/d_YS_1.csv")
 
-write.csv(YS_velocity, "Data/Monona_Outlet_Data/velocity_YS.csv")
+write.csv(YS_velocity, "Data/Monona_Outlet_Data/velocity_YS_1.csv")
 
-write.csv(YS_stage, "Data/Monona_Outlet_Data/stage_YS.csv")
+write.csv(YS_stage, "Data/Monona_Outlet_Data/stage_YS_1.csv")
 
 
 

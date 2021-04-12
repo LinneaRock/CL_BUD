@@ -95,10 +95,10 @@ WIC_temp <- rbind(temp, WIC_temp.df) %>%
 checkplot(WIC_temp, WIC_temp$temp)
 
 #final failsafe while saving, if there is a mistake, try again and the old dataset still exists in the folder
-write.csv(WIC_temp, "Data/WingraCreek_Data/temp_WIC.csv")
+write.csv(WIC_temp, "Data/WingraCreek_Data/temp_WIC_1.csv")
 
-write.csv(WIC_discharge, "Data/WingraCreek_Data/discharge_WIC.csv")
+write.csv(WIC_discharge, "Data/WingraCreek_Data/discharge_WIC_1.csv")
 
-write.csv(WIC_stage, "Data/WingraCreek_Data/stage_WIC.csv")
+write.csv(WIC_stage, "Data/WingraCreek_Data/stage_WIC_1.csv")
 
 
