@@ -37,20 +37,64 @@ lakecond(MO_Epi_cond_data_21, MO_Hypo_cond_data_21, "Monona 20m", "Monona 1.5m")
   capt_scseries("Lake Monona", "deep hole of Lake Monona during the winter and spring 2020-2021")
 splot("conductance_time_series/", "MO_20-21")
 
-MO_epi <- MO_Epi_cond_data_20 %>%
-  rbind(MO_Epi_cond_data_21)
 
-ggplot(MO_epi) +
-  geom_line(aes(date, sp.cond), color = "snow3") +
-  geom_line(aes(date, runningmean)) +
-  labs(y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
-       x = "") + L_theme()
-
-
-
-p1 <- cond(MO_Epi_cond_data_20) + ylim(500, 700)
+p1 <- cond(MO_Epi_cond_data_20) + ylim(500, 700) + labs(x = "", y = "Epilimnion",
+                                                        title = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C) 
   
-p2 <- cond(MO_Epi_cond_data_21) + ylim(500, 700)
+p2 <- cond(MO_Epi_cond_data_21) + ylim(500, 700) + labs(x = "", y = "Epilimnion",
+                                                        title = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C) 
 
-p1 | p2
+MO_epi <- (p1 | p2)
 
+h1 <- cond(MO_Hypo_cond_data_20) + ylim(498, 1350) + labs(x = "", y = "Hypolimnion",
+                                                        title = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C) 
+
+h2 <- cond(MO_Hypo_cond_data_21) + ylim(498, 1350) + labs(x = "", y = "Hypolimnion",
+                                                        title = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C) 
+
+MO_hypo <- (h1 | h2)
+
+datemin_1 <- min(MO_Epi_cond_data_20$date)
+datemax_1 <- max(MO_Epi_cond_data_20$date)
+datemin_2 <- min(MO_Epi_cond_data_21$date)
+datemax_2 <- max(MO_Epi_cond_data_21$date)
+
+w1 <- ggplot(precip_data, aes(date, PRCP)) +
+  geom_bar(stat = "identity") +
+  L_theme() +
+  scale_x_datetime(limits = c(datemin_1, datemax_1)) +
+  labs(x = "", y = "",
+       title = "Daily Precipitation (mm)")
+
+w2 <- ggplot(precip_data, aes(date, PRCP)) +
+  geom_bar(stat = "identity") +
+  L_theme() +
+  scale_x_datetime(limits = c(datemin_2, datemax_2)) +
+  labs(x = "", y = "",
+       title = "Daily Precipitation (mm)")
+
+winter_prcp <- (w1 | w2)
+
+T1 <- ggplot(precip_data, mapping = aes(date, TAVG)) +
+  geom_line() +
+  L_theme() +
+  scale_x_datetime(limits = c(datemin_1, datemax_1)) +
+  geom_hline(yintercept = 0, color = "#F24D29") +
+  labs(x = "", y = "",
+       title = "Average Daily Temperature"*~degree*C~"")
+
+T2 <- ggplot(precip_data, mapping = aes(date, TAVG)) +
+  geom_line() +
+  L_theme() +
+  scale_x_datetime(limits = c(datemin_2, datemax_2)) +
+  geom_hline(yintercept = 0, color = "#F24D29") +
+  labs(x = "", y = "",
+       title = "Average Daily Temperature"*~degree*C~"")
+
+temp <- (T1 | T2)
+
+(MO_epi /
+    MO_hypo / 
+    winter_prcp /
+    temp) +
+  plot_annotation(caption = "Lake Monona specific conductivity in the epilimnion and hypolimnion along with daily preciptation and avearage daily temperatures. Figures on the left are from winter/spring 2019-2020 and on the right are from winter/spring 2020-2021.")
