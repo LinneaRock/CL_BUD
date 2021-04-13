@@ -19,10 +19,12 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
  
-# #HOBO conductivity data
- loggerWIC1 <- loggerWIC %>%
-   mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-06 10:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-26 19:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) #logger was encased in ice during this part of the month
+# #checking raw data
+ggplot(loggerWIC1, aes(date, sp.cond)) + geom_point()
 
+ loggerWIC1 <- loggerWIC %>%
+   mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-06 10:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-26 19:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
+   mutate(sp.cond = ifelse(date > as.POSIXct('2021-04-01 00:30:00', tz = "ETC/GMT-7") & sp.cond <750, NA, sp.cond)) # a clear set of outliers
 
 WIC_cond_data <- outlier_detect_remove(loggerWIC1, "WIC")
 fieldcondWIC <- fieldcondWIC #conductivity measured in the field

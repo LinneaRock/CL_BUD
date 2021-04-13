@@ -22,6 +22,8 @@ source("Functions/ts_grid.R")
 
 
 # # # #getting conductivity data ready
+#check raw data
+ggplot(loggerPBSF1, aes(date, sp.cond)) + geom_point()
 #When stage is low, the logger is outside of the water
   loggerPBSF1 <- loggerPBSF %>%
     left_join(stage_PBSF, by = "date") %>%

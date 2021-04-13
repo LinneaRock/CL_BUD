@@ -18,6 +18,8 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
 
+#checking raw data
+ggplot(loggerSW, aes(date, sp.cond)) + geom_point()
 
 loggerSW1 <- loggerSW %>%
   mutate(sp.cond = ifelse(date > as.POSIXct('2021-01-28 09:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-01-31 20:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month

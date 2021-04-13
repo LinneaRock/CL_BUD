@@ -19,10 +19,13 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
 
+#check raw data
+ggplot(logger6MC, aes(date, sp.cond)) + geom_point()
 
+logger6MC1 <- logger6MC %>%
+  filter(sp.cond < 1500) #really clear outliers
 
-
-SMC_cond_data <- outlier_detect_remove(logger6MC, "SMC")
+SMC_cond_data <- outlier_detect_remove(logger6MC1, "SMC")
 fieldcond6MC <- fieldcond6MC #conductivity measured in the field
 lab6MC <- lab6MC #IC data 
  # SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)

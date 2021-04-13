@@ -19,6 +19,9 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
 
+#check raw data
+ggplot(loggerYI, aes(date, sp.cond)) + geom_point()
+
 loggerYI1 <- loggerYI %>%
   filter(sp.cond > 200) #deletes a couple measurements that were collected while the logger was outside of the water
 

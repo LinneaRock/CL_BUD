@@ -19,6 +19,8 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
 
+#check raw data
+ggplot(loggerPBMS, aes(date, sp.cond)) + geom_point()
 
 PBMS_cond_data <- outlier_detect_remove(loggerPBMS, "PBMS")
 fieldcondPBMS <- fieldcondPBMS #conductivity measured in the field

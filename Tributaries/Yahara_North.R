@@ -19,6 +19,8 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
 
+#check raw data
+ggplot(loggerYN, aes(date, sp.cond)) + geom_point()
 #ggplot(loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))) + geom_point(aes(date, sp.cond))
 
 #YN_cond_problem <- loggerYN %>% filter(date > as.POSIXct("2021-02-19 00:00:00", tz = "ETC/GMT-6") & date < as.POSIXct("2021-02-27 00:00:00", tz = "ETC/GMT-6"))

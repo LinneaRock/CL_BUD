@@ -19,6 +19,10 @@ source("Functions/qcl.R")
 source("functions/discharge_ts.R")
 source("Functions/ts_grid.R")
 
+#check raw data
+ggplot(loggerYS, aes(date, sp.cond)) + geom_point()
+#ggplot(loggerYS %>% filter(date > " 2021-03-01 00:00:00"), aes(date, sp.cond)) + geom_point()
+
  loggerYS1 <- loggerYS %>%
    mutate(sp.cond = ifelse(date > as.POSIXct('2021-02-15 08:00:00', tz = "ETC/GMT-7") & date < as.POSIXct('2021-02-20 20:00:00', tz = "ETC/GMT-7"), NA, sp.cond)) %>% #logger was encased in ice during this part of the month
    mutate(sp.cond = ifelse(sp.cond > 800 | sp.cond <500, NA, sp.cond)) #very obvious extreme outliers in this dataset that will skew the running mean if not removed
