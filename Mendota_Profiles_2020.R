@@ -53,3 +53,35 @@ ggplot(ME_profile %>% filter(sampledate != "2020-07-11"), aes(sampledate, depth,
   L_theme()+
   scale_y_reverse()
 
+
+
+
+
+
+
+library(gganimate)
+library(gifski)
+library(png)
+library(transformr)
+
+ME_profile <- ME_profile %>%
+  mutate(date = as.factor(sampledate))
+
+p <- ggplot(ME_profile, aes(sp_cond, depth)) +
+  geom_point() +
+  scale_y_reverse() +
+  #geom_path() +
+  L_theme() +
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       y = "\nDepth"~(m)) 
+
+anim <- p + transition_states(date)
+
+anim
+
+
+
+
+
+
+
