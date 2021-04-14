@@ -99,13 +99,17 @@ temp <- (T1 | T2)
     temp) +
   plot_annotation(caption = "Lake Monona specific conductivity in the epilimnion and hypolimnion along with daily preciptation and avearage daily temperatures. Figures on the left are from winter/spring 2019-2020 and on the right are from winter/spring 2020-2021.")
 
+
+
+#formatting data to create a heatmap
 labMO2 <- labMO %>%
   separate(date, c("date", "time"), sep = " ") %>%
   mutate(date = as.Date(date))
 
 #heatmap of chloride concentration
 ggplot(labMO2, aes(x = date, y = Depth_m, z = chloride_mgL)) +
-  geom_contour_filled(binwidth = 10) +
+  guides(fill = guide_colorsteps(barheight = unit(4, "cm"))) +
+  geom_contour_filled(binwidth = 20) +
   geom_point(aes(date, Depth_m), color = "#C4CFD0") +
   #xlim(c(as.Date("2020-01-01"), as.Date("2021-04-15"))) +
   theme_minimal() +
@@ -121,5 +125,7 @@ in the water column water samples were taken and analyzed for chloride.") +
 ggsave("Plots/chloride_time_series/monona_heatmap.png", height = 15, width = 20, units = "cm")
 
 
-
+MO_chloride_plot <- clseries(labMO) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c(direction = -1) +
+  capt_clseries("Monona", "Lake Monona")
+splot("chloride_time_series/", "MO")
 

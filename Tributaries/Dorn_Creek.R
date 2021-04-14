@@ -31,8 +31,8 @@ ggplot(loggerDC, aes(date, sp.cond)) + geom_point()
 DC_cond_data <- outlier_detect_remove(loggerDC1, "DC")
 fieldcondDC <- fieldcondDC #conductivity measured in the field
 labDC <- labDC #IC data 
- # DC_discharge <- rolling_ave_discharge(DC_cond_data, d.DC)
- # write_rds(DC_discharge, "Data/discharge/DC_discharge.rds")
+  #DC_discharge <- rolling_ave_discharge(DC_cond_data, d.DC)
+  #write_rds(DC_discharge, "Data/discharge/DC_discharge.rds")
 DC_discharge <- read_rds("Data/discharge/DC_discharge.rds")
 
 

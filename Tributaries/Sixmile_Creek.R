@@ -28,8 +28,8 @@ logger6MC1 <- logger6MC %>%
 SMC_cond_data <- outlier_detect_remove(logger6MC1, "SMC")
 fieldcond6MC <- fieldcond6MC #conductivity measured in the field
 lab6MC <- lab6MC #IC data 
- # SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
- # write_rds(SMC_discharge, "Data/discharge/SMC_discharge.rds")
+  # SMC_discharge <- rolling_ave_discharge(SMC_cond_data, d.6MC)
+  # write_rds(SMC_discharge, "Data/discharge/SMC_discharge.rds")
 SMC_discharge <- read_rds("Data/discharge/SMC_discharge.rds")
 
 #Conductivity time series

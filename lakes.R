@@ -57,9 +57,7 @@ ME_chloride_plot <- clseries(labME) + geom_point(aes(color = Depth_m)) + scale_c
 splot("chloride_time_series/", "ME")
 
 
-MO_chloride_plot <- clseries(labMO) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c(direction = -1) +
-  capt_clseries("Monona", "Lake Monona")
-splot("chloride_time_series/", "MO")
+
 
 
 ggplot(labME, aes(Depth_m, chloride_mgL, group = Depth_m)) +

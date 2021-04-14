@@ -36,8 +36,8 @@ ggplot(loggerPBSF1, aes(date, sp.cond)) + geom_point()
 PBSF_cond_data <- outlier_detect_remove(loggerPBSF1, "PBSF")
 fieldcondPBSF <- fieldcondPBSF #conductivity measured in the field
 labPBSF <- labPBSF #IC data 
- # PBSF_discharge <- rolling_ave_discharge(PBSF_cond_data, d.PBSF)
- # write_rds(PBSF_discharge, "Data/discharge/PBSF_discharge.rds")
+  # PBSF_discharge <- rolling_ave_discharge(PBSF_cond_data, d.PBSF)
+  # write_rds(PBSF_discharge, "Data/discharge/PBSF_discharge.rds")
 PBSF_discharge <- read_rds("Data/discharge/PBSF_discharge.rds")
 
 #Conductivity time series

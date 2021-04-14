@@ -25,8 +25,8 @@ ggplot(loggerPBMS, aes(date, sp.cond)) + geom_point()
 PBMS_cond_data <- outlier_detect_remove(loggerPBMS, "PBMS")
 fieldcondPBMS <- fieldcondPBMS #conductivity measured in the field
 labPBMS <- labPBMS #IC data 
- # PBMS_discharge <- rolling_ave_discharge(PBMS_cond_data, d.PBMS)
- # write_rds(PBMS_discharge, "Data/discharge/PBMS_discharge.rds")
+  # PBMS_discharge <- rolling_ave_discharge(PBMS_cond_data, d.PBMS)
+  # write_rds(PBMS_discharge, "Data/discharge/PBMS_discharge.rds")
 PBMS_discharge <- read_rds("Data/discharge/PBMS_discharge.rds")
 
 #Conductivity time series
