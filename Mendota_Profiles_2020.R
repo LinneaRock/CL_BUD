@@ -67,21 +67,19 @@ library(transformr)
 ME_profile <- ME_profile %>%
   mutate(date = as.factor(sampledate))
 
-p <- ggplot(ME_profile, aes(sp_cond, depth)) +
+p <- ggplot(ME_profile, aes(sp_cond, depth, group = sampledate)) +
   geom_point() +
   scale_y_reverse() +
-  #geom_path() +
-  L_theme() +
-  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
-       y = "\nDepth"~(m)) 
+  geom_path() #+
+ # L_theme() +
+#  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+ #      y = "\nDepth"~(m)) 
 
-anim <- p + transition_states(date)
+anim <- p + transition_time(sampledate) +labs(title = 'Date: {frame_time}')
 
 anim
 
 
 
-
-
-
+str(ME_profile)
 
