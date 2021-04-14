@@ -9,8 +9,8 @@ E_roads <- road_info %>%
   summarise(
     sum_centerline_miles = sum(centerline_miles),
     sum_lane_miles = sum(lane_miles),
-    sum_length_m = sum(calc_length_m),
-    sum_area = sum(surface_area_m2)
+    sum_length_m = sum(calc_length_m)
+    #sum_area = sum(surface_area_m2)
   ) %>%
   rename(ROUTE = RouteNumber) %>% #renamed for joining later with application data
 mutate(ROUTE = as.character(ROUTE)) #assigned character here because it will not work in previous step for an unknown, dumb reason
@@ -21,12 +21,10 @@ W_roads <- road_info %>%
   summarise(
     sum_centerline_miles = sum(centerline_miles),
     sum_lane_miles = sum(lane_miles),
-    sum_length_m = sum(calc_length_m),
-    sum_area = sum(surface_area_m2)
+    sum_length_m = sum(calc_length_m)
+    #sum_area = sum(surface_area_m2)
   ) %>%
   mutate(ROUTE = as.character(parse_number(SaltRt_Name))) #added for joining later with application data
-
-
 
 
 #function to format road salt application data
@@ -34,8 +32,8 @@ W_roads <- road_info %>%
 format_salt <- function(original) {
   df <- read_xlsx(original, sheet = "SHIFT TOTALS") %>%
     mutate(DATE = as.Date(as.character(DATE))) %>%
-    filter(DATE < "2020-03-04") %>% #excel sheet had a lot of extra rows with no information
-    mutate(Total_Salt_Mg = `TOTAL SALT TONS` * 0.907185,
+    drop_na(DATE) %>% #excel sheet had a lot of extra rows with no information
+    mutate(Total_Salt_Mg = TOTAL * 0.907185,
            SALT_Mg = SALT_ton * 0.907185,
            SAND_Mg = SAND_ton * 0.907185,
            BRINE_l = BRINE_gal * 3.785411784) %>%
@@ -43,29 +41,75 @@ format_salt <- function(original) {
   
 }
 
-#2019-20 East Madison salt application per route 
-E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx")
-#2019-20 West Madison salt application per route per event
-W2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx")
+#East Madison salt application per route 
+E2017 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2017.xlsx") %>% mutate(year = "2017-2018") %>% mutate(route_des = "E")
+E2018 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2018.xlsx") %>% mutate(year = "2018-2019") %>% mutate(route_des = "E")
+E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx") %>% mutate(year = "2019-2020") %>% mutate(route_des = "E")
+E2020 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2020.xlsx") %>% mutate(year = "2020-2021") %>% mutate(route_des = "E")
+
+EAST_SALTING_FULL <- rbind(E2017, E2018, E2019, E2020)
+
+#West Madison salt application per route per event
+W2017 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2017.xlsx") %>% mutate(year = "2017-2018") %>% mutate(route_des = "W")
+W2018 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2018.xlsx") %>% mutate(year = "2018-2019") %>% mutate(route_des = "W")
+W2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2019.xlsx") %>% mutate(year = "2019-2020") %>% mutate(route_des = "W")
+W2020 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2020.xlsx") %>% mutate(year = "2020-2021") %>% mutate(route_des = "W")
+
+WEST_SALTING_FULL <- rbind(W2017, W2018, W2019, W2020)
 
 
-#2019-20 East Madison salt application per route per date
-E19_perdate <- E2019 %>%
-  group_by(DATE, ROUTE) %>%
-  summarise(total_ton = sum(Total_Salt_Mg))
-#2019-20 West Madison salt application per route per date
-W19_perdate <- W2019 %>%
-  group_by(DATE, ROUTE) %>%
-  summarise(total_ton = sum(Total_Salt_Mg))
 
-#2019-20 East Madison salt application per route per season
-E19_season <- E2019 %>%
-  group_by(ROUTE) %>%
-  summarise(total_ton = sum(Total_Salt_Mg))
-#2019-20 West Madison salt application per route per season
-W19_season <- W2019 %>%
-  group_by(ROUTE) %>%
-  summarise(total_ton = sum(Total_Salt_Mg))
+ALL_SALT_FULL <- rbind(EAST_SALTING_FULL, WEST_SALTING_FULL) %>%
+  mutate(Total_Salt_Mg = ifelse(is.na(Total_Salt_Mg), 0, Total_Salt_Mg))
+
+
+TOTALS_BY_ROUTE <- ALL_SALT_FULL %>%
+  group_by(year, DATE, ROUTE, route_des) %>%
+  summarise(total_tonne = sum(Total_Salt_Mg))
+
+TOTALS_BY_DATE <- ALL_SALT_FULL %>%
+  group_by(year, DATE) %>%
+  summarise(total_tonne = sum(Total_Salt_Mg))
+
+
+
+
+
+WINTER_SALT_TOTALS <- read_xlsx("Data/Road_Salt/Madison/salt_totals.xlsx") %>%
+  mutate(Total_Salt_Mg = TOTAL * 0.907185,
+         SALT_Mg = SALT_ton * 0.907185,
+         SAND_Mg = SAND_ton * 0.907185,
+         BRINE_l = BRINE_gal * 3.785411784) %>%
+  dplyr::select(Year, Total_Salt_Mg, BRINE_l, SALT_Mg, SAND_Mg)
+
+
+
+ggplot(WINTER_SALT_TOTALS, aes(Year, Total_Salt_Mg)) +
+  geom_bar(stat = "identity", color = "black",  fill = "#1C3668") +
+  coord_flip() +
+  theme_minimal() +
+  labs(y = "Salt Applied (Mg)",
+       x = "") +
+  scale_y_reverse()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #2019-20 salt application per date for City
 Winter19 <- E2019 %>%
