@@ -38,23 +38,23 @@ road_salt_in_ws <- function(roads_in_ws, watershed.shp, checkplotname) {
   
   library(rmapshaper)
   madison_shape <- st_read("C:/Users/linne/Downloads/City_Limit/City_Limit.shp") %>% st_buffer(dist = 0)
- 
+
    roads_outside_Madison <- ms_erase(all_roads, madison_shape) %>%
     mutate(length = st_length(geometry)) %>%
     select(osm_id, fclass, name, ref, lanes, length, geometry)
-  
-  
-  #Dane county 2019-20 salt application rate was 16.44 tons per lane mile 
+
+
+  #Dane county 2019-20 salt application rate was 16.44 tons per lane mile
   roads_outside_Madison20 <- roads_outside_Madison %>%
     mutate(lanemile = (length/1609) * lanes) %>%
-    mutate(salt_app = (lanemile * 16.44) * 0.907185) #convert US tons to Mg (metric tonne) 
-  
+    mutate(salt_app = (lanemile * 16.44) * 0.907185) #convert US tons to Mg (metric tonne)
+
   winter1920_salt_outside_MadisonMg <- sum(roads_outside_Madison20$salt_app)  
-  #Dane county 2020-21 salt application rate was 13.8 tons per lane mile 
-  
+  #Dane county 2020-21 salt application rate was 13.8 tons per lane mile
+
   roads_outside_Madison21 <- roads_outside_Madison %>%
     mutate(lanemile = (length/1609) * lanes) %>%
-    mutate(salt_app = (lanemile * 13.8) * 0.907185) #convert US tons to Mg (metric tonne) 
+    mutate(salt_app = (lanemile * 13.8) * 0.907185) #convert US tons to Mg (metric tonne)
   
   winter2021_salt_outside_MadisonMg <- sum(roads_outside_Madison21$salt_app)
   
@@ -62,10 +62,10 @@ road_salt_in_ws <- function(roads_in_ws, watershed.shp, checkplotname) {
   
   E_map_Geo2 <- st_transform(E_Map_Geo, crs = 4326)
   W_Map_Geo2 <- st_transform(W_Map_Geo, crs = 4326)
-  wsYS <- st_transform(wsYS, crs = 4326)
+  watershed.shp2 <- st_transform(watershed.shp, crs = 4326)
   
-  Mad_W <- st_intersection(W_Map_Geo2, watershed.shp)
-  Mad_E <- st_intersection(E_map_Geo2, watershed.shp)
+  Mad_W <- st_intersection(W_Map_Geo2, watershed.shp2)
+  Mad_E <- st_intersection(E_map_Geo2, watershed.shp2)
   
   #Madison WEST routes
   Mad_W <- Mad_W %>%
@@ -86,14 +86,14 @@ road_salt_in_ws <- function(roads_in_ws, watershed.shp, checkplotname) {
     mutate(percentage = lanemi / sum_lane_miles) %>%
     mutate(totalper = percentage * Total_Salt_Mg)
   
-  West_Mad_201920 <- sum(West20$totalper)
+  West_Mad_201920 <- sum(West20$totalper, na.rm = TRUE)
   
   West21 <- left_join(Mad_W, (WEST_SALTING_FULL %>% select(Total_Salt_Mg, DATE, SHIFT, ROUTE, year) %>% mutate(ROUTE = as.numeric(ROUTE)) %>% filter(year == "2020-2021")), by = c("RouteNumber" = "ROUTE"))%>%
     left_join(E_roads %>% mutate(ROUTE = as.numeric(ROUTE)), by = c("RouteNumber" = "ROUTE")) %>%
     mutate(percentage = lanemi / sum_lane_miles) %>%
     mutate(totalper = percentage * Total_Salt_Mg)
   
-  West_Mad_202021 <- sum(West21$totalper)
+  West_Mad_202021 <- sum(West21$totalper, na.rm = TRUE)
   
   #Madison EAST routes
   Mad_E <- Mad_E %>%
@@ -116,14 +116,14 @@ road_salt_in_ws <- function(roads_in_ws, watershed.shp, checkplotname) {
     mutate(percentage = lanemi / sum_lane_miles) %>%
     mutate(totalper = percentage * Total_Salt_Mg)
   
-  East_Mad_201920 <- sum(East20$totalper)
+  East_Mad_201920 <- sum(East20$totalper, na.rm = TRUE)
   
   East21 <- left_join(Mad_E, (EAST_SALTING_FULL %>% select(Total_Salt_Mg, DATE, SHIFT, ROUTE, year) %>% mutate(ROUTE = as.numeric(ROUTE)) %>% filter(year == "2020-2021")), by = c("RouteNumber" = "ROUTE"))%>%
     left_join(E_roads %>% mutate(ROUTE = as.numeric(ROUTE)), by = c("RouteNumber" = "ROUTE")) %>%
     mutate(percentage = lanemi / sum_lane_miles) %>%
     mutate(totalper = percentage * Total_Salt_Mg)
   
-  East_Mad_202021 <- sum(East21$totalper)
+  East_Mad_202021 <- sum(East21$totalper, na.rm = TRUE)
   
   
   
@@ -146,11 +146,10 @@ road_salt_in_ws <- function(roads_in_ws, watershed.shp, checkplotname) {
 }
   
 
+get_2019 <- function(data) {
+  (data$winter1920_salt_outside_MadisonMg + data$Madison_201920) * 0.60663
+}
 
-
-
-  
-  
-  
-
-  
+get_2020 <-function(data) {
+  (data$winter2021_salt_outside_MadisonMg + data$Madison_202021) * 0.60663
+}

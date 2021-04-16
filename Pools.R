@@ -11,7 +11,7 @@ library(lubridate)
 source("Functions/splot.R")
 source("Functions/L_theme.R")
 
-
+#****************Note::: all values are in Kg
 # 
 # #read in pool data
 # pools <- read_xlsx("Data/Historical_External/pool.xlsx") %>%
@@ -181,7 +181,7 @@ Outdoor_Pools_ave_Vol <- All_pools %>%
   mutate(half_drain = full_drain/2) #mass if half the pool is drained
 
 #aggregating all pools by the recieving waterbodies to calculate annual mass
-annual_drainage_table <- Outdoor_Pools_ave_Vol %>%
+annual_drainage_table <- as.data.frame(Outdoor_Pools_ave_Vol) %>%
   dplyr::select(year, Receiving, full_drain, half_drain) %>%
   group_by(year, Receiving) %>%
   mutate(total_full = sum(full_drain)) %>% 
@@ -248,7 +248,7 @@ flushing <- All_pools %>%
 
 
 #aggregating all pools by the recieving waterbodies to calculate annual mass
-annual_backflush_table <- flushing %>%
+annual_backflush_table <- as.data.frame(flushing) %>%
   dplyr::select(year, Receiving, annual_weekly_5min, annual_weekly_10min, annual_biweekly_5min, annual_biweekly_10min) %>%
   group_by(year, Receiving) %>%
   mutate(total_weekly_5min = sum(annual_weekly_5min)) %>% 

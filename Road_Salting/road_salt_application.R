@@ -1,3 +1,5 @@
+library(sf)
+library(tidyverse)
 source("Data/code/road_salt_data.R")
 library(readxl)
 
@@ -41,7 +43,7 @@ format_salt <- function(original) {
   
 }
 
-#East Madison salt application per route 
+#East Madison salt application per route  per event
 E2017 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2017.xlsx") %>% mutate(year = "2017-2018") %>% mutate(route_des = "E")
 E2018 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2018.xlsx") %>% mutate(year = "2018-2019") %>% mutate(route_des = "E")
 E2019 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2019.xlsx") %>% mutate(year = "2019-2020") %>% mutate(route_des = "E")
@@ -83,7 +85,7 @@ WINTER_SALT_TOTALS <- read_xlsx("Data/Road_Salt/Madison/salt_totals.xlsx") %>%
   dplyr::select(Year, Total_Salt_Mg, BRINE_l, SALT_Mg, SAND_Mg)
 
 
-
+#Madsion salt use 2000-2001
 ggplot(WINTER_SALT_TOTALS, aes(Year, Total_Salt_Mg)) +
   geom_bar(stat = "identity", color = "black",  fill = "#1C3668") +
   coord_flip() +
@@ -99,20 +101,31 @@ of Madison Streets Division.") +
 
 ggsave("Plots/RoadSalt/madison_streets.png", height = 15, width = 20, units = "cm")
 
+#brining through the years in Madison 200-2021
+ggplot(WINTER_SALT_TOTALS, aes(Year, BRINE_l)) +
+  geom_bar(stat = "identity", color = "black",  fill = "#1C3668") +
+  coord_flip() +
+  theme_minimal() +
+  labs(y = "Salt Applied (Mg)",
+       x = "",
+       caption = "Figure X. Metric tonnes (Mg) of salt applied per winter in the City of Madison from 2000-2021. Data from the City 
+of Madison Streets Division.") +
+  scale_y_reverse() +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
 
 
+#barplot of daily Madison road salt application as chloride input
+TOTALS_BY_DATE <- TOTALS_BY_DATE %>%
+  mutate(chloride = total_tonne * 0.60663)
 
-
-
-
-
-
-
-
-
-
-
-
+cl_roads <- ggplot(TOTALS_BY_DATE %>% filter(year == "2019-2020" | year == "2020-2021"), aes(DATE, chloride)) +
+  geom_bar(stat = "identity") +
+  L_theme() +
+  #scale_x_datetime(limits = c(datemin, datemax)) +
+  labs(x = "", y = "",
+       title = "Daily Chloride Load from Road Salting in Madison (Mg)")
 
 
 
