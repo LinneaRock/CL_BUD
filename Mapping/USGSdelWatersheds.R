@@ -8,56 +8,58 @@ library(ggspatial)
 # params <- charsWIC[["parameters"]] %>%
 #   select(-value, - ID)
 # write_rds(params, "Data/shapefiles/USGS_watershed_parameter_exp.rds")
-params <- read_rds("Data/shapefiles/USGS_watershed_parameter_exp.rds")
+# params <- read_rds("Data/shapefiles/USGS_watershed_parameter_exp.rds")
+# 
+# 
+# build_dataset <- function(usgs_del_info, customName) {
+#   
+#   usgs_del_info <- usgs_del_info %>%
+#     dplyr::select(DRNAREA, CSL10_85, DEVNLCD01, FOREST, LC01CRPHAY, LC01HERB, LC01WATER, WETLAND, PRECIP, SNOFALL) %>%
+#     mutate(DRNAREA = DRNAREA * 258.999, #square miles to hectare
+#            PRECIP = PRECIP * 2.54, #inches to centimeters
+#            SNOFALL = SNOFALL * 2.54,
+#            CSL10_85 = CSL10_85 * 0.189394, #feet/mile to meters/kilometer
+#            name = customName)
+#   
+# }
+# 
+# 
+# usgs_ws_all <- build_dataset(wsYN, "YN") %>%
+#   bind_rows(build_dataset(wsYI, "YI")) %>%
+#   bind_rows(build_dataset(wsYS, "YS")) %>%
+#   bind_rows(build_dataset(wsSMC, "SMC")) %>%
+#   bind_rows(build_dataset(wsDC, "DC")) %>%
+#   bind_rows(build_dataset(wsPBMS, "PBMS")) %>%
+#   bind_rows(build_dataset(wsPBSF, "PBSF")) %>%
+#   bind_rows(build_dataset(wsWIC, "WIC")) %>%
+#   bind_rows(build_dataset(wsSW, "SW")) %>%
+#   bind_rows(build_dataset(wsSH, "SH")) %>%
+#   bind_rows(build_dataset(wsWC, "WC"))
 
+#write_rds(usgs_ws_all, "Data/usgs_ws_shapes.rds")
 
-build_dataset <- function(usgs_del_info, customName) {
-  
-  usgs_del_info <- usgs_del_info %>%
-    dplyr::select(DRNAREA, CSL10_85, DEVNLCD01, FOREST, LC01CRPHAY, LC01HERB, LC01WATER, WETLAND, PRECIP, SNOFALL) %>%
-    mutate(DRNAREA = DRNAREA * 258.999, #square miles to hectare
-           PRECIP = PRECIP * 2.54, #inches to centimeters
-           SNOFALL = SNOFALL * 2.54,
-           CSL10_85 = CSL10_85 * 0.189394, #feet/mile to meters/kilometer
-           name = customName)
-  
-}
+# 
+# 
+# usgs_ws_all2 <- as.data.frame(usgs_ws_all) %>% dplyr::select(name,
+#                                                        DRNAREA,
+#                                                        LC01WATER,
+#                                                        DEVNLCD01,
+#                                                        FOREST,
+#                                                        LC01HERB,
+#                                                        LC01CRPHAY,
+#                                                        WETLAND,
+#                                                        PRECIP,
+#                                                        SNOFALL,
+#                                                        CSL10_85) %>% 
+#   left_join(wsroads, by = "name") %>%
+#   mutate_if(is.numeric, round, digits = 2) 
+#   
 
-
-usgs_ws_all <- build_dataset(wsYN, "YN") %>%
-  bind_rows(build_dataset(wsYI, "YI")) %>%
-  bind_rows(build_dataset(wsYS, "YS")) %>%
-  bind_rows(build_dataset(wsSMC, "SMC")) %>%
-  bind_rows(build_dataset(wsDC, "DC")) %>%
-  bind_rows(build_dataset(wsPBMS, "PBMS")) %>%
-  bind_rows(build_dataset(wsPBSF, "PBSF")) %>%
-  bind_rows(build_dataset(wsWIC, "WIC")) %>%
-  bind_rows(build_dataset(wsSW, "SW")) %>%
-  bind_rows(build_dataset(wsSH, "SH")) %>%
-  bind_rows(build_dataset(wsWC, "WC"))
-
-write_rds(usgs_ws_all, "Data/usgs_ws_shapes.rds")
-
-usgs_ws_all2 <- as.data.frame(usgs_ws_all) %>% dplyr::select(name,
-                                                       DRNAREA,
-                                                       LC01WATER,
-                                                       DEVNLCD01,
-                                                       FOREST,
-                                                       LC01HERB,
-                                                       LC01CRPHAY,
-                                                       WETLAND,
-                                                       PRECIP,
-                                                       SNOFALL,
-                                                       CSL10_85) %>% 
-  left_join(wsroads, by = "name") %>%
-  mutate_if(is.numeric, round, digits = 2) 
-  
-
-write_rds(usgs_ws_all2, "Data/usgs_ws_info_roads.rds")
-
+#write_rds(usgs_ws_all2, "Data/usgs_ws_info_roads.rds")
+usgs_ws_info_roads <- read_rds("Data/usgs_ws_info_roads.rds")
 
 # Make the tables
-gt_tbl <- gt(usgs_ws_all2)
+gt_tbl <- gt(usgs_ws_info_roads)
 ws_usgs <- gt_tbl %>%
   cols_label(
     name = "Site ID",
@@ -131,27 +133,41 @@ ggsave('Plots/USGS_Watershed/USGSMap_Cropland.png', width = 6, height = 6, units
 
 
 
-WI_roads <- st_read("C:/Users/linne/Downloads/WIroads/wisconsin-latest-free.shp/gis_osm_roads_free_1.shp")
-str(WI_roads) #classes sf and data.frame
+# WI_roads <- st_read("C:/Users/linne/Downloads/WIroads/wisconsin-latest-free.shp/gis_osm_roads_free_1.shp")
+# str(WI_roads) #classes sf and data.frame
+# 
+# 
+# road_classes <- WI_roads %>%
+#   as.data.frame()%>%
+#   dplyr::select(fclass) %>%
+#   unique()
+
+# 
+# roads_in_wsDC <- st_intersection(WI_roads, wsDC)
+# saveRDS(roads_in_wsDC, "Data/shapefiles/DC/roadsinDC.rds")
+# roads_in_wsPBMS <- st_intersection(WI_roads, wsPBMS)
+# saveRDS(roads_in_wsPBMS, "Data/shapefiles/PBMS/roadsinPBMS.rds")
+# roads_in_wsPBSF <- st_intersection(WI_roads, wsPBSF)
+# saveRDS(roads_in_wsPBSF, "Data/shapefiles/PBSF/roadsinPBSF.rds")
+# roads_in_wsSH <- st_intersection(WI_roads, wsSH)
+# saveRDS(roads_in_wsSH, "Data/shapefiles/SH/roadsinSH.rds")
+# roads_in_wsSMC <- st_intersection(WI_roads, wsSMC)
+# saveRDS(roads_in_wsSMC, "Data/shapefiles/SMC/roadsinSMC.rds")
+# roads_in_wsSW <- st_intersection(WI_roads, wsSW)
+# saveRDS(roads_in_wsSW, "Data/shapefiles/SW/roadsinSW.rds")
+# roads_in_wsWC <- st_intersection(WI_roads, wsWC)
+# saveRDS(roads_in_wsWC, "Data/shapefiles/WC/roadsinWC.rds")
+# roads_in_wsWIC <- st_intersection(WI_roads, wsWIC)
+# saveRDS(roads_in_wsWIC, "Data/shapefiles/WIC/roadsinWIC.rds")
+# roads_in_wsYI <- st_intersection(WI_roads, wsYI)
+# saveRDS(roads_in_wsYI, "Data/shapefiles/YI/roadsinYI.rds")
+# roads_inwsYN <- st_intersection(WI_roads, wsYN)
+# saveRDS(roads_inwsYN, "Data/shapefiles/YN/roadsinYN.rds")
+# roads_inwsYS <- st_intersection(WI_roads, wsYS)
+# saveRDS(roads_inwsYS, "Data/shapefiles/YS/roadsinYS.rds")
 
 
-road_classes <- WI_roads %>%
-  as.data.frame()%>%
-  dplyr::select(fclass) %>%
-  unique()
 
-
-roads_in_wsDC <- st_intersection(WI_roads, wsDC)
-roads_in_wsPBMS <- st_intersection(WI_roads, wsPBMS)
-roads_in_wsPBSF <- st_intersection(WI_roads, wsPBSF)
-roads_in_wsSH <- st_intersection(WI_roads, wsSH)
-roads_in_wsSMC <- st_intersection(WI_roads, wsSMC)
-roads_in_wsSW <- st_intersection(WI_roads, wsSW)
-roads_in_wsWC <- st_intersection(WI_roads, wsWC)
-roads_in_wsWIC <- st_intersection(WI_roads, wsWIC)
-roads_in_wsYI <- st_intersection(WI_roads, wsYI)
-roads_inwsYN <- st_intersection(WI_roads, wsYN)
-roads_inwsYS <- st_intersection(WI_roads, wsYS)
 
 roads_plot <- function(watershed, roads_in_watershed, name) {
   ggplot() +
@@ -164,16 +180,17 @@ roads_plot <- function(watershed, roads_in_watershed, name) {
   
 }
 
-roads_plot(wsDC, roads_in_wsDC, "DC")
-roads_plot(wsPBMS, roads_in_wsPBMS, "PBMS")
-roads_plot(wsPBSF, roads_in_wsPBSF, "PBSF")
-roads_plot(wsSH, roads_in_wsSH, "SH")
-roads_plot(wsSMC, roads_in_wsSMC, "SMC")
-roads_plot(wsSW, roads_in_wsSW, "SW")
-roads_plot(wsWC, roads_in_wsWC, "WC")
-roads_plot(wsWIC, roads_in_wsWIC, "WIC")
-roads_plot(wsYI, roads_in_wsYI, "YI")
-roads_plot(wsYN, roads_inwsYN, "YN")
+# roads_plot(wsDC, roads_in_wsDC, "DC")
+# roads_plot(wsPBMS, roads_in_wsPBMS, "PBMS")
+# roads_plot(wsPBSF, roads_in_wsPBSF, "PBSF")
+# roads_plot(wsSH, roads_in_wsSH, "SH")
+# roads_plot(wsSMC, roads_in_wsSMC, "SMC")
+# roads_plot(wsSW, roads_in_wsSW, "SW")
+# roads_plot(wsWC, roads_in_wsWC, "WC")
+# roads_plot(wsWIC, roads_in_wsWIC, "WIC")
+# roads_plot(wsYI, roads_in_wsYI, "YI")
+# roads_plot(wsYN, roads_inwsYN, "YN")
+
 roads_plot(wsYS, roads_inwsYS, "YS") + labs(caption = "Figure X. Roads in the UYRW (OpenStreetMap contributors. (2015) Planet dump [Data file from 2021-02-08]. 
 Retrieved from https://planet.openstreetmap.org).") +
   theme(plot.caption = element_text(size = 10, hjust = 0),

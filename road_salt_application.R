@@ -49,6 +49,7 @@ E2020 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingEast2020.xlsx") 
 
 EAST_SALTING_FULL <- rbind(E2017, E2018, E2019, E2020)
 
+
 #West Madison salt application per route per event
 W2017 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2017.xlsx") %>% mutate(year = "2017-2018") %>% mutate(route_des = "W")
 W2018 <- format_salt("Data/Road_Salt/Madison/MaterialUseTrackingWest2018.xlsx") %>% mutate(year = "2018-2019") %>% mutate(route_des = "W")
@@ -74,7 +75,6 @@ TOTALS_BY_DATE <- ALL_SALT_FULL %>%
 
 
 
-
 WINTER_SALT_TOTALS <- read_xlsx("Data/Road_Salt/Madison/salt_totals.xlsx") %>%
   mutate(Total_Salt_Mg = TOTAL * 0.907185,
          SALT_Mg = SALT_ton * 0.907185,
@@ -89,8 +89,15 @@ ggplot(WINTER_SALT_TOTALS, aes(Year, Total_Salt_Mg)) +
   coord_flip() +
   theme_minimal() +
   labs(y = "Salt Applied (Mg)",
-       x = "") +
-  scale_y_reverse()
+       x = "",
+       caption = "Figure X. Metric tonnes (Mg) of salt applied per winter in the City of Madison from 2000-2021. Data from the City 
+of Madison Streets Division.") +
+  scale_y_reverse() +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/RoadSalt/madison_streets.png", height = 15, width = 20, units = "cm")
 
 
 
@@ -111,44 +118,5 @@ ggplot(WINTER_SALT_TOTALS, aes(Year, Total_Salt_Mg)) +
 
 
 
-#2019-20 salt application per date for City
-Winter19 <- E2019 %>%
-  rbind(W2019) %>%
-  group_by(DATE) %>%
-  summarise(total_ton = sum(Total_Salt_Mg))
 
-#Salt per lane mile at each salting route during an event
-#East Madison Salt per Lane Mile
-E_salt_lanemi_route <- left_join(E2019, E_roads, by = "ROUTE") %>%
-  select(DATE, ROUTE, Total_Salt_Mg, sum_lane_miles) %>%
-  mutate(app_rate = (Total_Salt_Mg / sum_lane_miles)*1000) #[kg lane mile^-1]
-
-#West Madison Salt per Lane Mile 
-W_salt_lanemi_route <- left_join(W2019, W_roads, by = "ROUTE") %>%
-  select(DATE, ROUTE, Total_Salt_Mg, sum_lane_miles) %>%
-  mutate(app_rate = (Total_Salt_Mg / sum_lane_miles)*1000) #[kg lane mile^-1]
-
-
-#Salt per lane mile at each salting route during a day
-#East Madison Salt per Lane Mile
-E_salt_lanemi_day <- left_join(E19_perdate, E_roads, by = "ROUTE")%>%
-  select(DATE, ROUTE, total_ton, sum_lane_miles) %>%
-  mutate(app_rate = (total_ton / sum_lane_miles)*1000) #[kg lane mile^-1]
-
-#West Madison Salt per Lane Mile 
-W_salt_lanemi_day <- left_join(W19_perdate, W_roads, by = "ROUTE")%>%
-  select(DATE, ROUTE, total_ton, sum_lane_miles) %>%
-  mutate(app_rate = (total_ton / sum_lane_miles)*1000) #[kg lane mile^-1]
-
-
-#Salt per lane mile at each salting route during season
-#East Madison Salt per Lane Mile
-E_salt_lanemi_season <- left_join(E19_season, E_roads, by = "ROUTE")%>%
-  select(ROUTE, total_ton, sum_lane_miles) %>%
-  mutate(app_rate = (total_ton / sum_lane_miles)) #[Mg lane mile^-1]
-
-#West Madison Salt per Lane Mile 
-W_salt_lanemi_season <- left_join(W19_season, W_roads, by = "ROUTE")%>%
-  select(ROUTE, total_ton, sum_lane_miles) %>%
-  mutate(app_rate = (total_ton / sum_lane_miles)) #[Mg lane mile^-1]
 

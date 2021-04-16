@@ -122,7 +122,7 @@ world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Can
   #Madison West routes 
   Mad_W <- Mad_W %>%
     mutate(length = st_length(Shape)) %>%
-    mutate(RouteNumber = str_sub(SaltRt_Name, -1)) %>%
+  #  mutate(RouteNumber = str_sub(SaltRt_Name, -1)) %>%
     mutate(mile = length * 0.000621371) %>% #meters to miles
     select(mslink, funct_class, SaltRt_Name, RouteNumber, length, mile, Shape) 
   
@@ -168,11 +168,6 @@ East <- left_join(Mad_E, E_salt_lanemi_day, by = c("RouteNumber" = "ROUTE")) %>%
    select(DATE, RouteNumber, SaltRt_Name, app_rate, perday)
  
  E_sum <- sum(E_perday$perday, na.rm = TRUE) * 0.001 #(tonnes)
- 
- 
- 
- 
- 
  
  
   winter1920_salt_outside_Madison <- sum(roads_outside_Madison$salt_app)
