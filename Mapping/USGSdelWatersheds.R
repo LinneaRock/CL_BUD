@@ -57,29 +57,39 @@ library(ggspatial)
 
 #write_rds(usgs_ws_all2, "Data/usgs_ws_info_roads.rds")
 usgs_ws_info_roads <- read_rds("Data/usgs_ws_info_roads.rds")
+#combining wetlands, forest, and herbaceous land into 'undeveloped' category
+usgs_ws_info_roads_aggregated <- usgs_ws_info_roads %>%
+  mutate(undeveloped = FOREST + LC01HERB + WETLAND) %>%
+  dplyr::select(name, DRNAREA, LC01WATER, DEVNLCD01, LC01CRPHAY, undeveloped, road_density_mha) %>%
+  filter(name != "WC") %>% #I don't know if Willow Creek will be meaningfully used in my study besides a mention to WRM study
+  arrange(name)
 
 # Make the tables
-gt_tbl <- gt(usgs_ws_info_roads)
+gt_tbl <- gt(usgs_ws_info_roads_aggregated)
 ws_usgs <- gt_tbl %>%
   cols_label(
     name = "Site ID",
-    DRNAREA = "Drainage Area (ha)",
-    LC01WATER = "Open Water Area (%)",
-    DEVNLCD01 = "Developed Area (%)",
+    DRNAREA = "Drainage Area ha",
+    LC01WATER = "Open Water Area %",
+    DEVNLCD01 = "Developed Area %",
     #BarrenPerc = "Barren Area (%)",
-    FOREST = "Forest Area (%)",
-    LC01HERB = "Herbaceous Area (%)",
-    LC01CRPHAY = "Cropland Area (%)",
-    WETLAND = "Wetland Area (%)",
-    PRECIP = "Average Annual Precipitation (cm)",
-    SNOFALL = "Average Annual Snowfall (cm)",
-    CSL10_85 = html("Stream Slope (m km<sup>-1<sup>)"),
-    length_m = "Road Length (m)",
-    road_density_mha = html("Road Density (m ha<sup>-1<sup>)")
+    #FOREST = "Forest Area (%)",
+    #LC01HERB = "Herbaceous Area (%)",
+    LC01CRPHAY = "Cropland Area %",
+    undeveloped = "Undeveloped Area %",
+   # WETLAND = "Wetland Area (%)",
+    #PRECIP = "Average Annual Precipitation (cm)",
+    #SNOFALL = "Average Annual Snowfall (cm)",
+    #CSL10_85 = html("Stream Slope (m km<sup>-1<sup>)"),
+   #length_m = "Road Length (m)",
+    road_density_mha = html("Road Density m ha<sup>-1<sup>")
     #TotalRoadDensity = html("Road Density m ha<sup>-1<sup>")
   ) %>%
   tab_header(
-    title = "USGS Delineated Watershed Characteristics in the Upper Yahara River Watershed",
+    title = "Watershed characteristics for the studied tributaries",
+  ) %>%
+  tab_source_note(
+    "Table X. Note: undeveloped area includes wetland, forest, and herbacious land."
   ); ws_usgs
 
 gtsave(data = ws_usgs, "Plots/USGS_Watershed/USGS_watershed_characteristics.png", expand = 10, zoom = 10)

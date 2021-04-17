@@ -82,6 +82,53 @@ HUC12_ws_chars_sum <- LandUseSum(HUC12_ws_chars)
 #land use as percentages
 HUC12_ws_chars_perc <- landuse_percent(HUC12_ws_chars)
 
+#make table to match information from USGS subwatersheds
+HUC12_table <- left_join( HUC12_ws_chars_sum, HUC12_ws_chars_perc, by = "HUC12") %>%
+  mutate(undeveloped = BarrenPerc + ForestPerc + HerbPerc + WetlandPerc) %>%
+  select(HUC12, WatershedArea, OpenWaterPerc, DevelopmentPerc, AgPerc, undeveloped, TotalRoadDensity)
+
+names <- data.frame(
+  site = c("", "", "",  "YN", "", "SMC, DC", "PBMS, PBSF", "ME, YI, SH", "SW" , "MO, YS, WIC"),
+  HUC12 = HUC12_table$HUC12
+) 
+
+HUC12_table <- left_join(names, HUC12_table, by = "HUC12")
+
+gt_tbl <- gt(HUC12_table)
+ws_table <- gt_tbl %>%
+  cols_label(
+    HUC12 = "HUC12",
+    site = "Site ID",
+    WatershedArea = "Drainage Area ha",
+    OpenWaterPerc = "Open Water Area %",
+    DevelopmentPerc = "Developed Area %",
+    AgPerc = "Cropland Area %",
+    undeveloped = "Undeveloped Area %",
+    TotalRoadDensity = html("Road Density m ha<sup>-1<sup>")
+  ) %>%
+  tab_header(
+    title = "Watershed characteristics of HUC12 subwatersheds",
+  ) %>%
+  tab_source_note(
+    "Table X. Note: undeveloped area includes barren, wetland, forest, and herbacious land. Site ID indicates study sites that are located within that HUC12 boundary."
+  ) %>%
+  tab_footnote(footnote = "No study site within boundary; part of YN",
+               locations = cells_body(columns = 1, rows = 1:3)) %>%
+  tab_footnote(footnote = "No study site within boundary; part of SMC and DC",
+               locations = cells_body(columns = 1, rows = 5)) %>%
+  opt_footnote_marks(marks = "extended"); ws_table
+
+gtsave(data = ws_table, "Plots/HUC12_Watershed/watershedchars_simple.png", expand = 10, zoom = 10)
+
+
+
+
+
+
+
+
+###older tables
+
 # Make the tables
 gt_tbl <- gt(HUC12_ws_chars_perc)
 ws_perc_table <- gt_tbl %>%

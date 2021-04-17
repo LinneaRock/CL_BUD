@@ -33,25 +33,25 @@ lakebuoys.sf <- st_as_sf(lakebuoys, coords = c("lon", "lat"),
 #  Map #### 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = gage.bb.sf, aes(shape = 'USGS River'), color = 'black', size = 1.6) + # USGS gages
+  geom_sf(data = gage.bb.sf, aes(shape = 'USGS-gaged river'), color = 'black', size = 1.6) + # USGS gages
   geom_sf(data = nogage.bb.sf, aes(shape = 'Rivers'), color = 'black', size = 1.6) + #rivers without gages
   geom_sf(data = lakebuoys.sf, aes(shape = 'Lakes'), color = 'black', size = 1.6) + #lake sites
-  #geom_sf(data = sh.sf, aes(shape = 'USGS Storm Sewer'), size = 1.6) + #spring harbor 
+  geom_sf(data = sh.sf, aes(shape = 'USGS-gaged Storm Sewer'), color = 'black', size = 1.6) + #spring harbor 
   #geom_sf(data = wc.sf, aes(shape = 'Storm Sewer'), size = 1.6) + #Willow creek
-  scale_shape_manual('Legend', values=c('USGS River' = 17, 'Rivers' = 19, 'Lakes' = 15, 'USGS Storm Sewer' = 24, 'Storm Sewer' = 21)) + 
+ # scale_shape_manual('Legend', values=c('USGS River' = 17, 'Rivers' = 19, 'Lakes' = 15, 'USGS Storm Sewer' = 24, 'Storm Sewer' = 21)) + 
   theme_bw() + # Hilary's default theme
-  theme(legend.position = c(0.9,0.85)) +
-  
+  theme(legend.position = c(0.9,0.85),
+        legend.title = element_blank()) +
+
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
-  annotation_north_arrow(location = "bl", which_north = "true", 
+  annotation_north_arrow(location = "bl", which_north = "true",
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  labs(caption = "Figure X. Map of monitoring locations. Legend describes the location types as lake or river and 
-with or without USGS gaging. These are sites that were monitored using data loggers and grab sampling 
-from 2019-2021.") +
-  theme(plot.caption = element_text(size = 10, hjust = 0)) 
+  labs(caption = "Figure X. Map of study sites. These are sites that were monitored from 2019-2020, using data loggers, grab sampling, 
+and some with USGS gaging.") +
+  theme(plot.caption = element_text(size = 10, hjust = 0))
  
 
 ggsave('Plots/Map.png', width = 20, height = 20, units = 'cm')

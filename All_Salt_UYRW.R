@@ -19,7 +19,7 @@
 
 Chloride_Sources <- read_rds("Data/Chloride_Sources_Table.rds")
 
-ggplot(data = Chloride_Sources %>% filter(Source != "Swimming Pools in Madison"), mapping = aes(Source, Val)) +
+ggplot(data = Chloride_Sources, mapping = aes(Source, Val)) +
   geom_bar(stat = "identity", fill = "#1C366B") +
   theme_minimal() +
   labs(x = "", y = "Chloride Mass (Mg)",

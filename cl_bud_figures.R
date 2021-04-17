@@ -55,53 +55,68 @@ October). Note the x and y axes are different for each regression.",
 ggsave("Plots/cl_cond_linear_regression/patch_tribs.png", height = 20, width = 20, units = "cm")
   
 
-##average daily concentrations timeseries
-#a <- WIC_daily_mass %>% mutate(ID = "WIC")
-#b <- YS_daily_mass %>% mutate(ID = "YS")
-#c <- SW_daily_mass %>% mutate(ID = "SW")
-d <- YI_daily_mass %>% mutate(ID = "YI")
-e <- YN_daily_mass %>% mutate(ID = "YN")
-f <- SMC_daily_mass %>% mutate(ID = "SMC")
-g <- DC_daily_mass %>% mutate(ID = "DC")
-h <- PBMS_daily_mass %>% mutate(ID = "PBMS")
-i <- PBSF_daily_mass %>% mutate(ID = "PBSF")
 
-tribs_daily_ME_ag <- rbind(e,f,g)
+##chloride source in subwatersheds -- ratioooooo
+source_by_ws <- cl_roads_by_subwatershed %>% #dataset from subwatersheds_road_salting.R
+  filter(watershed != "WC") %>%
+  left_join(usgs_ws_info_roads_aggregated, by = c("watershed" = "name")) %>% #dataset from Mapping/USGSdelWatersheds.R
+  mutate(ratio_cl_drainage2020 = val2020 / DRNAREA) %>%
+  mutate(ratio_cl_drainage2021 = val2021 / DRNAREA) %>%
+  mutate(ave_ratio = (ratio_cl_drainage2020 + ratio_cl_drainage2021)/2)
 
-g1 <- ggplot(tribs_daily_ME_ag) +
-  geom_line(aes(date, daily_concentration_mgL, color = ID)) +
-  L_theme() +
-  scale_color_manual(labels = c("DC", "SMC", "YN"), values = c("#F24D29", "#E5C4A1", "#C4CFD0")) +
-  labs(y = "",
-       x = "",
-       caption = "Timeseries of average daily chloride concentrations for Dorn Creek (DC), Sixmile Creek (SMC), and Yahara River 
-North (YN). These are tributaries to Lake Mendota that have primarily agricultural (mean 79%) subwatersheds.")
+ggplot(source_by_ws, aes(reorder(watershed, ave_ratio), ave_ratio)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Chloride:Drainage Area",
+       caption = "Figure X. Ratio of chloride input from road salt application to subwatershed drainage area.  
+activities.") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
 
-#ggsave("Plots/chloride_loading/cl_conc_dcsmcyn.png", height = 15, width = 20, units = "cm")
-
-#tribs_daily_ME_PBs <- rbind(h,i)
-
-g2 <- ggplot(h) +
-  geom_line(aes(date, daily_concentration_mgL), color = "#1DACE8") +
-  L_theme() +
-  labs(y = "Average Daily Chloride Concentration"~(mg~L^-1),
-       x = "",
-       caption = "Timeseries of average daily chloride concentrations for Pheasant Branch Main Stem (PBMS). The PBMS 
-subwatershed is 39% developed and 56% agricultural.")
-
-#ggsave("Plots/chloride_loading/cl_conc_PBMS.png", height = 15, width = 20, units = "cm")
-datemin = min(h$date)
-datemax = max(h$date)
-
-g3 <- ggplot(i) +
-  geom_line(aes(date, daily_concentration_mgL), color = "#1C366B") +
-  L_theme() +
-  labs(y = "",
-       x = "",
-       caption = "Timeseries of average daily chloride concentrations for Pheasant Branch South Fork (PBSF). The PBSF 
-subwatershed is 71% developed.") +
-  scale_x_date(limits = c(datemin, datemax))
+ggsave("Plots/Ratio_comparing_subwatersheds/cl_from_roadsalt.png", height = 15, width = 20, units = "cm")
 
 
-plot_grid(g1, g2, g3, align = "v", ncol = 1)
-ggsave("Plots/chloride_loading/cl_conc_MEtribs.png", height = 15, width = 20, units = "cm")
+#subwatershed size ascending
+ggplot(source_by_ws, aes(reorder(watershed, DRNAREA), DRNAREA)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Drainage Area (ha)",
+       caption = "Figure X. Size of each subwatershed.") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/Ratio_comparing_subwatersheds/drainagearea.png", height = 15, width = 20, units = "cm")
+
+## % development ascending
+ggplot(source_by_ws, aes(reorder(watershed, DEVNLCD01), DEVNLCD01)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Developed Area %",
+       caption = "Figure X. Percentage of subwatershed considered developed land.") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/Ratio_comparing_subwatersheds/developed.png", height = 15, width = 20, units = "cm")
+
+
+## % road density ascending
+ggplot(source_by_ws, aes(reorder(watershed, road_density_mha), road_density_mha)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Road Density"~(m~ha^-1),
+       caption = "Figure X. Road density in each subwatershed.") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/Ratio_comparing_subwatersheds/roaddensity.png", height = 15, width = 20, units = "cm")
+
+fit <- lm(ave_ratio ~ DRNAREA + road_density_mha + DEVNLCD01, source_by_ws)
+summary(fit)
+library(broom)
+tidy(fit)
+
+summary(lm(ave_ratio ~ DEVNLCD01, source_by_ws)) #p value 0.004754
