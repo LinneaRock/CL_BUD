@@ -2,7 +2,8 @@
 #6-hour moving average for discharge data
 rolling_ave_discharge <- function(logger_data, discharge_data) {
   
-  dis_data1 <- join_datasets_cond(logger_data, discharge_data)
+  dis_data1 <- join_datasets_cond(logger_data, discharge_data) %>%
+    mutate(date = date.x)
   
   dis_data2 <- dis_data1 %>%
     select(date, discharge) %>%

@@ -32,8 +32,8 @@ loggerYN1 <- loggerYN %>%
 YN_cond_data <- outlier_detect_remove(loggerYN1, "YN")
 fieldcondYN <- fieldcondYN #conductivity measured in the field
 labYN <- labYN #IC data 
-  # YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
-  # write_rds(YN_discharge, "Data/discharge/YN_discharge.rds")
+   # YN_discharge <- rolling_ave_discharge(YN_cond_data, d.YN)
+   # write_rds(YN_discharge, "Data/discharge/YN_discharge.rds")
 YN_discharge <- read_rds("Data/discharge/YN_discharge.rds")
 
 #Conductivity time series
