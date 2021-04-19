@@ -363,7 +363,7 @@ ggsave("Plots/chloride_loading/SH/seasonal_load.png", height = 15, width = 20, u
 
 
 
-salt_201920 <- function(data) {
+annualsalt_201920 <- function(data) {
   
   data1 <- data %>%
     filter(season_id == "2019-2020 Salting" |
@@ -373,34 +373,64 @@ salt_201920 <- function(data) {
   
 }
 
+winter_201920 <- function(data) {
+  
+  data1 <- data %>%
+    filter(season_id == "2019-2020 Salting")
+  
+  total <- sum(data1$cl_load_g, na.rm = TRUE)
+  
+}
 
+winter_202021 <- function(data) {
+  
+  data1 <- data %>%
+    filter(season_id == "2020-2021 Salting")
+  
+  total <- sum(data1$cl_load_g, na.rm = TRUE)
+  
+}
 
+notwinter2020 <- function(data) {
+  
+  data1 <- data %>%
+    filter(season_id == "2020 Non-Salting")
+  
+  total <- sum(data1$cl_load_g, na.rm = TRUE)
+  
+}
 
-total201920_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt_201920(DC_ts_mass) + salt_201920(YN_ts_mass) + salt_201920(YI_ts_mass) + salt_201920(SH_ts_mass)) / 1000000 #total chloride in Mg 
+entire_load <-  function(data) {
+  
+  data1 <- data 
+  
+  total <- sum(data1$cl_load_g, na.rm = TRUE)
+  
+}
+
+#total201920_load <- (annualsalt_201920(PBMS_ts_mass) + annualsalt_201920(SMC_ts_mass) + annualsalt_201920(DC_ts_mass) + annualsalt_201920(YN_ts_mass) + annualsalt_201920(YI_ts_mass) + annualsalt_201920(SH_ts_mass)) / 1000000 #total chloride in Mg 
 
 names <- c("PBMS", "SMC", "DC", "YN", "YI", "SH", "PBSF")
-load <- c(salt_201920(PBMS_ts_mass) , salt_201920(SMC_ts_mass) , salt_201920(DC_ts_mass) , salt_201920(YN_ts_mass) , salt_201920(YI_ts_mass) , salt_201920(SH_ts_mass), salt_201920(PBSF_ts_mass))
+annual_load_201920 <- c(annualsalt_201920(PBMS_ts_mass) , annualsalt_201920(SMC_ts_mass) , annualsalt_201920(DC_ts_mass) , annualsalt_201920(YN_ts_mass) , annualsalt_201920(YI_ts_mass) , annualsalt_201920(SH_ts_mass), annualsalt_201920(PBSF_ts_mass)) 
+winter_201920 <- c(winter_201920(PBMS_ts_mass) , winter_201920(SMC_ts_mass) , winter_201920(DC_ts_mass) , winter_201920(YN_ts_mass) , winter_201920(YI_ts_mass) , winter_201920(SH_ts_mass), winter_201920(PBSF_ts_mass))
+winter_202021 <- c(winter_202021(PBMS_ts_mass) , winter_202021(SMC_ts_mass) , winter_202021(DC_ts_mass) , winter_202021(YN_ts_mass) , winter_202021(YI_ts_mass) , winter_202021(SH_ts_mass), winter_202021(PBSF_ts_mass)) 
+not_winter_2020 <- c(notwinter2020(PBMS_ts_mass) , notwinter2020(SMC_ts_mass) , notwinter2020(DC_ts_mass) , notwinter2020(YN_ts_mass) , notwinter2020(YI_ts_mass) , notwinter2020(SH_ts_mass), notwinter2020(PBSF_ts_mass)) 
+entire <- c(entire_load(PBMS_ts_mass) , entire_load(SMC_ts_mass) , entire_load(DC_ts_mass) , entire_load(YN_ts_mass) , entire_load(YI_ts_mass) , entire_load(SH_ts_mass), entire_load(PBSF_ts_mass)) 
 max <- c(max(PBMS_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(SMC_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(DC_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(YN_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(YI_ts_mass$chloride_use_mgL, na.rm = TRUE) , max(SH_ts_mass$chloride_use_mgL, na.rm = TRUE), max(PBSF_ts_mass$chloride_use_mgL, na.rm = TRUE))
 
 
 loading <- as.data.frame(names) %>%
-  mutate(load = load) %>%
-  mutate(max = max) %>%
-  mutate(load = load / 1000000) #total chloride in Mg )
-  left_join(usgs_ws_all2, by = c("names" = "name")) %>%
-  mutate(loadperarea = load/DRNAREA) %>%
-  mutate(loadperdev = load/DEVNLCD01) %>%
-  mutate(max = max)
+  #mutate(annual1920 = annual_load_201920 / 1000000) %>% #convert to Mg
+  mutate(winter1920 = winter_201920 / 1000000) %>%
+  mutate(notwinter20 = not_winter_2020 / 1000000) %>%
+  mutate(winter2021 = winter_202021 / 1000000) %>%
+  mutate(entireload = entire / 1000000) %>%
+  mutate(maxconc = max) 
 
 
-ggplot(loading) +
-  geom_point(aes(DEVNLCD01, max))
 
-ggplot(loading) +
-  geom_point(aes(DEVNLCD01, loadperdev))
 
-fit <- lm(DRNAREA ~ load, loading)
-summary(fit)
+
 
 
 Mendota_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt_201920(DC_ts_mass) + salt_201920(YN_ts_mass) + salt_201920(SH_ts_mass)) / 1000000 #total chloride in Mg 

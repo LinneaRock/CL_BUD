@@ -64,10 +64,12 @@ source_by_ws <- cl_roads_by_subwatershed %>% #dataset from subwatersheds_road_sa
   mutate(ratio_cl_drainage2021 = val2021 / DRNAREA) %>%
   mutate(ave_ratio = (ratio_cl_drainage2020 + ratio_cl_drainage2021)/2)
 
+
+
 ggplot(source_by_ws, aes(reorder(watershed, ave_ratio), ave_ratio)) +
   geom_bar(stat = "identity", fill = "#1C366B") +
   theme_minimal() +
-  labs(x = "", y = "Chloride:Drainage Area",
+  labs(x = "", y = "Chloride input:Drainage Area",
        caption = "Figure X. Ratio of chloride input from road salt application to subwatershed drainage area.  
 activities.") +
   theme(axis.text = element_text(size = 10),
@@ -120,3 +122,68 @@ library(broom)
 tidy(fit)
 
 summary(lm(ave_ratio ~ DEVNLCD01, source_by_ws)) #p value 0.004754
+
+##adding in load info
+# source_load <- left_join(source_by_ws, loading, by = c("watershed" = "names")) #loading from cl_mass_load.R
+# 
+# sources_loads_by_ws <- source_load %>%
+#   rename(salt_ratio = ave_ratio) %>%
+#   mutate(load_ratio1920 = winter1920/DRNAREA) %>%
+#   mutate(load_ratio2021 = winter2021/DRNAREA) %>%
+#   mutate(load_ratio20 = notwinter20/DRNAREA) %>%
+#   mutate(entire_ratio = entireload/DRNAREA)
+
+#write_rds(sources_loads_by_ws, "Data/sources_loads_by_ws.rds")
+
+sources_loads_by_ws <- readRDS("Data/sources_loads_by_ws.rds")
+
+##chloride load for entire period
+ggplot(sources_loads_by_ws, aes(reorder(watershed, entire_ratio), entire_ratio)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Chloride load:Drainage Area",
+       caption = "Figure X. Ratio of chloride loading from each tributary during the entire study period (December 2019 - April 2021).") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/Ratio_comparing_subwatersheds/all_cl_loading.png", height = 15, width = 20, units = "cm")
+
+##chloride load for winter 2019-2020
+ggplot(sources_loads_by_ws, aes(reorder(watershed, load_ratio1920), load_ratio1920)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Chloride load:Drainage Area",
+       caption = "Figure X. Ratio of chloride loading from each tributary during November 2019 - March 2020.") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/Ratio_comparing_subwatersheds/cl_load_winter2019-2020.png", height = 15, width = 20, units = "cm")
+
+##chloride load for winter 2020-2021
+ggplot(sources_loads_by_ws, aes(reorder(watershed, load_ratio2021), load_ratio2021)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Chloride load:Drainage Area",
+       caption = "Figure X. Ratio of chloride loading from each tributary during November 2020 - March 2021.") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/Ratio_comparing_subwatersheds/cl_load_winter2020-2021.png", height = 15, width = 20, units = "cm")
+
+##chloride load for not-winter 2020
+ggplot(sources_loads_by_ws, aes(reorder(watershed, load_ratio20), load_ratio20)) +
+  geom_bar(stat = "identity", fill = "#1C366B") +
+  theme_minimal() +
+  labs(x = "", y = "Chloride load:Drainage Area",
+       caption = "Figure X. Ratio of chloride loading from each tributary between winters in 2020.") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 10),
+        plot.caption = element_text(size = 10, hjust = 0))
+
+ggsave("Plots/Ratio_comparing_subwatersheds/cl_load_notwinter.png", height = 15, width = 20, units = "cm")
+
+
+
