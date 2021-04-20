@@ -2,6 +2,7 @@ library(tidyverse)
 library(sf)
 library(ggspatial)
 library(raster)
+library(wesanderson)
 library(viridisLite)
 
 
@@ -73,8 +74,7 @@ SW.sf <- read_rds("Data/shapefiles/SW/SW.rds") %>%
   mutate(chloride_alltime = mean(labSW$chloride_mgL, na.rm = TRUE),
          chloride_summer = mean((labSW %>% filter(season == "April - October"))$chloride_mgL, na.rm = TRUE),
          chloride_winter = mean((labSW %>% filter(season == "November - March"))$chloride_mgL, na.rm = TRUE))
-#%>%
- # rename(NAME = RIVER_SYS_)
+
 
 tribs.sf <- bind_rows(YN.sf, YI.sf, YS.sf, SMC.sf, DC.sf, PBMS.sf, PBSF.sf, WIC.sf, SW.sf)  %>%
   dplyr::select(NAME, chloride_alltime, chloride_summer, chloride_winter, geometry) 
@@ -83,48 +83,105 @@ lakes.sf <- bind_rows(ME.sf, MO.sf) %>%
 
 world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/${z}/${y}/${x}.jpeg')
 
-# all.chloride <- as.data.frame(lakes.sf) %>%
-#   dplyr::select(NAME, chloride_alltime, chloride_summer, chloride_winter, geometry) 
-# 
-# tribs.sf2 <- as.data.frame(tribs.sf)%>%
-#   dplyr::select(NAME, chloride_alltime, chloride_summer, chloride_winter) #%>%
-#   #distinct()
-# 
-# tribs.geom = data.frame(NAME = c('Yahara River North', 'Sixmile Creek', 'Dorn Creek', 'Pheasant Branch Main Stem', 'Pheasant Branch South Fork', 'Yahara River Isthmus', 'Starkweather Creek', 'Yahara River South', 'Wingra Creek'),lat = c(43.15083333, 43.14683333, 43.145262, 43.10333333, 43.075910, 43.08944444, 43.104292, 43.04718, 43.048883), lon = c(-89.40194444, -89.43694444, -89.475643, -89.51166667, -89.519880, -89.36083333, -89.334455, -89.33605, -89.394132))
-# tribs.geom <- tribs.geom %>%
-#   left_join(tribs, by = "NAME")
+#setting crs because I cannot set the other dataset for some reason
+lakes.sf1 <- lakes.sf %>%
+  st_transform(3071)
 
-#need to fix this!!
-tribs.sf = st_as_sf(tribs.geom, 
-                      crs = 4326)
+all.chloride <- rbind(lakes.sf1, tribs.sf)%>%
+  arrange(chloride_alltime) #put in ascending order
 
-all.chloride <- lakes.sf %>%
-  rbind(tribs.sf)
-
-
-all.chloride <- st_sf(all.chloride) %>%
-  arrange(chloride_alltime)
-
+#create levels so it appropriately applies colors and puts concentrations in numeric order
 all.chloride$label =  factor(all.chloride$chloride_alltime, levels = unique(all.chloride$chloride_alltime))
 pal = wes_palette("Darjeeling1", 11, "continuous")
 
+#for labels
+map_labs <- all.chloride[!duplicated(all.chloride$NAME), ]
+
+
+#map of average chloride over entire study period
 ggplot(ME.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = all.chloride, aes(color = label)) + 
- # geom_sf(data = lakes.sf, aes(color = label)) +
- #geom_sf(data = ME.sf, aes(fill = chloride_alltime)) +
-  #geom_sf(data = MO.sf, aes(fill = chloride_alltime)) +
-  geom_sf_label(data = all.chloride, mapping = aes(label = round(chloride_alltime,2))) +
+  geom_sf(data = all.chloride, aes(color = label, fill = label)) + 
+  geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_alltime,2))) +
   scale_color_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
-  #scale_color_viridis_c(option = "inferno") +
-  #scale_fill_viridis_c(option = "inferno") +
+  scale_fill_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
   theme_bw() + 
   labs(color = "Average Chloride Concentration (mg/L)", x = "", y = "") +
+  theme(legend.position= "none",
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())+
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
-                         style = north_arrow_nautical) + # North Arrow
-  coord_sf(datum = NA, ylim = c(43.0, 43.29), xlim = c(-89.55, -89.25), expand = FALSE) # limit axes
+                         style = north_arrow_nautical)# + # North Arrow
+  #coord_sf(datum = NA, ylim = c(43.0, 43.29), xlim = c(-89.55, -89.25), expand = FALSE) # limit axes
 
-ggsave('Plots/averagechloride_map.png', width = 12, height = 12, units = 'in')
+ggsave('Plots/figsforpres/spatial_distribution/averagechloride_map.png', width = 12, height = 12, units = 'in')
+
+#changing for just winter concentrations
+all.chloride <- all.chloride %>%
+arrange(chloride_winter)
+
+all.chloride$label =  factor(all.chloride$chloride_winter, levels = unique(all.chloride$chloride_winter))
+
+
+ggplot(ME.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = all.chloride, aes(color = label, fill = label)) + 
+  geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_winter,2))) +
+  scale_color_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  scale_fill_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  theme_bw() + 
+  labs(color = "Average Chloride Concentration (mg/L)", x = "", y = "") +
+  theme(legend.position= "none",
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())+
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical)# + # North Arrow
+#coord_sf(datum = NA, ylim = c(43.0, 43.29), xlim = c(-89.55, -89.25), expand = FALSE) # limit axes
+
+ggsave('Plots/figsforpres/spatial_distribution/averagewinterchloride_map.png', width = 12, height = 12, units = 'in')
+
+
+#changing for just summer concentrations
+all.chloride <- all.chloride %>%
+  arrange(chloride_summer)
+
+all.chloride$label =  factor(all.chloride$chloride_summer, levels = unique(all.chloride$chloride_summer))
+
+
+ggplot(ME.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = all.chloride, aes(color = label, fill = label)) + 
+  geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_summer,2))) +
+  scale_color_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  scale_fill_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  theme_bw() + 
+  labs(color = "Average Chloride Concentration (mg/L)", x = "", y = "") +
+  theme(legend.position= "none",
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())+
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical)# + # North Arrow
+#coord_sf(datum = NA, ylim = c(43.0, 43.29), xlim = c(-89.55, -89.25), expand = FALSE) # limit axes
+
+ggsave('Plots/figsforpres/spatial_distribution/averagesummerchloride_map.png', width = 12, height = 12, units = 'in')
