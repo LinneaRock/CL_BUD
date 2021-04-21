@@ -108,3 +108,54 @@ ggsave("Plots/figsforpres/loadingME/massin&outME.png", height = 15, width = 20, 
 
 
 #maps in AverageChlorideMap.R
+
+
+
+#lake mass changes
+
+MO_mass <- read_rds("Data/MO_mass.rds") %>%
+  mutate(tonnes_cl = (chloride_mgL * (vols * 1000)) / 1000000000) #first convert volume from m^3 to liter, then convert mg to Mg
+ME_mass <- read_rds("Data/ME_mass.rds") %>%
+  mutate(tonnes_cl = (chloride_mgL * (vols * 1000)) / 1000000000) #first convert volume from m^3 to liter, then convert mg to Mg
+
+MO_mass_daynum <- MO_mass %>%
+  group_by(year4, sampledate, daynum) %>%
+  summarise(total = sum(tonnes_cl))
+
+ME_mass_daynum <- ME_mass %>%
+  group_by(year4, sampledate, daynum) %>%
+  summarise(total = sum(tonnes_cl))
+
+
+
+ggplot() +
+  geom_smooth(method = loess, ME_mass_daynum, mapping = aes(daynum, total, group = year4, color = year4)) +
+  scale_color_viridis_c(option = "inferno", direction = -1) + L_theme() + 
+  labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Mendota") +
+  geom_smooth(method = loess, ME_mass_daynum %>% filter(year4 == 2020), mapping = aes(daynum, total, group = year4), color = "red")
+
+ggsave("Plots/figsforpres/cl_annual_change/ME.png", height = 15, width = 20, units = "cm") 
+
+
+
+ggplot() +
+  geom_smooth(method = loess, MO_mass_daynum, mapping = aes(daynum, total, group = year4, color = year4)) +
+  scale_color_viridis_c(option = "inferno", direction = -1) + L_theme() + 
+  labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Monona") +
+  geom_smooth(method = loess, MO_mass_daynum %>% filter(year4 == 2020), mapping = aes(daynum, total, group = year4), color = "red")
+
+ggsave("Plots/figsforpres/cl_annual_change/MO.png", height = 15, width = 20, units = "cm") 
+
+
+#density plots of loading?? pick up here
+timeseries_mass_dens <- timeseries_mass %>%
+  mutate(monthly_mass_Mg = ifelse(ID == "YI", monthly_mass_Mg * -1, monthly_mass_Mg)) %>%
+  filter(ID != "PBSF")
+
+ME_mass_dens <- ME_mass_daynum  %>% 
+  filter(year4 > 2019)
+
+ggplot(timeseries_mass_dens %>% filter(ID != "YI"), aes(monthly_mass_Mg)) +
+  geom_density()
+  
+  

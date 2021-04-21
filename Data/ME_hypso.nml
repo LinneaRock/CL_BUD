@@ -1,0 +1,317 @@
+!-------------------------------------------------------------------------------
+! general model setup
+!-------------------------------------------------------------------------------
+!
+! sim_name         [string]  title of simulation       
+! max_layers       [integer] maximum number of layers  
+! min_layer_vol    [real]    minimum layer volume (m3 * 1000)      
+! min_layer_thick  [real]    minimum thickness of a layer (m)  
+! max_layer_thick  [real]    maximum thickness of a layer (m) 
+! Kw               [real]    background light attenuation (m**-1)
+! coef_inf_entrain [real]    entrainment coefficient for inflows
+! coef_mix_conv    [real]    mixing efficiency - convective overturn
+! coef_wind_stir   [real]    mixing efficiency - wind stirring
+! coef_mix_turb    [real]    mixing efficiency - unsteady turbulence effects
+! coef_mix_shear   [real]    mixing efficiency - shear production
+! coef_mix_KH      [real]    mixing efficiency - hypolimnetic Kelvin-Helmholtz turbulent billows
+! coef_mix_hyp     [real]    mixing efficiency - hypolimnetic turbulence
+!
+!-------------------------------------------------------------------------------
+&glm_setup
+   sim_name = 'Mendota'
+   max_layers = 500
+   min_layer_vol = 0.1
+   min_layer_thick = 0.15 
+   max_layer_thick = 1.0
+   density_model = 1
+   !non_avg = .true. 
+/
+&mixing
+  ! surface_mixing = 1
+  coef_mix_conv = 0.15 
+  coef_wind_stir = 0.23 s
+  coef_mix_shear = 0.2 
+  coef_mix_turb = 0.51 
+  coef_mix_KH = 0.3 
+  deep_mixing = 2
+  coef_mix_hyp = 0.48 
+  diff = 0.
+/
+
+
+
+
+!-------------------------------------------------------------------------------
+! fabm setup
+!-------------------------------------------------------------------------------
+! ode_method        [integer]
+!                     ODE scheme for source and sink dynamics
+!                     1: first-order explicit (not positive)
+!                     2: second-order explicit Runge-Kutta (not positive)
+!                     3: fourth-order explicit Runge-Kutta (not positive)
+!                     4: Patankar (first-order, not conservative)
+!                     5: Patankar-RK (second-order, not conservative)
+!                     6: Patankar-RK (does not work, not conservative)
+!                     7: Modified Patankar (1st-order, conservat., posit.)
+!                     8: Modified Patankar-RK (2nd-order, conservat., posit.)
+!                     9: Modified Patankar-RK (does not work, conservat.,
+!                       posit.)
+!                     10: Extended Modified Patankar (1st-order, conservat.,
+!                       posit.)
+!                     11: Extended Modified Patankar-RK (2nd-order, conservat.,
+!                       posit.)
+!                     This variable is used only if bio_calc = True
+! split_factor      [integer, minimum = 1]
+!                     number of biogeochemical time steps per physical time step
+! bioshade_feedback [bool]
+!                     feedback of bio-turbidity to temperature equation
+!-------------------------------------------------------------------------------
+!&wq_setup
+!-- Choose 'aed2' or 'fabm' (aed2 is the default)
+!   wq_lib = 'aed2'
+!   wq_nml_file = 'aed2/aed2.nml'
+!   ode_method = 1
+!   split_factor = 1
+!   bioshade_feedback = .true.
+!   repair_state = .true.
+!  mobility_off = .false.
+! /
+
+!-------------------------------------------------------------------------------
+! lake details
+!-------------------------------------------------------------------------------
+!
+! name      [string]
+!             name of the station
+! latitude  [float, minimum = -90, maximum = 90, unit = deg North]
+!             latitude
+! longitude [float, minimum = -360, maximum = 360, unit = deg East]
+!             longitude
+! base_elev base elevation (m)
+! crest_elev          crest elevation (m)
+!  bsn_len        basin length at crest (m)
+!  bsn_wid         basin width at crest (m)
+! H elevations
+! A Area (m2)
+! V Volume V(m3)
+!
+!-------------------------------------------------------------------------------
+&morphometry
+   lake_name  = 'Mendota'
+   latitude   =  43.00
+   longitude  = -89.41
+   !crest_elev = 400
+   bsn_len    = 9500
+   bsn_wid    = 7400
+   bsn_vals   = 15
+   !   H(m)  A(m2)
+   H = 375.00640,376.79166,378.57691,380.36217,382.14743,383.93269, 385.71794,387.50320,389.28846,391.07371,392.85897,394.64423, 396.42949,398.21474,400.00000
+   A = 0.00000,2827226.39,5654452.79,8481679.18,11308905.58,14136131.97, 16963358.37,19790584.76,22617811.16,25445037.55,28272263.95,31099490.34, 33926716.74,36753943.13,39581169.52
+/
+!-------------------------------------------------------------------------------
+! duration of run
+!-------------------------------------------------------------------------------
+!
+! timefmt [integer]
+!           method to specify start and duration of model run
+!           1: duration computed from number of time steps, MaxN (bogus start
+!             date used) [no longer implemented!!]
+!           2: duration computed from given start and stop dates (number of time
+!             steps MaxN computed)
+!           3: duration computed from number of time steps, MaxN (start date as
+!             specified, stop date computed)
+! start   [string, format = "yyyy-mm-dd hh:mm:ss"]
+!           nominal start date
+!           This variable is used only if timefmt != 1
+! stop    [string, format = "yyyy-mm-dd hh:mm:ss"]
+!           nominal stop date
+!           This variable is used only if timefmt = 2
+! dt        [float, minimum = 0.001, maximum = 86400, unit = s]
+!               Time step for integration
+! numb_days [number of days to run the simulation ]
+!           This variable is used only if timefmt != 2
+! #MaxN    [integer]
+!           nominal number of time steps
+!           maxN is now obsolete - it is calculated from num_days*(86400 / dt)
+!
+!-------------------------------------------------------------------------------
+&time
+   timefmt = 2
+   start = '1980-01-01 00:00:00'
+   stop = '2016-01-01 23:00:00'
+   dt = 3600
+   num_days= 730
+   timezone = -6
+/
+
+
+!-------------------------------------------------------------------------------
+! format for output and filename(s)
+!-------------------------------------------------------------------------------
+!
+! out_dir     [string]
+!               path to output directory (set permissions)
+! out_fn      [string]
+!               output string used to generate output file names
+! out_lkn     [logical]  Output Lake Number to a file
+! nsave       [integer, minimum = 1, maximum = 86400]
+!               save results every 'nsave' timesteps
+! csv_at      [real]
+!               height at whivh to dump a csv file
+! csv_name    [string]
+!               name of csv output file
+! csv_nvars   [integer]
+!               number of variables to output
+! csv_vars    [strings]
+!               list of names of variables to output,order IS important
+!
+!-------------------------------------------------------------------------------
+&output
+   out_dir = 'outputs'
+   out_fn = 'output'
+   nsave = 24
+   csv_lake_fname = 'lake'
+/
+!-------------------------------------------------------------------------------
+! initial condition profiles
+!-------------------------------------------------------------------------------
+&init_profiles
+    lake_depth = 25
+    num_depths = 6
+    the_depths = 0.0, 4.0, 8.0, 12.0, 16.0, 20.0
+    the_temps  = 5.1, 5.0, 4.9, 4.9, 4.8, 4.8
+    the_sals   = 0.00, 0.00, 0.00, 0.00, 0.00, 0.00
+/
+!-------------------------------------------------------------------------------
+! meteorology
+!-------------------------------------------------------------------------------
+!
+!   met_sw         Include surface meteorological forcing
+!   lw_type        Type LW measurement (LW_IN/LW_CC/LW_NET)
+!   rain_sw        Rainfall composition
+!   snow_sw        Snowfall
+!   atm_stab       Account for non-neutral atmospheric stability
+!   meteo_fl       Name of meteorology input file
+!
+!-------------------------------------------------------------------------------
+&meteorology
+   met_sw     = .true.
+   lw_type    = 'LW_IN'
+   rain_sw    = .false.
+   atm_stab = 0
+   fetch_mode = 0
+   catchrain   = .false.
+   rad_mode    = 1 
+   albedo_mode = 1
+   cloud_mode  = 4
+
+   subdaily   = .true. 
+   meteo_fl   = 'Mendota_hourly_NLDAS2.csv'
+   wind_factor = 0.9
+   sw_factor = 0.91 
+   lw_factor = 0.91 
+   !at_factor = 1 
+   !rh_factor = 1 
+   !rain_factor = 1
+   ce = 0.0013 
+   ch = 0.0013 
+   cd = 0.0013
+
+/
+&light
+   light_mode = 0
+   n_bands = 4
+   light_extc = 1.0, 0.5, 2.0, 4.0
+   energy_frac = 0.51, 0.45, 0.035, 0.005
+   Benthic_Imin = 10
+   Kw = 0.24 
+/
+
+!-------------------------------------------------------------------------------
+! bird_model
+!-------------------------------------------------------------------------------
+!
+!   AP = 973           Atmospheric Pressure in milibars
+!   Oz = 0.279         Ozone concentration in atm-cm
+!   WatVap = 1.1       Total Precipitable water vapor in atm-cm
+!   AOD500 = 0.033     Dimensionless Aerosol Optical Depth at wavelength 500 nm
+!   AOD380 = 0.038     Dimensionless Aerosol Optical Depth at wavelength 380 nm
+!   Albedo = 0.2       Default Albedo value
+!
+!-------------------------------------------------------------------------------
+&bird_model
+  AP = 973
+  Oz = 0.279
+  WatVap = 1.1
+  AOD500 = 0.033
+  AOD380 = 0.038
+  Albedo = 0.2
+/
+
+!-------------------------------------------------------------------------------
+! inflows 
+!-------------------------------------------------------------------------------
+!
+!  num_inflows       number of inflowing streams
+!  names_of_strms    names of streams
+!  strm_hf_angle     stream half angle (degrees)
+!  strmbd_slope      streambed slope (degrees)
+!  strmbd_drag       streambed drag coefficient
+!  inflow_fl         inflow data filename
+!
+!-------------------------------------------------------------------------------
+&inflow
+   num_inflows    = 0 
+   names_of_strms = 'Yahara','Dorn','Sixmile','Pheasant'
+   strm_hf_angle  = 65.0,65.0,65.0,65.0
+   strmbd_slope   = 3.0,3.0,3.0,3.0
+   strmbd_drag    = 0.0160,0.0160,0.0160,0.0160
+   inflow_factor  = 1.0,1.0,1.0,1.0
+   inflow_fl      = 'Inputs/Mendota_yahara.csv','Inputs/Mendota_dorn.csv','Inputs/Mendota_sixmile.csv','Inputs/Mendota_pheasant.csv'
+   inflow_varnum  = 11,
+   inflow_vars    = 'FLOW','SALT','TEMP','OGM_poc','OGM_docr','PHS_frp','NIT_amm','NIT_nit','OGM_don','CAR_dic','CAR_pH'     
+   coef_inf_entrain = 0.
+/
+!-------------------------------------------------------------------------------
+! outflows
+!-------------------------------------------------------------------------------
+!
+!  num_outlet    no. of outlets
+!  flt_off_sw    floating offtake switches
+!  outl_elvs     outlet elevations
+!  bsn_len_outl  basin length at outlets (m)
+!  bsn_wid_outl  basin width at outlets (m)
+!  outflow_fl    outflow data file
+!
+!-------------------------------------------------------------------------------
+&outflow
+   num_outlet   = 0
+   !flt_off_sw   = .false.
+   outlet_type  = 1
+   outl_elvs    = 399.5
+   bsn_len_outl = 799
+   bsn_wid_outl = 398
+   outflow_fl   = 'Inputs/Mendota_outflow.csv'
+   outflow_factor = 1.0
+
+/
+&sediment
+   benthic_mode = 2
+   n_zones = 2
+   zone_heights = 10,40
+   sed_temp_mean = 7,7
+   sed_temp_amplitude = 4,3
+   sed_temp_peak_doy = 230,230
+   sed_heat_Ksoil = 0.1, 0
+!  sed_temp_depth = 0.2
+/
+!-------------------------------------------------------------------------------
+&snowice
+   snow_albedo_factor = 1.0
+   snow_rho_max       = 500 
+   snow_rho_min       = 100 
+/
+!-------------------------------------------------------------------------------
+!&debugging
+!disable_evap = .true.
+!/

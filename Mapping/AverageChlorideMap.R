@@ -76,6 +76,7 @@ SW.sf <- read_rds("Data/shapefiles/SW/SW.rds") %>%
          chloride_winter = mean((labSW %>% filter(season == "November - March"))$chloride_mgL, na.rm = TRUE))
 
 
+
 tribs.sf <- bind_rows(YN.sf, YI.sf, YS.sf, SMC.sf, DC.sf, PBMS.sf, PBSF.sf, WIC.sf, SW.sf)  %>%
   dplyr::select(NAME, chloride_alltime, chloride_summer, chloride_winter, geometry) 
 lakes.sf <- bind_rows(ME.sf, MO.sf) %>%
