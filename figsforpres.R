@@ -248,4 +248,22 @@ ggsave("Plots/figsforpres/loadingME/flux.png", height = 15, width = 20, units = 
 
 
 
+#linreg for example 
 
+
+qsc <- join_for_linreg(labPBMS, fieldcondPBMS, PBMS_cond_data)
+
+
+ggplot(qsc, aes(sp.cond.x, chloride_mgL)) +
+  geom_point(aes(color = season)) + 
+  scale_color_manual(values = wes_palette("Darjeeling1")) +
+  #scale_color_manual(labels = c("April-October", "November-March"),
+                    # values = c("#1C366B", "#F24D29"))  +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  #stat_cor() + 
+  #stat_regline_equation() + 
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
+       y = "\nChloride Concentration"~(mg~L^-1)) +
+  L_theme()
+
+ggsave("Plots/figsforpres/pbmslinreg.png", width = 20, height = 15, units = "cm")
