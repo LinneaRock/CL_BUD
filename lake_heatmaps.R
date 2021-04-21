@@ -41,7 +41,8 @@ ggplot() +
   #in the water column water samples were taken and analyzed for chloride.") +
   theme(plot.caption = element_text(size = 10, hjust = 0), 
         axis.text = element_text(size = 10),
-        axis.title = element_text(size = 10))
+        axis.title = element_text(size = 10)) +
+  scale_x_date(date_breaks = "3 years", date_labels = "%Y") 
 
 #ggsave("Plots/chloride_time_series/mendota_heatmap.png", height = 15, width = 20, units = "cm")
 ggsave("Plots/figsforpres/cl_annual_change/mendota_heatmap.png", height = 15, width = 30, units = "cm")
@@ -81,7 +82,8 @@ ggplot() +
   #in the water column water samples were taken and analyzed for chloride.") +
   theme(plot.caption = element_text(size = 10, hjust = 0), 
         axis.text = element_text(size = 10),
-        axis.title = element_text(size = 10))
+        axis.title = element_text(size = 10))  +
+  scale_x_date(date_breaks = "3 years", date_labels = "%Y") 
 
 #ggsave("Plots/chloride_time_series/mendota_heatmap.png", height = 15, width = 20, units = "cm")
 ggsave("Plots/figsforpres/cl_annual_change/monona_heatmap.png", height = 15, width = 30, units = "cm")
