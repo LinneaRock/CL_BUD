@@ -77,7 +77,7 @@ River_stats <- data.frame(
     r.sqr.lm(labYS, fieldcondYS, YS_cond_data),
     SH.rsq
   ),
-  P_value = c(">0.01", ">0.01", ">0.01",">0.01",">0.01",">0.01",">0.01",">0.01",0.2,">0.01"
+  P_value = c(">0.01", ">0.01", ">0.01",">0.01",">0.01",">0.01",">0.01",">0.01",0.1,">0.01"
     # pvalue(labYN, fieldcondYN, YN_cond_data),
     # pvalue(lab6MC, fieldcond6MC, SMC_cond_data),
     # pvalue(labDC, fieldcondDC, DC_cond_data),
