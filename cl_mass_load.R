@@ -256,8 +256,8 @@ ggsave("Plots/chloride_loading/PBSF/seasonal_load.png", height = 15, width = 20,
 
 
 # #SW chloride mass loading calculations
-# SW_ts_mass <- chloride_ts_mass(labSW, SW_cond_data, SW_discharge)
-# SW_daily_mass <- chloride_daily_mass(SW_ts_mass)
+ SW_ts_mass <- chloride_ts_mass(labSW, SW_cond_data, WIC_discharge)
+ SW_daily_mass <- chloride_daily_mass(SW_ts_mass)
 # SW_monthly_mass <- chloride_monthly_load(SW_ts_mass)
 # SW_seasonal_mass <- chloride_seasonal_load(SW_ts_mass)
 # SW_annual_mass <- chloride_annual_load(SW_ts_mass)
@@ -278,8 +278,8 @@ ggsave("Plots/chloride_loading/PBSF/seasonal_load.png", height = 15, width = 20,
 # daily_load(SW_daily_mass, "Starkweather Creek")
 # ggsave("Plots/chloride_loading/SW/daily_load.png", height = 15, width = 20, units = "cm")
 # 
-# daily_ave_conc(SW_daily_mass, "Starkweather Creek")
-# ggsave("Plots/chloride_loading/SW/daily_ave_conc.png", height = 15, width = 20, units = "cm")
+ daily_ave_conc(SW_daily_mass, "Starkweather Creek")
+ ggsave("Plots/chloride_loading/SW/daily_ave_conc.png", height = 15, width = 20, units = "cm")
 # 
 # monthly_load(SW_monthly_mass, "Starkweather Creek")
 # ggsave("Plots/chloride_loading/SW/monthly_load.png", height = 15, width = 20, units = "cm")

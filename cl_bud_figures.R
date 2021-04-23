@@ -20,6 +20,7 @@ ggplot(all_tribs, aes(sp.cond.x, chloride_mgL)) +
   geom_point(aes(color = ID)) + 
   scale_color_viridis_d(option = "inferno")  +
   geom_smooth(method = "lm", se = FALSE, aes(color = ID)) +
+  #scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")) +
   #stat_cor() + 
   #stat_regline_equation() + 
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
@@ -27,7 +28,7 @@ ggplot(all_tribs, aes(sp.cond.x, chloride_mgL)) +
        caption = "Figure X. Linear regressions of chloride vs. conductivity for all tributaries in the Upper Yahara River Watershed.") +
   L_theme() 
   
-
+#ggsave("Plots/figsforpres/all_tribs.png", height = 15, width = 20, units = "cm")
 ggsave("Plots/cl_cond_linear_regression/all_tribs.png", height = 15, width = 20, units = "cm")
 
 

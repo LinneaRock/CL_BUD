@@ -267,3 +267,49 @@ ggplot(qsc, aes(sp.cond.x, chloride_mgL)) +
   L_theme()
 
 ggsave("Plots/figsforpres/pbmslinreg.png", width = 20, height = 15, units = "cm")
+
+
+
+#log of daily average chloride concentrations for all tribs on one graph
+
+all_tribs_low <-
+  rbind(
+    YN_daily_mass %>% mutate(ID = "YN"),
+    YI_daily_mass %>% mutate(ID = "YI"),
+    YS_daily_mass %>% mutate(ID = "YS"),
+    SMC_daily_mass %>% mutate(ID = "SMC"),
+    DC_daily_mass %>% mutate(ID = "DC")
+  )
+
+
+
+
+all_tribs_high <-
+  rbind(
+    WIC_daily_mass %>% mutate(ID = "WIC"),
+    SW_daily_mass %>% mutate(ID = "SW"),
+    PBMS_daily_mass %>% mutate(ID = "PBMS"),
+    PBSF_daily_mass %>% mutate(ID = "PBSF"),
+    SH_daily_mass %>% mutate(ID = "SH")
+  )
+
+a <- ggplot(all_tribs_low, aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
+  geom_line() +
+  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[6:10]) +
+  L_theme() + theme(legend.position = "bottom") +
+  labs(
+       y = "",
+       x = "")
+
+b <- ggplot(all_tribs_high, aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
+  geom_line() +
+  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[1:5]) +
+  L_theme() + theme(legend.position = "bottom") +
+  labs(
+    y = "Log of Chloride Concentration"~(mg~L^-1),
+    x = "")
+#ggsave("Plots/figsforpres/logcl.png", height = 15, width = 20, units = "cm")
+
+a/b
+
+ggsave("Plots/figsforpres/logcl.png", height = 15, width = 20, units = "cm")

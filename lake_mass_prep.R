@@ -134,16 +134,16 @@ Mo_vols_4s <- data.frame(
 # 
 #   
 # 
-# ME_mass1 <- labME %>%
-#   dplyr::select(date, Depth_m, chloride_mgL, ID, mon, season) %>%
-#   mutate(sampledate = as.Date(date)) %>%
-#   mutate(year4 = year(date)) %>%
-#   mutate(daynum = yday(date)) %>%
-#   rename(depth = Depth_m) %>%
-#   dplyr::select(year4, sampledate, daynum, depth, chloride_mgL, ID, mon, season) %>%
-#   left_join(ME_vols_5, by = c("depth", "ID")) %>%
-#   mutate(vols = ifelse(depth == 2, 359849115.4, vols),
-#          vols = ifelse(depth == 24, 134739380.1, vols))
+ME_mass1 <- labME %>%
+  dplyr::select(date, Depth_m, chloride_mgL, ID, mon, season) %>%
+  mutate(sampledate = as.Date(date)) %>%
+  mutate(year4 = year(date)) %>%
+  mutate(daynum = yday(date)) %>%
+  rename(depth = Depth_m) %>%
+  dplyr::select(year4, sampledate, daynum, depth, chloride_mgL, ID, mon, season) %>%
+  left_join(ME_vols_5, by = c("depth", "ID")) %>%
+  mutate(vols = ifelse(depth == 2, 359849115.4, vols),
+         vols = ifelse(depth == 24, 134739380.1, vols))
 # 
 # 
 # ME_Mass2 <- ME_Mass_2000 %>% filter(n == 3) %>% left_join(ME_vols_0820, by = c("depth", "ID")) %>% 
@@ -159,21 +159,21 @@ Mo_vols_4s <- data.frame(
 # 
 # 
 # 
-# ME_mass <- bind_rows(ME_mass1, ME_Mass2, ME_Mass4, ME_mass5, ME_mass6, ME_mass7) %>% dplyr::select(-n) %>% arrange(sampledate)
+ ME_mass <- bind_rows(ME_mass1, ME_Mass2, ME_Mass4, ME_mass5, ME_mass6, ME_mass7) %>% dplyr::select(-n) %>% arrange(sampledate)
 write_rds(ME_mass, "Data/ME_mass.rds")
 
 
 
 # #all that nonsense for monona
 # 
-# MO_mass1 <- labMO %>%
-#   dplyr::select(date, Depth_m, chloride_mgL, ID, mon, season) %>%
-#   mutate(sampledate = as.Date(date)) %>%
-#   mutate(year4 = year(date)) %>%
-#   mutate(daynum = yday(date)) %>%
-#   rename(depth = Depth_m) %>%
-#   dplyr::select(year4, sampledate, daynum, depth, chloride_mgL, ID, mon, season) %>%
-#   left_join(MO_vols, by = c("depth", "ID")) 
+MO_mass1 <- labMO %>%
+  dplyr::select(date, Depth_m, chloride_mgL, ID, mon, season) %>%
+  mutate(sampledate = as.Date(date)) %>%
+  mutate(year4 = year(date)) %>%
+  mutate(daynum = yday(date)) %>%
+  rename(depth = Depth_m) %>%
+  dplyr::select(year4, sampledate, daynum, depth, chloride_mgL, ID, mon, season) %>%
+  left_join(MO_vols, by = c("depth", "ID"))
 # 
 # 
 # MOcl__ <- MOcl %>%
@@ -197,5 +197,5 @@ write_rds(ME_mass, "Data/ME_mass.rds")
 # MO_mass4 <- MOcl__ %>% filter(n ==4) %>% left_join(Mo_vols_4s, by = c("depth", "ID"))
 # 
 # 
-# MO_mass <- bind_rows(MO_mass1, MO_mass2, MO_mass3, MO_mass4) %>% dplyr::select(-n) %>% arrange(sampledate)
+ MO_mass <- bind_rows(MO_mass1, MO_mass2, MO_mass3, MO_mass4) %>% dplyr::select(-n) %>% arrange(sampledate)
  write_rds(MO_mass, "Data/MO_mass.rds")
