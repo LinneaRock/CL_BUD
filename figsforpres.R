@@ -30,7 +30,7 @@ all_cl1 <- rbind(labDC, lab6MC, labYI, labYN, labYS)
 all_cl2 <- rbind(labPBMS, labPBSF, labSW, labWIC)
 all_cllakes <- rbind(labME, labMO)
 
-ggplot(all_cl1, aes(ID, chloride_mgL)) +
+ggplot(all_cl1, aes(reorder(ID, chloride_mgL), chloride_mgL)) +
   geom_boxplot() +
   geom_jitter(aes(color = season)) +
   scale_color_manual(labels = c("April-October", "November-March"), values = wes_palette("Darjeeling1")) +
@@ -40,7 +40,7 @@ ggplot(all_cl1, aes(ID, chloride_mgL)) +
 ggsave("Plots/figsforpres/spatial_distribution/low_conc_tribs.png", height = 15, width = 20, units = "cm")
 
 
-ggplot(all_cllakes %>% filter(ID == "ME"), aes(ID, chloride_mgL)) +
+ggplot(all_cllakes %>% filter(ID == "ME"), aes(reorder(ID, chloride_mgL), chloride_mgL)) +
   geom_boxplot() +
   geom_jitter(aes(color = season)) +
   scale_color_manual(labels = c("April-October", "November-March"), values = wes_palette("Darjeeling1")) +
@@ -60,7 +60,7 @@ ggplot(all_cllakes %>% filter(ID == "MO"), aes(ID, chloride_mgL)) +
 
 ggsave("Plots/figsforpres/spatial_distribution/MO.png", height = 15, width = 20, units = "cm")
 
-ggplot(all_cl2, aes(ID, chloride_mgL)) +
+ggplot(all_cl2, aes(reorder(ID, chloride_mgL), chloride_mgL)) +
   geom_boxplot() +
   geom_jitter(aes(color = season)) +
   scale_color_manual(labels = c("April-October", "November-March"), values = wes_palette("Darjeeling1")) +
@@ -69,6 +69,20 @@ ggplot(all_cl2, aes(ID, chloride_mgL)) +
 
 ggsave("Plots/figsforpres/spatial_distribution/high_conc_tribs.png", height = 15, width = 20, units = "cm")
 
+#boxplot of winter vs not winter chloride
+all <- bind_rows(all_cl1, all_cl2, all_cllakes)
+
+ggplot(all, aes(reorder(season, chloride_mgL), chloride_mgL)) +
+  geom_boxplot() +
+  geom_jitter(aes(color = season)) +
+  scale_color_manual(labels = c("April-October", "November-March"), values = wes_palette("Darjeeling1")) +
+  #values = c("#1C366B", "#F24D29")) +
+  labs(x = "", y = "Chloride Concentration"~(mg~L^-1)) + L_theme()
+
+#Mann-Whitney test
+wilcox.test((all %>% filter(season == "April - October"))$chloride_mgL, (all %>% filter(season == "November - March"))$chloride_mgL)
+
+ggsave("Plots/figsforpres/spatial_distribution/saltvsno.png", height = 15, width = 20, units = "cm")
 
 #low concentration cl timeseries 
 timeseries_lowconc <- rbind(DC_daily_mass %>% mutate(ID = "DC"), SMC_daily_mass %>% mutate(ID = "SMC"), YI_daily_mass %>% mutate(ID = "YI", YN_daily_mass %>% mutate(ID = "YN")))
@@ -128,6 +142,7 @@ ggplot(timeseries_mass %>% filter(ID != "PBSF")) +
   geom_text(flux, mapping = aes(date, flux, label = flux), position = position_dodge(width = 0.9), vjust = -0.25) +
   #scale_fill_viridis_d(option = "inferno", direction = -1) +
   L_theme() +
+  labs(y = "Mass of Chloride (Mg)", x = "") +
   scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") +
   scale_y_continuous(n.breaks = 10)
 
@@ -157,7 +172,7 @@ ME_mass_daynum <- ME_mass %>%
 
 
 ggplot() +
-  geom_smooth(method = loess, ME_mass_daynum, mapping = aes(daynum, total, group = year4, color = year4)) +
+  geom_smooth(method = loess, data = ME_mass_daynum, mapping = aes(x = daynum, y = total, group = year4, color = year4)) +
   scale_color_viridis_c(option = "inferno", direction = -1) + L_theme() + 
   labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Mendota") #+
   #geom_smooth(method = loess, ME_mass_daynum %>% filter(year4 == 2020), mapping = aes(daynum, total, group = year4), color = "red")
@@ -204,39 +219,37 @@ spline_int2 <- as.data.frame(spline((timeseries_mass_dens %>% filter(ID == "YI")
 
 ME_mass_dens <- ME_mass_daynum  %>% 
   filter(year4 > 2019) %>%
-  mutate(sampledate = as.POSIXct(sampledate))
+  mutate(sampledate = as.Date(sampledate))
 
 spline_int3 <- as.data.frame(spline(ME_mass_dens$sampledate, ME_mass_dens$total)) %>%
-  mutate(x = as.Date(x, origin = "1970-01-01")) %>%
+  mutate(x = as.Date(x, origin = "1970-01-01 00:00:00")) %>%
   mutate(x = as.POSIXct(x))
 
+
+datemin = as.Date("2019-11-01 00:00:00")  
+datemax = as.Date("2021-04-18 00:00:00") 
+
 a <- ggplot() +
-  #geom_point(ts_all_month, mapping = aes(x = date, y = totalin), color = wes_palette("Darjeeling1")[1]) +
   geom_point(ts_all_month, mapping = aes(x = date, y = value, color = name)) +
   scale_color_manual(values = wes_palette("Darjeeling1")[1:2],
                      labels = c("chloride in", "chloride out")) +
   geom_line(data = spline_int1, mapping = aes(x = x, y = y), color= wes_palette("Darjeeling1")[1]) +
-  #stat_smooth(aes(x = date, y = total), method = "lm",
-   #         formula = y ~ poly(x, 8), se = FALSE) 
-  #geom_point(ts_all_month, mapping = aes(x = date, y = totalout), color = wes_palette("Darjeeling1")[2]) +
   geom_line(data = spline_int2, mapping = aes(x = x, y = y), color = wes_palette("Darjeeling1")[2]) +
-  L_theme() + theme(legend.position = "top") + labs(x = "", y = "Tonnes of Chloride", title = "Tributaries") +
-  scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") +
+  L_theme() + theme(legend.position = "top") + labs(x = "", y = "Mass of Chloride (Mg)", title = "Tributaries") +
+  scale_x_date(limits = c(datemin, datemax), date_breaks = "3 months", date_labels = "%b %Y") +
   geom_vline(xintercept = as.numeric(as.Date("2020-01-12"))) +
   geom_vline(xintercept = as.numeric(as.Date("2020-03-22"))) +
   geom_vline(xintercept = as.numeric(as.Date("2021-01-03"))) +
   geom_vline(xintercept = as.numeric(as.Date("2021-03-20")))
 
 
-datemin = as.POSIXct(min(timeseries_mass_dens$date))  
-datemax = as.POSIXct(max(timeseries_mass_dens$date)) 
 
 b <- ggplot() +
-  geom_point(ME_mass_dens, mapping = aes(x = sampledate, y = total)) +
-  geom_line(data = spline_int3, mapping = aes(x = x, y = y)) +
+  geom_point(ME_mass_dens, mapping = aes(x = as.POSIXct(sampledate), y = total)) +
+  geom_line(data = spline_int3, mapping = aes(x = as.POSIXct(x), y = y)) +
   L_theme() +
-  labs(x = "", y = "Tonnes of Chloride", title = "Lake Mendota") +
-  scale_x_datetime(limits = c(datemin, datemax), date_breaks = "3 months", date_labels = "%b %Y") +
+  labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Mendota") +
+  scale_x_datetime(limits = c(as.POSIXct(datemin), as.POSIXct(datemax)), date_breaks = "3 months", date_labels = "%b %Y") +
   geom_vline(xintercept = as.numeric(as.POSIXct("2020-01-12 00:00:00"))) +
   geom_vline(xintercept = as.numeric(as.POSIXct("2020-03-22 00:00:00"))) +
   geom_vline(xintercept = as.numeric(as.POSIXct("2021-01-03 00:00:00"))) +
