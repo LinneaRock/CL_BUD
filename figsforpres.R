@@ -288,13 +288,16 @@ ggsave("Plots/figsforpres/pbmslinreg.png", width = 20, height = 15, units = "cm"
 all_tribs_low <-
   rbind(
     YN_daily_mass %>% mutate(ID = "YN"),
-    YI_daily_mass %>% mutate(ID = "YI"),
-    YS_daily_mass %>% mutate(ID = "YS"),
+    #YI_daily_mass %>% mutate(ID = "YI"),
+    #YS_daily_mass %>% mutate(ID = "YS"),
     SMC_daily_mass %>% mutate(ID = "SMC"),
     DC_daily_mass %>% mutate(ID = "DC")
   )
 
-
+all_tribs_med <- rbind(
+  YI_daily_mass %>% mutate(ID = "YI"),
+  YS_daily_mass %>% mutate(ID = "YS")
+)
 
 
 all_tribs_high <-
@@ -306,7 +309,7 @@ all_tribs_high <-
     SH_daily_mass %>% mutate(ID = "SH")
   )
 
-a <- ggplot(all_tribs_low, aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
+a <- ggplot(all_tribs_low %>% filter(date > "2020-11-01"), aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
   geom_line() +
   scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[6:10]) +
   L_theme() + theme(legend.position = "bottom") +
@@ -314,7 +317,15 @@ a <- ggplot(all_tribs_low, aes(date, log(daily_concentration_mgL), group = ID, c
        y = "",
        x = "")
 
-b <- ggplot(all_tribs_high, aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
+b <- ggplot(all_tribs_high %>% filter(date > "2020-11-01"), aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
+  geom_line() +
+  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[1:5]) +
+  L_theme() + theme(legend.position = "bottom") +
+  labs(
+    y = "Log of Chloride Concentration"~(mg~L^-1),
+    x = "")
+
+c <- ggplot(all_tribs_med %>% filter(date > "2020-11-01"), aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
   geom_line() +
   scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[1:5]) +
   L_theme() + theme(legend.position = "bottom") +

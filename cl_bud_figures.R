@@ -13,14 +13,15 @@ f <- join_for_linreg(lab6MC, fieldcond6MC, SMC_cond_data) %>% mutate(ID = "SMC")
 g <- join_for_linreg(labDC, fieldcondDC, DC_cond_data) %>% mutate(ID = "DC")
 h <- join_for_linreg(labPBMS, fieldcondPBMS, PBMS_cond_data) %>% mutate(ID = "PBMS")
 i <- join_for_linreg(labPBSF, fieldcondPBSF, PBSF_cond_data) %>% mutate(ID = "PBSF")
+j <- labSH1 %>% mutate(ID = "SH") %>% rename(sp.cond.x = runningmean)
 
-all_tribs <- rbind(a, b, c, d, e, f, g, h, i)
+all_tribs <- bind_rows(a, b, c, d, e, f, g, h, i, j)
 
 ggplot(all_tribs, aes(sp.cond.x, chloride_mgL)) +
   geom_point(aes(color = ID)) + 
-  scale_color_viridis_d(option = "inferno")  +
+  #scale_color_viridis_d(option = "inferno")  +
   geom_smooth(method = "lm", se = FALSE, aes(color = ID)) +
-  #scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")) +
+  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")) +
   #stat_cor() + 
   #stat_regline_equation() + 
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
