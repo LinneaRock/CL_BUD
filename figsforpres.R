@@ -172,10 +172,10 @@ ME_mass_daynum <- ME_mass %>%
 
 
 ggplot() +
-  geom_smooth(method = loess, data = ME_mass_daynum, mapping = aes(x = daynum, y = total, group = year4, color = year4)) +
+  geom_smooth(method = "loess", data = ME_mass_daynum %>% filter(year4 != 2021), mapping = aes(x = daynum, y = total, group = year4, color = year4)) +
   scale_color_viridis_c(option = "inferno", direction = -1) + L_theme() + 
   labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Mendota") #+
-  #geom_smooth(method = loess, ME_mass_daynum %>% filter(year4 == 2020), mapping = aes(daynum, total, group = year4), color = "red")
+  
 
 ggsave("Plots/figsforpres/cl_annual_change/ME.png", height = 15, width = 20, units = "cm") 
 
@@ -184,8 +184,7 @@ ggsave("Plots/figsforpres/cl_annual_change/ME.png", height = 15, width = 20, uni
 ggplot() +
   geom_smooth(method = loess, MO_mass_daynum, mapping = aes(daynum, total, group = year4, color = year4)) +
   scale_color_viridis_c(option = "inferno", direction = -1) + L_theme() + 
-  labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Monona")# +
- # geom_smooth(method = loess, MO_mass_daynum %>% filter(year4 == 2020), mapping = aes(daynum, total, group = year4), color = "red")
+  labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Monona")
 
 ggsave("Plots/figsforpres/cl_annual_change/MO.png", height = 15, width = 20, units = "cm") 
 

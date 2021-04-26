@@ -70,4 +70,4 @@ ionplot
 
 ggsave("Plots/ME_MO_ions.png", width = 20, height = 20, units = "cm")
 
-
+summary(lm(value~sampledate, ME_MO_ion%>% filter(item == "so4")))

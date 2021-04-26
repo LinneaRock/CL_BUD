@@ -17,6 +17,7 @@ linepl(data$date, data$TAVG, bquote("Average Monthly Temp "*~degree*C))
 bar(data$date, data$TAVG, bquote("Average Monthly Temp "*~degree*C))
 
 
+
 precip_temp_data <- read.csv("Data/Historical_External/precip_temp.csv") %>%
   mutate(PRCP = PRCP * 25.4) %>%  #inches to mm
   mutate(date = as.POSIXct(as.character(DATE)))
@@ -26,3 +27,9 @@ precip_data <- read.csv("Data/met_data.csv") %>%
 
 precip <- bar(precip_temp_data, precip_temp_data$date, precip_temp_data$PRCP, bquote("Daily Precipitation (mm)"))
 
+
+met_2017 <- data %>% filter(Y == 2017)
+
+datayearly <- data %>%
+  group_by(Y) %>%
+  summarise(total = sum(PRCP))

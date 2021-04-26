@@ -64,7 +64,7 @@ f = as.data.frame(do.call(cbind, f))
 names(f) = usedates$sampledate
 
 # Bind list into dataframe
-f2 = bind_cols(depth = c(0, 5, 10, 15, 20, 23.5),f) %>%
+f2 = bind_cols(depth = c(0,4, 8, 12, 16, 20),f) %>%
   pivot_longer(-1, names_to = 'sampledate', values_to = 'var') %>%
   arrange(sampledate,depth) %>%
   mutate(sampledate = as.Date(sampledate))
