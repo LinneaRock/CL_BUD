@@ -172,6 +172,7 @@ ME_mass_daynum <- ME_mass %>%
 
 
 ggplot() +
+  geom_point(data = ME_mass_daynum %>% filter(year4 != 2021), mapping = aes(x = daynum, y = total, group = year4, color = year4)) +
   geom_smooth(method = "loess", data = ME_mass_daynum %>% filter(year4 != 2021), mapping = aes(x = daynum, y = total, group = year4, color = year4)) +
   scale_color_viridis_c(option = "inferno", direction = -1) + L_theme() + 
   labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Mendota") #+
@@ -182,7 +183,8 @@ ggsave("Plots/figsforpres/cl_annual_change/ME.png", height = 15, width = 20, uni
 
 
 ggplot() +
-  geom_smooth(method = loess, MO_mass_daynum, mapping = aes(daynum, total, group = year4, color = year4)) +
+  geom_point(data = MO_mass_daynum %>% filter(year4 != 2021), mapping = aes(x = daynum, y = total, group = year4, color = year4)) +
+  geom_smooth(method = loess, MO_mass_daynum %>% filter(year4 != 2021), mapping = aes(daynum, total, group = year4, color = year4)) +
   scale_color_viridis_c(option = "inferno", direction = -1) + L_theme() + 
   labs(x = "", y = "Mass of Chloride (Mg)", title = "Lake Monona")
 
@@ -307,32 +309,43 @@ all_tribs_high <-
     PBSF_daily_mass %>% mutate(ID = "PBSF"),
     SH_daily_mass %>% mutate(ID = "SH")
   )
+all_tribs_concentrations <- rbind(all_tribs_low, all_tribs_med, all_tribs_high)
 
-a <- ggplot(all_tribs_low %>% filter(date > "2020-11-01"), aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
+ggplot(all_tribs_concentrations, aes(date, daily_concentration_mgL, group = ID, color = ID)) +
   geom_line() +
-  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[6:10]) +
+  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")) +
   L_theme() + theme(legend.position = "bottom") +
+  scale_y_log10() + scale_x_date(limits = c(as.Date(datemin), as.Date(datemax))) +
   labs(
-       y = "",
-       x = "")
-
-b <- ggplot(all_tribs_high %>% filter(date > "2020-11-01"), aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
-  geom_line() +
-  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[1:5]) +
-  L_theme() + theme(legend.position = "bottom") +
-  labs(
-    y = "Log of Chloride Concentration"~(mg~L^-1),
+    title = "Chloride Concentration"~(mg~L^-1),
+    y = "",
     x = "")
 
-c <- ggplot(all_tribs_med %>% filter(date > "2020-11-01"), aes(date, log(daily_concentration_mgL), group = ID, color = ID)) +
-  geom_line() +
-  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")[1:5]) +
-  L_theme() + theme(legend.position = "bottom") +
-  labs(
-    y = "Log of Chloride Concentration"~(mg~L^-1),
-    x = "")
-#ggsave("Plots/figsforpres/logcl.png", height = 15, width = 20, units = "cm")
-
-a/b
 
 ggsave("Plots/figsforpres/logcl.png", height = 15, width = 20, units = "cm")
+
+
+######run data in SewershedMap.R then
+#map of all outfall basins in the UYRW and which water they discharge to
+ggplot() +
+  annotation_map_tile(type = world_gray, zoom = 12) +
+  geom_sf(ws_outfallbasins %>% filter(watershed == "LAKE MENDOTA"), mapping = aes(), fill = "black") +
+  geom_sf(wsSH, mapping = aes(), fill = "#91A737") +
+  theme_bw() + 
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + 
+#   labs(caption = "Figure X. Outfall basins within the Upper Yahara River Watershed. Legend and colors indicate which waterbody the 
+# outfall basins discharges into. Note: data outside of Dane County were not available (data from City of Madison).") + L_theme() +
+ # scale_fill_viridis_d(option = "inferno", name = "Subwatershed") + #colors may not be distinguishable enough
+  #scale_fill_manual(values = zis1, name = "Subwatershed") + #colors are not distinguishable enough :( ##color palettes created in WQPMaps.R
+  theme(plot.caption = element_text(size = 10, hjust = 0),
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) 
+
+ggsave("Plots/figsforpres/basins.png", width = 20, height = 15, units = "cm")

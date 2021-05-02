@@ -137,7 +137,7 @@ summary(lm(ave_ratio ~ DEVNLCD01, source_by_ws)) #p value 0.004754
 
 #write_rds(sources_loads_by_ws, "Data/sources_loads_by_ws.rds")
 
-sources_loads_by_ws <- readRDS("Data/sources_loads_by_ws.rds")
+sources_loads_by_ws <- readRDS("Data/sources_loads_by_ws.rds") %>% drop_na()
 
 ##chloride load for entire period
 ggplot(sources_loads_by_ws, aes(reorder(watershed, entire_ratio), entire_ratio)) +

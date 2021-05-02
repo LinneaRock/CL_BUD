@@ -142,8 +142,13 @@ ME_mass1 <- labME %>%
   rename(depth = Depth_m) %>%
   dplyr::select(year4, sampledate, daynum, depth, chloride_mgL, ID, mon, season) %>%
   left_join(ME_vols_5, by = c("depth", "ID")) %>%
-  mutate(vols = ifelse(depth == 2, 359849115.4, vols),
-         vols = ifelse(depth == 24, 134739380.1, vols))
+  mutate(vols = ifelse(daynum == 92 & depth == 2, 359849116, vols), #depths 0-12
+         vols = ifelse(daynum == 92 & depth == 23.5, 134739381, vols)) %>% #dpeths 12-25
+  mutate(vols = ifelse(sampledate == "2020-07-16" & depth == 5, 236882119, vols))
+
+test <- ME_mass1 %>%
+  group_by(sampledate) %>%
+  summarise(total = sum(vols))
 # 
 # 
 # ME_Mass2 <- ME_Mass_2000 %>% filter(n == 3) %>% left_join(ME_vols_0820, by = c("depth", "ID")) %>% 

@@ -9,7 +9,7 @@ towns1920 <- (301 + 811) * 0.907185
 ##manually enter winter totals for 2020-21 for City of Monona, City of Middleton
 towns2021 <- (303 + 933) * 0.907185
 ##manually enter uw estimate by WRM
-uw1819 <- 855.524 * 0.907185
+uw1819 <- 923.623 * 0.907185
 #Ag load from Charlie's estimates
 cattle = 1758.574891
 #cropshigh = 47.35071595 + 177.3545567 + 467.7263132 + 1403.17894 
