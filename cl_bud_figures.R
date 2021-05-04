@@ -59,12 +59,12 @@ ggsave("Plots/cl_cond_linear_regression/patch_tribs.png", height = 20, width = 2
 
 
 ##chloride source in subwatersheds -- ratioooooo
-source_by_ws <- cl_roads_by_subwatershed %>% #dataset from subwatersheds_road_salting.R
-  filter(watershed != "WC") %>%
-  left_join(usgs_ws_info_roads_aggregated, by = c("watershed" = "name")) %>% #dataset from Mapping/USGSdelWatersheds.R
-  mutate(ratio_cl_drainage2020 = val2020 / DRNAREA) %>%
-  mutate(ratio_cl_drainage2021 = val2021 / DRNAREA) %>%
-  mutate(ave_ratio = (ratio_cl_drainage2020 + ratio_cl_drainage2021)/2)
+# source_by_ws <- cl_roads_by_subwatershed %>% #dataset from subwatersheds_road_salting.R
+#   filter(watershed != "WC") %>%
+#   left_join(usgs_ws_info_roads_aggregated, by = c("watershed" = "name")) %>% #dataset from Mapping/USGSdelWatersheds.R
+#   mutate(ratio_cl_drainage2020 = val2020 / DRNAREA) %>%
+#   mutate(ratio_cl_drainage2021 = val2021 / DRNAREA) %>%
+#   mutate(ave_ratio = (ratio_cl_drainage2020 + ratio_cl_drainage2021)/2)
 
 
 

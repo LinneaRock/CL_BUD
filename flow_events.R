@@ -1,52 +1,65 @@
 
 
-precip <- read.csv("Data/Historical_External/precip_temp.csv") %>%
-  mutate(PRCP = PRCP * 25.4) %>%  #inches to mm
+precip <- read.csv("Data/met_data.csv") %>% 
   mutate(date = as.POSIXct(as.character(DATE)))
 
-YI_discharge <- read_rds("Data/discharge/YI_discharge.rds")
-YI_cond_data <- read_rds("Data/HOBO_Loggers/YI/YI_cond_data.rds")
+YI_discharge <- read_rds("Data/discharge/YI_discharge.rds") %>%
+  drop_na()
+#YI_cond_data <- read_rds("Data/HOBO_Loggers/YI/YI_cond_data.rds")
 
-YN_discharge <- read_rds("Data/discharge/YN_discharge.rds")
-YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
+YN_discharge <- read_rds("Data/discharge/YN_discharge.rds") %>%
+  drop_na()
+#YN_cond_data <- read_rds("Data/HOBO_Loggers/YN/YN_cond_data.rds")
 
 SMC_discharge <- read_rds("Data/discharge/SMC_discharge.rds")
-SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
+#SMC_cond_data <- read_rds("Data/HOBO_Loggers/6MC/SMC_cond_data.rds")
 
 DC_discharge <- read_rds("Data/discharge/DC_discharge.rds")
-DC_cond_data <- read_rds("Data/HOBO_Loggers/DC/DC_cond_data.rds")
+#DC_cond_data <- read_rds("Data/HOBO_Loggers/DC/DC_cond_data.rds")
 
 PBMS_discharge <- read_rds("Data/discharge/PBMS_discharge.rds")
-PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
+#PBMS_cond_data <- read_rds("Data/HOBO_Loggers/PBMS/PBMS_cond_data.rds")
 
 PBSF_discharge <- read_rds("Data/discharge/PBSF_discharge.rds")
-PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSf/PBSF_cond_data.rds")
+#PBSF_cond_data <- read_rds("Data/HOBO_Loggers/PBSf/PBSF_cond_data.rds")
 
+SH_discharge_cond <- d.sc.SH #from datasets as functions
 
 
 #Get the baseflow information using the package of EcoHydRology. Then restart R before continuing.
-#library(EcoHydRology)
+library(EcoHydRology)
 
-YI_baseflow <- BaseflowSeparation(YI_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-hydrograph(input = YI_discharge, streamflow2 = YI_baseflow[,1])
+YI_baseflow <- BaseflowSeparation(YI_discharge$runningmeandis, passes = 3)
+hydrograph(input = YI_discharge, streamflow2 = YI_baseflow[,2], S.units =  "m3s")
+test <- left_join(YI_discharge %>% mutate(number = row_number()), YI_baseflow %>% mutate(number = row_number()), by = "number") %>%
+  mutate(testing = bt + qft)
 YN_baseflow <- BaseflowSeparation(YN_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-hydrograph(input = YN_discharge, streamflow2 = YN_baseflow[,1])
+hydrograph(input = YN_discharge, streamflow2 = YN_baseflow[,2], S.units =  "m3s")
 SMC_baseflow <- BaseflowSeparation(SMC_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-hydrograph(input = SMC_discharge, streamflow2 = SMC_baseflow[,1])
+hydrograph(input = SMC_discharge, streamflow2 = SMC_baseflow[,2], S.units =  "m3s")
 DC_baseflow <- BaseflowSeparation(DC_discharge$runningmeandis, filter_parameter = 0.925, passes = 3) 
-hydrograph(input = DC_discharge, streamflow2 = DC_baseflow[,1])
+hydrograph(input = DC_discharge, streamflow2 = DC_baseflow[,2], S.units =  "m3s")
 PBMS_baseflow <- BaseflowSeparation(PBMS_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-hydrograph(input = PBMS_discharge, streamflow2 = PBMS_baseflow[,1])
+hydrograph(input = PBMS_discharge, streamflow2 = PBMS_baseflow[,2], S.units =  "m3s")
 PBSF_baseflow <- BaseflowSeparation(PBSF_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-hydrograph(input = PBSF_discharge, streamflow2 = PBSF_baseflow[,1])
+hydrograph(input = PBSF_discharge, streamflow2 = PBSF_baseflow[,2], S.units =  "m3s")
 
 source("Functions/qC_events.R")
 
+# library(DVstats)
+# YI_tst <- YI_discharge %>% 
+#   mutate(base= baseflow(YI_discharge$runningmeandis))
+# test <- DVstats::hysep(YI_discharge$runningmeandis, Dates = date, da = 1456)
+# 
+# ggplot(YI_tst) +
+#   geom_line(aes(date, base), color = "red") +
+#   geom_line(aes(date, runningmeandis), color = "black")
+
 #YI's hydrograph does not show reaction to precip events ????????
-# YI_event <- find_all_events(YI_discharge, YI_baseflow, "YI", YI_cond_data)
-# #check the plots in the folder
-# x <- c()
-# y <- LETTERS[]
+YI_event <- find_all_events(YI_discharge, YI_baseflow, "YI", YI_cond_data)
+#check the plots in the folder
+x <- c()
+y <- LETTERS[]
 
 YN_event <- find_all_events(YN_discharge, YN_baseflow, "YN", YN_cond_data)
 #check the plots in the folder
