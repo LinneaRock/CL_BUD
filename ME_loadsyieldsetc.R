@@ -2,6 +2,7 @@ Mendota_loads_by_ws <- readRDS("Data/sources_loads_by_ws.rds") %>%
   drop_na() %>% 
   #filter(watershed != "PBSF") %>%
   mutate(trib = ifelse(watershed == "YI", "out", "in")) %>%
+  
   dplyr::select(c(-val2020, -val2021, -ratio_cl_drainage2020, -ratio_cl_drainage2021, -salt_ratio))
 
 YI_discharge <- YI_discharge %>%
@@ -51,5 +52,68 @@ concentrations <- data.frame(
 
 Mendota_loads_by_ws <- Mendota_loads_by_ws %>%
   left_join(concentrations, by = "watershed")
+
+Mendota_loads_by_ws <- Mendota_loads_by_ws %>%
+  filter(watershed != "PBSF")
+
+
+#figure of ratio of total chloride loads vs drainage area with point sizes corresponding to relative road density ####
+ggplot(Mendota_loads_by_ws) +
+  geom_point(mapping = aes(DRNAREA, entireload, size = road_density_mha, color = ave_conc)) +
+  geom_smooth(method = "lm", mapping = aes(DRNAREA, entireload), se = FALSE) +
+  scale_color_viridis_c(option = "inferno") +
+  theme_minimal()
+
+summary(lm(entireload~DRNAREA, Mendota_loads_by_ws)) #r = 0.998, p = 1.414e-06
+
+summary(lm(entireload~road_density_mha, Mendota_loads_by_ws)) #r=-0.087, p = 0.48
+summary(lm(entireload~DEVNLCD01, Mendota_loads_by_ws)) #r=-0.12, p = 0.53
+
+ggplot(Mendota_loads_by_ws, mapping = aes(DEVNLCD01,entireload)) +geom_point() +geom_smooth(method = "lm")
+
+
+#yield chloride as predicted by road density####
+ggplot(Mendota_loads_by_ws, aes(road_density_mha, entire_ratio)) +
+  geom_point(aes(size = DEVNLCD01)) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  scale_color_viridis_c(option = "inferno") +
+  theme_minimal()
+
+summary(lm(entire_ratio~road_density_mha, Mendota_loads_by_ws)) #r = 0.97, p = 0.00028
+
+
+#yield chloride as predicted by development####
+ggplot(Mendota_loads_by_ws, aes(DEVNLCD01, entire_ratio)) +
+  geom_point(aes(size = road_density_mha)) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  scale_color_viridis_c(option = "inferno") +
+  theme_minimal()
+
+summary(lm(entire_ratio~DEVNLCD01, Mendota_loads_by_ws)) #r = 0.91, p = 0.0018
+
+
+
+#concentrations vs road density with sizes corresponding to relative drainage area size
+ggplot(Mendota_loads_by_ws) +
+  geom_point(aes(road_density_mha, max_conc, size = DRNAREA, color = watershed))
+
+#load vs average concentration
+ggplot(Mendota_loads_by_ws) +
+  geom_point(aes(ave_conc, entireload))
+
+#load vs max concentration :: winters
+ggplot(Mendota_loads_by_ws) +
+  geom_point(aes(max_conc, winter1920))
+
+ggplot(Mendota_loads_by_ws) +
+  geom_point(aes(max_conc, winter2021))
+
+#yields (load per drainage area) vs. average concentration
+ggplot(Mendota_loads_by_ws) +
+  geom_point(aes(max_conc, entire_ratio, size = DRNAREA))
+
+#discharge vs drainage area
+ggplot(Mendota_loads_by_ws) +
+  geom_point(aes(DRNAREA, ave_discharge, color = watershed))
 
 
