@@ -196,7 +196,7 @@ stage_PBSF <- readNWISuv("054279465", "00065", "2019-12-01", "", tz = "Etc/GMT+6
 d.sc.SH <- readNWISuv("05427965", c("00060", "00095"), "2019-12-01", "", tz = "Etc/GMT+6") %>%
   rename(discharge = X_00060_00000,
          sp_cond = X_00095_00000) %>%
-  select(dateTime, discharge, sp_cond) %>%
+  dplyr::select(dateTime, discharge, sp_cond) %>%
   mutate(discharge = discharge * 0.028316847) %>%
   rename(sp.cond = sp_cond,
          date = dateTime)
@@ -206,7 +206,7 @@ cl_data_flow_sc <- readNWISuv("05427965", c("00060", "00095"), "2014-02-20", "20
 cl_data_flow_sc <- cl_data_flow_sc %>%
   rename(discharge = X_00060_00000,
          sp_cond = X_00095_00000) %>%
-  select(dateTime, discharge, sp_cond) %>%
+  dplyr::select(dateTime, discharge, sp_cond) %>%
   mutate(discharge = discharge * 0.028316847) %>%
   rename(runningmean = sp_cond,
          date = dateTime,
