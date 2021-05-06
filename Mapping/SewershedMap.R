@@ -126,7 +126,13 @@ ggsave("Plots/sewershed/WC_within_sewersheds.png", width = 20, height = 15, unit
 #illicit discharge detection and elimination monitoring 
 idde <- read_xlsx("Data/Historical_External/stormsewer/IDDE.xlsx") %>%
   as.data.frame()
-
+discharges <- read_xlsx("Data/Historical_External/stormsewer/discharges.xlsx")
+summary(lm(as.numeric(Cl_mgL)~as.numeric(Cond_umhos), discharges))
+library(tmaptools)
+discharges_geo <- as.data.frame(discharges)
+location = discharges$Site
+discharges_geo <- discharges_geo %>%
+  geocode_OSM(location)
 
 #matching IDDE data to the spatial data
 pipe_idde <- full_join(mutate(Pipes, i =1),
@@ -175,14 +181,17 @@ ggplot(count_idde, aes(Cond, chloride)) + geom_point() +
   L_theme()
 splot("cl_cond_linear_regression/", "idde")
 idde_fit <- lm(chloride~Cond, pipe_idde)
-summary(idde_fit) #R2 = 99.4, p < 2.2e-16, intercept = -2.530e+02, slope = 3.350e-01
+summary(idde_fit) #R2 = 0.99, p < 2.2e-16, intercept = -2.530e+02, slope = 3.350e-01
 
+#get chloride estimates for each basin using regression on previous line
+basins_idde2 <- basins_idde1 #%>%
+ # mutate(chloride_mgL = ifelse(is.na(chloride), (Cond * 3.083e-01) - 1.687e+02, chloride))
 
 #map of monitored storm sewer pipe outfall basins
 pipes_map <- ggplot() +
   annotation_map_tile(type = world_gray, zoom = 12) +
-  geom_sf(ws_outfallbasins, mapping = aes(), color = "#1C366B", fill = NA) +
-  geom_sf(basins_idde1, mapping = aes(), color = "#F24D29", fill = "#F24D29") +
+  #geom_sf(ws_outfallbasins, mapping = aes(), color = "#1C366B", fill = NA) +
+  geom_sf(basins_idde1, mapping = aes(fill = chloride), color = "#F24D29") +
   #geom_sf(idde_basins, mapping = aes(), color = "black") +
   theme_bw() + 
   annotation_north_arrow(location = "bl", which_north = "true", 
