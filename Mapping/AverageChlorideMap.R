@@ -75,9 +75,9 @@ SW.sf <- read_rds("Data/shapefiles/SW/SW.rds") %>%
          chloride_summer = mean((labSW %>% filter(season == "April - October"))$chloride_mgL, na.rm = TRUE),
          chloride_winter = mean((labSW %>% filter(season == "November - March"))$chloride_mgL, na.rm = TRUE))
 
+SH.sf
 
-
-tribs.sf <- bind_rows(YN.sf, YI.sf, YS.sf, SMC.sf, DC.sf, PBMS.sf, PBSF.sf, WIC.sf, SW.sf)  %>%
+tribs.sf <- bind_rows(YN.sf, YI.sf, YS.sf, SMC.sf, DC.sf, PBMS.sf, PBSF.sf, WIC.sf, SW.sf, SH.sf)  %>%
   dplyr::select(NAME, chloride_alltime, chloride_summer, chloride_winter, geometry) 
 lakes.sf <- bind_rows(ME.sf, MO.sf) %>%
   dplyr::select(NAME, chloride_alltime, chloride_summer, chloride_winter, geometry) 
@@ -102,10 +102,12 @@ map_labs <- all.chloride[!duplicated(all.chloride$NAME), ]
 #map of average chloride over entire study period
 ggplot(ME.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = all.chloride, aes(color = label, fill = label)) + 
-  geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_alltime,2))) +
-  scale_color_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
-  scale_fill_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  geom_sf(data = all.chloride, aes(color = chloride_alltime, fill = chloride_alltime)) + 
+  #geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_alltime,2))) +
+  #scale_color_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  #scale_fill_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  scale_color_viridis_c(option = "inferno") +
+  scale_fill_viridis_c(option = "inferno") +
   theme_bw() + 
   labs(color = "Average Chloride Concentration (mg/L)", x = "", y = "") +
   theme(legend.position= "none",
@@ -135,8 +137,8 @@ ggplot(ME.sf) +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = all.chloride, aes(color = label, fill = label)) + 
   geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_winter,2))) +
-  scale_color_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
-  scale_fill_manual(values = wes_palette("Darjeeling1", 11, "continuous")) +
+  scale_color_manual(values = wes_palette("Darjeeling1", 12, "continuous")) +
+  scale_fill_manual(values = wes_palette("Darjeeling1", 12, "continuous")) +
   theme_bw() + 
   labs(color = "Average Chloride Concentration (mg/L)", x = "", y = "") +
   theme(legend.position= "none",
