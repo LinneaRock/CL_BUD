@@ -5,38 +5,38 @@ Mendota_loads_by_ws <- readRDS("Data/sources_loads_by_ws.rds") %>%
   
   dplyr::select(c(-val2020, -val2021, -ratio_cl_drainage2020, -ratio_cl_drainage2021, -salt_ratio))
 
-YI_discharge <- YI_discharge %>%
+YI_discharge <- read_rds("Data/discharge/YI_discharge.rds")%>%
   add_season() %>%
   mutate(timestep = (date - lag(date)) * 60) %>% #timestep in seconds
   mutate(water_load = runningmeandis * timestep)
 
   
-YN_discharge <- YN_discharge %>%
+YN_discharge <- read_rds("Data/discharge/YN_discharge.rds") %>%
   add_season() %>%
   mutate(timestep = (date - lag(date)) * 60) %>% #timestep in seconds
   mutate(water_load = runningmeandis * timestep)
 
-SMC_discharge <- SMC_discharge %>%
+SMC_discharge <- read_rds("Data/discharge/SMC_discharge.rds") %>%
   add_season() %>%
   mutate(timestep = (date - lag(date)) * 60) %>% #timestep in seconds
   mutate(water_load = runningmeandis * timestep)
 
-DC_discharge <- DC_discharge %>%
+DC_discharge <- read_rds("Data/discharge/DC_discharge.rds") %>%
   add_season() %>%
   mutate(timestep = (date - lag(date)) * 60) %>% #timestep in seconds
   mutate(water_load = runningmeandis * timestep)
 
-PBMS_discharge <- PBMS_discharge %>%
+PBMS_discharge <- read_rds("Data/discharge/PBMS_discharge.rds") %>%
   add_season() %>%
   mutate(timestep = (date - lag(date)) * 60) %>% #timestep in seconds
   mutate(water_load = runningmeandis * timestep)
 
-SH_discharge_cond <- SH_discharge_cond %>%
+SH_discharge_cond <- d.sc.SH %>%
   add_season() %>%
   mutate(timestep = (date - lag(date)) * 60) %>% #timestep in seconds
   mutate(water_load = discharge * timestep)
 
-PBSF_discharge <- PBSF_discharge %>%
+PBSF_discharge <- read_rds("Data/discharge/PBSF_discharge.rds") %>%
   add_season() %>%
   mutate(timestep = (date - lag(date)) * 60) %>% #timestep in seconds
   mutate(water_load = discharge * timestep)
@@ -50,19 +50,31 @@ concentrations <- data.frame(
   ave_dis_non = c(mean((YI_discharge%>% filter(season == "April - October"))$runningmeandis), mean((YN_discharge%>% filter(season == "April - October"))$runningmeandis), mean((SMC_discharge%>% filter(season == "April - October"))$runningmeandis), mean((DC_discharge%>% filter(season == "April - October"))$runningmeandis, na.rm = TRUE), mean((PBMS_discharge%>% filter(season == "April - October"))$runningmeandis, na.rm = TRUE), mean((SH_discharge_cond %>% filter(season == "April - October"))$discharge, na.rm = TRUE), mean((PBSF_discharge%>% filter(season == "April - October"))$runningmeandis, na.rm = TRUE))
   )
 
+discharge_totals <- data.frame(
+  watershed = c("YI", "YN", "SMC", "DC", "PBMS", "SH", "PBSF"),
+  sum_discharge = c(sum(YI_discharge$water_load, na.rm = TRUE), sum(YN_discharge$water_load, na.rm = TRUE), sum(SMC_discharge$water_load, na.rm = TRUE), sum(DC_discharge$water_load, na.rm = TRUE), sum(PBMS_discharge$water_load, na.rm = TRUE), sum(SH_discharge_cond$discharge, na.rm = TRUE), sum(PBSF_discharge$water_load, na.rm = TRUE)),
+  sum_dis_salting = c(sum((YI_discharge%>% filter(season == "November - March"))$water_load, na.rm = TRUE), sum((YN_discharge%>% filter(season == "November - March"))$water_load, na.rm = TRUE), sum((SMC_discharge%>% filter(season == "November - March"))$water_load, na.rm = TRUE), sum((DC_discharge%>% filter(season == "November - March"))$water_load, na.rm = TRUE), sum((PBMS_discharge%>% filter(season == "November - March"))$water_load, na.rm = TRUE), sum((SH_discharge_cond %>% filter(season == "November - March"))$discharge, na.rm = TRUE), sum((PBSF_discharge%>% filter(season == "November - March"))$water_load, na.rm = TRUE)),
+  sum_dis_non = c(sum((YI_discharge%>% filter(season == "April - October"))$water_load, na.rm = TRUE), sum((YN_discharge%>% filter(season == "April - October"))$water_load, na.rm = TRUE), sum((SMC_discharge%>% filter(season == "April - October"))$water_load, na.rm = TRUE), sum((DC_discharge%>% filter(season == "April - October"))$water_load, na.rm = TRUE), sum((PBMS_discharge%>% filter(season == "April - October"))$water_load, na.rm = TRUE), sum((SH_discharge_cond %>% filter(season == "April - October"))$discharge, na.rm = TRUE), sum((PBSF_discharge%>% filter(season == "April - October"))$water_load, na.rm = TRUE))
+)
+
 Mendota_loads_by_ws <- Mendota_loads_by_ws %>%
-  left_join(concentrations, by = "watershed")
+  left_join(concentrations, by = "watershed") %>%
+  left_join(discharge_totals, by = "watershed")
+
 
 Mendota_loads_by_ws <- Mendota_loads_by_ws %>%
   filter(watershed != "PBSF")
 
+Mendota_loads_by_ws <- Mendota_loads_by_ws %>%
+  mutate(loadtodischarge = entireload/as.numeric(sum_discharge))
 
 #figure of ratio of total chloride loads vs drainage area with point sizes corresponding to relative road density ####
 ggplot(Mendota_loads_by_ws) +
-  geom_point(mapping = aes(DRNAREA, entireload, size = road_density_mha, color = ave_conc)) +
-  geom_smooth(method = "lm", mapping = aes(DRNAREA, entireload), se = FALSE) +
-  scale_color_viridis_c(option = "inferno") +
-  theme_minimal()
+  geom_point(mapping = aes(DRNAREA, entireload, size = road_density_mha)) +
+  geom_smooth(method = "lm", mapping = aes(DRNAREA, entireload), se = FALSE, color = "black", size = 0.5) +
+  scale_color_viridis_d(option = "inferno") +
+  theme_minimal()+
+  labs(x = "Watershed Size (ha)", y = "Mass Chloride (Mg)")
 
 summary(lm(entireload~DRNAREA, Mendota_loads_by_ws)) #r = 0.998, p = 1.414e-06
 
@@ -91,7 +103,10 @@ ggplot(Mendota_loads_by_ws, aes(DEVNLCD01, entire_ratio)) +
 
 summary(lm(entire_ratio~DEVNLCD01, Mendota_loads_by_ws)) #r = 0.91, p = 0.0018
 
-
+ggplot(Mendota_loads_by_ws, aes(sum_discharge, loadtodischarge)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  theme_minimal()
 
 #concentrations vs road density with sizes corresponding to relative drainage area size
 ggplot(Mendota_loads_by_ws) +

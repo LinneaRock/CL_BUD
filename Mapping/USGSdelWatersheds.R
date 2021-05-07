@@ -364,4 +364,26 @@ ggplot() +
 
 
 
-
+ggplot(gage.bb.sf) +
+  annotation_map_tile(type = world_gray, zoom = 12) +
+  geom_sf(wsDC, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsSMC, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsPBMS, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsSH, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsYN, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsYI, mapping = aes(), color = "black", fill = NA) +
+  theme_bw() + 
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + 
+  #labs(caption = "Figure X. City of Madison road salt application routes (data from City of Madison).") +
+  L_theme() +
+  theme(plot.caption = element_text(size = 10, hjust = 0),
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
