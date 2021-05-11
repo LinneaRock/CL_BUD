@@ -4,6 +4,6 @@
 
 splot <- function(folder, plotname) {
   
-ggsave(filename = paste("Plots/", folder, plotname, ".png", sep = ""), width = 20, height = 15, units = "cm")
+ggsave(filename = paste("Plots/", folder, plotname, ".png", sep = ""), width = 6.25, height = 4.25, units = "in")
   
 }

@@ -144,8 +144,8 @@ ggplot(world) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE) +
-  labs(caption = "Figure X. Swimming pool locations. Legend and colors indicate which waterbody the swimming pools discharge into.
-(Data from PHMDC).") + L_theme()
+  labs(caption = "Figure X. Swimming pool locations. Legend and colors indicate which waterbody the swimming 
+pools discharge into.(Data from PHMDC).") + L_theme()
 
 splot("swimming_pools/", "pool_locations")
 
@@ -317,11 +317,12 @@ Chloride_Mass_Load_SP <- left_join(annual_backflush_table, annual_drainage_table
 ggplot(Chloride_Mass_Load_SP) +
   geom_bar(aes(year, High_end, fill = "High end estimate"), stat = "identity") +
   geom_bar(aes(year, Low_end, fill = "Low end estimate"), stat = "identity") +
-  facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
+  #facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
-       y = "Chloride mass of pool effluent"~(Kg),
-       caption = "Figure X. Aggregated chloride mass in Kg from swimming pools. This figure represents the range of annual chloride mass contributions from swimming pools.
-  This figure is likely conservative since backflushing occurs at higher frequency during periods of heavy use.")+
+       y = "Chloride Mass"~(Kg),
+       caption = "Figure X. Aggregated chloride mass in Kg from swimming pool effluent. This figure 
+represents the range of annual chloride mass contributions from backflushing and 
+seasonal draining.")+
   L_theme() +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 

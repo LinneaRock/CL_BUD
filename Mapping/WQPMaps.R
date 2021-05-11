@@ -103,9 +103,10 @@ ggplot(gage.bb.sf) + # I don't know why but R aborts if I run this without this 
   geom_sf(wi_cl_sf, mapping = aes(color = group)) +
   coord_sf(crs = st_crs(4326)) +
   scale_color_viridis_d(option = "inferno", name = "Chloride Concentration"~(mg~L^-1)) +
-  labs(caption = "Figure X. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Less than 10 mg/L indicates 
-these are likely unaffected by anthropogenic chloride. 250 mg/L is the taste threshold, 395 mg/L is Wisconsin's 
-chronic toxicity threshold, and 757 mg/L is Wisconsin's acute toxicity threshold. Data from waterqualitydata.us.") +
+  labs(caption = "Figure X. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Less 
+than 10 mg/L indicates these are likely unaffected by anthropogenic chloride. 250 mg/L is the
+taste threshold, 395 mg/L is Wisconsin's chronic toxicity threshold, and 757 mg/L is
+Wisconsin's acute toxicity threshold. Data from waterqualitydata.us.") +
   theme(legend.title = element_text(size =10),
         panel.background = element_blank(), #element_rect(fill = "white", colour = "white"),
         plot.caption = element_text(size = 10, hjust = 0)) +
@@ -121,7 +122,7 @@ chronic toxicity threshold, and 757 mg/L is Wisconsin's acute toxicity threshold
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank())
         
-ggsave("Plots/statemap.png", height = 15, width = 20, units = "cm")
+ggsave("Plots/statemap.png", height = 4.25, width = 6.25, units = "in")
 
 # library(wesanderson)
 # zis <- wes_palette(6, name = "Zissou1", type = "continuous")

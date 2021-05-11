@@ -78,11 +78,11 @@ ggplot(crops) +
   scale_y_continuous(n.breaks = 10) +
   labs(x = "Soil potassium content",
        y = "Chloride Mass (Mg)",
-       caption = "Figure X. Range in chloride load in metric tonnes (Mg) from using potash (KCl) to fertilize crops. Estimates based on 
-the three major crop types and the range is based on recommended application rates for a range of potassium 
-content in the soil.")
+       caption = "Figure X. Range in chloride load in metric tonnes (Mg) from using potash (KCl) to fertilize 
+crops. Estimates based on the three major crop types and the range is based on 
+recommended application rates for a range of potassium content in the soil.")
 
-ggsave("Plots/crops.png", height = 15, width = 20, units = "cm")
+ggsave("Plots/crops.png", height = 4.25, width = 6.25, units = "in")
 
 
 #road salt by location
@@ -108,9 +108,9 @@ ggplot(road_salt_chloride_locations) +
   scale_y_continuous(n.breaks = 10) +
   labs(x = "",
        y = "Chloride Mass (Mg)",
-       caption = "Figure X. Mass of chloride in metric tonnes (Mg) from road salt application for the two study winters in different 
-areas of the watershed.")
+       caption = "Figure X. Mass of chloride in metric tonnes (Mg) from road salt application for the two 
+study winters in different areas of the watershed.")
 
-ggsave("Plots/road_salt_by_location.png", height = 15, width = 20, units = "cm")
+ggsave("Plots/road_salt_by_location.png", height = 4.25, width = 6.25, units = "in")
 
 sum((road_salt_chloride_locations %>% filter(year == "Winter 2019-2020"))$tonnes_chloride)

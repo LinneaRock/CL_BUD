@@ -124,9 +124,12 @@ cl_roads <- ggplot(TOTALS_BY_DATE %>% filter(year == "2019-2020" | year == "2020
   geom_bar(stat = "identity") +
   L_theme() +
   #scale_x_datetime(limits = c(datemin, datemax)) +
-  labs(x = "", y = "",
-       title = "Daily Chloride Load from Road Salting in Madison (Mg)")
+  labs(x = "", y = "Chloride Mass (Mg)",
+       caption = "Figure X. Daily mass of chloride in metric tonnes (Mg) from City of Madison road salt 
+application for winters 2019-2020 and 2020-2021.")
 
+
+ggsave("Plots/RoadSalt/dailymass.png", height = 4.25, width = 6.25, units = "in")
 
 
 
