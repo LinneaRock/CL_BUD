@@ -90,14 +90,13 @@ SH_ts_mass <- d.sc.SH %>%
   mutate(year_mon = paste(year(date), month(date), sep = "-")) %>%
   mutate(mon = months.POSIXt(date)) %>% #add months
   mutate(season = NA) %>% # add seasons
-  mutate(season = ifelse(mon == "October" |
+  mutate(season = ifelse(
                            mon == "November" |
                            mon == "December" |
                            mon == "January" |
                            mon == "February" |
-                           mon == "March" |
-                           mon == "April", "October - April", season),
-         season = ifelse(is.na(season), "May - September", season)) %>%
+                           mon == "March", "November - March", season),
+         season = ifelse(is.na(season), "April - October", season)) %>%
   mutate(season_id = NA) %>%
   mutate(season_id = ifelse(
     year_mon == "2019-12" | year_mon == "2020-1" | year_mon == "2020-2" | year_mon == "2020-3",

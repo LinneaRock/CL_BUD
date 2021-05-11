@@ -68,27 +68,33 @@ Mendota_loads_by_ws <- Mendota_loads_by_ws %>%
 Mendota_loads_by_ws <- Mendota_loads_by_ws %>%
   mutate(loadtodischarge = entireload/as.numeric(sum_discharge))
 
+options(scipen = 999)
 #figure of ratio of total chloride loads vs drainage area with point sizes corresponding to relative road density ####
 ggplot(Mendota_loads_by_ws) +
-  geom_point(mapping = aes(DRNAREA, entireload, size = road_density_mha)) +
+  geom_point(mapping = aes(DRNAREA, entireload, color = as.numeric(sum_discharge), size = DEVNLCD01)) +
   geom_smooth(method = "lm", mapping = aes(DRNAREA, entireload), se = FALSE, color = "black", size = 0.5) +
-  scale_color_viridis_d(option = "inferno") +
+  scale_color_viridis_c(option = "inferno", "Total Volume of Water (cubic meters)") + 
+  labs(size = "% Development") +
   theme_minimal()+
   labs(x = "Watershed Size (ha)", y = "Mass Chloride (Mg)")
 
 summary(lm(entireload~DRNAREA, Mendota_loads_by_ws)) #r = 0.998, p = 1.414e-06
+summary(lm(entireload~sum_discharge, Mendota_loads_by_ws)) #r = 0.98, p = 0.0001
 
 summary(lm(entireload~road_density_mha, Mendota_loads_by_ws)) #r=-0.087, p = 0.48
 summary(lm(entireload~DEVNLCD01, Mendota_loads_by_ws)) #r=-0.12, p = 0.53
 
 ggplot(Mendota_loads_by_ws, mapping = aes(DEVNLCD01,entireload)) +geom_point() +geom_smooth(method = "lm")
 
+summary(lm(maxconc~road_density_mha, Mendota_loads_by_ws)) # r = 0.93, p = 0.002
+summary(lm(maxconc~DEVNLCD01, Mendota_loads_by_ws)) # r = 0.87, p = 0.006
 
 #yield chloride as predicted by road density####
 ggplot(Mendota_loads_by_ws, aes(road_density_mha, entire_ratio)) +
-  geom_point(aes(size = DEVNLCD01)) +
-  geom_smooth(method = "lm", se = FALSE, color = "black") +
-  scale_color_viridis_c(option = "inferno") +
+  geom_point(aes(size = DEVNLCD01, color = watershed)) +
+  geom_smooth(method = "lm", se = FALSE, color = "black", size = 0.5) +
+  scale_color_viridis_d(option = "inferno", guide = FALSE) +
+  labs(x = "Road Density (m/ha)", y = "Yield (Mg/ha)", size = "% Development") +
   theme_minimal()
 
 summary(lm(entire_ratio~road_density_mha, Mendota_loads_by_ws)) #r = 0.97, p = 0.00028
