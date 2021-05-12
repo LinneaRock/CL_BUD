@@ -54,7 +54,10 @@ ggplot(labSH1, aes(runningmean, chloride_mgL)) +
   #stat_cor() + 
   #stat_regline_equation() + 
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
-       y = "\nChloride Concentration"~(mg~L^-1)) +
+       y = "\nChloride Concentration"~(mg~L^-1),
+       caption = "Figure X. Linear regression of chloride vs. conductivity in Spring Harbor from USGS 
+sampling done 2014-2016. Colors of points indicate sampling season as 
+April - October (non-salting) or November - March (salting).") +
   L_theme()
 splot("cl_cond_linear_regression/", "SH")
 

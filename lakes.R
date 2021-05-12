@@ -11,29 +11,6 @@ source("Functions/cond_compare.R")
 source("Functions/clseries.R")
 
 
-##lake data import####
-ME_Epi_cond_data <- read_rds("Data/HOBO_Loggers/MENDOTA/ME_Epi_cond_data.rds")
-ME_Hypo_cond_data <- read_rds("Data/HOBO_Loggers/MENDOTA/ME_Hypo_cond_data.rds")
-
-
-
-labME <- labME
-labMO <- labMO
-fieldcondME <- fieldcondME
-fieldcondMO <- fieldcondMO
-
-
-lakecond(ME_Epi_cond_data, ME_Hypo_cond_data, "Mendota 24m", "Mendota 1.5m") +
-  capt_scseries("Lake Mendota", "deep hole of Lake Mendota")
-splot("conductance_time_series/", "ME")
-
-ME_Epi_cond_plot <- cond(ME_Epi_cond_data) +
-  capt_scseries("Lake Mendota", "~2m below the surface in Lake Mendota")
-splot("conductance_time_series/", "ME_Epi")
-ME_Hypo_cond_plot <- cond(ME_Hypo_cond_data) +
-  capt_scseries("Lake Mendota", "1m off the bottom of Lake Mendota")
-splot("conductance_time_series/", "ME_Hypo")
-
 
 
 

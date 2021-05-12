@@ -62,7 +62,7 @@ splot("QC_plots/", "YI_cl")
 evalq(labYI, YI_discharge)
 
 #Linear Regression between Conductivity and Chloride
-YI_linreg_plot <- linreg(labYI, fieldcondYI, YI_cond_data) + labs(title = "YI")
+YI_linreg_plot <- linreg(labYI, fieldcondYI, YI_cond_data) #+ labs(title = "YI")
   #captlm('Yahara River @ Main St',"Yahara River at Main St", labYI, YI_cond_data)
 splot("cl_cond_linear_regression/", "YI")
 

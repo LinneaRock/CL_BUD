@@ -26,20 +26,21 @@ j <- labSH1 %>% mutate(ID = "SH") %>% rename(sp.cond.x = runningmean)
 
 all_tribs <- bind_rows(a, b, c, d, e, f, g, h, i, j)
 
-ggplot(all_tribs, aes(sp.cond.x, chloride_mgL)) +
+ggplot(all_tribs %>% filter(ID != "SH"), aes(sp.cond.x, chloride_mgL)) +
   geom_point(aes(color = ID)) + 
-  #scale_color_viridis_d(option = "inferno")  +
+  scale_color_viridis_d(option = "inferno")  +
   geom_smooth(method = "lm", se = FALSE, aes(color = ID)) +
-  scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")) +
+  #scale_color_manual(values = wes_palette("Darjeeling1", 10, "continuous")) +
   #stat_cor() + 
   #stat_regline_equation() + 
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
        y = "\nChloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Linear regressions of chloride vs. conductivity for all tributaries in the Upper Yahara River Watershed.") +
+       caption = "Figure X. Linear regressions of chloride vs. conductivity for all tributaries in the Upper 
+Yahara River Watershed.") +
   L_theme() 
   
 #ggsave("Plots/figsforpres/all_tribs.png", height = 15, width = 20, units = "cm")
-ggsave("Plots/cl_cond_linear_regression/all_tribs.png", height = 15, width = 20, units = "cm")
+ggsave("Plots/cl_cond_linear_regression/all_tribs.png", height = 4.25, width = 6.25, units = "in")
 
 
 #linear regressions patched

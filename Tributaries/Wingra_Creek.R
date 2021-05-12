@@ -63,7 +63,7 @@ splot("QC_plots/", "WIC_cl")
 evalq(labWIC, WIC_discharge)
 
 #Linear Regression between Conductivity and Chloride
-WIC_linreg_plot <- linreg(labWIC, fieldcondWIC, WIC_cond_data) + labs(title = "WIC")
+WIC_linreg_plot <- linreg(labWIC, fieldcondWIC, WIC_cond_data) #+ labs(title = "WIC")
   #captlm('Wingra Creek',"Wingra Creek at Monona Inlet", labWIC, WIC_cond_data)
 splot("cl_cond_linear_regression/", "WIC")
 

@@ -85,7 +85,7 @@ splot("QC_plots/", "PBSF_cl")
 evalq(labPBSF, PBSF_discharge)
 
 #Linear Regression between Conductivity and Chloride
-PBSF_linreg_plot <- linreg(labPBSF, fieldcondPBSF, PBSF_cond_data) + labs(title = "PBSF")
+PBSF_linreg_plot <- linreg(labPBSF, fieldcondPBSF, PBSF_cond_data) #+ labs(title = "PBSF")
   #captlm('Pheasant Branch South Fork',"Pheasant Branch South Fork", labPBSF, PBSF_cond_data)
 splot("cl_cond_linear_regression/", "PBSF")
 

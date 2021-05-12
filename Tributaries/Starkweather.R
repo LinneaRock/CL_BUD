@@ -51,7 +51,7 @@ splot("chloride_time_series/", "SW")
 
 
 #Linear Regression between Conductivity and Chloride
-SW_linreg_plot <- linreg(labSW,fieldcond6MC, SW_cond_data) + labs(title = "SW")
+SW_linreg_plot <- linreg(labSW, fieldcondSW, SW_cond_data)# + labs(title = "SW")
   #captlm('Starkweather Creek',"Starkweather Creek at Olbrich Garden", labSW, SW_cond_data)
 splot("cl_cond_linear_regression/", "SW")
 
