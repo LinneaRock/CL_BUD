@@ -102,6 +102,7 @@ all.chloride$label =  factor(all.chloride$chloride_alltime, levels = unique(all.
 #for labels
 map_labs <- all.chloride[!duplicated(all.chloride$NAME), ]
 
+map_labs <-
 
 #map of average chloride over entire study period
 ggplot(gage.bb.sf) + 
@@ -199,6 +200,7 @@ ggplot(gage.bb.sf) +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = all.chloride, aes(color = chloride_alltime, fill = chloride_alltime)) + 
   geom_sf(data = SH.sf, aes(color = chloride_alltime, fill = chloride_alltime)) +
+  #geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_alltime,2))) +
   scale_color_viridis_c(option = "inferno", "Median Chloride Concentration (mg/L)") +
   scale_fill_viridis_c(option = "inferno", guide = FALSE) +
   theme_bw() + # Hilary's default theme
@@ -208,4 +210,7 @@ ggplot(gage.bb.sf) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  theme(plot.caption = element_text(size = 10, hjust = 0))
+  theme(plot.caption = element_text(size = 10, hjust = 0)) +
+  labs(caption = "Figure X. Map of median chloride concentrations across the Upper Yahara River Watershed.")
+
+ggsave("Plots/medianmap.png", width = 6.25, height = 4.25, units = "in")

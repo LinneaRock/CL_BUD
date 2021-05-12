@@ -329,7 +329,10 @@ ggsave("Plots/chloride_loading/WIC/seasonal_load.png", height = 15, width = 20, 
 
 
 ####SH loading -- run the code in WC&SH.R first
-SH_daily_mass <- chloride_daily_mass(SH_ts_mass)
+SH_ts_mass <- SH_ts_mass %>% 
+  filter(date < as.POSIXct("2021-04-10 12:00:00")) %>%
+  filter(date > as.POSIXct("2019-12-18 00:00:00"))
+SH_daily_mass <- chloride_daily_mass(SH_ts_mass) 
 SH_monthly_mass <- chloride_monthly_load(SH_ts_mass)
 SH_seasonal_mass <- chloride_seasonal_load(SH_ts_mass)
 SH_annual_mass <- chloride_annual_load(SH_ts_mass)
@@ -363,29 +366,77 @@ ggsave("Plots/chloride_loading/SH/seasonal_load.png", height = 15, width = 20, u
 
 
 
-#concentrations plot - Lake Mendota Watershed
-TS_ME <- bind_rows(SH_ts_mass %>% mutate(ID = "SH"), PBSF_ts_mass %>% mutate(ID = "PBSF"), PBMS_ts_mass %>% mutate(ID = "PBMS"), YN_ts_mass %>% mutate(ID = "YN"), DC_ts_mass %>% mutate(ID = "DC"), SMC_ts_mass %>% mutate(ID = "SMC"))
+#concentrations plot - Lake Mendota Watershed inlets
+TS_ME <- bind_rows(SH_ts_mass %>% mutate(ID = "SH"), PBSF_ts_mass %>% mutate(ID = "PBSF"), PBMS_ts_mass %>% mutate(ID = "PBMS"), YN_ts_mass %>% mutate(ID = "YN"), DC_ts_mass %>% mutate(ID = "DC"), SMC_ts_mass %>% mutate(ID = "SMC")) %>%
+  filter(date < as.POSIXct("2021-04-10 12:00:00")) %>%
+  filter(date > as.POSIXct("2019-12-18 00:00:00"))
 
 
 ggplot(TS_ME) +
   geom_line(aes(date, chloride_use_mgL)) +
   facet_wrap(~ID, scales = "free_y") +
-  labs(x = "", y = "Chloride Concentration"~(mg~L~^-1),
-       caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake Mendota.")
+  labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
+       caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake 
+Mendota. Note: PBSF flows into PBMS, rather than being a direct tributary to Lake 
+Mendota.") +
+  L_theme() +
+  scale_x_datetime(date_breaks = "3 months", date_labels = "%Y-%m") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
+  
+ggsave("Plots/chloride_time_series/ME_inlets.png", height = 4.25, width = 6.25, units = "in")
+
+#concentrations plot - Lake Monona inlets
+TS_MO <- bind_rows(YI_ts_mass %>% mutate(ID = "YI"), SW_ts_mass %>% mutate(ID = "SW"), WIC_ts_mass %>% mutate(ID = "WIC"))  %>%
+  filter(date < as.POSIXct("2021-04-10 12:00:00")) %>%
+  filter(date > as.POSIXct("2019-12-18 00:00:00"))
+
+
+ggplot(TS_MO) +
+  geom_line(aes(date, chloride_use_mgL)) +
+  facet_wrap(~ID, scales = "free_y") +
+  labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
+       caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake 
+Monona. Note: YI is also the outlfow of Lake Mendota.") +
+  L_theme() +
+  scale_x_datetime(date_breaks = "3 months", date_labels = "%Y-%m") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+ggsave("Plots/chloride_time_series/MO_inlets.png", height = 4.25, width = 6.25, units = "in")
+
+#outlet lake Monona
+ggplot(YS_ts_mass %>% filter(chloride_use_mgL > 60)) +
+  geom_line(aes(date, chloride_use_mgL)) +
+  labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
+       caption = "Figure X. Estimated chloride concentration timeseries for the Yahara River outflow of
+Lake Monona.") +
+  L_theme() +
+  scale_x_datetime(date_breaks = "3 months", date_labels = "%Y-%m") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+ggsave("Plots/chloride_time_series/MO_outlet(YI).png", height = 4.25, width = 6.25, units = "in")
 
 
 
+#histograms of concentrations
+all_ts <- bind_rows(TS_ME, TS_MO, YS_ts_mass) %>%
+  group_by(ID) %>%
+  mutate(median = median(chloride_use_mgL, na.rm = TRUE)) %>%
+  ungroup()
 
 
 
-
-
-
-
-
-
-
+ggplot(all_ts, aes(x=chloride_use_mgL, group = ID)) +
+  geom_histogram() +
+  facet_wrap(~ID, scales = "free") +
+  labs(x = "Chloride Concentration"~(mg~L^-1), y = "Count", 
+       caption = "Figure X. Histograms of chloride concentrations calculated using equations from linear 
+regressions and continuous conductivity data.") +
+  L_theme()
+  
+ggsave("Plots/chloride_loading/histograms.png", height = 4.25, width = 6.25, units = "in")
 
 
 

@@ -73,10 +73,14 @@ options(scipen = 999)
 ggplot(Mendota_loads_by_ws) +
   geom_point(mapping = aes(DRNAREA, entireload, color = as.numeric(sum_discharge), size = DEVNLCD01)) +
   geom_smooth(method = "lm", mapping = aes(DRNAREA, entireload), se = FALSE, color = "black", size = 0.5) +
-  scale_color_viridis_c(option = "inferno", "Total Volume of Water (cubic meters)") + 
-  labs(size = "% Development") +
+  scale_color_viridis_c(option = "inferno", "Total Volume of Water"~(m^3)) + 
+  labs(size = "% Development",
+       caption = "Figure X. Roles played by watershed size, volume of water flowing, and percentage of 
+development in total chloride mass loading.") +
   theme_minimal()+
-  labs(x = "Watershed Size (ha)", y = "Mass Chloride (Mg)")
+  labs(x = "Watershed Size (ha)", y = "Mass Chloride (Mg)") +L_theme()
+
+ggsave("Plots/mass_watershed.png", height = 4.25, width = 6.25, units = "in")
 
 summary(lm(entireload~DRNAREA, Mendota_loads_by_ws)) #r = 0.998, p = 1.414e-06
 summary(lm(entireload~sum_discharge, Mendota_loads_by_ws)) #r = 0.98, p = 0.0001
@@ -91,14 +95,16 @@ summary(lm(maxconc~DEVNLCD01, Mendota_loads_by_ws)) # r = 0.87, p = 0.006
 
 #yield chloride as predicted by road density####
 ggplot(Mendota_loads_by_ws, aes(road_density_mha, entire_ratio)) +
-  geom_point(aes(size = DEVNLCD01, color = watershed)) +
+  geom_point(aes(size = DEVNLCD01)) +
   geom_smooth(method = "lm", se = FALSE, color = "black", size = 0.5) +
   scale_color_viridis_d(option = "inferno", guide = FALSE) +
-  labs(x = "Road Density (m/ha)", y = "Yield (Mg/ha)", size = "% Development") +
-  theme_minimal()
+  labs(x = "Road Density"~(m~ha^-1), y = "Yield"~(Mg~ha^-1), size = "% Development") +
+  theme_minimal() +
+  labs(caption = "Figure X. Roles played by road density and percentage of development in chloride yield.") + L_theme()
+
+ggsave("Plots/yields.png", height = 4.25, width = 6.25, units = "in")
 
 summary(lm(entire_ratio~road_density_mha, Mendota_loads_by_ws)) #r = 0.97, p = 0.00028
-
 
 #yield chloride as predicted by development####
 ggplot(Mendota_loads_by_ws, aes(DEVNLCD01, entire_ratio)) +

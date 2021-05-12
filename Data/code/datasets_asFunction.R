@@ -132,7 +132,7 @@ lab6MC <- readCL("6MC")
 labDC <- readCL("DC")
 labPBMS <- readCL("PBMS")
 labPBSF <- readCL("PBSF")
-labME <- readCL("ME")# %>% select(1:5, 7:10)
+labME <- readCL("ME") %>% dplyr::select(1:5, 7:10)
 labMO <- readCL("MO")
 
 fieldclWIC <- readfieldcl("WIC")
