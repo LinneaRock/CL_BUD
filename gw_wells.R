@@ -65,9 +65,10 @@ ggplot(all_wells, aes(Year, values, group = Year, fill = Aquifer)) +
   theme(legend.position = "none",
         strip.background =element_rect(fill="white")) +
   scale_fill_manual(values = c("#C4CFD0","#1DACE8")) + 
-  labs(caption = "Figure X. Chloride concentrations in Madison's groundwater drinking wells every five years from 1995-2018. Numbers 
-in boxes indicate how many wells were included. Chloride in wells with short casings that draw from upper and 
-lower aquifers show an increasing chloride trend. Chloride in wells with deep casing that draw from lower aquifers 
+  labs(caption = "Figure X. Chloride concentrations in Madison's groundwater drinking wells every five years 
+from 1995-2018. Numbers in boxes indicate how many wells were included. Chloride in
+wells with short casings that draw from upper and lower aquifers show an increasing
+chloride trend. Chloride in wells with deep casing that draw from lower aquifers 
 only show no trend (Wenta, 2020; Wenta & Sorsa, 2011).",
                   theme = theme(text = element_text(size = 10, hjust = 0))) 
 

@@ -26,7 +26,7 @@ ion <- function(df, X, axislabel) {
 ion_cl <- function(x, axislabel) {
   ggplot(x %>% filter(item == "cl"), aes(sampledate, value)) +
     geom_point(aes(color = lakeid), size = 0.5) +
-    geom_smooth(aes(group = lakeid, color = lakeid), se = FALSE, size = 1) +
+    geom_smooth(aes(group = lakeid, color = lakeid), se = FALSE, size = 0.5) +
     labs(x = "", y = axislabel)+
     ylim(0, 175) +
     theme(legend.title = element_blank(), legend.position = "top",
@@ -47,7 +47,7 @@ ion_cl <- function(x, axislabel) {
 ion_other <- function(x, y, axislabel) {
   ggplot(x %>% filter(item == y), aes(sampledate, value)) +
     geom_point(aes(color = lakeid), size = 0.5) +
-    geom_smooth(aes(group = lakeid, color = lakeid), se = FALSE, size = 1) +
+    geom_smooth(aes(group = lakeid, color = lakeid), se = FALSE, size = 0.5) +
     labs(x = "", 
          y = axislabel)+
     theme(

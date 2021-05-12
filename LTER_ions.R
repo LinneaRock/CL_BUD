@@ -58,8 +58,9 @@ ionplot <- (cl | na) /
   (ca | mg) /
   (so4 | k) +
   plot_annotation(#tag_levels = 'a',tag_suffix = ')',
-                  caption = "Figure X. Major ion concentrations in Lakes Mendota and Monona from 1995 . All units are mg/L. Besides chloride and 
-sodium, no other ions show long term increasing trends in these lakes (Data source: N.Lead PI et al. (2019).",
+                  caption = "Figure X. Major ion concentrations in Lakes Mendota and Monona from 1995 . All units are mg/L. 
+Besides chloride and sodium, no other ions show long term increasing trends in these lakes (Data: 
+N.Lead PI et al. (2019).",
                   theme = theme(plot.tag = element_text(size = 10), 
                                 plot.caption = element_text(size = 10, hjust = 0)))
 
@@ -68,6 +69,6 @@ sodium, no other ions show long term increasing trends in these lakes (Data sour
 ionplot
 
 
-ggsave("Plots/ME_MO_ions.png", width = 20, height = 20, units = "cm")
+ggsave("Plots/ME_MO_ions.png", width = 6.25, height = 6.25, units = "in")
 
 summary(lm(value~sampledate, ME_MO_ion%>% filter(item == "so4")))
