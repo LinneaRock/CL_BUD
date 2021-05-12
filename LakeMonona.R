@@ -38,6 +38,102 @@ lakecond(MO_Epi_cond_data_21, MO_Hypo_cond_data_21, "Monona 20m", "Monona 1.5m")
 splot("conductance_time_series/", "MO_20-21")
 
 
+#Get multiple linear regression information
+#field measurements of conductivity
+fieldcondMO <- fieldcondMO %>%
+  mutate(depth = ifelse(depth == 1.5, 2, depth)) %>%
+  rename(Depth_m = depth) %>%
+  mutate(Date = as.Date(date)) #formatting simple date for joinign
+
+#chloride data 
+labMO <- labMO  %>%
+  mutate(Date = as.Date(date)) #formatting simple date for joinign
+
+#joinign chloride with matching conductivity. Some manaul matching for 2-27-2020
+chloride_cond_MO <- labMO %>%
+  full_join(fieldcondMO, by = c("Date", "Depth_m", "ID")) %>%
+  dplyr::select(Date, Depth_m, sp.cond, chloride_mgL, datetime_collected) %>%
+  mutate(sp.cond = ifelse(Date == "2020-02-27" & Depth_m == 0, (MO_Epi_cond_data_20 %>% filter(date == as.POSIXct("2020-02-27 12:15:00", tz = "ETC/GMT-6")))$runningmean, sp.cond),
+         sp.cond = ifelse(Date == "2020-02-27" & Depth_m == 20, (MO_Hypo_cond_data_20 %>% filter(date == as.POSIXct("2020-02-27 12:15:00", tz = "ETC/GMT-6")))$runningmean, sp.cond)) %>%
+  drop_na()
+
+#regression to predict chloride as a function of both specific conductivity and depth
+summary(lm(chloride_mgL~sp.cond +Depth_m, chloride_cond_MO)) #r =0.6365, p = 8.832e-06
+
+#multiple linear regression models to get coefficients, etc.
+library(purrr)
+library(broom)
+MO_purrr <- chloride_cond_MO %>%
+  nest(data = -Depth_m) %>%
+  mutate(model = map(.x = data,
+                     .f = ~ lm(chloride_mgL~sp.cond, data = .x)),
+         tidy_model = map(.x = model,
+                          .f = ~tidy(.x))) %>%
+  unnest(tidy_model) %>%
+  arrange(Depth_m)
+
+#the regression figure
+ggplot(chloride_cond_MO) +
+  geom_point(aes(sp.cond, chloride_mgL)) +
+  geom_smooth(aes(sp.cond, chloride_mgL, group = Depth_m, color = Depth_m), method = "lm", se = FALSE) +
+  scale_color_viridis_c(option = "inferno") +
+  theme_minimal() +
+  labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"",
+       y = "Chloride Concentration"~(mg~L^-1),
+       caption = "Figure X. Multiple linear regression of chloride concentration in Lake Monona as a function 
+of both conductivity and depth.") +
+  L_theme()
+
+ggsave("Plots/cl_cond_linear_regression/Monona_multiplereg.png", width = 6.25, height = 4.25, units = "in")
+
+
+#chloride estimate for epi and hypo during winter 2019-2020, 2020-2021
+MO_winter_chloride <- rbind(MO_Epi_cond_data_20 %>% mutate(Depth_m = 0), MO_Hypo_cond_data_20 %>% mutate(Depth_m = 20), MO_Epi_cond_data_21 %>% mutate(Depth_m = 0), MO_Hypo_cond_data_21 %>% mutate(Depth_m = 20)) %>%
+  mutate(chloride_use_mgL = ifelse(Depth_m == 0,
+                                   runningmean * (MO_purrr %>% filter(Depth_m == 0 &
+                                                                        term == "sp.cond"))$estimate + (MO_purrr %>% filter(Depth_m == 0 &
+                                                                                                                              term == "(Intercept)"))$estimate, 
+                                   NA
+  )) %>%
+  mutate(chloride_use_mgL = ifelse(Depth_m == 20,
+                                   runningmean * (MO_purrr %>% filter(Depth_m == 20 &
+                                                                        term == "sp.cond"))$estimate + (MO_purrr %>% filter(Depth_m == 20 &
+                                                                                                                              term == "(Intercept)"))$estimate, 
+                                   chloride_use_mgL
+  ))
+
+ggplot(MO_winter_chloride) +
+  geom_point(aes(date, chloride_use_mgL, color = Depth_m))
+
+
+ggplot() +
+  geom_point(labMO, mapping = aes(as.POSIXct(Date), Depth_m, color = chloride_mgL)) +
+  geom_point(MO_winter_chloride, mapping = aes(date, Depth_m, color = chloride_use_mgL)) +
+  scale_color_viridis_c(option = "inferno") +
+  scale_y_reverse() +
+  labs(x = "", y = "Depth (m)", color = "Chloride Concentration"~(mg~L^-1),
+       caption = "Figure X. Chloride concentration profiles in Lake Monona throughout the study period.")  +
+  L_theme() 
+
+
+ggsave("Plots/chloride_time_series/Monona_alldata.png", height = 4.25, width = 6.25, units = "in")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 p1 <- cond(MO_Epi_cond_data_20) + ylim(500, 700) + labs(x = "", y = "Epilimnion",
                                                         title = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C) 
   

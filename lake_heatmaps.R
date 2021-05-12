@@ -1,13 +1,15 @@
 source("Functions/interpolate_for_heatmap.R")
 
 #formatting chloride data to make this work (just study period)
-labME2 <- labME %>%
+labME2 <- labME %>% bind_rows(ME_profile_chloride %>% rename(chloride_mgL = chloride_use_mgL)) %>%
+  bind_rows(ME_winter_chloride %>% rename(chloride_mgL = chloride_use_mgL) %>% mutate(Date = as.Date(date))) %>%
   separate(date, c("date", "time"), sep = " ") %>%
-  mutate(sampledate = as.Date(date))  %>%
+  mutate(sampledate = Date)  %>%
   rename(depth = Depth_m) %>%
-  select(sampledate, depth, chloride_mgL)
+  select(sampledate, depth, chloride_mgL) %>%
+  drop_na(chloride_mgL)
 
-###try with all Mendota data??? -- use ME_mass
+###try with LTER data-- use ME_mass
 labME2 <- ME_mass %>%
   dplyr::select(sampledate, depth, chloride_mgL) %>%
   drop_na(chloride_mgL)
@@ -30,34 +32,44 @@ f2 = bind_cols(depth = c(0, 5, 10, 15, 20, 23.5),f) %>%
 
 # Heat map 
 ggplot() +
-  guides(fill = guide_colorsteps(barheight = unit(10, "cm"))) +
-  geom_contour_filled(f2, mapping = aes(x = sampledate, y = depth, z = var), binwidth = 5) +
+  guides(fill = guide_colorsteps(barheight = unit(3, "in"))) +
+  geom_contour_filled(f2, mapping = aes(x = sampledate, y = depth, z = var), binwidth = 1) +
   geom_point(labME2, mapping = aes(sampledate, depth), color = "#C4CFD0") +
   theme_minimal() +
   scale_y_reverse() +
   scale_fill_viridis_d(option = "inferno") +
-  labs(title= "Lake Mendota", x = "", y = "Depth (m)", fill = "Chloride Concentration"~(mg~L^-1)) +
-  #caption = "Figure X. Chloride concentrations (mg/L) in Lake Mendota over study period. Grey points indicate dates and where 
-  #in the water column water samples were taken and analyzed for chloride.") +
+  labs(x = "", y = "Depth (m)", fill = "Chloride Concentration"~(mg~L^-1), 
+  caption = "Figure X. Chloride concentrations (mg/L) in Lake Mendota over study period. Grey points 
+indicate dates and where in the water column water samples were taken and analyzed for 
+chloride.") +
   theme(plot.caption = element_text(size = 10, hjust = 0), 
         axis.text = element_text(size = 10),
-        axis.title = element_text(size = 10)) +
-  scale_x_date(date_breaks = "3 years", date_labels = "%Y") 
+        axis.title = element_text(size = 10)) #+
+  #scale_x_date(date_breaks = "6 months", date_labels = "%Y-%M") 
 
-#ggsave("Plots/chloride_time_series/mendota_heatmap.png", height = 15, width = 20, units = "cm")
-ggsave("Plots/figsforpres/cl_annual_change/mendota_heatmap.png", height = 15, width = 30, units = "cm")
+ggsave("Plots/chloride_time_series/mendota_heatmap.png", height = 4.25, width = 6.25, units = "in")
+#ggsave("Plots/figsforpres/cl_annual_change/mendota_heatmap.png", height = 4.25, width = 6.25, units = "in")
 
 
-###Monona data
-labME2 <- MO_mass %>%
+
+###Monona data LTER
+labMo2 <- MO_mass %>%
   dplyr::select(sampledate, depth, chloride_mgL) %>%
+  drop_na(chloride_mgL)
+#Monona collected data
+labMO2 <- labMO %>%
+  bind_rows(MO_winter_chloride %>% rename(chloride_mgL = chloride_use_mgL) %>% mutate(Date = as.Date(date))) %>%
+  separate(date, c("date", "time"), sep = " ") %>%
+  mutate(sampledate = Date)  %>%
+  rename(depth = Depth_m) %>%
+  select(sampledate, depth, chloride_mgL) %>%
   drop_na(chloride_mgL)
 
 maxdepth = 20 # Should be depth of lowest sample, not necessarily depth of lake 
-usedates = labME2 %>%
+usedates = labMO2 %>%
   dplyr::distinct(sampledate) 
 
-f <- lapply(X = usedates$sampledate, FUN = interpData, observationDF = labME2,
+f <- lapply(X = usedates$sampledate, FUN = interpData, observationDF = labMO2,
             maxdepth = maxdepth)
 
 f = as.data.frame(do.call(cbind, f))
@@ -71,19 +83,20 @@ f2 = bind_cols(depth = c(0,4, 8, 12, 16, 20),f) %>%
 
 # Heat map 
 ggplot() +
-  guides(fill = guide_colorsteps(barheight = unit(10, "cm"))) +
+  guides(fill = guide_colorsteps(barheight = unit(3, "in"))) +
   geom_contour_filled(f2, mapping = aes(x = sampledate, y = depth, z = var), binwidth = 20) +
-  geom_point(labME2, mapping = aes(sampledate, depth), color = "#C4CFD0") +
+  geom_point(labMO2, mapping = aes(sampledate, depth), color = "#C4CFD0") +
   theme_minimal() +
   scale_y_reverse() +
   scale_fill_viridis_d(option = "inferno") +
-  labs(title = "Lake Monona", x = "", y = "Depth (m)", fill = "Chloride Concentration"~(mg~L^-1)) +
-  #caption = "Figure X. Chloride concentrations (mg/L) in Lake Mendota over study period. Grey points indicate dates and where 
-  #in the water column water samples were taken and analyzed for chloride.") +
+  labs(title = "Lake Monona", x = "", y = "Depth (m)", fill = "Chloride Concentration"~(mg~L^-1),
+  caption = "Figure X. Chloride concentrations (mg/L) in Lake Monona over study period. Grey points 
+indicate dates and where in the water column water samples were taken and analyzed for 
+chloride.") +
   theme(plot.caption = element_text(size = 10, hjust = 0), 
         axis.text = element_text(size = 10),
         axis.title = element_text(size = 10))  +
   scale_x_date(date_breaks = "3 years", date_labels = "%Y") 
 
-#ggsave("Plots/chloride_time_series/mendota_heatmap.png", height = 15, width = 20, units = "cm")
-ggsave("Plots/figsforpres/cl_annual_change/monona_heatmap.png", height = 15, width = 30, units = "cm")
+ggsave("Plots/chloride_time_series/monona_heatmap.png", height = 4.25, width = 6.25, units = "in")
+#ggsave("Plots/figsforpres/cl_annual_change/monona_heatmap.png", height = 15, width = 30, units = "cm")

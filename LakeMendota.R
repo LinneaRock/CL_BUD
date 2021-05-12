@@ -145,8 +145,17 @@ ME_profile_chloride <- ME_profile %>%
   ))
 
 
-clseries(labME) + geom_point(mapping = aes(color = Depth_m)) +
-  geom_point(ME_profile_chloride, mapping = aes(as.POSIXct(Date), chloride_use_mgL, color = Depth_m)) +
+ggplot() +
+  geom_point(labME, mapping = aes(as.POSIXct(Date), Depth_m, color = chloride_mgL)) +
+  geom_point(ME_profile_chloride %>% filter(!is.na(chloride_use_mgL)), mapping = aes(as.POSIXct(Date), Depth_m, color = chloride_use_mgL)) +
+  geom_point(ME_winter_chloride, mapping = aes(date, Depth_m, color = chloride_use_mgL)) +
   scale_color_viridis_c(option = "inferno") +
-  capt_clseries("Mendota", "Lake Mendota")
+  scale_y_reverse() +
+  labs(x = "", y = "Depth (m)", color = "Chloride Concentration"~(mg~L^-1),
+       caption = "Figure X. Chloride concentration profiles in Lake Mendota throughout the study period.")  +
+  L_theme() 
+  
+
+ggsave("Plots/chloride_time_series/Mendota_alldata.png", height = 4.25, width = 6.25, units = "in")
+
 

@@ -102,7 +102,8 @@ simpleregtable <- gt_tbl %>%
     P_value = "P-Value"
   ) %>%
   tab_header(
-    title = "Chloride - Specific Conductivity Linear Regression Statistics",
+    title = "Chloride - Specific Conductivity Linear Regression Statistics") %>%
+  tab_source_note(source_note = "Table X."
   ); simpleregtable
 
 # whitespace can be set, zoom sets resolution
@@ -123,6 +124,33 @@ info(labYI, fieldcondYI, YI_cond_data)
 info(labWIC, fieldcondWIC, WIC_cond_data)
 info(labSW, fieldcondSW, SW_cond_data)
 info(labYS, fieldcondYS, YS_cond_data)
+
+
+
+#stats table for the lakes multiple linear regressions
+#make the table
+lake_stats <- data.frame(
+  Lake = c("Lake Mendota", 'Lake Monona'),
+  R = c(0.17, 0.64),
+  P = c("<0.05", "<0.001")
+)
+
+gt_tbl <- gt(lake_stats)
+simpleregtable <- gt_tbl %>%
+  cols_label(
+    Lake = "Lake Name",
+    R = html("R<sup>2<sup>"),
+    P = "P-Value"
+  ) %>%
+  tab_header(
+    title = "Multiple Regression Statistics",
+    subtitle = "Chloride concentration as a function of conductivity and depth") %>%
+  tab_source_note(source_note = "Table X."
+  ); simpleregtable
+
+# whitespace can be set, zoom sets resolution
+gtsave(data = simpleregtable, "Plots/cl_cond_linear_regression/Lakestats_tbl.png", expand = 10, zoom = 10)
+
 
 
 

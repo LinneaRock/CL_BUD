@@ -9,6 +9,6 @@ theme(panel.background = element_rect(fill = "white", colour = "white",
       axis.text = element_text(size = 10),
       axis.title = element_text(size = 10),
       plot.caption = element_text(size = 10, hjust = 0),
-      legend.title = element_blank(),
+      #legend.title = element_blank(),
       plot.title = element_text(size = 10, face = "plain")) 
 }

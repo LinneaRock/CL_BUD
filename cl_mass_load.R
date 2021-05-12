@@ -11,7 +11,7 @@ YN_seasonal_mass <- chloride_seasonal_load(YN_ts_mass)
 YN_annual_mass <- chloride_annual_load(YN_ts_mass)
 
 #YN chloride mass loading plots
-concentration_ts(YN_ts_mass, "Yahara North")
+YN <- concentration_ts(YN_ts_mass, "Yahara North")
 ggsave("Plots/chloride_loading/YN/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(YN_ts_mass, "Yahara North")
@@ -46,7 +46,7 @@ YI_seasonal_mass <- chloride_seasonal_load(YI_ts_mass)
 YI_annual_mass <- chloride_annual_load(YI_ts_mass)
 
 #YI chloride mass loading plots
-concentration_ts(YI_ts_mass, "Yahara Isthmus")
+YI <- concentration_ts(YI_ts_mass, "Yahara Isthmus")
 ggsave("Plots/chloride_loading/YI/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(YI_ts_mass, "Yahara Isthmus")
@@ -82,7 +82,7 @@ YS_seasonal_mass <- chloride_seasonal_load(YS_ts_mass)
 YS_annual_mass <- chloride_annual_load(YS_ts_mass)
 
 #YS chloride mass loading plots
-concentration_ts(YS_ts_mass, "Yahara South")
+YS <- concentration_ts(YS_ts_mass, "Yahara South")
 ggsave("Plots/chloride_loading/YS/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(YS_ts_mass, "Yahara South")
@@ -118,7 +118,7 @@ SMC_seasonal_mass <- chloride_seasonal_load(SMC_ts_mass)
 SMC_annual_mass <- chloride_annual_load(SMC_ts_mass)
 
 #SMC chloride mass loading plots
-concentration_ts(SMC_ts_mass, "Sixmile Creek")
+SMC <- concentration_ts(SMC_ts_mass, "Sixmile Creek")
 ggsave("Plots/chloride_loading/SMC/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(SMC_ts_mass, "Sixmile Creek")
@@ -154,7 +154,7 @@ DC_seasonal_mass <- chloride_seasonal_load(DC_ts_mass)
 DC_annual_mass <- chloride_annual_load(DC_ts_mass)
 
 #DC chloride mass loading plots
-concentration_ts(DC_ts_mass, "Dorn Creek")
+DC <- concentration_ts(DC_ts_mass, "Dorn Creek")
 ggsave("Plots/chloride_loading/DC/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(DC_ts_mass, "Dorn Creek")
@@ -190,7 +190,7 @@ PBMS_seasonal_mass <- chloride_seasonal_load(PBMS_ts_mass)
 PBMS_annual_mass <- chloride_annual_load(PBMS_ts_mass)
 
 #PBMS chloride mass loading plots
-concentration_ts(PBMS_ts_mass, "Pheasant Branch Main Stem")
+PBMS <- concentration_ts(PBMS_ts_mass, "Pheasant Branch Main Stem")
 ggsave("Plots/chloride_loading/PBMS/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(PBMS_ts_mass, "Pheasant Branch Main Stem")
@@ -226,7 +226,7 @@ PBSF_seasonal_mass <- chloride_seasonal_load(PBSF_ts_mass)
 PBSF_annual_mass <- chloride_annual_load(PBSF_ts_mass)
 
 #PBSF chloride mass loading plots
-concentration_ts(PBSF_ts_mass, "Pheasant Branch South Fork")
+PBSF<- concentration_ts(PBSF_ts_mass, "Pheasant Branch South Fork")
 ggsave("Plots/chloride_loading/PBSF/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(PBSF_ts_mass, "Pheasant Branch South Fork")
@@ -263,7 +263,7 @@ ggsave("Plots/chloride_loading/PBSF/seasonal_load.png", height = 15, width = 20,
 # SW_annual_mass <- chloride_annual_load(SW_ts_mass)
 # 
 # #SW chloride mass loading plots
-# concentration_ts(SW_ts_mass, "Starkweather Creek")
+SW <- concentration_ts(SW_ts_mass, "Starkweather Creek")
 # ggsave("Plots/chloride_loading/SW/concentration_ts.png", height = 15, width = 20, units = "cm")
 # 
 # rate_ts(SW_ts_mass, "Starkweather Creek")
@@ -301,7 +301,7 @@ WIC_seasonal_mass <- chloride_seasonal_load(WIC_ts_mass)
 WIC_annual_mass <- chloride_annual_load(WIC_ts_mass)
 
 #WIC chloride mass loading plots
-concentration_ts(WIC_ts_mass, "Wingra Creek")
+WIC <- concentration_ts(WIC_ts_mass, "Wingra Creek")
 ggsave("Plots/chloride_loading/WIC/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(WIC_ts_mass, "Wingra Creek")
@@ -335,7 +335,7 @@ SH_seasonal_mass <- chloride_seasonal_load(SH_ts_mass)
 SH_annual_mass <- chloride_annual_load(SH_ts_mass)
 
 #SH chloride mass loading plots
-concentration_ts(SH_ts_mass, "Spring Harbor Storm Sewer")
+SH<-concentration_ts(SH_ts_mass, "Spring Harbor Storm Sewer")
 ggsave("Plots/chloride_loading/SH/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(SH_ts_mass, "Spring Harbor Storm Sewer")
@@ -358,6 +358,40 @@ ggsave("Plots/chloride_loading/SH/monthly_load.png", height = 15, width = 20, un
 
 seasonal_load(SH_seasonal_mass, "Spring Harbor Storm Sewer")
 ggsave("Plots/chloride_loading/SH/seasonal_load.png", height = 15, width = 20, units = "cm")
+
+
+
+
+
+#concentrations plot - Lake Mendota Watershed
+TS_ME <- bind_rows(SH_ts_mass %>% mutate(ID = "SH"), PBSF_ts_mass %>% mutate(ID = "PBSF"), PBMS_ts_mass %>% mutate(ID = "PBMS"), YN_ts_mass %>% mutate(ID = "YN"), DC_ts_mass %>% mutate(ID = "DC"), SMC_ts_mass %>% mutate(ID = "SMC"))
+
+
+ggplot(TS_ME) +
+  geom_line(aes(date, chloride_use_mgL)) +
+  facet_wrap(~ID, scales = "free_y") +
+  labs(x = "", y = "Chloride Concentration"~(mg~L~^-1),
+       caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake Mendota.")
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
