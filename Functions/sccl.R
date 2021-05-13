@@ -1,4 +1,25 @@
 #function to plot a time series of conductivity with chloride points overlain
+
+
+#a much better method than the one below:
+
+sc_cl <- function(logger, lab, no) {
+  ggplot() +
+    geom_line(PBMS_cond_data, mapping = aes(date, runningmean)) + 
+    geom_point(labPBMS, mapping = aes(date, chloride_mgL*6), color = "#F24D29") +
+    scale_y_continuous(
+      name = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C, 
+      sec.axis = sec_axis(~./6, name = "Chloride Concentration"~(mg~L^-1))
+    ) +
+    theme(axis.title.y.right = element_text(color = "#F24D29")) +
+    labs(x= "") +
+    L_theme()
+  
+}
+
+
+
+
 #I don't know  if this will be useful
 sccl <- function(logger, lab) {
   
