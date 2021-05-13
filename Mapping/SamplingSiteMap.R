@@ -49,11 +49,11 @@ ggplot(gage.bb.sf) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  labs(caption = "Figure X. Map of study sites. These are sites that were monitored from 2019-2020, using data loggers, grab sampling, 
-and some with USGS gaging.") +
+  labs(caption = "Figure X. Map of study sites. These are sites that were monitored from 2019 - 
+2021, using data loggers, grab sampling, and some with USGS gaging.") +
   theme(plot.caption = element_text(size = 10, hjust = 0))
  
 
-ggsave('Plots/Map.png', width = 20, height = 20, units = 'cm')
+ggsave('Plots/Map.png', width = 6.25, height = 4.25, units = 'in')
 
 

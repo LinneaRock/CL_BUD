@@ -61,8 +61,9 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Outfall basins within the Upper Yahara River Watershed. Legend and colors indicate which waterbody the 
-outfall basins discharges into. Note: data outside of Dane County were not available (data from City of Madison).") + L_theme() +
+  labs(caption = "Figure X. Outfall basins within the Upper Yahara River Watershed. Legend and colors indicate 
+which waterbody the outfall basins discharges into. Note: data outside of Dane County were not 
+available (data from City of Madison).") + L_theme() +
   scale_fill_viridis_d(option = "inferno", name = "Subwatershed") + #colors may not be distinguishable enough
   #scale_fill_manual(values = zis1, name = "Subwatershed") + #colors are not distinguishable enough :( ##color palettes created in WQPMaps.R
   theme(plot.caption = element_text(size = 10, hjust = 0),
@@ -73,7 +74,7 @@ outfall basins discharges into. Note: data outside of Dane County were not avail
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank()) 
 
-ggsave("Plots/sewershed/ws_sewersheds.png", width = 20, height = 15, units = "cm")
+ggsave("Plots/sewershed/ws_sewersheds.png", width = 6.25, height = 4.25, units = "in")
 
 
 #map of spring harbor sewershed

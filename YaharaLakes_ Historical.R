@@ -35,7 +35,7 @@ ggplot(watershed) +
 # concentrations 50-100 times background levels. (Data from Public Health Madison Dane County, 2020).") +
   L_theme()
 
-ggsave("Plots/Historical_Data_Viz/ChainLakes.png", width = 20, height = 15, units = "cm")
+ggsave("Plots/Historical_Data_Viz/ChainLakes.png", width = 6.25, height = 4.25, units = "in")
 
 #splot("Historical_Data_Viz/", "ChainLakes")
 

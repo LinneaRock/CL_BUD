@@ -176,7 +176,7 @@ ggsave('Plots/USGS_Watershed/USGSMap_Cropland.png', width = 6, height = 6, units
 # roads_inwsYS <- st_intersection(WI_roads, wsYS)
 # saveRDS(roads_inwsYS, "Data/shapefiles/YS/roadsinYS.rds")
 
-
+roads_in_wsYS <- read_rds("Data/shapefiles/YS/roadsinYS.rds")
 
 
 roads_plot <- function(watershed, roads_in_watershed, name) {
@@ -201,8 +201,9 @@ roads_plot <- function(watershed, roads_in_watershed, name) {
 # roads_plot(wsYI, roads_in_wsYI, "YI")
 # roads_plot(wsYN, roads_inwsYN, "YN")
 
-roads_plot(wsYS, roads_inwsYS, "YS") + labs(caption = "Figure X. Roads in the UYRW (OpenStreetMap contributors. (2015) Planet dump [Data file from 2021-02-08]. 
-Retrieved from https://planet.openstreetmap.org).") +
+roads_plot(wsYS, roads_in_wsYS, "YS") + labs(caption = "Figure X. Roads in the UYRW (OpenStreetMap contributors. (2015) Planet 
+dump [Data file from 2021-02-08]. Retrieved from 
+https://planet.openstreetmap.org).") +
   theme(plot.caption = element_text(size = 10, hjust = 0),
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),
@@ -211,7 +212,7 @@ Retrieved from https://planet.openstreetmap.org).") +
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank())
 
-ggsave("Plots/USGS_Watershed/watershed_roads.png", width = 20, height = 20, units = "cm")
+ggsave("Plots/USGS_Watershed/watershed_roads.png", width = 6.25, height = 4.25, units = "in")
 
 
 
