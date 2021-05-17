@@ -17,9 +17,11 @@ lakecond(ME_Epi_cond_data, ME_Hypo_cond_data, "Mendota 23.5m", "Mendota 2m") +
 splot("conductance_time_series/", "ME")
 
 #concentration plot
-ME_chloride_plot <- clseries(labME) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c(direction = -1) +
-  capt_clseries("Mendota", "Lake Mendota")
+ME_chloride_plot <- clseries(labME) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c(option = "inferno",direction = -1) #+
+  #capt_clseries("Mendota", "Lake Mendota")
 splot("chloride_time_series/", "ME")
+
+
 
 
 
