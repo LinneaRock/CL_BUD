@@ -48,5 +48,66 @@ chloride_plot <- ggplot(cl_data) +
 
 plot_grid(precip_plot, discharge_plot, cond_plot, chloride_plot, align = "v", ncol = 1)
     
-   }
+}
+
+
+ts_grid2 <- function(precip_data, dis_data, cond_data, for_grid_plot) {
+  
+  datemin <- min(cond_data$date)
+  datemax <- max(cond_data$date)
+  
+  precip_data <- precip_data %>%
+    filter(date >= datemin & date <= datemax)
+  
+  # cl_data <- cl_data %>%
+  #   filter(date >= datemin & date <= datemax)
+  
+  for_grid_plot <- for_grid_plot +
+    scale_x_datetime(limits = c(datemin, datemax))
+  
+  
+  precip_plot <- ggplot(precip_data, aes(date, PRCP)) +
+    geom_bar(stat = "identity") +
+    L_theme() +
+    scale_x_datetime(limits = c(datemin, datemax)) +
+    labs(x = "", y = "Daily Precipitation (mm)")
+  
+  discharge_plot <- ggplot(dis_data) +
+    geom_line(aes(date, discharge), color = "snow3") +
+    geom_line(aes(date, runningmeandis)) +
+    L_theme() +
+    scale_x_datetime(limits = c(datemin, datemax)) +
+    labs(x = "", y = "Discharge"~(m^3~s^-1))
+  
+
+  plot_grid(precip_plot, discharge_plot, for_grid_plot, align = "v", ncol = 1)
+  
+}
+
+
+ts_grid3 <- function(precip_data, cond_data, for_grid_plot) {
+  
+  datemin <- min(cond_data$date)
+  datemax <- max(cond_data$date)
+  
+  precip_data <- precip_data %>%
+    filter(date >= datemin & date <= datemax)
+  
+  # cl_data <- cl_data %>%
+  #   filter(date >= datemin & date <= datemax)
+  
+  for_grid_plot <- for_grid_plot +
+    scale_x_datetime(limits = c(datemin, datemax))
+  
+  
+  precip_plot <- ggplot(precip_data, aes(date, PRCP)) +
+    geom_bar(stat = "identity") +
+    L_theme() +
+    scale_x_datetime(limits = c(datemin, datemax)) +
+    labs(x = "", y = "Daily Precipitation (mm)")
+  
+  
+  plot_grid(precip_plot, for_grid_plot, align = "v", ncol = 1)
+  
+}
        

@@ -83,4 +83,11 @@ cl_compare(fieldclYI, labYI)
 ts_grid(precip_data, YI_discharge, YI_cond_data, labYI)
 ggsave("Plots/TS_Grids/YI.png", height = 20, width = 15, units = "cm")
 
+#number is the ratio of chloride to conductivity 
+for_gridYI <- sc_cl(YI_cond_data, labYI, 10) + 
+  labs(caption = "Figure X. Precipitation, discharge, and specific conductivity and chloride concentrations 
+collected during the study period in the Yahara River on the isthmus.")
+
+ts_grid2(precip_data, YI_discharge, YI_cond_data, for_gridYI)
+ggsave("Plots/TS_Grids/YI_2.png", height = 7.25, width = 6.25, units = "in")
 

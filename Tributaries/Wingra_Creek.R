@@ -67,7 +67,10 @@ WIC_linreg_plot <- linreg(labWIC, fieldcondWIC, WIC_cond_data) #+ labs(title = "
   #captlm('Wingra Creek',"Wingra Creek at Monona Inlet", labWIC, WIC_cond_data)
 splot("cl_cond_linear_regression/", "WIC")
 
-eval(labWIC, WIC_cond_data)
+jpeg('Plots/cl_cond_linear_regression/residual_plots/Wingra_Creek.png',width = 6.25, height = 4.25, units = 'in', res = 300)
+eval(labWIC, fieldcondWIC, WIC_cond_data)
+dev.off()
+
 
 #conductivity time series with chloride points overlain
 sccl(WIC_cond_data, labWIC)
@@ -85,3 +88,13 @@ cl_compare(fieldclWIC, labWIC)
 #plotting a grid of timeseries data
 ts_grid(precip_data, WIC_discharge, WIC_cond_data, labWIC)
 ggsave("Plots/TS_Grids/WIC.png", height = 20, width = 15, units = "cm")
+
+
+
+for_gridWIC <- sc_cl(WIC_cond_data, labWIC, 5)  + 
+  labs(caption = "Figure X. Precipitation, and specific conductivity and chloride concentrations collected 
+during the study period in Wingra Creek. This location did not have discharge data.")
+
+ts_grid3(precip_data, WIC_cond_data, for_gridWIC)
+
+ggsave("Plots/TS_Grids/WIC_2.png", height = 7.25, width = 6.25, units = "in")

@@ -55,7 +55,9 @@ SW_linreg_plot <- linreg(labSW, fieldcondSW, SW_cond_data)# + labs(title = "SW")
   #captlm('Starkweather Creek',"Starkweather Creek at Olbrich Garden", labSW, SW_cond_data)
 splot("cl_cond_linear_regression/", "SW")
 
-eval(labSW, SW_cond_data)
+jpeg('Plots/cl_cond_linear_regression/residual_plots/Starkweather_Creek.png',width = 6.25, height = 4.25, units = 'in', res = 300)
+eval(labSW, fieldcondSW, SW_cond_data)
+dev.off()
 
 #conductivity time series with chloride points overlain
 sccl(SW_cond_data, labSW)
@@ -75,3 +77,12 @@ discharge_placeholder <- as.data.frame(date) %>% mutate(runningmeandis = dischar
 #plotting a grid of timeseries data
 ts_grid(precip_data, discharge_placeholder, SW_cond_data, labSW)
 ggsave("Plots/TS_Grids/SW.png", height = 20, width = 15, units = "cm")
+
+for_gridSW <- sc_cl(SW_cond_data, labSW, 10)  + 
+  labs(caption = "Figure X. Precipitation, and specific conductivity and chloride concentrations collected 
+during the study period in Starkweather Creek. This location did not have discharge data.")
+
+ts_grid3(precip_data, SW_cond_data, for_gridSW)
+
+ggsave("Plots/TS_Grids/SW_2.png", height = 7.25, width = 6.25, units = "in")
+

@@ -69,7 +69,9 @@ YN_linreg_plot <- linreg(labYN, fieldcondYN, YN_cond_data) #+ labs(title = "YN")
   #captlm('Yahara River @ 113',"Yahara River at Highway 113", labYN, YN_cond_data)
 splot("cl_cond_linear_regression/", "YN")
 
+jpeg('Plots/cl_cond_linear_regression/residual_plots/Yahara_North.png',width = 6.25, height = 4.25, units = 'in', res = 300)
 eval(labYN, fieldcondYN, YN_cond_data)
+dev.off()
 
 #conductivity time series with chloride points overlain
 sccl(YN_cond_data, labYN)
@@ -86,5 +88,13 @@ ts_grid(precip_data, YN_discharge, YN_cond_data, labYN)
 ggsave("Plots/TS_Grids/YN.png", height = 20, width = 15, units = "cm")
 
 
+##number is the ratio of chloride to conductivity
+for_gridYN <- sc_cl(YN_cond_data, labYN, 10)  + 
+  labs(caption = "Figure X. Precipitation, discharge, and specific conductivity and chloride concentrations 
+collected during the study period in the Yahara River north of Lake Mendota.")
+
+ts_grid2(precip_data, YN_discharge, YN_cond_data, for_gridYN)
+
+ggsave("Plots/TS_Grids/YN_2.png", height = 7.25, width = 6.25, units = "in")
 
 
