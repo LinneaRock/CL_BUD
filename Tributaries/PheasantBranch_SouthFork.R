@@ -89,7 +89,9 @@ PBSF_linreg_plot <- linreg(labPBSF, fieldcondPBSF, PBSF_cond_data) #+ labs(title
   #captlm('Pheasant Branch South Fork',"Pheasant Branch South Fork", labPBSF, PBSF_cond_data)
 splot("cl_cond_linear_regression/", "PBSF")
 
-eval(labPBSF, PBSF_cond_data)
+jpeg('Plots/cl_cond_linear_regression/residual_plots/PheasantBranch_SouthFork.png',width = 6.25, height = 4.25, units = 'in', res = 300)
+eval(labPBSF, fieldcondPBSF, PBSF_cond_data)
+dev.off()
 
 #conductivity time series with chloride points overlain
 sccl(PBSF_cond_data, labPBSF)

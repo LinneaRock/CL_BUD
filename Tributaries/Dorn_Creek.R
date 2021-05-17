@@ -74,7 +74,9 @@ DC_linreg_plot <- linreg(labDC, fieldcondDC, DC_cond_data) #+ labs(title = "DC")
   #captlm('Dorn Creek',"Dorn Creek at Highway M", labDC, DC_cond_data)
 splot("cl_cond_linear_regression/", "DC")
 
-eval(labDC, DC_cond_data)
+jpeg('Plots/cl_cond_linear_regression/residual_plots/Dorn_Creek.png',width = 6.25, height = 4.25, units = 'in', res = 300)
+eval(labDC, fieldcondDC, DC_cond_data)
+dev.off()
 
 #conductivity time series with chloride points overlain
 sccl(DC_cond_data, labDC)

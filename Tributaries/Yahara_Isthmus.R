@@ -66,7 +66,9 @@ YI_linreg_plot <- linreg(labYI, fieldcondYI, YI_cond_data) #+ labs(title = "YI")
   #captlm('Yahara River @ Main St',"Yahara River at Main St", labYI, YI_cond_data)
 splot("cl_cond_linear_regression/", "YI")
 
-eval(labYI, YI_cond_data)
+jpeg('Plots/cl_cond_linear_regression/residual_plots/Yahara_Isthmus.png',width = 6.25, height = 4.25, units = 'in', res = 300)
+eval(labYI, fieldcondYI, YI_cond_data)
+dev.off()
 
 #conductivity time series with chloride points overlain
 sccl(YI_cond_data, labYI)

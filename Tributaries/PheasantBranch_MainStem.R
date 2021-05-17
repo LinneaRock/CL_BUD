@@ -77,7 +77,9 @@ PBMS_linreg_plot <- linreg(labPBMS, fieldcondPBMS, PBMS_cond_data) #+ labs(title
   #captlm('Pheasant Branch Main Stem',"Pheasant Branch Main Stem", labPBMS, PBMS_cond_data)
 splot("cl_cond_linear_regression/", "PBMS")
 
+jpeg('Plots/cl_cond_linear_regression/residual_plots/PheasantBranch_MainStem.png',width = 6.25, height = 4.25, units = 'in', res = 300)
 eval(labPBMS, fieldcondPBMS, PBMS_cond_data)
+dev.off()
 
 #conductivity time series with chloride points overlain
 sccl(PBMS_cond_data, labPBMS)

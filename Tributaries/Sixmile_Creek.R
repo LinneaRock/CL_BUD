@@ -65,7 +65,9 @@ SMC_linreg_plot <- linreg(lab6MC, fieldcond6MC, SMC_cond_data) #+ labs(title = "
   #captlm('Sixmile Creek',"Sixmile Creek at Highway M", lab6MC, SMC_cond_data)
 splot("cl_cond_linear_regression/", "6MC")
 
-eval(lab6MC, SMC_cond_data)
+jpeg('Plots/cl_cond_linear_regression/residual_plots/Sixmile_Creek.png',width = 6.25, height = 4.25, units = 'in', res = 300)
+eval(lab6MC, fieldcond6MC, SMC_cond_data)
+dev.off()
 
 #conductivity time series with chloride points overlain
 sccl(SMC_cond_data, lab6MC)
