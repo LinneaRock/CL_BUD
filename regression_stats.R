@@ -30,16 +30,16 @@ SH.p =  coef(summary(SH.lm))[2,4]
 # Make the table
 River_stats <- data.frame(
   River = c(
-    "Yahara River North",
-    "Sixmile Creek",
-    "Dorn Creek",
-    "Pheasant Branch - Main Stem",
-    "Pheasant Branch - South Fork",
-    "Yahara River Isthmus",
-    "Wingra Creek",
-    "Starkweather Creek",
-    "Yahara River South",
-    "Spring Harbor Storm Sewer"
+    "YN",
+    "SMC",
+    "DC",
+    "PBMS",
+    "PBSF",
+    "YI",
+    "WIC",
+    "SW",
+    "YS",
+    "SH"
   ),
   Slope = c(
     slope(labYN, fieldcondYN, YN_cond_data),
@@ -77,7 +77,7 @@ River_stats <- data.frame(
     r.sqr.lm(labYS, fieldcondYS, YS_cond_data),
     SH.rsq
   ),
-  P_value = c(">0.01", ">0.01", ">0.01",">0.01",">0.01",">0.01",">0.01",">0.01",0.1,">0.01"
+  P_value = c("<0.001", "<0.001", "<0.001","<0.001","<0.001","<0.001","<0.001","<0.001",0.12,"<0.001"
     # pvalue(labYN, fieldcondYN, YN_cond_data),
     # pvalue(lab6MC, fieldcond6MC, SMC_cond_data),
     # pvalue(labDC, fieldcondDC, DC_cond_data),
@@ -156,17 +156,17 @@ gtsave(data = simpleregtable, "Plots/cl_cond_linear_regression/Lakestats_tbl.png
 
 #table of some stats from sampling
 grab_stats <- data.frame(
-  water = c("Yahara River North",
-            "Sixmile Creek",
-            "Dorn Creek",
-            "Pheasant Branch - Main Stem",
-            "Pheasant Branch - South Fork",
-            "Yahara River Isthmus",
-            "Wingra Creek",
-            "Starkweather Creek",
-            "Yahara River South",
-            "Lake Mendota",
-            "Lake Monona"),
+  water = c("YN",
+            "SMC",
+            "DC",
+            "PBMS",
+            "PBSF",
+            "YI",
+            "WIC",
+            "SW",
+            "YS",
+            "ME",
+            "MO"),
   median = c(median(labYN$chloride_mgL), 
              median(lab6MC$chloride_mgL), 
              median(labDC$chloride_mgL),

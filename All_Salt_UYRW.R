@@ -2,7 +2,7 @@
 
 ##data from road salt scripts first in file
 ##and Pools.R
-##and Charlie D.
+##and Charlie D. data
 
 ##manually enter winter totals for 2019-2020 for City of Monona, City of Middleton
 towns1920 <- (301 + 811) * 0.907185
@@ -17,7 +17,7 @@ cattle = 1758.574891
 Wheat <- c(47.35071595, 42.45236602, 29.39009955, 14.69504978, 8.163916543)
 Soybeans <- c(177.3545567, 161.7056252, 130.4077623, 83.46096786, 41.73048393) 
 #Corn_grain <- c(467.7263132, 393.8747901, 174.2622216, 123.0858719, 73.85152314) 
-Corn <- c(1403.17894, 1329.327417, 1132.390021, 566.1950107, 295.4060926)
+Corn <- c(993.2946634, 941.0159969, 801.6062196, 400.8031098, 209.114666)
 kcontent_soil <- c("very low", "low", "optimum", "high", "very high")
 
 crops <- data.frame(kcontent_soil = kcontent_soil,
@@ -33,6 +33,38 @@ crops <- crops %>%
 crops_sums <- crops %>%
   group_by(kcontent_soil) %>%
   summarise(total = sum(tonnes))
+
+#potash application rates based on crop types. 
+kcl_app <- data.frame(
+  kcontent_soil = kcontent_soil,
+  corn_ap = c(0.191665222, 0.181577579, 0.154677197, 0.077338598, 0.040350573
+),
+soybeans_ap = c(0.114326624, 0.10423898, 0.084063694, 0.053800764, 0.026900382
+),
+wheat_ap = c(0.097513885, 0.087426242, 0.06052586, 0.03026293,	0.016812739
+)
+)
+#create table of application rates in Metric tonnes
+gt_tbl <- gt(kcl_app)
+simpleregtable <- gt_tbl %>%
+  cols_label(
+    kcontent_soil = "Soil potassium content",
+    corn_ap = "Corn",
+    soybeans_ap = "Soybeans",
+    wheat_ap = "Wheat"
+  ) %>%
+  tab_header(
+    title = "Potash (KCl) Application Rates for Different Crop Types and Soil Potassium Content",
+    subtitle = "Rates are in Metric Tonnes (Mg)") %>%
+  tab_source_note(source_note = "Table X. Data from University of Wiscsonsin - Extension"
+  ); simpleregtable
+
+# whitespace can be set, zoom sets resolution
+gtsave(data = simpleregtable, "Plots/app_rate_tbl.png", expand = 10, zoom = 10)
+
+
+
+
 
 
   Road_Salt_2019_2020 = (ys$winter1920_salt_outside_MadisonMg + (WINTER_SALT_TOTALS %>% filter(Year == "2019-20"))$Total_Salt_Mg + towns1920 + uw1819)* 0.60663 #Mg chloride
@@ -74,7 +106,7 @@ ggplot(crops) +
   #scale_fill_manual(values = wes_palette("Darjeeling1", n = 4, type = "continuous")) +
   scale_fill_manual(labels = c("Corn", "Soybeans", "Wheat"),
                      values = c("#F24D29", "#E5C4A1", "#C4CFD0")) +
-  L_theme() +
+  L_theme() + theme(legend.title = element_blank())+
   scale_y_continuous(n.breaks = 10) +
   labs(x = "Soil potassium content",
        y = "Chloride Mass (Mg)",
@@ -104,7 +136,7 @@ ggplot(road_salt_chloride_locations) +
   geom_bar(aes(fill = Location, year, tonnes_chloride), position = "stack", stat = "identity") +
   scale_fill_manual(labels = c("County Roads", "Madison", "Middleton and Monona", "UW Campus (2018)"),
                     values = c("#F24D29", "#E5C4A1", "#C4CFD0", "#1DACE8")) +
-  L_theme() +
+  L_theme() + theme(legend.title = element_blank()) +
   scale_y_continuous(n.breaks = 10) +
   labs(x = "",
        y = "Chloride Mass (Mg)",

@@ -42,3 +42,18 @@ ggplot(all_info, aes(road_density_mha, median_conc)) +
   geom_smooth(method = "lm", se = FALSE, color = "black", size = 0.5)
   
 
+
+
+
+#check r squared and road density/development claim\
+River_stats1 <- River_stats %>% #from regression stats
+rename(name = River)
+grab_stats1 <- grab_stats %>%
+  rename(name = water)
+  
+test_rsq_dev <- all_info %>%
+  dplyr::select(name, DRNAREA, DEVNLCD01, road_density_mha) %>%
+left_join(River_stats1, by = "name") %>%
+  filter(name != "WC") %>%
+  left_join(grab_stats1, by = "name")
+
