@@ -154,7 +154,106 @@ gtsave(data = simpleregtable, "Plots/cl_cond_linear_regression/Lakestats_tbl.png
 
 
 
+#table of some stats from sampling
+grab_stats <- data.frame(
+  water = c("Yahara River North",
+            "Sixmile Creek",
+            "Dorn Creek",
+            "Pheasant Branch - Main Stem",
+            "Pheasant Branch - South Fork",
+            "Yahara River Isthmus",
+            "Wingra Creek",
+            "Starkweather Creek",
+            "Yahara River South",
+            "Lake Mendota",
+            "Lake Monona"),
+  median = c(median(labYN$chloride_mgL), 
+             median(lab6MC$chloride_mgL), 
+             median(labDC$chloride_mgL),
+             median(labPBMS$chloride_mgL),
+             median(labPBSF$chloride_mgL),
+             median(labYI$chloride_mgL),
+             median(labWIC$chloride_mgL),
+             median(labSW$chloride_mgL),
+             median(labYS$chloride_mgL),
+             median(labME$chloride_mgL),
+             median(labMO$chloride_mgL)),
+  mean = c(mean(labYN$chloride_mgL), 
+          mean(lab6MC$chloride_mgL), 
+          mean(labDC$chloride_mgL),
+          mean(labPBMS$chloride_mgL),
+          mean(labPBSF$chloride_mgL),
+          mean(labYI$chloride_mgL),
+          mean(labWIC$chloride_mgL),
+          mean(labSW$chloride_mgL),
+          mean(labYS$chloride_mgL),
+          mean(labME$chloride_mgL),
+          mean(labMO$chloride_mgL)),
+  max = c(max(labYN$chloride_mgL), 
+          max(lab6MC$chloride_mgL), 
+          max(labDC$chloride_mgL),
+          max(labPBMS$chloride_mgL),
+          max(labPBSF$chloride_mgL),
+          max(labYI$chloride_mgL),
+          max(labWIC$chloride_mgL),
+          max(labSW$chloride_mgL),
+          max(labYS$chloride_mgL),
+          max(labME$chloride_mgL),
+          max(labMO$chloride_mgL)),
+  min = c(min(labYN$chloride_mgL), 
+          min(lab6MC$chloride_mgL), 
+          min(labDC$chloride_mgL),
+          min(labPBMS$chloride_mgL),
+          min(labPBSF$chloride_mgL),
+          min(labYI$chloride_mgL),
+          min(labWIC$chloride_mgL),
+          min(labSW$chloride_mgL),
+          min(labYS$chloride_mgL),
+          min(labME$chloride_mgL),
+          min(labMO$chloride_mgL)),
+  sd = c(sd(labYN$chloride_mgL), 
+          sd(lab6MC$chloride_mgL), 
+          sd(labDC$chloride_mgL),
+          sd(labPBMS$chloride_mgL),
+          sd(labPBSF$chloride_mgL),
+          sd(labYI$chloride_mgL),
+          sd(labWIC$chloride_mgL),
+          sd(labSW$chloride_mgL),
+          sd(labYS$chloride_mgL),
+          sd(labME$chloride_mgL),
+          sd(labMO$chloride_mgL)),
+  n = c(nrow(labYN), 
+         nrow(lab6MC), 
+         nrow(labDC),
+         nrow(labPBMS),
+         nrow(labPBSF),
+         nrow(labYI),
+         nrow(labWIC),
+         nrow(labSW),
+         nrow(labYS),
+         nrow(labME),
+         nrow(labMO))
+)
 
+gt_tbl <- gt(grab_stats)
+simpleregtable <- gt_tbl %>%
+  cols_label(
+    water = "Waterbody Name",
+    median = "Median",
+    mean = "Mean",
+    max = "Maximum",
+    min = "Minimum",
+    sd = "Standard Deviation",
+    n = "Number of Observations"
+  ) %>%
+  tab_header(
+    title = "Statistics from Collected Chloride Concentrations",
+    subtitle = "Data from grab sampling. Chloride concentration in units: mg/L") %>%
+  tab_source_note(source_note = "Table X."
+  ); simpleregtable
+
+# whitespace can be set, zoom sets resolution
+gtsave(data = simpleregtable, "Plots/chloridestats_tbl.png", expand = 10, zoom = 10)
 
 
 

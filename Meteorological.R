@@ -33,3 +33,11 @@ met_2017 <- data %>% filter(Y == 2017)
 datayearly <- data %>%
   group_by(Y) %>%
   summarise(total = sum(PRCP))
+
+
+#
+
+
+
+
+
