@@ -225,3 +225,30 @@ MO_chloride_plot <- clseries(labMO) + geom_point(aes(color = Depth_m)) + scale_c
   capt_clseries("Monona", "Lake Monona")
 splot("chloride_time_series/", "MO")
 
+MO_Epi_cond_data_20 <-MO_Epi_cond_data_20 %>%
+  mutate(Depth_m = 2)
+MO_Hypo_cond_data_20 <-MO_Hypo_cond_data_20 %>%
+  mutate(Depth_m = 20)
+MO_Epi_cond_data_21 <-MO_Epi_cond_data_21%>%
+  mutate(Depth_m = 2)
+MO_Hypo_cond_data_21 <- MO_Hypo_cond_data_21%>%
+  mutate(Depth_m = 20)
+
+
+ggplot() +
+  geom_line(MO_Epi_cond_data_20, mapping = aes(as.Date(date), runningmean, color = Depth_m, group = Depth_m)) +
+  geom_line(MO_Hypo_cond_data_20, mapping = aes(as.Date(date), runningmean, color = Depth_m, group = Depth_m)) +
+  geom_line(MO_Epi_cond_data_21, mapping = aes(as.Date(date), runningmean, color = Depth_m, group = Depth_m)) +
+  geom_line(MO_Hypo_cond_data_21, mapping = aes(as.Date(date), runningmean, color = Depth_m, group = Depth_m)) +
+  geom_point(labMO, mapping = aes(as.Date(date), chloride_mgL*5, color = Depth_m)) +
+  scale_color_viridis_c("Depth (m)", option = "inferno", direction = -1, begin = 0.25, end = 0.9) +
+  scale_y_continuous(
+    name = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C, 
+    sec.axis = sec_axis(~./5, name = "Chloride Concentration"~(mg~L^-1))
+  ) +
+  labs(x = "", 
+       caption = "Figure X. Specific Conductivity and chloride concentrations in Lake Monona over the 
+entire study period. Lines are conductivity and points are chloride concentrations. Color 
+indicates the measurement depth of the lake in meters.") + L_theme() 
+
+ggsave("Plots/Monona_cond_chloride.png", height = 4.25, width = 6.25, units = "in")
