@@ -166,11 +166,11 @@ ggplot() +
   geom_line(ME_Epi_cond_data, mapping = aes(as.Date(date), runningmean, color = Depth_m, group = Depth_m)) +
   geom_line(ME_Hypo_cond_data, mapping = aes(as.Date(date), runningmean, color = Depth_m, group = Depth_m)) +
   scale_color_viridis_c(option = "inferno", begin = 0.25, end = 0.9) +
-  geom_point(labME, mapping = aes(as.Date(date), chloride_mgL*15, color = Depth_m)) +
+  geom_point(labME, mapping = aes(as.Date(date), chloride_mgL*10, color = Depth_m)) +
   scale_color_viridis_c("Depth (m)", option = "inferno", direction = -1, begin = 0.25, end = 0.9) +
   scale_y_continuous(
     name = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C, 
-    sec.axis = sec_axis(~./15, name = "Chloride Concentration"~(mg~L^-1))
+    sec.axis = sec_axis(~./10, name = "Chloride Concentration"~(mg~L^-1))
   ) +
   labs(x = "", 
        caption = "Figure X. Specific Conductivity and chloride concentrations in Lake Mendota over the 
