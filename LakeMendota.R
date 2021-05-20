@@ -178,3 +178,8 @@ entire study period. Lines are conductivity and points are chloride concentratio
 indicates the measurement depth of the lake in meters.") + L_theme() 
 
 ggsave("Plots/Mendota_cond_chloride.png", height = 4.25, width = 6.25, units = "in")
+
+
+
+
+
