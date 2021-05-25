@@ -16,7 +16,8 @@ ME_mass_daynum <- ME_mass %>%
 
 #just the spring values for mass
 ME_spring <- ME_mass_daynum %>%
-  filter(month(sampledate) == 04 | month(sampledate) == 05 | month(sampledate) == 06)
+  filter(month(sampledate) == 04 | month(sampledate) == 05| month(sampledate) == 06)
+  #filter(month(sampledate) == 01 | month(sampledate) == 02)
 
 #lag will not work in the dataframe for some reason, so I'm doing this dumb workaround
 change <- ME_spring$total - lag(ME_spring$total)
@@ -55,7 +56,8 @@ ggplot(ME_change) +
   geom_bar(aes(year4, change), stat = "identity") +
   labs(x = "", y = "Change in Mass (Mg)",
        caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake 
-Mendota.") +
+Mendota. The bar in 2020 represents the change from 2018-2020 because no 2019 lake 
+data were available.") +
   L_theme() 
 
 ggsave("Plots/changesME.png", height = 4.25, width = 6.25, units = "in")
@@ -65,7 +67,8 @@ ggplot() +
   geom_point(ME_spring, mapping = aes(sampledate, total), color = "#1DACE8") +
   labs(x = "", y = "Chloride Mass (Mg)",
        caption = "Figure X. Total mass of chloride in metric tonnes (Mg) in Lake Mendota from 1996 - 2021.
-Colored points represent total chloride mass in spring of each year.") +
+Blue points represent total chloride mass in spring of each year, while black points are
+chloride mass for other times in the year.") +
   L_theme()
 
 ggsave("Plots/masschangeME.png", height = 4.25, width = 6.25, units = "in")
@@ -82,7 +85,9 @@ ggplot() +
 ggplot(MO_change) +
   geom_bar(aes(year4, change), stat = "identity") +
   labs(x = "", y = "Change in Mass (Mg)",
-       caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake Monona. ") +
+       caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake Monona. 
+The bar in 2020 represents the change from 2018-2020 because no 2019 lake data were 
+available.") +
   L_theme() 
 
 ggsave("Plots/changesMO.png", height = 4.25, width = 6.25, units = "in")
@@ -92,10 +97,49 @@ ggplot() +
   geom_point(MO_spring, mapping = aes(sampledate, total), color = "#1DACE8") +
   labs(x = "", y = "Chloride Mass (Mg)",
        caption = "Figure X. Total mass of chloride in metric tonnes (Mg) in Lake Monona from 1996 - 2021.
-Colored points represent total chloride mass in spring of each year.") +  
+Blue points represent total chloride mass in spring of each year, while black points are
+chloride mass for other times in the year.") +  
   L_theme()
 
 ggsave("Plots/masschangeMO.png", height = 4.25, width = 6.25, units = "in")
 
 
+#lake mass changes - both lakes on the plots
+
+ggplot() +
+  geom_point(ME_mass_daynum, mapping = aes(sampledate, total, color = "ME")) +
+  geom_point(ME_spring, mapping = aes(sampledate, total, shape = "ME"), color = "#1C366B") +
+  geom_point(MO_mass_daynum, mapping = aes(sampledate, total, color = "MO")) +
+  geom_point(MO_spring, mapping = aes(sampledate, total, shape = "MO"), color = "#F24D29") +
+  scale_color_manual(labels = c("Mendota", "Monona"),
+                     values = c("#1C366B", "#F24D29")) +
+  scale_shape_manual(labels = "Spring Mass",
+                     values = c(8,8)) +
+  labs(x = "", y = "Chloride Mass (Mg)",
+       caption = "Figure X. Total mass of chloride in metric tonnes (Mg) in Lake Monona from 1996 - 2021.
+Colored points represent total chloride mass in spring of each year.") +  
+  L_theme() + theme(legend.title = element_blank())
+
+
+
+#percent mass change in lakes
+lakes_change <- MO_change %>% 
+  mutate(ID = "MO") %>%
+  mutate(percentchange = (change/total) * 100) %>%
+  bind_rows(ME_change %>% 
+              mutate(ID = "ME") %>%
+              mutate(percentchange = (change/total) * 100))
+
+
+ggplot(lakes_change) +
+  geom_bar(aes(year(sampledate), percentchange, group = ID, fill = ID), stat = "identity", position = "dodge") +
+  labs(x = "", y = "Percent Change in Mass of Chloride",
+       caption = "Figure X. Percent change in spring chloride mass in metric tonnes each year in Lakes
+Mendota and Monona. The bars in 2020 represent the percent change from 2018-2020 
+because no 2019 lake data were available.") +
+  L_theme() + scale_fill_manual(labels = c("Mendota", "Monona"),
+                                values = c("#1C366B", "#F24D29")) +
+  theme(legend.title = element_blank()) #,axis.text.x = element_text(angle = 45, hjust = 1)) +
+ # scale_x_date(date_breaks = "1 year", date_labels = "%Y")  
+ggsave("Plots/masschangeinlakes.png", height = 4.25, width = 6.25, units = "in")
 

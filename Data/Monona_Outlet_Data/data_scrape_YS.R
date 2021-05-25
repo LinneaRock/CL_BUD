@@ -98,7 +98,7 @@ checkplot(YS_stage, YS_stage$stage)
 
 YS_discharge<- rbind(discharge, YS_discharge.df) %>% 
   distinct() 
-checkplot(YS_discharge, YS_discharge$discharge)
+checkplot((YS_discharge %>% filter(discharge < 20 & discharge > 0)), (YS_discharge%>% filter(discharge < 20 & discharge > 0))$discharge)
 
 YS_temp <- rbind(temp, YS_temp.df) %>% 
   distinct() 
