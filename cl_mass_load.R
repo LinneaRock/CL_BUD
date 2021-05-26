@@ -82,7 +82,7 @@ YS_seasonal_mass <- chloride_seasonal_load(YS_ts_mass)
 YS_annual_mass <- chloride_annual_load(YS_ts_mass)
 
 #YS chloride mass loading plots
-YS <- concentration_ts(YS_ts_mass, "Yahara South")
+YS <- concentration_ts(YS_ts_mass, "Yahara South") 
 ggsave("Plots/chloride_loading/YS/concentration_ts.png", height = 15, width = 20, units = "cm")
 
 rate_ts(YS_ts_mass, "Yahara South")

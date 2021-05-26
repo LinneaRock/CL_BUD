@@ -102,7 +102,7 @@ all.chloride$label =  factor(all.chloride$chloride_alltime, levels = unique(all.
 #for labels
 map_labs <- all.chloride[!duplicated(all.chloride$NAME), ]
 
-map_labs <-
+
 
 #map of average chloride over entire study period
 ggplot(gage.bb.sf) + 
