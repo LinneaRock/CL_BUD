@@ -56,3 +56,4 @@ represented by the equation y = ", round(coef(infoq(dfx, dfy))[2,1], 2), "x + ",
 and a p-value of ", round(coef(infoq(dfx, dfy))[2,4], 6), ".", sep = ""),
     theme = theme(plot.caption = element_text(hjust = 0)))
 } 
+
