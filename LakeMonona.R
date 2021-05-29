@@ -57,6 +57,18 @@ chloride_cond_MO <- labMO %>%
          sp.cond = ifelse(Date == "2020-02-27" & Depth_m == 20, (MO_Hypo_cond_data_20 %>% filter(date == as.POSIXct("2020-02-27 12:15:00", tz = "ETC/GMT-6")))$runningmean, sp.cond)) %>%
   drop_na()
 
+
+clseries(labMO) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c("Depth (m)", option = "inferno",direction = -1, begin = 0.25, end = 0.9) +
+  labs(caption = "Figure X. Chloride concentrations from grab samples in Lake Monona over the entire study 
+period. Color indicates the measurement depth of the lake in meters. Vertical dotted lines 
+are ice-on and off dates with just the ice-off date in 2020 on this figure.") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2020-12-29 00:00:00")), linetype = "dotted") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2021-03-22 00:00:00")), linetype = "dotted") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2020-01-12 00:00:00")), linetype = "dotted") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2020-03-20 00:00:00")), linetype = "dotted")
+splot("chloride_time_series/", "MO")
+
+
 #regression to predict chloride as a function of both specific conductivity and depth
 summary(lm(chloride_mgL~sp.cond +Depth_m, chloride_cond_MO)) #r =0.6365, p = 8.832e-06
 
@@ -236,16 +248,17 @@ MO_Hypo_cond_data_21 <- MO_Hypo_cond_data_21%>%
 
 
 ggplot() +
-  geom_line(MO_Epi_cond_data_20, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "#1DACE8")) +
-  geom_line(MO_Hypo_cond_data_20, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "#1C366B")) +
-  geom_line(MO_Epi_cond_data_21, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "#1DACE8")) +
-  geom_line(MO_Hypo_cond_data_21, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "#1C366B")) +
+  geom_line(MO_Epi_cond_data_20, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "1m")) +
+  geom_line(MO_Hypo_cond_data_20, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "20m")) +
+  geom_line(MO_Epi_cond_data_21, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "1m")) +
+  geom_line(MO_Hypo_cond_data_21, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "20m")) +
   #geom_point(labMO, mapping = aes(as.Date(date), chloride_mgL*5, color = Depth_m)) +
   #scale_color_viridis_c("Depth (m)", option = "inferno", direction = -1, begin = 0.25, end = 0.9) +
     labs(x = "",
        y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n") +
-  scale_color_manual(labels = c("20m", "1m"),
-                     values = c("#1C366B", "#1DACE8")) +
+  scale_color_viridis_d("Depth (m)", option = "inferno", direction = -1, begin = 0.25, end = 0.9) +
+  # scale_color_manual(labels = c("20m", "1m"),
+  #                    values = c("#1C366B", "#1DACE8")) +
   labs(x = "", 
        caption = "Figure X. Specific Conductivity in Lake Monona over the entire study period. Color 
 indicates the measurement depth of the lake in meters. Vertical dotted lines are ice-on
@@ -262,12 +275,4 @@ and off dates") + theme(legend.position = "top",
  
 
  
- 
- ggplot() +
-  # geom_vline(aes(xintercept = as.POSIXct("2020-12-29 00:00:00"))) +
-   geom_vline(aes(xintercept = as.numeric(as.POSIXct("2021-03-22 00:00:00")))) +
-   geom_vline(xintercept = as.numeric(as.POSIXct("2020-01-12 00:00:00"))) +
-   geom_vline(xintercept = as.numeric(as.POSIXct("2020-03-20 00:00:00"))) +
-   geom_line(MO_Epi_cond_data_20, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "#1DACE8")) +
-   geom_line(MO_Hypo_cond_data_20, mapping = aes(as.Date(date), runningmean, group = Depth_m, color = "#1C366B")) 
  

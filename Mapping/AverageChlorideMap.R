@@ -201,8 +201,8 @@ ggplot(gage.bb.sf) +
   geom_sf(data = all.chloride, aes(color = chloride_alltime, fill = chloride_alltime)) + 
   geom_sf(data = SH.sf, aes(color = chloride_alltime, fill = chloride_alltime)) +
   #geom_sf_label(data = map_labs, mapping = aes(label = round(chloride_alltime,2))) +
-  scale_color_viridis_c(option = "inferno", "Median Chloride Concentration (mg/L)") +
-  scale_fill_viridis_c(option = "inferno", guide = FALSE) +
+  scale_color_viridis_c(option = "inferno", "Median Chloride Concentration (mg/L)",  begin = 0.1, end = 0.9) +
+  scale_fill_viridis_c(option = "inferno", guide = FALSE,  begin = 0.1, end = 0.9) +
   theme_bw() + # Hilary's default theme
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true",

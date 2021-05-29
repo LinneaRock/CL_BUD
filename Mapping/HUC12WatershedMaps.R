@@ -37,14 +37,15 @@ world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Can
 #simple map of just the HUC12 outlines in the watershed
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = HUC12.sf.ME, fill = NA, aes(color = "Mendota Watershed")) + 
-  geom_sf(data = HUC12.sf.MO, fill = NA, aes(color = "Monona Watershed")) +
-  geom_sf_label(HUC12.sf.ME, mapping = aes(label = HUC12), color = "#1C366B") +
-  geom_sf_label(HUC12.sf.MO, mapping = aes(label = HUC12), color = "#F24D29") +
-  scale_color_manual(values = c("#1C366B", "#F24D29")) +
+  geom_sf(data = HUC12.sf.ME, fill = NA, aes()) + 
+  geom_sf(data = HUC12.sf.MO, fill = NA, aes()) +
+  geom_sf_label(HUC12.sf.ME, mapping = aes(label = HUC12)) +
+  geom_sf_label(HUC12.sf.MO, mapping = aes(label = HUC12)) +
+  #scale_color_manual(values = c("#1C366B", "#F24D29")) +
   theme_bw() + # Hilary's default theme
-  theme(legend.position = c(0.9,0.85), #This needs to change, legend is cut off of image
-        legend.title = element_blank()) +
+  #theme(legend.position = c(0.9,0.85), #This needs to change, legend is cut off of image
+  #      legend.title = element_blank()) +
+  labs(caption = "Figure X. HUC12 watershed boundaries in the Upper Yahara River Watershed.") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
@@ -52,7 +53,7 @@ ggplot(gage.bb.sf) +
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
  
-ggsave('Plots/HUC12_Watershed/Huc12Map_label.png', width = 10, height = 10, units = 'in') 
+ggsave('Plots/HUC12_Watershed/Huc12Map.png', width = 6.25, height = 4.25, units = 'in') 
 
 
 

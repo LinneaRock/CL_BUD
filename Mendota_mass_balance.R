@@ -70,13 +70,62 @@ mass flows into and out of Lake Mendota") +
 
 ggsave("Plots/chloride_loading/massin&outME.png", height = 4.25, width = 6.25, units = "in")
 
-net = sum((timeseries_mass %>% filter(ID != "YI"))$monthly_mass_Mg) + sum((timeseries_mass %>% filter(ID == "YI"))$monthly_mass_Mg) #net is -1790.93 tonnes (YI is outlet so negative)
+#total net
+net = sum((timeseries_mass %>% filter(ID != "YI"))$monthly_mass_Mg) + sum((timeseries_mass %>% filter(ID == "YI"))$monthly_mass_Mg) #net is -1791.333 tonnes (YI is outlet so negative)
+
+#19-20 through October 2020
+sum((timeseries_mass %>% 
+             filter(ID != "YI") %>%
+             filter(year_mon != "2020-11" &
+                      year_mon != "2020-12" &
+                      year_mon != "2021-1" &
+                      year_mon != "2021-2" &
+                      year_mon != "2021-3" &
+                      year_mon != "2021-4"))$monthly_mass_Mg)# 6974.988 tonnes
+sum((timeseries_mass %>% 
+       filter(ID == "YI") %>%
+       filter(year_mon != "2020-11" &
+                year_mon != "2020-12" &
+                year_mon != "2021-1" &
+                year_mon != "2021-2" &
+                year_mon != "2021-3" &
+                year_mon != "2021-4"))$monthly_mass_Mg) #net is -8116.41 tonnes (YI is outlet so negative)
 
 
 cl_roads_by_subwatershed = read_rds("Data/chloridefromroadsinsubws.rds")
 
 ME_roads = cl_roads_by_subwatershed %>%
   filter(watershed == "DC" | watershed == "PBMS" | watershed == "SH" | watershed == "SMC" | watershed == "YN" | watershed == "YI") 
+
+#total salt in 19-20 entering Mendota
+sum((ME_roads %>% filter(watershed != "YI"))$val2020) #8473.93 tonnes 
+
+
+ME_roads_vs_loads <- loading %>% #loading df from cl_mass_load.R
+  left_join(ME_roads %>% rename(names = watershed)) %>%
+  drop_na(val2020) %>%
+  mutate(total_roadsalt = rowSums(ME_roads_vs_loads[6:7])) %>%
+  mutate(load20 = rowSums(ME_roads_vs_loads[2:3])) %>%
+  mutate(perc20 = (load20/val2020) * 100)
+
+
+#get percentage of total road salt applied to landscape that is seen flowing into mendota
+
+total_riverload = sum((ME_roads_vs_loads %>% filter(names != "YI"))$load20) #6974.99 tonnes
+total_saltload = sum((ME_roads_vs_loads %>% filter(names != "YI"))$val2020) + 2719.97 #11193.89
+
+total_riverload/total_saltload #62.3%
+
+
+YI_riverload = sum((ME_roads_vs_loads %>% filter(names == "YI"))$load20) #8116.41 tonnes
+YI_saltload = sum((ME_roads_vs_loads %>% filter(names == "YI"))$val2020) + 2719.97 #12466.30 tonnes
+
+YI_riverload/YI_saltload #65.1%
+
+
+
+
+
 
 total = rowSums(ME_roads[2:3])
 

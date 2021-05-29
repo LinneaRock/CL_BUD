@@ -264,7 +264,7 @@ ggsave("Plots/chloride_loading/PBSF/seasonal_load.png", height = 15, width = 20,
 # 
 # #SW chloride mass loading plots
 SW <- concentration_ts(SW_ts_mass, "Starkweather Creek")
-# ggsave("Plots/chloride_loading/SW/concentration_ts.png", height = 15, width = 20, units = "cm")
+ ggsave("Plots/chloride_loading/SW/concentration_ts.png", height = 15, width = 20, units = "cm")
 # 
 # rate_ts(SW_ts_mass, "Starkweather Creek")
 # ggsave("Plots/chloride_loading/SW/rate_ts.png", height = 15, width = 20, units = "cm")
@@ -373,7 +373,7 @@ TS_ME <- bind_rows(SH_ts_mass %>% mutate(ID = "SH"), PBSF_ts_mass %>% mutate(ID 
 
 
 ggplot(TS_ME) +
-  geom_line(aes(date, chloride_use_mgL)) +
+  geom_line(aes(date, chloride_predict)) +
   facet_wrap(~ID, scales = "free_y") +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
        caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake 
@@ -393,7 +393,7 @@ TS_MO <- bind_rows(YI_ts_mass %>% mutate(ID = "YI"), SW_ts_mass %>% mutate(ID = 
 
 
 ggplot(TS_MO) +
-  geom_line(aes(date, chloride_use_mgL)) +
+  geom_line(aes(date, chloride_predict)) +
   facet_wrap(~ID, scales = "free_y") +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
        caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake 
@@ -406,8 +406,8 @@ Monona. Note: YI is also the outlfow of Lake Mendota.") +
 ggsave("Plots/chloride_time_series/MO_inlets.png", height = 4.25, width = 6.25, units = "in")
 
 #outlet lake Monona
-ggplot(YS_ts_mass %>% filter(chloride_use_mgL > 60)) +
-  geom_line(aes(date, chloride_use_mgL)) +
+ggplot(YS_ts_mass) +
+  geom_line(aes(date, chloride_predict)) +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
        caption = "Figure X. Estimated chloride concentration timeseries for the Yahara River outflow of
 Lake Monona.") +
@@ -423,13 +423,14 @@ ggsave("Plots/chloride_time_series/MO_outlet(YI).png", height = 4.25, width = 6.
 #histograms of concentrations
 all_ts <- bind_rows(TS_ME, TS_MO, YS_ts_mass) %>%
   group_by(ID) %>%
-  mutate(median = median(chloride_use_mgL, na.rm = TRUE)) %>%
+  mutate(median = median(chloride_predict, na.rm = TRUE)) %>%
   ungroup()
 
 
 
-ggplot(all_ts, aes(x=chloride_use_mgL, group = ID)) +
+ggplot(all_ts, aes(x=chloride_predict, group = ID)) +
   geom_histogram() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   facet_wrap(~ID, scales = "free") +
   labs(x = "Chloride Concentration"~(mg~L^-1), y = "Count", 
        caption = "Figure X. Histograms of chloride concentrations calculated using equations from linear 
@@ -509,8 +510,7 @@ loading <- as.data.frame(names) %>%
   mutate(winter1920 = winter_201920 / 1000000) %>%
   mutate(notwinter20 = not_winter_2020 / 1000000) %>%
   mutate(winter2021 = winter_202021 / 1000000) %>%
-  mutate(entireload = entire / 1000000) %>%
-  mutate(maxconc = max) 
+  mutate(entireload = entire / 1000000) 
 
 
 
@@ -518,9 +518,10 @@ loading <- as.data.frame(names) %>%
 
 
 
-Mendota_load <- (salt_201920(PBMS_ts_mass) + salt_201920(SMC_ts_mass) + salt_201920(DC_ts_mass) + salt_201920(YN_ts_mass) + salt_201920(SH_ts_mass)) / 1000000 #total chloride in Mg 
-Mendota_loss <-  (salt_201920(YI_ts_mass)) / 1000000 #total chloride in Mg 
-Mendota_net <- Mendota_load - Mendota_loss
+
+
+
+
 
 
 

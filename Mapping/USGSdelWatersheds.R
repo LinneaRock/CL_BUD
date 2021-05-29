@@ -373,13 +373,28 @@ ggplot(gage.bb.sf) +
   geom_sf(wsSH, mapping = aes(), color = "black", fill = NA) +
   geom_sf(wsYN, mapping = aes(), color = "black", fill = NA) +
   geom_sf(wsYI, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsSW, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsYS, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsWIC, mapping = aes(), color = "black", fill = NA) +
+  # geom_sf_label(wsDC, mapping = aes(label = "DC")) +
+  # geom_sf_label(wsSMC, mapping = aes(label = "SMC")) +
+  # geom_sf_label(wsPBMS, mapping = aes(label = "PBMS")) +
+  # geom_sf_label(wsPBSF, mapping = aes(label = "PBSF")) +
+  # geom_sf_label(wsSH, mapping = aes(label = "SH")) +
+  # geom_sf_label(wsYN, mapping = aes(label = "YN")) +
+  # geom_sf_label(wsYI, mapping = aes(label = "YI")) +
+  # geom_sf_label(wsYS, mapping = aes(label = "YS")) +
+  # geom_sf_label(wsSW, mapping = aes(label = "SW")) +
+  # geom_sf_label(wsWIC, mapping = aes(label = "WIC")) +
   theme_bw() + 
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  #labs(caption = "Figure X. City of Madison road salt application routes (data from City of Madison).") +
+  labs(caption = "Figure X. Nested subwatersheds in the Upper Yahara River Watershed. 
+Following streamflow downstream, subwatersheds are inclusive of 
+those upstream.") +
   L_theme() +
   theme(plot.caption = element_text(size = 10, hjust = 0),
         axis.title.x=element_blank(),
@@ -388,3 +403,7 @@ ggplot(gage.bb.sf) +
         axis.title.y=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank())
+
+
+ggsave('Plots/USGS_Watershed/subwatersheds.png', width = 6.25, height = 4.25, units = 'in')
+

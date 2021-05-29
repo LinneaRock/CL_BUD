@@ -17,7 +17,14 @@ lakecond(ME_Epi_cond_data, ME_Hypo_cond_data, "Mendota 23.5m", "Mendota 2m") +
 splot("conductance_time_series/", "ME")
 
 #concentration plot
-ME_chloride_plot <- clseries(labME) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c(option = "inferno",direction = -1) #+
+ME_chloride_plot <- clseries(labME) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c("Depth (m)", option = "inferno",direction = -1, begin = 0.25, end = 0.9) +
+  labs(caption = "Figure X. Chloride concentrations from grab samples in Lake Mendota over the entire study 
+period. Color indicates the measurement depth of the lake in meters. Vertical dotted lines 
+are ice-on and off dates with just the ice-off date in 2020 on this figure.") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2021-01-03 00:00:00")), linetype = "dotted") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2021-03-20 00:00:00")), linetype = "dotted") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2020-01-12 00:00:00")), linetype = "dotted") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2020-03-22 00:00:00")), linetype = "dotted")
   #capt_clseries("Mendota", "Lake Mendota")
 splot("chloride_time_series/", "ME")
 
