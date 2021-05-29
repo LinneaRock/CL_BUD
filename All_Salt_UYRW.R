@@ -55,8 +55,8 @@ simpleregtable <- gt_tbl %>%
   ) %>%
   tab_header(
     title = "Potash (KCl) Application Rates for Different Crop Types and Soil Potassium Content",
-    subtitle = "Rates are in Metric Tonnes (Mg)") %>%
-  tab_source_note(source_note = "Table X. Data from University of Wiscsonsin - Extension"
+    subtitle = "Rates are in metric tonnes per hectare") %>%
+  tab_source_note(source_note = "Table X. Data from Laboski & Peters (2006)."
   ); simpleregtable
 
 # whitespace can be set, zoom sets resolution

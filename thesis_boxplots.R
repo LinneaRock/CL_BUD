@@ -9,7 +9,7 @@ lows <- ggplot(all_data %>% filter(ID != "PBMS" & ID != "PBSF" & ID != "WIC" & I
   geom_jitter(aes(color = season)) +
   scale_color_manual(labels = c("April-October", "November-March"), 
                      values = c("#1C366B", "#F24D29")) +
-  labs(x = "", y = "") + L_theme() + theme(legend.position = "none")
+  labs(x = "", y = "") + L_theme()  + theme_bw() + theme(legend.position = "none")
 
 all <- ggplot(all_data, mapping = aes(reorder(ID, chloride_mgL), chloride_mgL)) +
   geom_boxplot() +
@@ -17,8 +17,8 @@ all <- ggplot(all_data, mapping = aes(reorder(ID, chloride_mgL), chloride_mgL)) 
   scale_color_manual(labels = c("April-October", "November-March"), 
                      values = c("#1C366B", "#F24D29")) +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Chloride concentrations at each sampling location. Inset shows the 
-locations with lower concentrations up close.") + L_theme() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+       caption = "Figure X. Chloride concentrations at each sampling location. The six sites
+with the lowest chloride concentrations are shown in the inset.") + L_theme() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 all + inset_element(lows, 0.12, 0.4, 0.6, 1, align_to = "full")

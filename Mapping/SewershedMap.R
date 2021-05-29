@@ -57,6 +57,7 @@ ggplot() +
   annotation_map_tile(type = world_gray, zoom = 12) +
   geom_sf(ws_outfallbasins, mapping = aes(fill = watershed)) +
   theme_bw() + 
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) +
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
@@ -220,6 +221,70 @@ ggsave("Plots/sewershed/idde_basins.png", width = 20, height = 15, units = "cm")
                   theme = theme(plot.tag = element_text(size = 10), 
                                 plot.caption = element_text(size = 10, hjust = 0)))
 ggsave("Plots/sewershed/sewersheds_patched.png", width = 20, height = 15, units = "cm")
+
+
+
+
+#map of chloride concentrations - willow creek and monitored pipes
+a <- ggplot() +
+  annotation_map_tile(type = world_gray, zoom = 12) +
+  geom_sf(ws_outfallbasins, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsWC %>% mutate(chloride = 157.42), mapping = aes(fill = chloride)) +
+  geom_sf(basins_idde1, mapping = aes(fill = chloride)) +
+  scale_fill_viridis_c("Chloride 
+Concentration"~(mg~L^-1), option = "inferno", direction = -1, begin= 0.1, end = 0.9) +
+  theme_bw() + 
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) +
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + 
+#   labs(caption = "Figure X. Map showing the basins of storm sewer pipes with data from 2011-2013 overlain on all relevant 
+# outfall basins in the UYRW.") + L_theme() +
+  theme(plot.caption = element_text(size = 10, hjust = 0),
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+
+#map of conductivities 
+b <- ggplot() +
+  annotation_map_tile(type = world_gray, zoom = 12) +
+  geom_sf(ws_outfallbasins, mapping = aes(), color = "black", fill = NA) +
+  geom_sf(wsWC %>% mutate(Cond = 871.73), mapping = aes(fill = Cond)) +
+  geom_sf(basins_idde1, mapping = aes(fill = Cond)) +
+  scale_fill_viridis_c("Specific 
+Conductivity"~(mu~S~cm^-1), option = "inferno", direction = -1, begin= 0.1, end = 0.9) +
+  theme_bw() + 
+  annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) +
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
+                         height = unit(0.5,'in'), width = unit(0.5,'in'),
+                         style = north_arrow_nautical) + 
+  theme(plot.caption = element_text(size = 10, hjust = 0),
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+  
+
+
+(a / b) +
+  plot_annotation(tag_levels = 'a',tag_suffix = ')',
+                  caption = 'Figure X. Sewersheds of Willow Creek and other outfall basins with data for a) chloride and 
+b) conductivity.',
+                  theme = theme(plot.tag = element_text(size = 10), 
+                                plot.caption = element_text(size = 10, hjust = 0)))
+ggsave("Plots/sewershed/sewersheds_patched.png", width = 6.25, height = 8.25, units = "in")
+
+
+
+
+
 
 #######################################################################################################
 #point source water discharges 1988-2019

@@ -86,9 +86,9 @@ MO_purrr <- chloride_cond_MO %>%
 
 #the regression figure
 ggplot(chloride_cond_MO) +
-  geom_point(aes(sp.cond, chloride_mgL)) +
+  geom_point(aes(sp.cond, chloride_mgL, color = Depth_m)) +
   geom_smooth(aes(sp.cond, chloride_mgL, group = Depth_m, color = Depth_m), method = "lm", se = FALSE) +
-  scale_color_viridis_c(option = "inferno") +
+  scale_color_viridis_c("Depth (m)",option = "inferno", direction = -1) +
   theme_minimal() +
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"",
        y = "Chloride Concentration"~(mg~L^-1),

@@ -73,10 +73,11 @@ options(scipen = 999)
 ggplot(Mendota_loads_by_ws) +
   geom_point(mapping = aes(DRNAREA, entireload, color = as.numeric(sum_discharge), size = DEVNLCD01)) +
   geom_smooth(method = "lm", mapping = aes(DRNAREA, entireload), se = FALSE, color = "black", size = 0.5) +
-  scale_color_viridis_c(option = "inferno", "Total Volume of Water"~(m^3)) + 
+  scale_color_viridis_c(option = "inferno", direction = -1, end = 0.9, "Total Volume of Water"~(m^3)) + 
   labs(size = "% Development",
-       caption = "Figure X. Roles played by watershed size, volume of water flowing, and percentage of 
-development in total chloride mass loading.") +
+       caption = "Figure X. Chloride mass load vs watershed size. Point color indicates volume of 
+water flowing through the river and point size indicates the percentage of development 
+in the watershed.") +
   theme_minimal()+
   labs(x = "Watershed Size (ha)", y = "Mass Chloride (Mg)") +L_theme()
 
@@ -100,7 +101,8 @@ ggplot(Mendota_loads_by_ws, aes(road_density_mha, entire_ratio)) +
   scale_color_viridis_d(option = "inferno", guide = FALSE) +
   labs(x = "Road Density"~(m~ha^-1), y = "Yield"~(Mg~ha^-1), size = "% Development") +
   theme_minimal() +
-  labs(caption = "Figure X. Roles played by road density and percentage of development in chloride yield.") + L_theme()
+  labs(caption = "Figure X. Chloride yield (mass normalized by watershed size) vs road density in 
+the subwatershed. Point size indicates the percentage of development in the watershed.") + L_theme()
 
 ggsave("Plots/yields.png", height = 4.25, width = 6.25, units = "in")
 
