@@ -39,8 +39,8 @@ ggplot(gage.bb.sf) +
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = HUC12.sf.ME, fill = NA, aes()) + 
   geom_sf(data = HUC12.sf.MO, fill = NA, aes()) +
-  geom_sf_label(HUC12.sf.ME, mapping = aes(label = HUC12)) +
-  geom_sf_label(HUC12.sf.MO, mapping = aes(label = HUC12)) +
+  geom_sf_label(HUC12.sf.ME, mapping = aes(label = HUC12), size = 1.5) +
+  geom_sf_label(HUC12.sf.MO, mapping = aes(label = HUC12), size = 1.5) +
   #scale_color_manual(values = c("#1C366B", "#F24D29")) +
   theme_bw() + # Hilary's default theme
   #theme(legend.position = c(0.9,0.85), #This needs to change, legend is cut off of image
@@ -51,8 +51,16 @@ ggplot(gage.bb.sf) +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
-  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE)  # limit axes
- 
+  coord_sf(datum = NA, ylim = c(42.99, 43.39), xlim = c(-89.65, -89.1), expand = FALSE) +
+  L_theme() +
+  theme(plot.caption = element_text(size = 10, hjust = 0),
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+
 ggsave('Plots/HUC12_Watershed/Huc12Map.png', width = 6.25, height = 4.25, units = 'in') 
 
 
