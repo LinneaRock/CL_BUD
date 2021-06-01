@@ -11,13 +11,13 @@ require(magrittr)
 require(reshape2)
 
 # get data from stream 
-dv <- readRDS("~/Documents/Rpackages/Rock_Chloride/Data/discharge/PBMS_discharge.rds")
+dv <- readRDS("Data/discharge/YN_discharge.rds")
 dv = dv %>% 
   dplyr::filter(!is.na(discharge)) %>% # Filter NAs
   dplyr::filter(discharge >= 0) # Filter negative values
 plot(dv$runningmeandis, type = 'l') # check out plot 
 
-area_mi2 = 24
+area_mi2 = readNWISsite("05427850")$drain_area_va
 
 # Test with daily
 # dv = dv %>% group_by(date = as.Date(date)) %>%
@@ -54,14 +54,16 @@ dv.melt %>%
             BFI = round(baseflow.sum/discharge.sum, 2))
 
 ## make plot
-p.date.start <- ymd("2020-06-01")
-p.date.end <- ymd("2020-08-01")
+p.date.start <- ymd("2019-12-01")
+p.date.end <- ymd("2021-04-11")
 
 p <- 
   ggplot(subset(dv.melt, date >= p.date.start & date <= p.date.end)) +
   geom_ribbon(data=subset(dv, date >= p.date.start & date <= p.date.end), 
               aes(x=date, ymin=0, ymax=runningmeandis), fill="black") +
-  geom_line(aes(x=date, y=value, color=variable)) +
+  geom_ribbon(dv, mapping = aes(x = date, ymin = 0, ymax = Eckhardt),fill = "hot pink") +
+  geom_line(dv, mapping = aes(date, Eckhardt + 3.002068), color = "blue") +
+  #geom_line(aes(x=date, y=value, color=variable)) +
   scale_y_continuous(name="Discharge [m3]") +
   # scale_x_date(expand=c(0,0)) +
   scale_color_discrete(name="Method") +
@@ -69,3 +71,11 @@ p <-
   theme(panel.grid=element_blank(),
         legend.position=c(0.99, 0.99),
         legend.justification=c(1,1)); p
+
+ggplot() +
+  geom_line(PBMS_discharge, mapping = aes(date, runningmeandis)) +
+  #geom_line(dv, mapping = aes(date, Eckhardt), color = "red") +
+  geom_line(dv, mapping = aes(date, BFLOW_3pass), color = "lime green")
+
+mean(YN_discharge$runningmeandis, na.rm = TRUE)
+  

@@ -1,5 +1,29 @@
 #lake mass changes
 
+#PHMDC data
+watershed <- read_xlsx("Data/Historical_External/YaharaHist.xlsx")
+
+ME_point_dat <- watershed %>%
+  dplyr::select(Date, ME) %>%
+  drop_na %>%
+  rename(sampledate = Date,
+         chloride_mgL = ME) %>%
+  mutate(vols = ME_vol) %>%
+  mutate(total = (chloride_mgL * (vols * 1000)) / 1000000000) %>% #first convert volume from m^3 to liter, then convert mg to Mg
+  mutate(LTER = "N") %>%
+  mutate(year4 = year(sampledate))
+
+MO_point_dat <- watershed %>%
+  dplyr::select(Date, MO) %>%
+  drop_na %>%
+  rename(sampledate = Date,
+         chloride_mgL = MO) %>%
+  mutate(vols = MO_vol) %>%
+  mutate(total = (chloride_mgL * (vols * 1000)) / 1000000000)%>% #first convert volume from m^3 to liter, then convert mg to Mg
+  mutate(LTER = "N") %>%
+  mutate(year4 = year(sampledate))
+
+#LTER and my data
 MO_mass <- read_rds("Data/MO_mass.rds") %>%
   mutate(tonnes_cl = (chloride_mgL * (vols * 1000)) / 1000000000) #first convert volume from m^3 to liter, then convert mg to Mg
 ME_mass <- read_rds("Data/ME_mass.rds") %>%
@@ -8,15 +32,20 @@ ME_mass <- read_rds("Data/ME_mass.rds") %>%
 
 MO_mass_daynum <- MO_mass %>%
   group_by(year4, sampledate, daynum) %>%
-  summarise(total = sum(tonnes_cl))
+  summarise(total = sum(tonnes_cl)) %>%
+  bind_rows(MO_point_dat %>% filter(year4 == 2019)) %>%
+  arrange(sampledate) 
+
 
 ME_mass_daynum <- ME_mass %>%
   group_by(year4, sampledate, daynum) %>%
-  summarise(total = sum(tonnes_cl))
+  summarise(total = sum(tonnes_cl)) %>%
+ bind_rows(ME_point_dat %>% filter(year4 == 2019)) %>%
+  arrange(sampledate) 
 
 #just the spring values for mass
 ME_spring <- ME_mass_daynum %>%
-  filter(month(sampledate) == 04 | month(sampledate) == 05| month(sampledate) == 06)
+  filter(month(sampledate) == 04 | month(sampledate) == 05)
   #filter(month(sampledate) == 01 | month(sampledate) == 02)
 
 #lag will not work in the dataframe for some reason, so I'm doing this dumb workaround
@@ -32,7 +61,11 @@ sum(ME_change$change, na.rm= TRUE)
 
 
 MO_spring <- MO_mass_daynum %>%
-  filter(month(sampledate) == 04 | month(sampledate) == 05 | month(sampledate) == 06)
+  filter(month(sampledate) == 04 | month(sampledate) == 05) %>%
+  filter(year4 < 2019) %>%
+  bind_rows(MO_mass_daynum %>% filter(month(sampledate) == 06 & year4 >= 2019)) %>%
+  bind_rows(MO_mass_daynum %>% filter(month(sampledate) == 04 & year4 >= 2021)) %>%
+  arrange(sampledate)
 
 #lag will not work in the dataframe for some reason, so I'm doing this dumb workaround
 change <- MO_spring$total - lag(MO_spring$total)
@@ -56,14 +89,14 @@ ggplot(ME_change) +
   geom_bar(aes(year4, change), stat = "identity") +
   labs(x = "", y = "Change in Mass (Mg)",
        caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake 
-Mendota. The bar in 2020 represents the change from 2018-2020 because no 2019 lake 
-data were available.") +
+Mendota.") +
   L_theme() 
 
 ggsave("Plots/changesME.png", height = 4.25, width = 6.25, units = "in")
 
 ggplot() +
   geom_point(ME_mass_daynum, mapping = aes(sampledate, total)) +
+  #geom_point(ME_point_dat, mapping = aes(as.Date(sampledate), tonnes_cl), color = "orange") +
   geom_point(ME_spring, mapping = aes(sampledate, total), color = "#1DACE8") +
   labs(x = "", y = "Chloride Mass (Mg)",
        caption = "Figure X. Total mass of chloride in metric tonnes (Mg) in Lake Mendota from 1996 - 2021.
@@ -85,9 +118,7 @@ ggplot() +
 ggplot(MO_change) +
   geom_bar(aes(year4, change), stat = "identity") +
   labs(x = "", y = "Change in Mass (Mg)",
-       caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake Monona. 
-The bar in 2020 represents the change from 2018-2020 because no 2019 lake data were 
-available.") +
+       caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake Monona.") +
   L_theme() 
 
 ggsave("Plots/changesMO.png", height = 4.25, width = 6.25, units = "in")
@@ -135,8 +166,7 @@ ggplot(lakes_change) +
   geom_bar(aes(year(sampledate), percentchange, group = ID, fill = ID), stat = "identity", position = "dodge") +
   labs(x = "", y = "Percent Change in Mass of Chloride",
        caption = "Figure X. Percent change in spring chloride mass in metric tonnes each year in Lakes
-Mendota and Monona. The bars in 2020 represent the percent change from 2018-2020 
-because no 2019 lake data were available.") +
+Mendota and Monona.") +
   L_theme() + scale_fill_manual(labels = c("Mendota", "Monona"),
                                 values = c("#1C366B", "#F24D29")) +
   theme(legend.title = element_blank()) #,axis.text.x = element_text(angle = 45, hjust = 1)) +
