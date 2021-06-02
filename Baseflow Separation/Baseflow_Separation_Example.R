@@ -42,7 +42,10 @@ dv$Eckhardt <- baseflow_Eckhardt(Q = dv$runningmeandis, BFImax=BFImax, k=k)
 dv.melt <- 
   dv %>% 
   subset(select=c("date", "runningmeandis", "HYSEP_fixed", "HYSEP_slide", "HYSEP_local", "UKIH", "BFLOW_1pass", "BFLOW_3pass", "Eckhardt")) %>% 
-  melt(id=c("date", "runningmeandis"))
+  melt(id=c("date", "runningmeandis")) 
+
+dv.melt <- dv.melt %>%
+  mutate(threshold = value + mean(dv$runningmeandis)/2)
 
 ## Calculate BFI
 # Base flow is the component of streamflow that can be attributed to ground-water discharge into streams. 
@@ -61,9 +64,9 @@ p <-
   ggplot(subset(dv.melt, date >= p.date.start & date <= p.date.end)) +
   geom_ribbon(data=subset(dv, date >= p.date.start & date <= p.date.end), 
               aes(x=date, ymin=0, ymax=runningmeandis), fill="black") +
-  geom_ribbon(dv, mapping = aes(x = date, ymin = 0, ymax = Eckhardt),fill = "hot pink") +
-  geom_line(dv, mapping = aes(date, Eckhardt + 3.002068), color = "blue") +
-  #geom_line(aes(x=date, y=value, color=variable)) +
+  geom_ribbon(dv.melt, mapping = aes(x = date, ymin = 0, ymax = value),fill = "hot pink") +
+  geom_line(dv.melt, mapping = aes(date, threshold), color = "blue") +
+  geom_line(aes(x=date, y=value, color=variable)) +
   scale_y_continuous(name="Discharge [m3]") +
   # scale_x_date(expand=c(0,0)) +
   scale_color_discrete(name="Method") +
@@ -72,10 +75,5 @@ p <-
         legend.position=c(0.99, 0.99),
         legend.justification=c(1,1)); p
 
-ggplot() +
-  geom_line(PBMS_discharge, mapping = aes(date, runningmeandis)) +
-  #geom_line(dv, mapping = aes(date, Eckhardt), color = "red") +
-  geom_line(dv, mapping = aes(date, BFLOW_3pass), color = "lime green")
 
-mean(YN_discharge$runningmeandis, na.rm = TRUE)
   

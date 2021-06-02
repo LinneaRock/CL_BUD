@@ -67,7 +67,7 @@ chloride_cond_ME <- labME %>%
   mutate(Depth_m = ifelse(Depth_m == 2, 0, Depth_m))
 
 #regression to predict chloride as a function of both specific conductivity and depth
-ME.lm <- summary(lm(chloride_mgL~sp.cond +Depth_m, chloride_cond_ME)) #r =0.17, p = 0.04
+summary(lm(chloride_mgL~sp.cond +Depth_m, chloride_cond_ME)) #r =0.17, p = 0.04
 
 
 #multiple linear regression models to get coefficients, etc.
