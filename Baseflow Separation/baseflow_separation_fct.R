@@ -42,7 +42,9 @@ dv.melt <-
   subset(select = c("date", "runningmeandis", "Eckhardt")) %>%
   #subset(select=c("date", "discharge", "HYSEP_fixed", "HYSEP_slide", "HYSEP_local", "UKIH", "BFLOW_1pass", "BFLOW_3pass", "Eckhardt")) %>% 
   melt(id=c("date", "runningmeandis")) %>%
-  mutate(threshold = value + mean(dv$runningmeandis)/2)
+  mutate(threshold_peak = value + mean(dv$runningmeandis))
+
+
 
 }
 
@@ -69,7 +71,7 @@ plot_bf_qt <- function(bfqt, name) {
     geom_ribbon(data=subset(bfqt, date >= p.date.start & date <= p.date.end), 
                 aes(x=date, ymin=0, ymax=runningmeandis), fill="black") +
     geom_ribbon(mapping = aes(x = date, ymin = 0, ymax = value),fill = "hot pink") +
-    geom_line(mapping = aes(date, threshold), color = "blue") +
+    geom_line(mapping = aes(date, threshold_peak), color = "blue") +
     #geom_line(aes(x=date, y=value, color=variable)) +
     scale_y_continuous(name="Discharge [m3]") +
     # scale_x_date(expand=c(0,0)) +

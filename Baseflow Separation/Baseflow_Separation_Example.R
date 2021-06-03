@@ -44,8 +44,8 @@ dv.melt <-
   subset(select=c("date", "runningmeandis", "HYSEP_fixed", "HYSEP_slide", "HYSEP_local", "UKIH", "BFLOW_1pass", "BFLOW_3pass", "Eckhardt")) %>% 
   melt(id=c("date", "runningmeandis")) 
 
-dv.melt <- dv.melt %>%
-  mutate(threshold = value + mean(dv$runningmeandis)/2)
+# dv.melt <- dv.melt %>%
+#   mutate(threshold = value + mean(dv$runningmeandis)/2)
 
 ## Calculate BFI
 # Base flow is the component of streamflow that can be attributed to ground-water discharge into streams. 
