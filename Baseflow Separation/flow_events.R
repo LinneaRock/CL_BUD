@@ -66,8 +66,8 @@ plot_bf_qt(SH_d, "SH")
 
 
 #identify storm flow events based on the following criteria:
-  #The upward slope must be > 1x10^-5 cms
-  #The difference between the peak discharge and the baseflow must be at least half the total average discharge
+  #The upward slope must be > 1x10^-6 cms
+  #The difference between the peak discharge and the Eckhardt baseflow must be at least half the total average discharge
   #The downward slope must be < 0 cms and the event is over when the slope changes to >=0 cms
 source("Baseflow Separation/find_peaks_eventduration.R")
  timestamp <- 'date'
@@ -84,7 +84,7 @@ YI_events_bf <- find.peaks(YI_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh
 PBSF_events_bf <- find.peaks(PBSF_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, PBSF_cond_data)
 
 #plots
-source("Baseflow Separation/cqanalysis_plots_fct.R")
+source("Baseflow Separation/cq_analysis_plots_fct.R")
 #timeseries
 grid(YN_events_bf, YN_cond_data, "X", "YN")
 grid(YI_events_bf, YI_cond_data, "X", "YI")
@@ -101,10 +101,11 @@ c <- all_cq(SMC_events_bf, "SMC")
 d <- all_cq(DC_events_bf, "DC")
 e <- all_cq(PBMS_events_bf, "PBMS")
 f <- all_cq(SH_events_bf, "SH")
+g <- all_cq(PBSF_events_bf, "PBSF")
 
 options(scipen = 999)
 
-(a | b | c) / (d | e | f) +
+(a | b | c | d) / (e | f | g) +
   plot_annotation(
                   caption = "Figure X. Concentration-discharge plots on log-log axes for each study site. Data includes all
 specific conductivity (SC) and discharge over the entire study period. Corresponding statistics
@@ -121,42 +122,49 @@ fitSMC <- all_cq_stats(SMC_events_bf)
 fitDC <- all_cq_stats(DC_events_bf)
 fitPBMS <- all_cq_stats(PBMS_events_bf)
 fitSH <- all_cq_stats(SH_events_bf)
+fitPBSF <- all_cq_stats(PBSF_events_bf)
 #####
+library(gt)
+library(webshot)
 all_cq_stats <- data.frame(
   River = c(
    "YN",
+   "YI",
    "SMC",
    "DC",
    "PBMS",
    "SH",
-   "YI"
+   "PBSF"
   ),
   Slope = c(
     slope_cq(fitYN),
+    slope_cq(fitYI),
     slope_cq(fitSMC),
     slope_cq(fitDC),
     slope_cq(fitPBMS),
     slope_cq(fitSH),
-    slope_cq(fitYI)
+    slope_cq(fitPBSF)
   ),
   Intercept = c(
     intercept_cq(fitYN),
+    intercept_cq(fitYI),
     intercept_cq(fitSMC),
     intercept_cq(fitDC),
     intercept_cq(fitPBMS),
     intercept_cq(fitSH),
-    intercept_cq(fitYI)
+    intercept_cq(fitPBSF)
   ),
-  Adjusted_R2 = c(
-    r.sqr.lm_cq(fitYN),
-    r.sqr.lm_cq(fitSMC),
-    r.sqr.lm_cq(fitDC),
-    r.sqr.lm_cq(fitPBMS),
-    r.sqr.lm_cq(fitSH),
-    r.sqr.lm_cq(fitYI)
+  # Adjusted_R2 = c(
+  #   r.sqr.lm_cq(fitYN),
+  #   r.sqr.lm_cq(fitYI),
+  #   r.sqr.lm_cq(fitSMC),
+  #   r.sqr.lm_cq(fitDC),
+  #   r.sqr.lm_cq(fitPBMS),
+  #   r.sqr.lm_cq(fitSH),
+  #   r.sqr.lm_cq(fitPBSF)
     
-  ),
-  P_value = c("<0.0001", "<0.0001", "<0.0001", "<0.0001", "<0.0001", "<0.0001"
+ # ),
+  P_value = c("<0.0001", "<0.0001", "<0.0001", "<0.0001", "<0.0001", "<0.0001", "<0.0001"
               # pvalue(labYN, fieldcondYN, YN_cond_data),
               # pvalue(lab6MC, fieldcond6MC, SMC_cond_data),
               # pvalue(labDC, fieldcondDC, DC_cond_data),
@@ -174,10 +182,10 @@ all_cq_stats <- data.frame(
 gt_tbl <- gt(all_cq_stats)
 simpleregtable <- gt_tbl %>%
   cols_label(
-    River = "River Name",
+    River = "Tributary",
     Slope = "Slope",
     Intercept = "Intercept",
-    Adjusted_R2 = html("R<sup>2<sup>"),
+    #Adjusted_R2 = html("R<sup>2<sup>"),
     P_value = "P-Value"
   ) %>%
   tab_header(
@@ -199,68 +207,142 @@ gtsave(data = simpleregtable, "Plots/QC_Plots/Eckhardt_Method/all_cq/stats.png",
 
 
 
-##event-averaged cq relationships #####
+
+
+##event-averaged stormflow cq elationships #####
 YN_each_event <- each_event_cq(YN_events_bf)
 YI_each_event <- each_event_cq(YI_events_bf)
 SMC_each_event <- each_event_cq(SMC_events_bf)
 DC_each_event <- each_event_cq(DC_events_bf)
 PBMS_each_event <- each_event_cq(PBMS_events_bf)
 SH_each_event <- each_event_cq(SH_events_bf)
+PBSF_each_event <- each_event_cq(PBSF_events_bf)
 
 Averaged_seasonal <- averaged_seasonal_cq(YN_each_event, "YN") %>%
   bind_rows(averaged_seasonal_cq(YI_each_event, "YI"),
             averaged_seasonal_cq(SMC_each_event, "SMC"),
             averaged_seasonal_cq(DC_each_event, "DC"),
             averaged_seasonal_cq(PBMS_each_event, "PBMS"),
-            averaged_seasonal_cq(SH_each_event, "SH"))
+            averaged_seasonal_cq(SH_each_event, "SH"),
+            averaged_seasonal_cq(PBSF_each_event, "PBSF"))
 
-ggplot(Averaged_seasonal) + 
-  geom_point(aes(slope, season, color = trib), size = 3) +
+Averaged_seasonal$season = factor(Averaged_seasonal$season, levels = c("Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep", "annual"))
+
+a<- ggplot(Averaged_seasonal) + 
+  geom_point(aes(slope, reorder(season, desc(season)), color = trib, fill = trib), size = 2, shape = 21) +
+  annotate("rect", xmin = -0.05, xmax = 0.05, ymin = 0, ymax = Inf, alpha = 0.2, color = "grey" ) +
   L_theme() +
-  scale_color_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
+  scale_color_viridis_d(option = "inferno", end = 0.9) +
+  scale_fill_viridis_d(option = "inferno", end = 0.9, alpha = 0.5) +
   labs(x = "SC-Discharge Slope",
        y = "Season") +
   theme(legend.title = element_blank()) +
-  labs(caption = "Figure X. Seasonally averaged specific conductivity (SC) - discharge slopes during stormflow.")
+  labs(title = "Stormflow - 
+seasonally averaged") +
+  theme(legend.position = "bottom")  +
+  guides(color = guide_legend(nrow = 1)) +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) 
 
-##averaged baseflow cq relationships
+##averaged baseflow cq relationships #####
 Averaged_seasonal_bf <- seasonal_baseflow(YN_events_bf, "YN") %>%
   bind_rows(seasonal_baseflow(YI_events_bf, "YI"),
             seasonal_baseflow(SMC_events_bf, "SMC"),
             seasonal_baseflow(DC_events_bf, "DC"),
             seasonal_baseflow(PBMS_events_bf, "PBMS"),
-            seasonal_baseflow(SH_events_bf, "SH"))
+            seasonal_baseflow(SH_events_bf, "SH"),
+            seasonal_baseflow(PBSF_events_bf, "PBSF"))
+Averaged_seasonal_bf$season = factor(Averaged_seasonal_bf$season, levels = c("Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep", "annual"))
 
-ggplot(Averaged_seasonal_bf) + 
-  geom_point(aes(slope, season, color = trib, fill = trib), size = 3, shape = 22) +
+b <- ggplot() + 
+  geom_point(Averaged_seasonal_bf, mapping = aes(slope, reorder(season, desc(season)), color = trib, fill = trib), size = 2, shape = 24) +
+  annotate("rect", xmin = -0.05, xmax = 0.05, ymin = 0, ymax = Inf, alpha = 0.2, color = "grey" ) +
   L_theme() +
-  scale_color_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
-  scale_fill_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
+  scale_color_viridis_d(option = "inferno", end = 0.9) +
+  scale_fill_viridis_d(option = "inferno", end = 0.9, alpha = 0.5) +
   labs(x = "SC-Discharge Slope",
        y = "Season") +
-  theme(legend.title = element_blank()) +
-  labs(caption = "Figure X. Seasonally averaged specific conductivity (SC) - discharge slopes during baseflow.")
-
-
-
-
-
+  theme(legend.position = "none") +
+  labs(title= "Baseflow") 
 
 
 
 #Bulk Stormflow CQ slopes, intercepts etc. #####
 Bulk_Stormflow <- YN_bulk <- bulk_stormflow(YN_events_bf, "YN") %>%
-  #YI_bulk <- bulk_stormflow(YI_events_bf, "YI")
+  bind_rows(YI_bulk) %>% # <- bulk_stormflow(YI_events_bf, "YI")) %>% #calculation done manually and separately because YI does not exhibit stormflow in each month and R code errors.
   bind_rows(DC_bulk <- bulk_stormflow(DC_events_bf, "DC")) %>%
   bind_rows(SMC_bulk <- bulk_stormflow(SMC_events_bf, "SMC")) %>%
   bind_rows(PBMS_bulk <- bulk_stormflow(PBMS_events_bf, "PBMS")) %>%
-  bind_rows(SH_bulk <- bulk_stormflow(SH_events_bf, "SH"))
+  bind_rows(SH_bulk <- bulk_stormflow(SH_events_bf, "SH")) %>%
+  bind_rows(PBSF_bulk <- bulk_stormflow(PBSF_events_bf, "PBSF"))  
+Bulk_Stormflow$season = factor(Bulk_Stormflow$season, levels = c("Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep", "annual"))
 
-ggplot(Bulk_Stormflow) + 
-  geom_point(aes(slope, season, color = trib), size = 2) +
+c <- ggplot(Bulk_Stormflow) + 
+  geom_point(aes(slope, reorder(season, desc(season)), color = trib, fill = trib), size = 2, shape = 23) +
+  annotate("rect", xmin = -0.05, xmax = 0.05, ymin = 0, ymax = Inf, alpha = 0.2, color = "grey" ) +
+  L_theme() +
+  scale_color_viridis_d(option = "inferno", end = 0.9) +
+  scale_fill_viridis_d(option = "inferno", end = 0.9, alpha = 0.5) +
   L_theme() +
   scale_color_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
-  labs(x = "SC-Q Slope",
+  labs(x = "SC-Discharge Slope",
        y = "Season") +
-  theme(legend.title = element_blank())
+  theme(legend.position = "none") +
+  labs(title = "Stormflow - 
+bulk averaged") +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) 
+
+
+
+
+
+#seasonal and annual cq slopes for baseflow, stormflow averaged by event, stormflow bulk averaged ######
+(b | a | c) +
+  plot_annotation(tag_levels = 'a',tag_suffix = ')',
+                  caption = "Figure X. Specific conductivity (SC) - discharge (Q) slopes for a) baseflow (squares), b) event-
+averaged stormflow (circles), and c) bulk-averaged stormflow (diamonds). Slopes are categorized 
+by season and as annual. Colors indicate tributary. Grey boxes indicate chemostatic behavior.",
+                  theme = theme(plot.tag = element_text(size = 10), 
+                                plot.caption = element_text(size = 10, hjust = 0),
+                                legend.position = "bottom")) +plot_layout(guides = "collect")
+ggsave("Plots/QC_plots/Eckhardt_Method/slopes.png", height = 4.25, width = 6.25, units = "in")
+
+
+
+
+#figure of all event sloeps, entire cq slope
+all_events <- bind_rows(YN_each_event %>% mutate(trib = "YN"),
+                        YI_each_event %>% mutate(trib = "YI"), 
+                        SMC_each_event %>% mutate(trib = "SMC"), 
+                        DC_each_event %>% mutate(trib = "DC"), 
+                        PBMS_each_event %>% mutate(trib = "PBMS"),
+                        SH_each_event %>% mutate(trib = "SH"), 
+                        PBSF_each_event %>% mutate(trib = "PBSF"))
+
+all_events$season = factor(all_events$season, levels = c("Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep"))
+
+
+
+ggplot() +
+  labs(x = "SC-Q Slope", y = "Tributary") + 
+  geom_point(all_events, mapping = aes(slope, trib, color = season), size = 2.5, shape = 21) +
+   scale_color_manual(labels = c("Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep"),
+                      values = c("#1DACE8", "#1C366B", "#F24D29", "#E5C4A1")) +
+   # scale_fill_manual(labels = c("Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep"),
+   #                    values = c("#1DACE8", "#1C366B", "#F24D29", "#E5C4A1")) +
+  theme(legend.title = element_blank()) +
+  L_theme() +
+  annotate("rect", xmin = -0.05, xmax = 0.05, ymin = 0, ymax = Inf, alpha = 0.2, color = "grey") +
+  geom_point(all_cq_stats, mapping = aes(Slope, River), shape = "|", size = 6) +
+  geom_point(Averaged_seasonal_bf %>% filter(season == "annual"), mapping = aes(slope, trib), shape = "|", size = 6, color = "red") +
+  labs(caption = "Figure X. Specific conductivity (SC) - Discharge (Q) slopes for stormflow event represented by 
+circles. Colors of circles indicate season in which stormfow event occured. Black lines are the
+SC-Q slopes for all SC and flow data over the entire study period. Red lines are the SC-Q slopes
+for SC and flow data during baseflow only. Grey box indicates chemostatic behavior.")
+
+ggsave("Plots/QC_plots/Eckhardt_Method/event_slopes.png", height = 4.25, width = 6.25, units = "in")
+
 

@@ -100,7 +100,7 @@ pvalue_cq <- function(fit) {
 }
 
 
-##event-averaged cq relationships #####
+##event-averaged stormflow cq relationships #####
 each_event_cq <- function(df) {
 
 df <- df %>%
@@ -154,6 +154,15 @@ averaged_seasonal_cq <- function(df_each_event, name) {
     group_by(season) %>%
     summarise(slope = mean(slope)) %>%
     mutate(trib = name)
+  
+  df2 <-df_each_event %>%
+    mutate(trib = name)%>%
+    group_by(trib) %>%
+    summarise(slope = mean(slope)) %>%
+    mutate(season = "annual")
+  
+  df_final <- df %>%
+    bind_rows(df2)
 }
 
 #seasonal_baseflow cq relationships#####
@@ -182,7 +191,7 @@ seasonal_baseflow <- function(df, name) {
     ) 
   
   
-  df<- df %>%
+  df1 <- df %>%
     drop_na(bf_cond) %>%
     filter(bf > 0) %>%
     filter(bf_cond > 0) %>%
@@ -197,31 +206,28 @@ seasonal_baseflow <- function(df, name) {
     distinct() %>%
     mutate(trib = name)
   
+  df2 <-df %>%
+    mutate(trib = name)%>%
+    drop_na(bf_cond) %>%
+    filter(bf > 0) %>%
+    filter(bf_cond > 0) %>%
+    mutate(discharge = log10(bf)) %>%
+    mutate(sp.cond = log10(bf_cond)) %>%
+    group_by(trib) %>%
+    mutate(slope = slope_cq(summary(lm(sp.cond~discharge, data = df%>% group_by(event.flag))))) %>%
+    mutate(intercept = intercept_cq(summary(lm(sp.cond~discharge, data = df %>% group_by(event.flag))))) %>%
+    mutate(r = r.sqr.lm_cq(summary(lm(sp.cond~discharge, data = df %>% group_by(event.flag))))) %>%
+    mutate(pvalue = pvalue_cq(summary(lm(sp.cond~discharge, data = df %>% group_by(event.flag))))) %>%
+    dplyr::select(season, slope, intercept, pvalue, r) %>%
+    distinct() %>%
+    mutate(season = "annual")
   
+  df_final <- df1 %>%
+    bind_rows(df2) %>% distinct()
   
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#bulk-averaged stormflow cq
 bulk_stormflow <- function(df, name) {
   df1 <- df %>%
     mutate(event.flag = ifelse(event.flag < 0, event.flag * -1, event.flag)) %>%
@@ -261,7 +267,8 @@ bulk_stormflow <- function(df, name) {
   
   bulk_stormflow <- data.frame(
     trib = c(name, name, name, name, name),
-    season = c("all", "Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep"),
+    season = c("annual", "Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep"),
+    #season = c("annual", "Oct-Dec", "Apr-Jun"),
     slope = c(
       slope_cq(bulk_fit),
       slope_cq(bulk_oct),
@@ -273,109 +280,23 @@ bulk_stormflow <- function(df, name) {
                   intercept_cq(bulk_oct),
                   intercept_cq(bulk_jan),
                   intercept_cq(bulk_apr),
-                  intercept_cq(bulk_jul)),
+                  intercept_cq(bulk_jul)
+    ),
     p = c(pvalue_cq(bulk_fit),
           pvalue_cq(bulk_oct),
           pvalue_cq(bulk_jan),
           pvalue_cq(bulk_apr),
-          pvalue_cq(bulk_jul)),
+          pvalue_cq(bulk_jul)
+    ),
     r = c(r.sqr.lm_cq(bulk_fit),
           r.sqr.lm_cq(bulk_oct),
           r.sqr.lm_cq(bulk_jan),
           r.sqr.lm_cq(bulk_apr),
-          r.sqr.lm_cq(bulk_jul))
+          r.sqr.lm_cq(bulk_jul)
+    )
   )
   
   return(bulk_stormflow)
   
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ggplot(df1) +
-  geom_point(aes(log10(bf), log10(bf_cond)), color = "#C4CFD0") +
-  geom_smooth(aes(log10(bf), log10(bf_cond)), method = "lm", se = FALSE, color = "grey") +
-  geom_smooth(aes(group = season, log10(event_flow), log10(event_cond), color = season), method = "lm", se = FALSE,) +
-  scale_color_manual(labels = c("Apr-Jun", "Jan-Mar", "Jul-Sep", "Oct-Dec"),
-                     values = c("#F24D29", "#1C366B", "#E5C4A1", "#1DACE8")) +
-  labs(y = "Log(SC)", 
-       x = "Log(Discharge)",
-       title = name) +
-  L_theme()  
-#  scale_y_log10() +
-#  scale_x_log10()
-
-
-
-
-
-
-
-
-
-
-
-  
-  df <- event_data %>%
-    #na.omit() %>%
-    #filter(group == x)
-    nest(data = -group) %>% 
-    mutate(
-      fit = map(data, ~ lm(runningmean~runningmeandis, data = .x)),
-      tidied = map(fit, tidy),
-      glanced = map(fit, glance),
-      augmented = map(fit, augment)
-    ) %>% 
-    unnest(tidied)
-  
-  df1 <- df %>%
-    select(group, term, estimate, glanced) 
-  
-  df2 <- df1 %>%
-    unnest(glanced) %>%
-    left_join(labels, by = c("group" = "x")) %>%
-    pivot_wider(names_from = term, values_from = estimate) %>%
-    rename("slope" = "runningmeandis",
-           "intercept" = "(Intercept)") %>%
-    select(y, adj.r.squared, intercept, slope) %>%
-    drop_na(y)
-  
-  
-  gt_tbl <- gt(df2)
-  table <- gt_tbl %>%
-    cols_label(
-      y = "Event",
-      slope = "Slope",
-      intercept = "Intercept",
-      adj.r.squared = "R Squared"
-    ) %>%
-    tab_header(
-      title = paste("Regression stats for", creekName, "events", sep = ""),
-    ); table
-  
-  # whitespace can be set, zoom sets resolution
-  gtsave(data = table, paste("Plots/QC_plots/", fileName, "/stats.png", sep = ""), expand = 10, zoom = 10)
-  
-  
-  
