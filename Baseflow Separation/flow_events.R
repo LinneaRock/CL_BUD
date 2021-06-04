@@ -1,7 +1,6 @@
-source("Baseflow Separation/baseflow_separation_fct.R")
+library(tidyverse)
 
-#read in discharge data
-
+#read in discharge data, filter NAs, only include discharge >=0 (steps necessary to run baseflow separation and to identify storm events)
 YI_d<- read_rds("Data/discharge/YI_discharge.rds") %>%
   dplyr::filter(!is.na(discharge)) %>% # Filter NAs
   dplyr::filter(discharge >= 0) 
@@ -22,16 +21,20 @@ PBMS_d <- read_rds("Data/discharge/PBMS_discharge.rds")%>%
   dplyr::filter(!is.na(discharge)) %>% # Filter NAs
   dplyr::filter(discharge >= 0) 
 
-# PBSF_d <- read_rds("Data/discharge/PBSF_discharge.rds")%>% 
-#   dplyr::filter(!is.na(discharge)) %>% # Filter NAs
-#   dplyr::filter(discharge >= 0) 
+PBSF_d <- read_rds("Data/discharge/PBSF_discharge.rds")%>%
+  dplyr::filter(!is.na(discharge)) %>% # Filter NAs
+  dplyr::filter(discharge >= 0)
 
 SH_d <- d.sc.SH %>% 
   dplyr::filter(!is.na(discharge)) %>% # Filter NAs
   dplyr::filter(discharge >= 0) %>%
   rename(runningmeandis = discharge)
 
+
+
+
 #run baseflow calculations, get baseflow index, & plot 
+source("Baseflow Separation/baseflow_separation_fct.R")
 YN_d <- get_eckhardt_bf("05427850", YN_d)
 calc_bfi(YN_d) #bfi = 48%
 plot_bf_qt(YN_d, "YN")
@@ -52,9 +55,9 @@ PBMS_d <- get_eckhardt_bf("05427948", PBMS_d)
 calc_bfi(PBMS_d) #bfi = 50%
 plot_bf_qt(PBMS_d, "PBMS")
 
-# PBSF_d <- get_eckhardt_bf("054279465", PBSF_d)
-# calc_bfi(PBSF_d) #bfi = 17%
-# plot_bf_qt(PBSF_d, "PBSF")
+PBSF_d <- get_eckhardt_bf("054279465", PBSF_d)
+calc_bfi(PBSF_d) #bfi = 17%
+plot_bf_qt(PBSF_d, "PBSF")
 
 SH_d <- get_eckhardt_bf("05427965", SH_d)
 calc_bfi(SH_d) #bfi = 55%
@@ -62,112 +65,181 @@ plot_bf_qt(SH_d, "SH")
 
 
 
-ggplot(df.peaks) +
-  geom_line(aes(date, runningmeandis)) +
-  geom_point(aes(date, peak.flag))
+#identify storm flow events based on the following criteria:
+  #The upward slope must be > 1x10^-5 cms
+  #The difference between the peak discharge and the baseflow must be at least half the total average discharge
+  #The downward slope must be < 0 cms and the event is over when the slope changes to >=0 cms
+source("Baseflow Separation/find_peaks_eventduration.R")
+ timestamp <- 'date'
+ plot_var <- 'runningmeandis'
+ sb_pk_thresh <- 0.000001
+ sf_pk_thresh <- 0
+
+YN_events_bf <- find.peaks(YN_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, YN_cond_data)
+SMC_events_bf <- find.peaks(SMC_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, SMC_cond_data)
+DC_events_bf <- find.peaks(DC_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, DC_cond_data)
+PBMS_events_bf <- find.peaks(PBMS_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, PBMS_cond_data)
+SH_events_bf <- find.peaks(SH_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, d.sc.SH %>% dplyr::select(date, sp.cond) %>% rename(runningmean = sp.cond))
+YI_events_bf <- find.peaks(YI_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, YI_cond_data)
+PBSF_events_bf <- find.peaks(PBSF_d, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, PBSF_cond_data)
+
+#plots
+source("Baseflow Separation/cqanalysis_plots_fct.R")
+#timeseries
+grid(YN_events_bf, YN_cond_data, "X", "YN")
+grid(YI_events_bf, YI_cond_data, "X", "YI")
+grid(DC_events_bf, DC_cond_data, "X", "DC")
+grid(SMC_events_bf, SMC_cond_data, "X", "SMC")
+grid(PBMS_events_bf, PBMS_cond_data, "X", "PBMS")
+grid(SH_events_bf, d.sc.SH %>% dplyr::select(date, sp.cond) %>% rename(runningmean = sp.cond), "X", "SH")
+grid(PBSF_events_bf, PBSF_cond_data, "X", "PBSF")
+
+#SC vs Q for all data (log-log axes)
+a <- all_cq(YN_events_bf, "YN")
+b <- all_cq(YI_events_bf, "YI")
+c <- all_cq(SMC_events_bf, "SMC")
+d <- all_cq(DC_events_bf, "DC")
+e <- all_cq(PBMS_events_bf, "PBMS")
+f <- all_cq(SH_events_bf, "SH")
+
+options(scipen = 999)
+
+(a | b | c) / (d | e | f) +
+  plot_annotation(
+                  caption = "Figure X. Concentration-discharge plots on log-log axes for each study site. Data includes all
+specific conductivity (SC) and discharge over the entire study period. Corresponding statistics
+are in Table X.",
+                  theme = theme(plot.tag = element_text(size = 10), 
+                                plot.caption = element_text(size = 10, hjust = 0)))
+
+ggsave("Plots/QC_plots/Eckhardt_Method/all_cq/figure.png", height = 4.25, width = 6.25, units = "in")
+
+#table to accompany the above graphic
+fitYN <- all_cq_stats(YN_events_bf)
+fitYI <- all_cq_stats(YI_events_bf)
+fitSMC <- all_cq_stats(SMC_events_bf)  
+fitDC <- all_cq_stats(DC_events_bf)
+fitPBMS <- all_cq_stats(PBMS_events_bf)
+fitSH <- all_cq_stats(SH_events_bf)
+#####
+all_cq_stats <- data.frame(
+  River = c(
+   "YN",
+   "SMC",
+   "DC",
+   "PBMS",
+   "SH",
+   "YI"
+  ),
+  Slope = c(
+    slope_cq(fitYN),
+    slope_cq(fitSMC),
+    slope_cq(fitDC),
+    slope_cq(fitPBMS),
+    slope_cq(fitSH),
+    slope_cq(fitYI)
+  ),
+  Intercept = c(
+    intercept_cq(fitYN),
+    intercept_cq(fitSMC),
+    intercept_cq(fitDC),
+    intercept_cq(fitPBMS),
+    intercept_cq(fitSH),
+    intercept_cq(fitYI)
+  ),
+  Adjusted_R2 = c(
+    r.sqr.lm_cq(fitYN),
+    r.sqr.lm_cq(fitSMC),
+    r.sqr.lm_cq(fitDC),
+    r.sqr.lm_cq(fitPBMS),
+    r.sqr.lm_cq(fitSH),
+    r.sqr.lm_cq(fitYI)
+    
+  ),
+  P_value = c("<0.0001", "<0.0001", "<0.0001", "<0.0001", "<0.0001", "<0.0001"
+              # pvalue(labYN, fieldcondYN, YN_cond_data),
+              # pvalue(lab6MC, fieldcond6MC, SMC_cond_data),
+              # pvalue(labDC, fieldcondDC, DC_cond_data),
+              # pvalue(labPBMS, fieldcondPBMS, PBMS_cond_data),
+              # pvalue(labPBSF, fieldcondPBSF, PBSF_cond_data),
+              # pvalue(labYI, fieldcondYI, YI_cond_data),
+              # pvalue(labWIC, fieldcondWIC, WIC_cond_data),
+              # pvalue(labSW, fieldcondSW, SW_cond_data),
+              # pvalue(labYS, fieldcondYS, YS_cond_data),
+              # SH.p
+  )
+)
+
+
+gt_tbl <- gt(all_cq_stats)
+simpleregtable <- gt_tbl %>%
+  cols_label(
+    River = "River Name",
+    Slope = "Slope",
+    Intercept = "Intercept",
+    Adjusted_R2 = html("R<sup>2<sup>"),
+    P_value = "P-Value"
+  ) %>%
+  tab_header(
+    title = "Specific Conductivity - Discharge Regression Statistics",
+    subtitle = "Log(SC) - Log(Discharge) for all C-Q data") %>%
+  tab_source_note(source_note = "Table X."
+  ); simpleregtable
+
+# whitespace can be set, zoom sets resolution
+gtsave(data = simpleregtable, "Plots/QC_Plots/Eckhardt_Method/all_cq/stats.png", expand = 10, zoom = 10)
 
 
 
 
-#finding all non-baseflow and calling it event = 0.25, combine with conductivity data
-bfqt_d <- PBMS_d %>%
-  mutate(event = ifelse(runningmeandis > threshold_peak, "Y", "N")) %>%
-  left_join(PBMS_cond_data) %>%
-  dplyr::select(date, runningmeandis, variable, value, threshold_peak, threshold_low, event, runningmean) %>%
-  mutate(thresholdmax = 0.01 * max(runningmeandis))
-
-
-ggplot(bfqt_d) +
-  geom_line(aes(date, runningmeandis)) +
-  #geom_line(aes(date, event), color = "red") +
-  geom_line(aes(date, threshold_low), color = "blue") +
-  geom_line(aes(date, thresholdmax),color = "green")
-
-
-#plot to check
-ggplot(bfqt_d) +
-  geom_line(aes(date, runningmeandis)) +
-  geom_line(aes(date, value), color = "hot pink") +
-  geom_line(aes(date, threshold_peak), color = "blue") +
-  geom_line(aes(date, threshold_low), color = "blue") +
-  geom_point(aes(date, event), color = "purple") #+
-  #geom_line(aes(date, runningmean/100), color = "red")
 
 
 
-#just event days (qt)
-date_of_events <- bfqt_d %>%
-  dplyr::select(date, event) %>%
-  filter(event == 0.25) %>%
-  mutate(date2 = as.Date(date)) %>%
-  select(date2, event) %>%
-  distinct()
-#Noting which dates of data to keep (i.e., before and after a rain event and flow exceeds threshold)
-precip2 <- precip %>%
-  left_join(date_of_events, by = c("date" = "date2")) %>%
-  #mutate(keep2 = ifelse(event == 0.25, 1, 0)) %>%
-  mutate(keep2 = ifelse(lag(event, n = 1L) == 0.25 | lag(event, n = 2L) == 0.25 | lead(event, n = 2L) == 0.25 | lead(event, n = 1L) == 0.25 | event == 0.25, 1, 0)) %>%
-  filter(keep2 == 1)
-
-#conmbine discharge/cond with precip. Keep only day prior to rain event, during rain event, and day after rain event
-events <- bfqt_d %>%
-  mutate(date) %>%
-  mutate(date2 = as.Date(date)) %>%
-  left_join(precip2, by = c("date2" = "date")) %>%
-  filter(keep2 == 1) %>%
-  filter(event.x == 0.25) %>%
-  dplyr::select(date, runningmeandis, variable, value, threshold, runningmean, PRCP, date2, event.x)
 
 
-#plot to check
-ggplot(events) +
-  geom_point(aes(date, runningmeandis)) +
-  geom_line(aes(date, value), color = "hot pink")  +
-  geom_line(aes(date, threshold), color = "blue")
 
 
-#create groupings based on dates of events
-dates_only <- events %>%
-  select(date2) %>%
-  unique()
-dates <- as.vector(as.character(dates_only$date2))
-dates1 <- sort(as.Date((dates)))
-split(dates1, cumsum(c(TRUE, diff(dates1) != 1)))
-dates2 <- data.frame(dates1, group = cumsum(c(TRUE, diff(dates1) != 1))) 
+##event-averaged cq relationships #####
+YN_each_event <- each_event_cq(YN_events_bf)
+YI_each_event <- each_event_cq(YI_events_bf)
+SMC_each_event <- each_event_cq(SMC_events_bf)
+DC_each_event <- each_event_cq(DC_events_bf)
+PBMS_each_event <- each_event_cq(PBMS_events_bf)
+SH_each_event <- each_event_cq(SH_events_bf)
 
-#putting the date groups into the dataset
-events_grouped <- events %>%
-  left_join(dates2, by = c("date2" = "dates1")) %>%
-  rename(date_event = date2) %>%
-  rename(event_flow = runningmeandis) %>%
-  rename(event_cond = runningmean)
+Averaged_seasonal <- averaged_seasonal_cq(YN_each_event, "YN") %>%
+  bind_rows(averaged_seasonal_cq(YI_each_event, "YI"),
+            averaged_seasonal_cq(SMC_each_event, "SMC"),
+            averaged_seasonal_cq(DC_each_event, "DC"),
+            averaged_seasonal_cq(PBMS_each_event, "PBMS"),
+            averaged_seasonal_cq(SH_each_event, "SH"))
 
-ggplot(events_grouped) +
-  geom_point(aes(date, event_flow)) +
-  geom_point(aes(date, value),color = "hot pink") +
-  #geom_point(aes(date, event.y), color = "blue") +
-  facet_wrap("group", scales = "free")
+ggplot(Averaged_seasonal) + 
+  geom_point(aes(slope, season, color = trib), size = 3) +
+  L_theme() +
+  scale_color_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
+  labs(x = "SC-Discharge Slope",
+       y = "Season") +
+  theme(legend.title = element_blank()) +
+  labs(caption = "Figure X. Seasonally averaged specific conductivity (SC) - discharge slopes during stormflow.")
 
-ggplot(events_grouped) +
-  geom_point(aes(date, event_cond)) +
-  facet_wrap("group", scales = "free")
+##averaged baseflow cq relationships
+Averaged_seasonal_bf <- seasonal_baseflow(YN_events_bf, "YN") %>%
+  bind_rows(seasonal_baseflow(YI_events_bf, "YI"),
+            seasonal_baseflow(SMC_events_bf, "SMC"),
+            seasonal_baseflow(DC_events_bf, "DC"),
+            seasonal_baseflow(PBMS_events_bf, "PBMS"),
+            seasonal_baseflow(SH_events_bf, "SH"))
 
-
-join_all <- bfqt_d %>%
-  mutate(all_date = as.Date(date)) %>%
-  left_join(events_grouped) %>%
-  mutate(bt = ifelse(is.na(group), runningmeandis, NA)) %>%
-  mutate(sp.cond = ifelse(is.na(group), runningmean, NA)) %>%
-  dplyr::select(date, bt, value, threshold, sp.cond, event_flow, event_cond, PRCP, group) %>%
-  rename(Eckhardt = value)
-  
-
-ggplot(join_all) +
-  geom_line(aes(date, bt)) +
-  geom_line(aes(date, event_flow), color = "red") +
-  geom_line(aes(date, threshold), color = "blue") +
-  geom_ribbon(mapping = aes(x = date, ymin = 0, ymax = Eckhardt),fill = "hot pink")
-  
+ggplot(Averaged_seasonal_bf) + 
+  geom_point(aes(slope, season, color = trib, fill = trib), size = 3, shape = 22) +
+  L_theme() +
+  scale_color_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
+  scale_fill_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
+  labs(x = "SC-Discharge Slope",
+       y = "Season") +
+  theme(legend.title = element_blank()) +
+  labs(caption = "Figure X. Seasonally averaged specific conductivity (SC) - discharge slopes during baseflow.")
 
 
 
@@ -176,89 +248,19 @@ ggplot(join_all) +
 
 
 
+#Bulk Stormflow CQ slopes, intercepts etc. #####
+Bulk_Stormflow <- YN_bulk <- bulk_stormflow(YN_events_bf, "YN") %>%
+  #YI_bulk <- bulk_stormflow(YI_events_bf, "YI")
+  bind_rows(DC_bulk <- bulk_stormflow(DC_events_bf, "DC")) %>%
+  bind_rows(SMC_bulk <- bulk_stormflow(SMC_events_bf, "SMC")) %>%
+  bind_rows(PBMS_bulk <- bulk_stormflow(PBMS_events_bf, "PBMS")) %>%
+  bind_rows(SH_bulk <- bulk_stormflow(SH_events_bf, "SH"))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#old code, bad code.
-
-#Get the baseflow information using the package of EcoHydRology. Then restart R before continuing.
-# library(EcoHydRology)
-# 
-# YI_baseflow <- BaseflowSeparation(YI_discharge$runningmeandis, passes = 3)
-# hydrograph(input = YI_discharge, streamflow2 = YI_baseflow[,2], S.units =  "m3s")
-# test <- left_join(YI_discharge %>% mutate(number = row_number()), YI_baseflow %>% mutate(number = row_number()), by = "number") %>%
-#   mutate(testing = bt + qft)
-# YN_baseflow <- BaseflowSeparation(YN_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-# hydrograph(input = YN_discharge, streamflow2 = YN_baseflow[,2], S.units =  "m3s")
-# SMC_baseflow <- BaseflowSeparation(SMC_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-# hydrograph(input = SMC_discharge, streamflow2 = SMC_baseflow[,2], S.units =  "m3s")
-# DC_baseflow <- BaseflowSeparation(DC_discharge$runningmeandis, filter_parameter = 0.925, passes = 3) 
-# hydrograph(input = DC_discharge, streamflow2 = DC_baseflow[,2], S.units =  "m3s")
-# PBMS_baseflow <- BaseflowSeparation(PBMS_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-# hydrograph(input = PBMS_discharge, streamflow2 = PBMS_baseflow[,2], S.units =  "m3s")
-# PBSF_baseflow <- BaseflowSeparation(PBSF_discharge$runningmeandis, filter_parameter = 0.925, passes = 3)
-# hydrograph(input = PBSF_discharge, streamflow2 = PBSF_baseflow[,2], S.units =  "m3s")
-
-source("Functions/qC_events.R")
-
-# library(DVstats)
-# YI_tst <- YI_discharge %>% 
-#   mutate(base= baseflow(YI_discharge$runningmeandis))
-# test <- DVstats::hysep(YI_discharge$runningmeandis, Dates = date, da = 1456)
-# 
-# ggplot(YI_tst) +
-#   geom_line(aes(date, base), color = "red") +
-#   geom_line(aes(date, runningmeandis), color = "black")
-
-#YI's hydrograph does not show reaction to precip events ????????
-YI_event <- find_all_events(YI_discharge, YI_baseflow, "YI", YI_cond_data)
-#check the plots in the folder
-x <- c()
-y <- LETTERS[]
-
-YN_event <- find_all_events(YN_discharge, YN_baseflow, "YN", YN_cond_data)
-#check the plots in the folder
-x <- c(1, 2, 4, 8, 9, 13, 14)
-y <- LETTERS[1:7]
-QC_plots(x, y, YN_event, "YN", "Yahara North", YN_discharge, YN_cond_data)
-
-SMC_event <- find_all_events(SMC_discharge, SMC_baseflow, "SMC", SMC_cond_data)
-#check the plots in the folder
-x <- c(2:5, 7, 9:11, 13, 14, 16)
-y <- LETTERS[1:11]
-QC_plots(x, y, SMC_event, "SMC", "Sixmile Creek", SMC_discharge, SMC_cond_data)
-
-DC_event <- find_all_events(DC_discharge, DC_baseflow, "DC", DC_cond_data)
-#check the plots in the folder
-x <- c(1, 4:6, 8, 10, 11, 13, 15, 16, 18, 20, 22, 23)
-y <- LETTERS[1:14]
-QC_plots(x, y, DC_event, "DC", "Dorn Creek", DC_discharge, DC_cond_data)
-
-PBMS_event <- find_all_events(PBMS_discharge, PBMS_baseflow, "PBMS", PBMS_cond_data)
-#check the plots in the folder
-x <- c(1, 3:5, 7, 9:11, 13:16, 18, 19, 21, 23, 25, 26)
-y <- LETTERS[1:18]
-QC_plots(x, y, PBMS_event, "PBMS", "Pheasant Branch Main Stem", PBMS_discharge, PBMS_cond_data)
-
-PBSF_event <- find_all_events(PBSF_discharge, PBSF_baseflow, "PBSF", PBSF_cond_data)
-#check the plots in the folder
-x <- c(1, 2, 4, 8, 11:13, 15, 18, 21)
-y <- LETTERS[1:10]
-QC_plots(x, y, PBSF_event, "PBSF", "Pheasant Branch South Fork", PBSF_discharge, PBSF_cond_data)
-
-
-  
+ggplot(Bulk_Stormflow) + 
+  geom_point(aes(slope, season, color = trib), size = 2) +
+  L_theme() +
+  scale_color_viridis_d(option = "inferno", begin = 0.25, end = 0.9) +
+  labs(x = "SC-Q Slope",
+       y = "Season") +
+  theme(legend.title = element_blank())
 

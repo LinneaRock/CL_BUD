@@ -1,19 +1,27 @@
- df <- SMC_d
- timestamp <- 'date'
- plot_var <- 'runningmeandis'
- sb_pk_thresh <- 0.000001
- sf_pk_thresh <- 0
-
-
-# 
- df.peaks <- find.peaks(df, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, SMC_cond_data) 
+#df is a dataframe with baseflow and threshold calculated already 
+# timestamp <- 'date'
+# plot_var <- 'runningmeandis'
+# sb_pk_thresh <- 0.000001
+# sf_pk_thresh <- 0
+#cond_data is the EC timeseries for the site
 
 #the find.peaks function should ingest a dataframe and output a dataframe with the peaks idenitified
-find.peaks <- function(df, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, cond_data){
-  
+find.peaks <- function(df.orig, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, cond_data){
+df <- df.orig %>%
+  group_by(as.Date(date, format = "%m/%d/%y")) %>%
+  summarise(mean(runningmeandis), mean(value), mean(threshold_peak)) %>%
+  rename(date = 'as.Date(date, format = "%m/%d/%y")',
+         runningmeandis = 'mean(runningmeandis)',
+         value = 'mean(value)',
+         threshold_peak = 'mean(threshold_peak)') %>%
+  ungroup() %>%
+  as.data.frame() %>%
+  mutate(threshold_peak = value + (mean(runningmeandis))/2)
+
+    
   #convert to seconds
   #df$Date <- as.POSIXct(df$Date)
-  df$Seconds <- as.numeric(df[,timestamp])
+  df$Seconds <- as.numeric(unlist(df[,timestamp]))
   ##-remove NAs
   #df <- df[!is.na(df[,plot_var]),]
   ##-make sure plotting variable is greater than zero
@@ -31,6 +39,7 @@ find.peaks <- function(df, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, cond
   
   ##-make a column for the peak of each event flagged by a change in derivative
   df$peak.flag <- rep(NA, length.out = nrow(df))
+  
   ##-now flag those derivative changes
   for(i in 2:(nrow(df)-1)){
     ##-if the slope back is greater than some threshold and the slope forward is negative, flag it as a peak
@@ -44,8 +53,15 @@ find.peaks <- function(df, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, cond
     }
   }
   
+  ggplot() +
+    geom_line(df, mapping= aes(date, runningmeandis)) +
+    geom_point(df%>%filter(peak.flag == 1),mapping = aes(date, runningmeandis), color = "red") +
+    geom_line(df, mapping = aes(date, threshold_peak),color = "blue")
+  
   df <- df %>%
-    mutate(peak.flag = ifelse(peak.flag == 1 & runningmeandis > threshold_peak, 1, 0))
+    mutate(peak.flag = ifelse(peak.flag == 1 & runningmeandis > threshold_peak, 1, 0)) 
+  
+  
   
   ##-Flag the changes in derivatitives, events is the row of single site which have events
   events <- which(df$peak.flag == 1)
@@ -96,34 +112,42 @@ find.peaks <- function(df, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, cond
       }
     }
   }
-  df_combine <- df %>%
+ 
+  df1 <- df.orig %>%
+    rename(DATE = date) %>%
+    mutate(date = as.Date(DATE)) %>%
+    left_join(df, by = "date") %>%
+    rename(dummy = date) %>%
+    rename(date = DATE)
+  
+  
+   df_combine <- df1 %>%
     left_join(cond_data)
   
   df_peaks <- df_combine %>%
     drop_na(event.flag) %>%
-    rename(event_flow = runningmeandis,
+    rename(event_flow = runningmeandis.x,
            event_cond = runningmean)
   
   df_baseflow_only <- df_combine %>%
     filter(is.na(event.flag)) %>%
-    rename(bf = runningmeandis,
+    rename(bf = runningmeandis.x,
            bf_cond = runningmean)
   
   df_all_flow <- df_baseflow_only %>%
     bind_rows(df_peaks) %>%
     arrange(date) %>%
-    dplyr::select(date, bf, bf_cond, event_flow, event_cond, value, threshold_peak, event.flag)
+    dplyr::select(date, bf, bf_cond, event_flow, event_cond, value.x, threshold_peak.y, peak.flag, event.flag) %>%
+    rename(value = value.x,
+           threshold_peak = threshold_peak.y)
   return(df_all_flow)
 }
 
 
 
 
-ggplot(df.peaks) +
-  geom_line(aes(date, orig.flow)) +
-  geom_line(aes(date, event_flow), color = "red") +
-  geom_line(aes(date, threshold_peak), color = "blue") +
-  geom_ribbon(mapping = aes(x = date, ymin = 0, ymax = value),fill = "hot pink")
+
+
 
 
 
