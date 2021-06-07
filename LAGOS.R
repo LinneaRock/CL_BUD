@@ -110,7 +110,7 @@ ws_table <- gt_tbl %>%
     title = "Watershed characteristics of HUC12 subwatersheds",
   ) %>%
   tab_source_note(
-    "Table X. Note: undeveloped area includes barren, wetland, forest, and herbacious land. Site ID indicates study sites that are located within that HUC12 boundary."
+    "Table 2. Note: undeveloped area includes barren, wetland, forest, and herbacious land. Site ID indicates study sites that are located within that HUC12 boundary."
   ) %>%
   tab_footnote(footnote = "No study site within boundary; part of YN",
                locations = cells_body(columns = 1, rows = 1:3)) %>%

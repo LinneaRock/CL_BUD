@@ -56,7 +56,7 @@ simpleregtable <- gt_tbl %>%
   tab_header(
     title = "Potash (KCl) Application Rates for Different Crop Types and Soil Potassium Content",
     subtitle = "Rates are in metric tonnes per hectare") %>%
-  tab_source_note(source_note = "Table X. Data from Laboski & Peters (2006)."
+  tab_source_note(source_note = "Table 3. Data from Laboski & Peters (2006)."
   ); simpleregtable
 
 # whitespace can be set, zoom sets resolution
@@ -110,7 +110,7 @@ ggplot(crops) +
   scale_y_continuous(n.breaks = 10) +
   labs(x = "Soil potassium content",
        y = "Chloride Mass (Mg)",
-       caption = "Figure X. Range in chloride load in metric tonnes (Mg) from using potash (KCl) to fertilize 
+       caption = "Figure 18. Range in chloride load in metric tonnes (Mg) from using potash (KCl) to fertilize 
 crops. Estimates based on the three major crop types and the range is based on 
 recommended application rates for a range of potassium content in the soil.")
 
@@ -140,7 +140,7 @@ ggplot(road_salt_chloride_locations) +
   scale_y_continuous(n.breaks = 10) +
   labs(x = "",
        y = "Chloride Mass (Mg)",
-       caption = "Figure X. Mass of chloride in metric tonnes (Mg) from road salt application for the two 
+       caption = "Figure 16. Mass of chloride in metric tonnes (Mg) from road salt application for the two 
 study winters in different areas of the watershed.")
 
 ggsave("Plots/road_salt_by_location.png", height = 4.25, width = 6.25, units = "in")

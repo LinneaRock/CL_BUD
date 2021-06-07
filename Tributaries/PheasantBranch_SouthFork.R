@@ -110,7 +110,7 @@ ggsave("Plots/TS_Grids/PBSF.png", height = 20, width = 15, units = "cm")
 
 #number is the ratio of chloride to conductivity 
 for_gridPBSF <- sc_cl(PBSF_cond_data, labPBSF, 3) + 
-  labs(caption = "Figure X. Precipitation, discharge, and specific conductivity and chloride concentrations 
+  labs(caption = "Figure 25. Precipitation, discharge, and specific conductivity and chloride concentrations 
 collected during the study period in the South Fork of Pheasant Branch Creek.")
 
 ts_grid2(precip_data, PBSF_discharge, PBSF_cond_data, for_gridPBSF)

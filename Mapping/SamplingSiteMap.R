@@ -4,6 +4,7 @@ library(tidyverse)
 library(ggspatial)
 library(patchwork)
 library(raster)
+library(ggrepel)
 
 ## Esri basemap URLs ####
 esri_land <-  paste0('https://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/${z}/${y}/${x}.jpeg')
@@ -30,15 +31,22 @@ lakebuoys.sf <- st_as_sf(lakebuoys, coords = c("lon", "lat"),
 # wc.sf <- st_as_sf(wc, coords = c("lon", "lat"),
 #                   crs = 4326)
 
+ #creating this for labels
+ label <- bind_rows(gage.bb.sf, nogage.bb.sf, lakebuoys.sf, sh.sf) %>%
+   mutate(lat = unlist(map(label$geometry, 1)),
+          long = unlist(map(label$geometry, 2)))
+
+ 
 #  Map #### 
 ggplot(gage.bb.sf) + 
   annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
   geom_sf(data = gage.bb.sf, aes(shape = 'USGS-gaged 
-river'), color = 'black', size = 1.6) + # USGS gages
+river'), color = 'black', size = 1.6) + # USGS gages 
   geom_sf(data = nogage.bb.sf, aes(shape = 'Rivers'), color = 'black', size = 1.6) + #rivers without gages
   geom_sf(data = lakebuoys.sf, aes(shape = 'Lakes'), color = 'black', size = 1.6) + #lake sites
   geom_sf(data = sh.sf, aes(shape = 'USGS-gaged 
 Storm Sewer'), color = 'black', size = 1.6) + #spring harbor 
+   geom_text_repel(data = label, mapping = aes(lat, long, label = site)) + 
   #geom_sf(data = wc.sf, aes(shape = 'Storm Sewer'), size = 1.6) + #Willow creek
  # scale_shape_manual('Legend', values=c('USGS River' = 17, 'Rivers' = 19, 'Lakes' = 15, 'USGS Storm Sewer' = 24, 'Storm Sewer' = 21)) + 
   theme_bw() + # Hilary's default theme
@@ -52,11 +60,17 @@ Storm Sewer'), color = 'black', size = 1.6) + #spring harbor
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
-  labs(caption = "Figure X. Map of study sites. These are sites that were monitored from 2019 - 
+  labs(caption = "Figure 7. Map of study sites. These are sites that were monitored from 2019 - 
 2021, using data loggers, grab sampling, and some with USGS gaging.") +
-  theme(plot.caption = element_text(size = 10, hjust = 0))
+  theme(plot.caption = element_text(size = 10, hjust = 0)) +
+   theme(plot.caption = element_text(size = 10, hjust = 0),
+         axis.title.x=element_blank(),
+         axis.text.x=element_blank(),
+         axis.ticks.x=element_blank(),
+         axis.title.y=element_blank(),
+         axis.text.y=element_blank(),
+         axis.ticks.y=element_blank())
  
 
 ggsave('Plots/Map.png', width = 6.25, height = 4.25, units = 'in')
-
 

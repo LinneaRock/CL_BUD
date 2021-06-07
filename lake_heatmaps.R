@@ -40,7 +40,7 @@ ggplot() +
   scale_fill_viridis_d("Chloride
 Concentration"~(mg~L^-1), option = "inferno", direction = -1) +
   labs(x = "", y = "Depth (m)", 
-  caption = "Figure X. Interpolated chloride concentrations in Lake Mendota based on manual sampling
+  caption = "Figure 42. Interpolated chloride concentrations in Lake Mendota based on manual sampling
 and continuously measured conductivity (grey points).") +
   theme(plot.caption = element_text(size = 10, hjust = 0), 
         axis.text = element_text(size = 10),
@@ -93,7 +93,7 @@ ggplot() +
   scale_fill_viridis_d("Chloride
 Concentration"~(mg~L^-1), option = "inferno", direction = -1, end = 0.9) +
   labs(x = "", y = "Depth (m)", 
-       caption = "Figure X. Interpolated chloride concentrations in Lake Monona based on manual sampling
+       caption = "Figure 43. Interpolated chloride concentrations in Lake Monona based on manual sampling
 and continuously measured conductivity (grey points).") +
   theme(plot.caption = element_text(size = 10, hjust = 0), 
         axis.text = element_text(size = 10),

@@ -103,7 +103,7 @@ ggplot(gage.bb.sf) + # I don't know why but R aborts if I run this without this 
   geom_sf(wi_cl_sf, mapping = aes(color = group)) +
   coord_sf(crs = st_crs(4326)) +
   scale_color_viridis_d(option = "inferno", name = "Chloride Concentration"~(mg~L^-1)) +
-  labs(caption = "Figure X. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Less 
+  labs(caption = "Figure 3. Chloride concentrations (mg/L) in Wisconsin lakes and rivers from 2000-2021. Less 
 than 10 mg/L indicates these are likely unaffected by anthropogenic chloride. 250 mg/L is the
 taste threshold, 395 mg/L is Wisconsin's chronic toxicity threshold, and 757 mg/L is
 Wisconsin's acute toxicity threshold. Data from waterqualitydata.us.") +

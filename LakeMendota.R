@@ -18,7 +18,7 @@ splot("conductance_time_series/", "ME")
 
 #concentration plot
 ME_chloride_plot <- clseries(labME) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c("Depth (m)", option = "inferno",direction = -1, begin = 0.25, end = 0.9) +
-  labs(caption = "Figure X. Chloride concentrations from grab samples in Lake Mendota over the entire study 
+  labs(caption = "Figure 31. Chloride concentrations from grab samples in Lake Mendota over the entire study 
 period. Color indicates the measurement depth of the lake in meters. Vertical dotted lines 
 are ice-on and off dates with just the ice-off date in 2020 on this figure.") +
   geom_vline(xintercept = as.numeric(as.POSIXct("2021-01-03 00:00:00")), linetype = "dotted") +
@@ -90,7 +90,7 @@ ggplot(chloride_cond_ME) +
   theme_minimal() +
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"",
        y = "Chloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Multiple linear regression of chloride concentration in Lake Mendota as a function 
+       caption = "Figure 37. Multiple linear regression of chloride concentration in Lake Mendota as a function 
 of both conductivity and depth.") +
   L_theme()
 
@@ -161,7 +161,7 @@ ggplot() +
   scale_color_viridis_c(option = "inferno") +
   scale_y_reverse() +
   labs(x = "", y = "Depth (m)", color = "Chloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Chloride concentration profiles in Lake Mendota throughout the study period.")  +
+       caption = "Figure 42. Chloride concentration profiles in Lake Mendota throughout the study period.")  +
   L_theme() 
   
 
@@ -177,13 +177,14 @@ ggplot() +
   scale_color_viridis_c("Depth (m)", option = "inferno", direction = -1, begin = 0.25, end = 0.9) +
   labs(x = "", 
        y = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C,
-       caption = "Figure X. Specific Conductivity in Lake Mendota over the entire study period. Color 
+       caption = "Figure 33. Specific Conductivity in Lake Mendota over the entire study period. Color 
 indicates the measurement depth of the lake in meters. Vertical dotted lines are ice-on
 and off dates") + L_theme() +
   geom_vline(xintercept = as.numeric(as.Date("2021-01-03 00:00:00")), linetype = "dotted") +
   geom_vline(xintercept = as.numeric(as.Date("2021-03-20 00:00:00")), linetype = "dotted") +
   geom_vline(xintercept = as.numeric(as.Date("2020-01-12 00:00:00")), linetype = "dotted") +
-  geom_vline(xintercept = as.numeric(as.Date("2020-03-22 00:00:00")), linetype = "dotted")
+  geom_vline(xintercept = as.numeric(as.Date("2020-03-22 00:00:00")), linetype = "dotted") 
+  
   
 
 ggsave("Plots/conductance_time_series/Mendota_cond_chloride.png", height = 4.25, width = 6.25, units = "in")

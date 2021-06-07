@@ -144,8 +144,8 @@ ggplot(world) +
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.58, -89.25), expand = FALSE) +
-  labs(caption = "Figure X. Swimming pool locations. Legend and colors indicate which waterbody the swimming 
-pools discharge into.(Data from PHMDC).") + L_theme()
+  labs(caption = "Figure 14. Swimming pool locations. Legend and colors indicate which waterbody the swimming 
+pools discharge into.(Data from PHMDC).") + L_theme() + theme(legend.title = element_blank())
 
 splot("swimming_pools/", "pool_locations")
 
@@ -319,11 +319,11 @@ ggplot(Chloride_Mass_Load_SP) +
   geom_bar(aes(year, Low_end, fill = "Low end estimate"), stat = "identity") +
   #facet_wrap(~Receiving, ncol = 4, scales = "free_y") +
   labs(x = "",
-       y = "Chloride Mass"~(Kg),
-       caption = "Figure X. Aggregated chloride mass in Kg from swimming pool effluent. This figure 
+       y = "Chloride Mass"~(kg),
+       caption = "Figure 19. Aggregated chloride mass (kg) from swimming pool effluent. This figure 
 represents the range of annual chloride mass contributions from backflushing and 
 seasonal draining.")+
-  L_theme() +
+  L_theme() + theme(legend.title = element_blank()) +
   scale_fill_manual(values = c("#F24D29", "#1C366B"))
 
 splot("swimming_pools/", "mass_range")

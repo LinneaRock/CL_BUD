@@ -79,7 +79,7 @@ ts_grid(precip_data, discharge_placeholder, SW_cond_data, labSW)
 ggsave("Plots/TS_Grids/SW.png", height = 20, width = 15, units = "cm")
 
 for_gridSW <- sc_cl(SW_cond_data, labSW, 10)  + 
-  labs(caption = "Figure X. Precipitation, and specific conductivity and chloride concentrations collected 
+  labs(caption = "Figure 27. Precipitation, and specific conductivity and chloride concentrations collected 
 during the study period in Starkweather Creek. This location did not have discharge data.")
 
 ts_grid3(precip_data, SW_cond_data, for_gridSW)

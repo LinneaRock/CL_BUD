@@ -92,7 +92,7 @@ ggsave("Plots/TS_Grids/WIC.png", height = 20, width = 15, units = "cm")
 
 
 for_gridWIC <- sc_cl(WIC_cond_data, labWIC, 5)  + 
-  labs(caption = "Figure X. Precipitation, and specific conductivity and chloride concentrations collected 
+  labs(caption = "Figure 28. Precipitation, and specific conductivity and chloride concentrations collected 
 during the study period in Wingra Creek. This location did not have discharge data.")
 
 ts_grid3(precip_data, WIC_cond_data, for_gridWIC)

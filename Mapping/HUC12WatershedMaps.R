@@ -45,7 +45,7 @@ ggplot(gage.bb.sf) +
   theme_bw() + # Hilary's default theme
   #theme(legend.position = c(0.9,0.85), #This needs to change, legend is cut off of image
   #      legend.title = element_blank()) +
-  labs(caption = "Figure X. HUC12 watershed boundaries in the Upper Yahara River Watershed.") +
+  labs(caption = "Figure 13. HUC12 watershed boundaries in the Upper Yahara River Watershed.") +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
   annotation_north_arrow(location = "bl", which_north = "true", 
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),

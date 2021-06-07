@@ -88,7 +88,7 @@ ggplot() +
 ggplot(ME_change) +
   geom_bar(aes(year4, change), stat = "identity") +
   labs(x = "", y = "Change in Mass (Mg)",
-       caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake 
+       caption = "Figure 48. Change in spring chloride mass in metric tonnes (Mg) each year in Lake 
 Mendota.") +
   L_theme() 
 
@@ -99,7 +99,7 @@ ggplot() +
   #geom_point(ME_point_dat, mapping = aes(as.Date(sampledate), tonnes_cl), color = "orange") +
   geom_point(ME_spring, mapping = aes(sampledate, total), color = "#1DACE8") +
   labs(x = "", y = "Chloride Mass (Mg)",
-       caption = "Figure X. Total mass of chloride in metric tonnes (Mg) in Lake Mendota from 1996 - 2021.
+       caption = "Figure 46. Total mass of chloride in metric tonnes (Mg) in Lake Mendota from 1996 - 2021.
 Blue points represent total chloride mass in spring of each year, while black points are
 chloride mass for other times in the year.") +
   L_theme()
@@ -118,7 +118,7 @@ ggplot() +
 ggplot(MO_change) +
   geom_bar(aes(year4, change), stat = "identity") +
   labs(x = "", y = "Change in Mass (Mg)",
-       caption = "Figure X. Change in spring chloride mass in metric tonnes (Mg) each year in Lake Monona.") +
+       caption = "Figure 49. Change in spring chloride mass in metric tonnes (Mg) each year in Lake Monona.") +
   L_theme() 
 
 ggsave("Plots/changesMO.png", height = 4.25, width = 6.25, units = "in")
@@ -127,7 +127,7 @@ ggplot() +
   geom_point(MO_mass_daynum, mapping = aes(sampledate, total)) +
   geom_point(MO_spring, mapping = aes(sampledate, total), color = "#1DACE8") +
   labs(x = "", y = "Chloride Mass (Mg)",
-       caption = "Figure X. Total mass of chloride in metric tonnes (Mg) in Lake Monona from 1996 - 2021.
+       caption = "Figure 47. Total mass of chloride in metric tonnes (Mg) in Lake Monona from 1996 - 2021.
 Blue points represent total chloride mass in spring of each year, while black points are
 chloride mass for other times in the year.") +  
   L_theme()
@@ -165,11 +165,13 @@ lakes_change <- MO_change %>%
 ggplot(lakes_change) +
   geom_bar(aes(year(sampledate), percentchange, group = ID, fill = ID), stat = "identity", position = "dodge") +
   labs(x = "", y = "Percent Change in Mass of Chloride",
-       caption = "Figure X. Percent change in spring chloride mass in metric tonnes each year in Lakes
+       caption = "Figure 50. Percent change in spring chloride mass in metric tonnes each year in Lakes
 Mendota and Monona.") +
   L_theme() + scale_fill_manual(labels = c("Mendota", "Monona"),
                                 values = c("#1C366B", "#F24D29")) +
   theme(legend.title = element_blank()) #,axis.text.x = element_text(angle = 45, hjust = 1)) +
  # scale_x_date(date_breaks = "1 year", date_labels = "%Y")  
 ggsave("Plots/masschangeinlakes.png", height = 4.25, width = 6.25, units = "in")
+
+
 

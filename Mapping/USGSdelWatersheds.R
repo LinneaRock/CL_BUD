@@ -89,7 +89,7 @@ ws_usgs <- gt_tbl %>%
     title = "Watershed characteristics for the studied tributaries",
   ) %>%
   tab_source_note(
-    "Table X. Note: undeveloped area includes wetland, forest, and herbacious land."
+    "Table 1. Note: undeveloped area includes wetland, forest, and herbacious land."
   ); ws_usgs
 
 gtsave(data = ws_usgs, "Plots/USGS_Watershed/USGS_watershed_characteristics.png", expand = 10, zoom = 10)
@@ -201,9 +201,9 @@ roads_plot <- function(watershed, roads_in_watershed, name) {
 # roads_plot(wsYI, roads_in_wsYI, "YI")
 # roads_plot(wsYN, roads_inwsYN, "YN")
 
-roads_plot(wsYS, roads_in_wsYS, "YS") + labs(caption = "Figure X. Roads in the UYRW (OpenStreetMap contributors. (2015) Planet 
-dump [Data file from 2021-02-08]. Retrieved from 
-https://planet.openstreetmap.org).") +
+roads_plot(wsYS, roads_in_wsYS, "YS") + labs(caption = "Figure 15. Roads in the Upper Yahara River Watershed 
+(OpenStreetMap contributors. (2015) Planet dump [Data file from 
+2021-02-08]. Retrieved from https://planet.openstreetmap.org).") +
   theme(plot.caption = element_text(size = 10, hjust = 0),
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),
@@ -393,7 +393,7 @@ ggplot(gage.bb.sf) +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Nested subwatersheds in the Upper Yahara River Watershed. 
+  labs(caption = "Figure 8. Nested subwatersheds in the Upper Yahara River Watershed. 
 Following streamflow, subwatersheds are inclusive of those upstream.") +
   L_theme() +
   theme(plot.caption = element_text(size = 10, hjust = 0),

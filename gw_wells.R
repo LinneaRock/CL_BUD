@@ -65,7 +65,7 @@ ggplot(all_wells, aes(Year, values, group = Year, fill = Aquifer)) +
   theme(legend.position = "none",
         strip.background =element_rect(fill="white")) +
   scale_fill_manual(values = c("#C4CFD0","#1DACE8")) + 
-  labs(caption = "Figure X. Chloride concentrations in Madison's groundwater drinking wells every five years 
+  labs(caption = "Figure 5. Chloride concentrations in Madison's groundwater drinking wells every five years 
 from 1995-2018. Numbers in boxes indicate how many wells were included. Chloride in
 wells with short casings that draw from upper and lower aquifers show an increasing
 chloride trend. Chloride in wells with deep casing that draw from lower aquifers 

@@ -91,7 +91,7 @@ ggsave("Plots/TS_Grids/YS.png", height = 20, width = 15, units = "cm")
 
 ##number is the ratio of chloride to conductivity
 for_gridYS <- sc_cl(YS_cond_data, labYS, 10)  + 
-  labs(caption = "Figure X. Precipitation, and specific conductivity and chloride concentrations 
+  labs(caption = "Figure 29. Precipitation, and specific conductivity and chloride concentrations 
 collected during the study period in the Yahara River south of Lake Monona. This location 
 did not have discharge data.")
 

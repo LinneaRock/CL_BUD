@@ -31,8 +31,6 @@ SH_d <- d.sc.SH %>%
   rename(runningmeandis = discharge)
 
 
-
-
 #run baseflow calculations, get baseflow index, & plot 
 source("Baseflow Separation/baseflow_separation_fct.R")
 YN_d <- get_eckhardt_bf("05427850", YN_d)
@@ -86,13 +84,13 @@ PBSF_events_bf <- find.peaks(PBSF_d, timestamp, plot_var, sb_pk_thresh, sf_pk_th
 #plots
 source("Baseflow Separation/cq_analysis_plots_fct.R")
 #timeseries
-grid(YN_events_bf, YN_cond_data, "X", "YN")
-grid(YI_events_bf, YI_cond_data, "X", "YI")
-grid(DC_events_bf, DC_cond_data, "X", "DC")
-grid(SMC_events_bf, SMC_cond_data, "X", "SMC")
-grid(PBMS_events_bf, PBMS_cond_data, "X", "PBMS")
-grid(SH_events_bf, d.sc.SH %>% dplyr::select(date, sp.cond) %>% rename(runningmean = sp.cond), "X", "SH")
-grid(PBSF_events_bf, PBSF_cond_data, "X", "PBSF")
+grid(YN_events_bf, YN_cond_data, "56", "YN")
+grid(YI_events_bf, YI_cond_data, "62", "YI")
+grid(DC_events_bf, DC_cond_data, "58", "DC")
+grid(SMC_events_bf, SMC_cond_data, "57", "SMC")
+grid(PBMS_events_bf, PBMS_cond_data, "59", "PBMS")
+grid(SH_events_bf, d.sc.SH %>% dplyr::select(date, sp.cond) %>% rename(runningmean = sp.cond), "61", "SH")
+grid(PBSF_events_bf, PBSF_cond_data, "60", "PBSF")
 
 #SC vs Q for all data (log-log axes)
 a <- all_cq(YN_events_bf, "YN")

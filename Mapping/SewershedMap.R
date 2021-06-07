@@ -62,7 +62,7 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + 
-  labs(caption = "Figure X. Outfall basins of sewersheds within the Upper Yahara River Watershed. Legend and 
+  labs(caption = "Figure 10. Outfall basins of sewersheds within the Upper Yahara River Watershed. Legend and 
 colors indicate which waterbody the outfall basins discharges into. Note: data outside of Dane 
 County were not available (data from City of Madison).") + L_theme() +
   scale_fill_viridis_d(option = "inferno", name = "Subwatershed") + #colors may not be distinguishable enough
@@ -275,7 +275,7 @@ Conductivity"~(mu~S~cm^-1), option = "inferno", direction = -1, begin= 0.1, end 
 
 (a / b) +
   plot_annotation(tag_levels = 'a',tag_suffix = ')',
-                  caption = 'Figure X. Sewersheds of Willow Creek and other outfall basins with data for a) chloride and 
+                  caption = 'Figure 11. Sewersheds of Willow Creek and other outfall basins with data for a) chloride and 
 b) conductivity.',
                   theme = theme(plot.tag = element_text(size = 10), 
                                 plot.caption = element_text(size = 10, hjust = 0)))

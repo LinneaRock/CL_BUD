@@ -96,7 +96,7 @@ ggsave("Plots/TS_Grids/DC.png", height = 20, width = 15, units = "cm")
 
 #number is the ratio of chloride to conductivity 
 for_gridDC <- sc_cl(DC_cond_data, labDC, 10) + 
-  labs(caption = "Figure X. Precipitation, discharge, and specific conductivity and chloride concentrations 
+  labs(caption = "Figure 23. Precipitation, discharge, and specific conductivity and chloride concentrations 
 collected during the study period in Dorn Creek.")
 
 ts_grid2(precip_data, DC_discharge, DC_cond_data, for_gridDC)

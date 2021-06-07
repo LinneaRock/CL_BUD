@@ -376,7 +376,7 @@ ggplot(TS_ME) +
   geom_line(aes(date, chloride_predict)) +
   facet_wrap(~ID, scales = "free_y") +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake 
+       caption = "Figure 39. Estimated chloride concentration timeseries for waters flowing into Lake 
 Mendota. Note: PBSF flows into PBMS, rather than being a direct tributary to Lake 
 Mendota.") +
   L_theme() +
@@ -396,7 +396,7 @@ ggplot(TS_MO) +
   geom_line(aes(date, chloride_predict)) +
   facet_wrap(~ID, scales = "free_y") +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Estimated chloride concentration timeseries for waters flowing into Lake 
+       caption = "Figure 40. Estimated chloride concentration timeseries for waters flowing into Lake 
 Monona. Note: YI is also the outlfow of Lake Mendota.") +
   L_theme() +
   scale_x_datetime(date_breaks = "3 months", date_labels = "%Y-%m") +
@@ -409,7 +409,7 @@ ggsave("Plots/chloride_time_series/MO_inlets.png", height = 4.25, width = 6.25, 
 ggplot(YS_ts_mass) +
   geom_line(aes(date, chloride_predict)) +
   labs(x = "", y = "Chloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Estimated chloride concentration timeseries for the Yahara River outflow of
+       caption = "Figure 41. Estimated chloride concentration timeseries for the Yahara River outflow of
 Lake Monona.") +
   L_theme() +
   scale_x_datetime(date_breaks = "3 months", date_labels = "%Y-%m") +
@@ -433,7 +433,7 @@ ggplot(all_ts, aes(x=chloride_predict, group = ID)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   facet_wrap(~ID, scales = "free") +
   labs(x = "Chloride Concentration"~(mg~L^-1), y = "Count", 
-       caption = "Figure X. Histograms of chloride concentrations calculated using equations from linear 
+       caption = "Figure 45. Histograms of chloride concentrations calculated using equations from linear 
 regressions and continuous conductivity data.") +
   L_theme()
   

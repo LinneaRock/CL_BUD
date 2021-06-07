@@ -212,6 +212,6 @@ Concentration"~(mg~L^-1),  begin = 0.1, end = 0.9, direction = -1) +
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(43.0, 43.2), xlim = c(-89.55, -89.3), expand = FALSE) + # limit axes
   theme(plot.caption = element_text(size = 10, hjust = 0)) +
-  labs(caption = "Figure X. Map of median chloride concentrations across the Upper Yahara River Watershed.")
+  labs(caption = "Figure 44. Map of median chloride concentrations across the Upper Yahara River Watershed.")
 
 ggsave("Plots/medianmap.png", width = 6.25, height = 4.25, units = "in")

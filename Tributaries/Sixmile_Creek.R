@@ -85,7 +85,7 @@ ggsave("Plots/TS_Grids/6MC.png", height = 20, width = 15, units = "cm")
 
 ##number is the ratio of chloride to conductivity
 for_gridSMC <- sc_cl(SMC_cond_data, lab6MC, 20)  + 
-  labs(caption = "Figure X. Precipitation, discharge, and specific conductivity and chloride concentrations 
+  labs(caption = "Figure 22. Precipitation, discharge, and specific conductivity and chloride concentrations 
 collected during the study period in Sixmile Creek.")
 
 ts_grid2(precip_data, SMC_discharge, SMC_cond_data, for_gridSMC)

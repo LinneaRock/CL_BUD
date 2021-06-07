@@ -58,7 +58,7 @@ ionplot <- (cl | na) /
   (ca | mg) /
   (so4 | k) +
   plot_annotation(#tag_levels = 'a',tag_suffix = ')',
-                  caption = "Figure X. Major ion concentrations in Lakes Mendota and Monona from 1995 . All units are mg/L. 
+                  caption = "Figure 4. Major ion concentrations in Lakes Mendota and Monona from 1995 . All units are mg/L. 
 Besides chloride and sodium, no other ions show long term increasing trends in these lakes (Data: 
 N.Lead PI et al. (2019).",
                   theme = theme(plot.tag = element_text(size = 10), 

@@ -5,7 +5,8 @@ ggplot(TS_ME %>% filter(ID != "PBSF")) +
   geom_line(aes(date, (cl_load_g / 1000))) +
   facet_wrap(~ID, scales = "free_y") +
   labs(x = "", y = "Chloride Mass"~(kg),
-       caption = "Figure X. Estimated chloride mass loading timeseries for waters flowing into Lake Mendota.") +
+       caption = "Figure 51. Estimated chloride mass loading timeseries for waters flowing into Lake
+Mendota.") +
   L_theme() +
   scale_x_datetime(date_breaks = "3 months", date_labels = "%Y-%m") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -17,7 +18,7 @@ ggplot(YI_ts_mass) +
   geom_line(aes(date, (cl_load_g / 1000))) +
   #facet_wrap(~ID, scales = "free_y") +
   labs(x = "", y = "Chloride Mass"~(kg),
-       caption = "Figure X. Estimated chloride mass loading timeseries for the outflow of Lake Mendota.") +
+       caption = "Figure 52. Estimated chloride mass loading timeseries for the outflow of Lake Mendota.") +
   L_theme() +
   scale_x_datetime(date_breaks = "3 months", date_labels = "%Y-%m") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -62,10 +63,10 @@ ggplot(timeseries_mass) +
   scale_fill_viridis_d(option = "inferno") +
   L_theme() +
   labs(y = "Mass of Chloride (Mg)", x = "",
-       caption = "Figure X. Monthly mass balance of surface water and Spring Harbor storm sewer chloride 
+       caption = "Figure 53. Monthly mass balance of surface water and Spring Harbor storm sewer chloride 
 mass flows into and out of Lake Mendota") +
   scale_x_date(date_breaks = "2 months", date_labels = "%b %Y") +
-  scale_y_continuous(n.breaks = 10) +
+  scale_y_continuous(n.breaks = 10) + theme(legend.title = element_blank()) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggsave("Plots/chloride_loading/massin&outME.png", height = 4.25, width = 6.25, units = "in")

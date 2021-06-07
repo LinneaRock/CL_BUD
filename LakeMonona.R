@@ -59,7 +59,7 @@ chloride_cond_MO <- labMO %>%
 
 
 clseries(labMO) + geom_point(aes(color = Depth_m)) + scale_color_viridis_c("Depth (m)", option = "inferno",direction = -1, begin = 0.25, end = 0.9) +
-  labs(caption = "Figure X. Chloride concentrations from grab samples in Lake Monona over the entire study 
+  labs(caption = "Figure 30. Chloride concentrations from grab samples in Lake Monona over the entire study 
 period. Color indicates the measurement depth of the lake in meters. Vertical dotted lines 
 are ice-on and off dates with just the ice-off date in 2020 on this figure.") +
   geom_vline(xintercept = as.numeric(as.POSIXct("2020-12-29 00:00:00")), linetype = "dotted") +
@@ -92,7 +92,7 @@ ggplot(chloride_cond_MO) +
   theme_minimal() +
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"",
        y = "Chloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Multiple linear regression of chloride concentration in Lake Monona as a function 
+       caption = "Figure 38. Multiple linear regression of chloride concentration in Lake Monona as a function 
 of both conductivity and depth.") +
   L_theme()
 
@@ -260,7 +260,7 @@ ggplot() +
   # scale_color_manual(labels = c("20m", "1m"),
   #                    values = c("#1C366B", "#1DACE8")) +
   labs(x = "", 
-       caption = "Figure X. Specific Conductivity in Lake Monona over the entire study period. Color 
+       caption = "Figure 32. Specific Conductivity in Lake Monona over the entire study period. Color 
 indicates the measurement depth of the lake in meters. Vertical dotted lines are ice-on
 and off dates") + theme(legend.position = "top", 
                                                                  legend.title = element_blank()) +

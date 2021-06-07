@@ -27,13 +27,13 @@ ggplot(watershed) +
   scale_color_identity(guide = "legend",
                        breaks = c("#1C366B", "#F24D29", "#C4CFD0", "#1DACE8", "#E5C4A1"),
                        labels = c("Mendota", "Monona", "Wingra", "Waubesa", "Kegonsa")) +
-  labs(caption = "Figure X. Chloride concentrations in the Yahara River Watershed lakes from 1970 - 2020. 
+  labs(caption = "Figure 6. Chloride concentrations in the Yahara River Watershed lakes from 1970 - 2020. 
 (Data from Public Health Madison Dane County, 2020).") +
 #   labs(caption = "Figure X. Chloride concentrations have been increasing in all five of the Yahara River Watershed lakes. Figure 
 # shows data since 1970, but natural chloride conentrations in these lakes prior to road salt application becoming 
 # a widespread practice was 0-10 mg/L (Birge & Juday, 2013). The lakes in 2021 were exhibiting chloride 
 # concentrations 50-100 times background levels. (Data from Public Health Madison Dane County, 2020).") +
-  L_theme()
+  L_theme() + theme(legend.title = element_blank())
 
 ggsave("Plots/Historical_Data_Viz/ChainLakes.png", width = 6.25, height = 4.25, units = "in")
 

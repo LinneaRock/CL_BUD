@@ -77,7 +77,7 @@ River_stats <- data.frame(
     r.sqr.lm(labYS, fieldcondYS, YS_cond_data),
     SH.rsq
   ),
-  P_value = c("<0.001", "<0.001", "<0.001","<0.001","<0.001","<0.001","<0.001","<0.001",0.12,"<0.001"
+  P_value = c("<0.001", "<0.001", "<0.001","<0.001","<0.001","<0.001","<0.001","<0.001",0.13,"<0.001"
     # pvalue(labYN, fieldcondYN, YN_cond_data),
     # pvalue(lab6MC, fieldcond6MC, SMC_cond_data),
     # pvalue(labDC, fieldcondDC, DC_cond_data),
@@ -103,7 +103,7 @@ simpleregtable <- gt_tbl %>%
   ) %>%
   tab_header(
     title = "Chloride - Specific Conductivity Linear Regression Statistics") %>%
-  tab_source_note(source_note = "Table X."
+  tab_source_note(source_note = "Table 5."
   ); simpleregtable
 
 # whitespace can be set, zoom sets resolution
@@ -145,7 +145,7 @@ simpleregtable <- gt_tbl %>%
   tab_header(
     title = "Multiple Regression Statistics",
     subtitle = "Chloride concentration as a function of conductivity and depth") %>%
-  tab_source_note(source_note = "Table X."
+  tab_source_note(source_note = "Table 6."
   ); simpleregtable
 
 # whitespace can be set, zoom sets resolution
@@ -249,7 +249,7 @@ simpleregtable <- gt_tbl %>%
   tab_header(
     title = "Statistics from Collected Chloride Concentrations",
     subtitle = "Data from grab sampling. Chloride concentration in units: mg/L") %>%
-  tab_source_note(source_note = "Table X."
+  tab_source_note(source_note = "Table 4."
   ); simpleregtable
 
 # whitespace can be set, zoom sets resolution

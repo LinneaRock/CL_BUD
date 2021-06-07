@@ -51,11 +51,12 @@ ggplot(labSH1, aes(runningmean, chloride_mgL)) +
   scale_color_manual(labels = c("April-October", "November-March"),
                      values = c("#1C366B", "#F24D29"))  +
   geom_smooth(method = "lm", se = FALSE, color = "black") +
+  theme(legend.title = element_blank()) +
   #stat_cor() + 
   #stat_regline_equation() + 
   labs(x = "Specific Conductivity"~(mu~S~cm^-1)~"@ 25"*~degree*C~"\n", 
        y = "\nChloride Concentration"~(mg~L^-1),
-       caption = "Figure X. Linear regression of chloride vs. conductivity in Spring Harbor from USGS 
+       caption = "Figure 36. Linear regression of chloride vs. conductivity in Spring Harbor from USGS 
 sampling done 2014-2016. Colors of points indicate sampling season as 
 April - October (non-salting) or November - March (salting).") +
   L_theme()
