@@ -139,3 +139,18 @@ sum((ME_roads%>%filter(watershed != "YI"))$tot) #15607.85
 #just 2019-20
 sum((ME_roads%>%filter(watershed != "YI"))$val2020) #8473.926 
 8473.926 + (811 * 0.907185) + cattle + 1292.1879 #=12260.42
+
+
+
+#for discussion - annual amount and percent of chloride from PBMS
+discussion_scenario <- timeseries_mass %>%
+  filter(year(date) > 2019 & 
+           year(date) < 2021) %>%
+  group_by(ID) %>%
+  summarise(mass = sum(monthly_mass_Mg)) %>%
+  filter(ID != "YI") 
+
+#percent chloride from PBMS
+(discussion_scenario %>% filter(ID == "PBMS"))$mass / sum(discussion_scenario$mass)
+
+
