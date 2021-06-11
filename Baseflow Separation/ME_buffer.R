@@ -287,7 +287,7 @@ all_events$season = factor(all_events$season, levels = c("Oct-Dec", "Jan-Mar", "
 
 
 ggplot() +
-  labs(x = "SC-Q Slope", y = "Tributary") + 
+  labs(x = "SC-Q Slope", y = "") + 
   geom_point(all_events, mapping = aes(slope, trib, color = season), size = 2.5, shape = 21) +
   scale_color_manual(labels = c("Oct-Dec", "Jan-Mar", "Apr-Jun", "Jul-Sep"),
                      values = c("#1DACE8", "#1C366B", "#F24D29", "#E5C4A1")) +
