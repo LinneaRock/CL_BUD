@@ -3,10 +3,10 @@
 # plot_var <- 'runningmeandis'
 # sb_pk_thresh <- 0.000001
 # sf_pk_thresh <- 0
-#cond_data is the EC timeseries for the site
+#cond_data is the EC timeseries for the site or cl_ts_data is the chloride timeseries calculated from the cond
 
 #the find.peaks function should ingest a dataframe and output a dataframe with the peaks idenitified
-find.peaks <- function(df.orig, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, cond_data){
+find.peaks <- function(df.orig, timestamp, plot_var, sb_pk_thresh, sf_pk_thresh, cl_ts_data){
 df <- df.orig %>%
   group_by(as.Date(date, format = "%m/%d/%y")) %>%
   summarise(mean(runningmeandis), mean(value), mean(threshold_peak)) %>%
@@ -122,22 +122,24 @@ df <- df.orig %>%
   
   
    df_combine <- df1 %>%
-    left_join(cond_data)
+    left_join(cl_ts_data)
   
   df_peaks <- df_combine %>%
     drop_na(event.flag) %>%
     rename(event_flow = runningmeandis.x,
-           event_cond = runningmean)
+           event_cond = runningmean,
+           event_cl = chloride_predict)
   
   df_baseflow_only <- df_combine %>%
     filter(is.na(event.flag)) %>%
     rename(bf = runningmeandis.x,
-           bf_cond = runningmean)
+           bf_cond = runningmean,
+           bf_cl = chloride_predict)
   
   df_all_flow <- df_baseflow_only %>%
     bind_rows(df_peaks) %>%
     arrange(date) %>%
-    dplyr::select(date, bf, bf_cond, event_flow, event_cond, value.x, threshold_peak.y, peak.flag, event.flag) %>%
+    dplyr::select(date, bf, bf_cl, bf_cond, event_flow, event_cl, event_cond, value.x, threshold_peak.y, peak.flag, event.flag) %>%
     rename(value = value.x,
            threshold_peak = threshold_peak.y)
   return(df_all_flow)
