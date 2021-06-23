@@ -39,7 +39,7 @@ outlier_detect_remove <- function(cond_data, plotname) {
     mutate(runningmean = ifelse(row_number() >= (nrow(cond_data2) - 5), mean(sp.cond2[(nrow(cond_data2) - 5):nrow(cond_data2)]), runningmean))
   
   cond_data4 <- cond_data3 %>%
-    dplyr::select0.95(
+    dplyr::select(
       date,
       Low.Range,
       Full.Range,

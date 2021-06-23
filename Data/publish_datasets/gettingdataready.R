@@ -38,8 +38,7 @@ prep_trib_cond <- function(cond_data, name) {
                   Full.Range,
                   Temp,
                   orig.sp.cond,
-                  ID,
-                  outlier 
+                  ID
     ) %>%
     rename(dateTime = date,
            EC_lowRange_uScm = Low.Range,
@@ -102,4 +101,35 @@ join(labYS, fieldcondYS, "YS")
 trib_locations = data.frame(site = c('YN', '6MC', 'DC', 'PBMS', 'PBSF', 'YI','SW', 'YS', 'WIC'),lat = c(43.15083333, 43.14683333, 43.14027778, 43.10333333, 43.09861111, 43.08944444, 43.09259, 43.04718, 43.05416667), lon = c(-89.40194444, -89.43694444, -89.44222222, -89.51166667, -89.52138889, -89.36083333, -89.33318, -89.33605, -89.379444))
 write_csv(trib_locations, "Data/publish_datasets/trib_locations.csv")
 
+
+
+
+
+#function to detect outliers
+find_outliers <- function(ConductivityData) {
+  #add column for 6 hour running mean and get the total average specific conductivity of the dataset
+  cond_data1 <- ConductivityData %>%
+    mutate(runningmean = rollmean(SpCond_uScm, 13, fill = NA, na.rm = TRUE)) %>% #use zoo::rollmean over 13 rows (6 hours - 3 before and 3 after each point)
+    mutate(runningmean = ifelse(row_number() <= 6, mean(SpCond_uScm[1:6]), runningmean)) %>% # rollmean leaves empty rows at beginning and end of dataset. This line and the one below uses the mean of those empty rows
+    mutate(runningmean = ifelse(row_number() >= (nrow(cond_data) - 5), mean(SpCond_uScm[(nrow(cond_data) - 5):nrow(cond_data)]), runningmean))
+  
+  #outliers identified as datapoints greater than 1.05x the running mean or less than 0.95x the running mean
+  cond_data2 <- cond_data1 %>%
+    mutate(outlier = ifelse(SpCond_uScm > (1.05 * runningmean), "Y", "N")) %>% #detect outliers as 1.05x greater than running average
+    mutate(outlier = ifelse(SpCond_uScm < (0.95 * runningmean), "Y", outlier)) #or as 0.95x less than running average
+  
+  #write new dataset that includes all original data and the data with outliers removed and the running mean
+  cond_data3 <- cond_data2 %>%
+    dplyr::select(
+      dateTime, #original data: date the conductivivty was measured
+      EC_lowRange_uScm, #original data: low range conductivity
+      EC_highRange_uScm, #original data: full range conductivity
+      Temp_C, #original data: water temperature
+      SpCond_uScm, #original data (first modified): specific conductivity calculated
+      ID, #original data: lake ID
+      outlier #Y or N, identifies outliers
+    ) 
+  
+  return(cond_data3)
+}
 
