@@ -45,10 +45,13 @@ prep_trib_cond <- function(cond_data, name) {
            EC_highRange_uScm = Full.Range,
            Temp_C = Temp,
            SpCond_uScm = orig.sp.cond
-    )
+    ) %>%
+    mutate(dateTime = dateTime + hours(12))
+    
   
   write_csv(cond_data1, paste("Data/publish_datasets/", name, "_cond.csv", sep = ""))
 }
+
 
 
 prep_trib_cond(DC_cond_data, "DC")
